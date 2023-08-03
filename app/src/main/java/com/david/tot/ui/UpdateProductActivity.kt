@@ -78,7 +78,7 @@ class UpdateProductActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     //color = MaterialTheme.colors.background
-                    color = updateProductViewModel.backgroundColor
+                    //color = updateProductViewModel.backgroundColor
                 ) {
                     // TODO replace remember  bitmap and imageUri for  rememberSaveable
                     val bitmap =  remember {mutableStateOf<Bitmap?>(null)}
@@ -154,6 +154,7 @@ class UpdateProductActivity : ComponentActivity() {
                             )
                         }
                         */
+                        /*
                         Row(
                             modifier = Modifier.padding(all = 20.dp),horizontalArrangement = Arrangement.Center
                         ){
@@ -165,20 +166,19 @@ class UpdateProductActivity : ComponentActivity() {
                                 Text(text = "GUARDAR")
                             }
                         }
+                        */
                         Spacer(modifier = Modifier.height(12.dp))
                         Row(
                             modifier = Modifier.padding(all = 2.dp).height(100.dp),
                             horizontalArrangement = Arrangement.Center
                         ){
-                            Image(
-                                painter = rememberImagePainter(IMAGE_BASE_URL+updateProductViewModel.productImage),
-                                contentDescription = null,
-                                Modifier.border(1.dp, Color.Red).height(100.dp).background(Color(0xFFe07967).copy(alpha = 0.6f))
-                                    .clickable {
-                                        launcher.launch("image/*")
-                                        enabledProduct = false
-                                    }
-                            )
+                            Button(enabled = enabledProduct, modifier = Modifier.padding(1.dp),
+                                onClick = {
+                                    launcher.launch("image/*")
+                                    enabledProduct = false
+                                }) {
+                                Text(text = "GUARDAR")
+                            }
                         }
                         Row(
                             modifier = Modifier.padding(all = 2.dp),
@@ -212,7 +212,8 @@ class UpdateProductActivity : ComponentActivity() {
                                                 onClick = {
                                                     enabledImage = false
                                                     bitmap.value?.let {
-                                                    updateProductViewModel.updateProductImage(updateProductViewModel.productRemoteId.toInt(), it)
+                                                        //updateProductViewModel.updateProductImage(updateProductViewModel.productRemoteId.toInt(), it)
+                                                        updateProductViewModel.updateProductImage(1, it)
                                                 } }) {
                                                 Text(text = "ENVIAR IMAGEN")
                                             }
@@ -222,6 +223,7 @@ class UpdateProductActivity : ComponentActivity() {
                             }
                         }
                     }
+                    /*
                     if(updateProductViewModel.activityDestroy){
                         updateProductViewModel.activityDestroy = false
                         Toast.makeText(context, "Producto modificado exitosamente", Toast.LENGTH_SHORT).show()
@@ -234,6 +236,7 @@ class UpdateProductActivity : ComponentActivity() {
                         Toast.makeText(context, "No se pudo modificar el producto", Toast.LENGTH_SHORT).show()
                         updateProductViewModel.failedToast =false
                     }
+                    */
                 }
             }
         }

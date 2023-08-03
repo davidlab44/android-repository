@@ -4,6 +4,7 @@ import com.david.tot.domain.model.Product
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class ProductService @Inject constructor(private val api:IProductApiClient) {
@@ -52,9 +53,9 @@ class ProductService @Inject constructor(private val api:IProductApiClient) {
             response.code()
         }
     }
-    suspend fun uploadPicture(idProduct:Int,part:MultipartBody.Part):Int{
+    suspend fun uploadPicture(params: HashMap<String,RequestBody>,part:MultipartBody.Part):Int{
         return withContext(Dispatchers.IO) {
-            val response = api.uploadPicture(part,idProduct)
+            val response = api.uploadPicture(part,params)
             val res = response
             response.code()
         }
