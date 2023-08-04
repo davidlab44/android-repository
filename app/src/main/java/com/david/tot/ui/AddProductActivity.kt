@@ -128,11 +128,9 @@ class AddProductActivity : ComponentActivity() {
                             modifier = Modifier.padding(all = 12.dp),horizontalArrangement = Arrangement.Center
                         ){
 
-
-
-
-
-                            Button(onClick = {addProductViewModel.addProduct()},
+                            Button(onClick = {
+                                //addProductViewModel.addProduct()
+                                             },
                                 modifier = Modifier
                                     .padding(bottom = 10.dp)
                                     .height(60.dp)

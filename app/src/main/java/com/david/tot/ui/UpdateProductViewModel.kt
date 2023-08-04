@@ -11,7 +11,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.UpdateImageProductUseCase
 import com.david.tot.domain.UpdateProductUseCase
-import com.david.tot.domain.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +37,7 @@ class UpdateProductViewModel @Inject constructor(
     var activityDestroy by mutableStateOf<Boolean>(false)
     var failedToast by mutableStateOf<Boolean>(false)
 
+    /*
     fun updateProduct(){
         if(productName.trim().length>1&&productDescription.trim().length>1&&productPrice.toInt()>1) {
             val product = Product(productLocalId.toInt(),productRemoteId.toInt(),productName,productImage,productDescription,
@@ -55,6 +55,7 @@ class UpdateProductViewModel @Inject constructor(
             }
         }
     }
+    */
 
     @RequiresApi(Build.VERSION_CODES.R)
     fun updateProductImage(idProduct:Int,bitmap: Bitmap){

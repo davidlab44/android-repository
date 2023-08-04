@@ -1,4 +1,4 @@
-package com.david.tot.ui
+package com.david.tot.ui.article
 
 import android.content.Intent
 import androidx.compose.foundation.Image
@@ -17,16 +17,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
+import com.david.tot.ui.DeleteProductActivity
+import com.david.tot.ui.UpdateProductActivity
 import com.david.tot.util.IMAGE_BASE_URL
 
 @Composable
-fun ScreenDetail(remoteIdProduct: String, recipeViewModel:RecipeViewModel) {
+fun ScreenDetail(local_id: String, screenArticleViewModel: ScreenArticleViewModel) {
 
-    Text(text = "activity Screen detail")
-    /*
+    //screenDetailViewModel.articleLocalId = local_id
     var launchUpdateProductActivity by rememberSaveable { mutableStateOf(false) }
     var launchDeleteProductActivity by rememberSaveable { mutableStateOf(false) }
 
+    Text(text = "H1")
+    /*
     for(product in recipeViewModel.recipeModel){
         if (product.id == remoteIdProduct.toInt()){
             recipeViewModel.productLocalId = product.local_id
@@ -42,33 +45,36 @@ fun ScreenDetail(remoteIdProduct: String, recipeViewModel:RecipeViewModel) {
             val gg = 0+p
         }
     }
+    */
 
+    /*
     if(launchUpdateProductActivity){
         launchUpdateProductActivity = false
         val context = LocalContext.current
-        val intent = Intent(context,UpdateProductActivity::class.java)
-        intent.putExtra("id_local", recipeViewModel.productLocalId.toString())
-        intent.putExtra("id_remote", recipeViewModel.productRemoteId.toString())
-        intent.putExtra("name", recipeViewModel.productName)
-        intent.putExtra("description", recipeViewModel.productDescription)
-        intent.putExtra("image", recipeViewModel.productImage)
-        intent.putExtra("price", recipeViewModel.productPrice.toString())
+        val intent = Intent(context, UpdateProductActivity::class.java)
+        intent.putExtra("id_local", screenArticleViewModel.productLocalId.toString())
+        intent.putExtra("id_remote", screenArticleViewModel.productRemoteId.toString())
+        intent.putExtra("name", screenArticleViewModel.productName)
+        intent.putExtra("description", screenArticleViewModel.productDescription)
+        intent.putExtra("image", screenArticleViewModel.productImage)
+        intent.putExtra("price", screenArticleViewModel.productPrice.toString())
         context.startActivity(intent)
     }
 
     if(launchDeleteProductActivity){
         launchDeleteProductActivity = false
         val context = LocalContext.current
-        val intent = Intent(context,DeleteProductActivity::class.java)
-        intent.putExtra("id_local", recipeViewModel.productLocalId.toString())
-        intent.putExtra("id_remote", recipeViewModel.productRemoteId.toString())
-        intent.putExtra("name", recipeViewModel.productName)
-        intent.putExtra("description", recipeViewModel.productDescription)
-        intent.putExtra("image", recipeViewModel.productImage)
-        intent.putExtra("price", recipeViewModel.productPrice.toString())
+        val intent = Intent(context, DeleteProductActivity::class.java)
+        intent.putExtra("id_local", screenArticleViewModel.productLocalId.toString())
+        intent.putExtra("id_remote", screenArticleViewModel.productRemoteId.toString())
+        intent.putExtra("name", screenArticleViewModel.productName)
+        intent.putExtra("description", screenArticleViewModel.productDescription)
+        intent.putExtra("image", screenArticleViewModel.productImage)
+        intent.putExtra("price", screenArticleViewModel.productPrice.toString())
         context.startActivity(intent)
     }
-
+    */
+    /*
     Column( horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .border(1.dp, Color.Gray, RectangleShape)
@@ -78,23 +84,24 @@ fun ScreenDetail(remoteIdProduct: String, recipeViewModel:RecipeViewModel) {
             modifier = Modifier.padding(all = 12.dp),horizontalArrangement = Arrangement.Center
         ){
             Text(
-                text = recipeViewModel.productName,
+                text = screenDetailViewModel.article.articleDescription,
                 textAlign = TextAlign.Center, color = Color.Black, fontSize = 32.sp, fontWeight = FontWeight.Black)
         }
         Row(
             modifier = Modifier.padding(all = 12.dp),horizontalArrangement = Arrangement.Center
         ){
             Text(
-                text = recipeViewModel.productDescription,
+                text = screenDetailViewModel.article.articleDescription,
                 textAlign = TextAlign.Center, color = Color.Black, fontSize = 12.sp, fontWeight = FontWeight.Black)
         }
         Row(
             modifier = Modifier.padding(all = 12.dp),horizontalArrangement = Arrangement.Center
         ){
             Text(
-                text = "Precio: "+recipeViewModel.productPrice,
+                text = "Precio: "+screenDetailViewModel.article.quantityAvailable + " " + screenDetailViewModel.article.unitOfMeasure  ,
                 textAlign = TextAlign.Center, color = Color.Black, fontSize = 12.sp, fontWeight = FontWeight.Black)
         }
+        /*
         Row(
             modifier = Modifier
                 .padding(all = 12.dp)
@@ -102,13 +109,15 @@ fun ScreenDetail(remoteIdProduct: String, recipeViewModel:RecipeViewModel) {
             horizontalArrangement = Arrangement.Center,
         ){
             Image(
-                painter = rememberImagePainter(IMAGE_BASE_URL+recipeViewModel.productImage),
+                painter = rememberImagePainter(IMAGE_BASE_URL+screenArticleViewModel.productImage),
                 contentDescription = null,
                 Modifier
                     .fillMaxSize()
                     .height(50.dp)
             )
         }
+
+         */
 
 
         Row(
@@ -137,6 +146,8 @@ fun ScreenDetail(remoteIdProduct: String, recipeViewModel:RecipeViewModel) {
         }
     }
 
+
+     */
     /*
     Column( horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.border(1.dp, Color.Gray, RectangleShape).fillMaxWidth().padding(20.dp)) {
@@ -188,6 +199,4 @@ fun ScreenDetail(remoteIdProduct: String, recipeViewModel:RecipeViewModel) {
     //Thread.sleep(500)
     //recipeViewModel.intentLauncher
     val r =78
-    
-     */
 }

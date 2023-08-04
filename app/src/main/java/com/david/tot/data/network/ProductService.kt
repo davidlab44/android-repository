@@ -1,6 +1,7 @@
 package com.david.tot.data.network
 
-import com.david.tot.domain.model.Product
+
+import com.david.tot.domain.model.Article
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
@@ -8,7 +9,7 @@ import okhttp3.RequestBody
 import javax.inject.Inject
 
 class ProductService @Inject constructor(private val api:IProductApiClient) {
-    suspend fun getRecipes(): List<Product> {
+    suspend fun getRecipes(): List<Article> {
         //api.rawJSON()
         return withContext(Dispatchers.IO) {
             val response = api.getAllRecipes()
@@ -16,7 +17,7 @@ class ProductService @Inject constructor(private val api:IProductApiClient) {
         }
     }
 
-    suspend fun addProduct(product:Product):Int{
+    suspend fun addProduct(product:Article):Int{
         return withContext(Dispatchers.IO) {
             val respuesta = api.addProduct(product)
             val respuestaBody =respuesta.body().toString()
@@ -38,9 +39,9 @@ class ProductService @Inject constructor(private val api:IProductApiClient) {
         }
     }
 
-    suspend fun updateProduct(product:Product):Int{
+    suspend fun updateProduct(article:Article):Int{
         return withContext(Dispatchers.IO) {
-            val response = api.updateProduct(product.id.toString(),product)
+            val response = api.updateProduct(article.local_id.toString(),article)
             val res = response
             response.code()
         }

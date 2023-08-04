@@ -1,6 +1,6 @@
 package com.david.tot.data.network
 
-import com.david.tot.domain.model.Product
+import com.david.tot.domain.model.Article
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -10,13 +10,14 @@ import retrofit2.http.*
 
 interface IProductApiClient {
     @GET("products")
-    suspend fun getAllRecipes(): Response<List<Product>>
+    suspend fun getAllRecipes(): Response<List<Article>>
+
 
     @POST("products")
-    suspend fun addProduct(@Body product: Product): Response<ResponseBody>
+    suspend fun addProduct(@Body product: Article): Response<ResponseBody>
 
     @PUT("products/{id}")
-    suspend fun updateProduct(@Path("id") id:String, @Body product:Product): Response<ResponseBody>
+    suspend fun updateProduct(@Path("id") id:String, @Body product:Article): Response<ResponseBody>
 
     @DELETE("products/{id}")
     suspend fun deleteProduct(@Path("id") id:Int): Response<ResponseBody>

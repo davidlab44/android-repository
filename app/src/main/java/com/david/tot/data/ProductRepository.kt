@@ -2,7 +2,7 @@ package com.david.tot.data
 
 import com.david.tot.data.database.dao.RecipeDao
 import com.david.tot.data.network.ProductService
-import com.david.tot.domain.model.Product
+import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.toDomain
 import com.david.tot.util.IsImageFile
 import okhttp3.MultipartBody
@@ -17,16 +17,16 @@ class ProductRepository @Inject constructor(
     private val recipeDao: RecipeDao
 ) {
 
-    suspend fun getAllRecipesFromApi(): List<Product> {
-        val response: List<Product> = api.getRecipes()
+    suspend fun getAllRecipesFromApi(): List<Article> {
+        val response: List<Article> = api.getRecipes()
         return response.map { it.toDomain() }
     }
 
-    suspend fun addProduct(product:Product):Int{
+    suspend fun addProduct(product:Article):Int{
         return api.addProduct(product)
     }
 
-    suspend fun updateProduct(product:Product):Int{
+    suspend fun updateProduct(product:Article):Int{
         val responseCode = api.updateProduct(product)
         return responseCode
     }
@@ -36,23 +36,29 @@ class ProductRepository @Inject constructor(
         return responseCode
     }
 
-    suspend fun getAllRecipesFromDatabase():List<Product>{
-        val response: List<Product> = recipeDao.getAllRecipes()
+    suspend fun getAllRecipesFromDatabase():List<Article>{
+        val response: List<Article> = recipeDao.getAllRecipes()
         return response.map { it.toDomain() }
     }
 
-    suspend fun getFilteredRecipesFromDatabase(st: String): List<Product> {
-        val response: List<Product> = recipeDao.getFilteredRecipes(st)
+    /*
+    suspend fun getFilteredRecipesFromDatabase(st: String): List<Article> {
+        val response: List<Article> = recipeDao.getFilteredRecipes(st)
         response.map { it.toDomain() }
         return recipeDao.getFilteredRecipes(st)
     }
+    */
 
-    suspend fun insertRecipes(recipes:List<Product>){
+    suspend fun insertRecipes(recipes:List<Article>){
         recipeDao.insertAll(recipes)
     }
 
     suspend fun clearRecipes(){
         recipeDao.deleteAllRecipes()
+    }
+
+    suspend fun getArticleById(local_id:Int): Article {
+        return recipeDao.getArticleById(local_id)
     }
 
     suspend fun updateImageProduct(idProduct:Int,file: File) :Int {
@@ -61,9 +67,7 @@ class ProductRepository @Inject constructor(
         val requestFile: RequestBody = RequestBody.create("image/jpg".toMediaType(),file)
         val multipartImage = MultipartBody.Part.createFormData("MyFile", file.getName(), requestFile);
         //val file1 = File("") // just for example I'm initializing File with "" path
-
         val params = HashMap<String, RequestBody>()
-
         params["AltText"] = "AltText".toRequestBody()
         params["Description"] = "Description".toRequestBody()
         /*
@@ -78,20 +82,15 @@ class ProductRepository @Inject constructor(
         params["address"] = "".toRequestBody()
         params["price"] = "".toRequestBody()
         */
-
-
         //val filePart = MultipartBody.Part.createFormData("img1", file1.name, reqFile1)
-
         val responseCode = api.uploadPicture(params, multipartImage)
-
-
-
-
-
-
-
         //val responseCode = api.uploadPicture(idProduct,multipartImage)
         val responseCode2 = responseCode
         return responseCode
+    }
+
+
+    suspend fun updateQuantity(idArticle:Int,quantityToRestore:Int){
+        recipeDao.updateQuantity(idArticle,quantityToRestore)
     }
 }

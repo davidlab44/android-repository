@@ -344,6 +344,34 @@ private fun DrawerContent(
                 )
             }
         }
+
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(modifier = Modifier
+                .fillMaxSize(),
+                //.border(width = 1.dp, color = Color.Magenta),
+                horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(20.dp))
+                Image(
+                    modifier = Modifier
+                        .size(size = 25.dp)
+                        .clip(shape = CircleShape),
+                    painter = painterResource(id = R.drawable.baseline_home_24),
+                    contentDescription = "Configuracion"
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                ClickableText(
+                    style = TextStyle(
+                        color = Color.White,
+                        fontSize = 26.sp
+                    ),
+                    text = AnnotatedString("Salida de medicamentos") ,
+                    onClick = {
+                        context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                    }
+                )
+            }
+        }
         /*
         //TODO pass navigation params here to make the nevigation dinamic
         items(itemsList) { item ->

@@ -208,15 +208,19 @@ class UpdateProductActivity : ComponentActivity() {
                                         Row(
                                             modifier = Modifier.padding(all = 12.dp),horizontalArrangement = Arrangement.Center
                                         ) {
+                                            /*
                                             Button(enabled = enabledImage, modifier = Modifier.padding(1.dp),
                                                 onClick = {
                                                     enabledImage = false
                                                     bitmap.value?.let {
                                                         //updateProductViewModel.updateProductImage(updateProductViewModel.productRemoteId.toInt(), it)
-                                                        updateProductViewModel.updateProductImage(1, it)
+                                                        //updateProductViewModel.updateProductImage(1, it)
                                                 } }) {
                                                 Text(text = "ENVIAR IMAGEN")
                                             }
+
+                                             */
+                                            Text(text = "ACTIVITY PARA ENVIAR NOVEDADES CON SU FOTO")
                                         }
                                     }
                                 }
