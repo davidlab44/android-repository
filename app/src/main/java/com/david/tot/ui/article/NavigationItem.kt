@@ -1,4 +1,4 @@
-package com.david.tot.ui.article.bottomnavigation
+package com.david.tot.ui.article
 
 import com.david.tot.R
 

@@ -36,7 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.david.tot.ui.article.*
-import com.david.tot.ui.article.bottomnavigation.ArticleActivity
+import com.david.tot.ui.article.ArticleActivity
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

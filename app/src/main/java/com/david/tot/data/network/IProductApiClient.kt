@@ -9,9 +9,12 @@ import retrofit2.http.*
 //import retrofit2.Retrofit
 
 interface IProductApiClient {
-    @GET("products")
+    /*@GET("products")
     suspend fun getAllRecipes(): Response<List<Article>>
-
+    //api/Article
+    */
+    @GET("api/Article")
+    suspend fun getAllRecipes(): Response<List<Article>>
 
     @POST("products")
     suspend fun addProduct(@Body product: Article): Response<ResponseBody>

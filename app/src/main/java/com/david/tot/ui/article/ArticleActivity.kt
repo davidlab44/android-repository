@@ -1,4 +1,4 @@
-package com.david.tot.ui.article.bottomnavigation
+package com.david.tot.ui.article
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,9 +20,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.david.tot.ui.article.ArticleViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ArticleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

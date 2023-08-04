@@ -1,4 +1,4 @@
-package com.david.tot.ui.article.bottomnavigation
+package com.david.tot.ui.article
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -10,8 +10,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.david.tot.ui.article.ArticleViewModel
-import com.david.tot.ui.article.ScreenArticleList
 
 
 @Composable
