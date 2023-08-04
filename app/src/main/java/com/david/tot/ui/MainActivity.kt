@@ -3,7 +3,6 @@ package com.david.tot.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,10 +16,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Queue
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,6 +35,8 @@ import com.david.tot.ui.theme.TotTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import com.david.tot.ui.article.*
+import com.david.tot.ui.article.bottomnavigation.ArticleActivity
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -368,6 +366,33 @@ private fun DrawerContent(
                     text = AnnotatedString("Salida de medicamentos") ,
                     onClick = {
                         context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                    }
+                )
+            }
+        }
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(modifier = Modifier
+                .fillMaxSize(),
+                //.border(width = 1.dp, color = Color.Magenta),
+                horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(20.dp))
+                Image(
+                    modifier = Modifier
+                        .size(size = 25.dp)
+                        .clip(shape = CircleShape),
+                    painter = painterResource(id = R.drawable.baseline_home_24),
+                    contentDescription = "Configuracion"
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                ClickableText(
+                    style = TextStyle(
+                        color = Color.White,
+                        fontSize = 26.sp
+                    ),
+                    text = AnnotatedString("Salida de medicamentos") ,
+                    onClick = {
+                        context.startActivity(Intent(context, ArticleActivity::class.java))
                     }
                 )
             }
