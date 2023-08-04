@@ -10,30 +10,37 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.david.tot.ui.article.ArticleViewModel
+import com.david.tot.ui.article.ScreenArticleList
+
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(articleViewModel: ArticleViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             //.background(colorResource(id = R.color.colorPrimaryDark))
             .wrapContentSize(Alignment.Center)
     ) {
+        /*
         Text(
             text = "Home View",
             fontWeight = FontWeight.Bold,
-            color = Color.White,
+            color = Color.Black,
             modifier = Modifier.align(Alignment.CenterHorizontally),
             textAlign = TextAlign.Center,
             fontSize = 25.sp
         )
+        */
+
+        ScreenArticleList(articleViewModel)
     }
 }
 
-@Preview(showBackground = true)
+
 @Composable
-fun HomeScreenPreview() {
-    HomeScreen()
+fun HomeScreenPreview(articleViewModel:ArticleViewModel) {
+    HomeScreen(articleViewModel)
 }
 
 @Composable

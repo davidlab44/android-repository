@@ -13,32 +13,36 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.david.tot.ui.article.ArticleViewModel
 
 
 class ArticleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen()
+            val articleViewModel = viewModel<ArticleViewModel>()
+            MainScreen(articleViewModel)
         }
     }
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(articleViewModel:ArticleViewModel) {
     val navController = rememberNavController()
+
     Scaffold(
         topBar = { },
         bottomBar = { BottomNavigationBar(navController) },
         content = { padding ->
             Box(modifier = Modifier.padding(padding)) {
-                Navigation(navController = navController)
+                Navigation(articleViewModel,navController = navController)
             }
         },
         //backgroundColor = colorResource(R.color.colorPrimaryDark) // Set background color to avoid the white flashing when you switch between screens
@@ -46,18 +50,19 @@ fun MainScreen() {
 }
 
 
-@Preview(showBackground = true)
+
 @Composable
-fun MainScreenPreview() {
-    MainScreen()
+fun MainScreenPreview(articleViewModel:ArticleViewModel) {
+    MainScreen(articleViewModel)
 }
 
 
 @Composable
-fun Navigation(navController: NavHostController) {
+fun Navigation(articleViewModel:ArticleViewModel, navController: NavHostController) {
+
     NavHost(navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Home.route) {
-            HomeScreen()
+            HomeScreen(articleViewModel)
         }
         composable(NavigationItem.Music.route) {
             MusicScreen()

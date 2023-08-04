@@ -33,7 +33,7 @@ import androidx.compose.runtime.*
 
 
 @Composable
-fun ScreenArticleList(articleViewModel: ArticleViewModel) {
+fun ScreenRecipeList2(navegarPantalla2: (String) -> Unit, articleViewModel: ArticleViewModel) {
     articleViewModel.onCreate()
     var quantityToRestore by rememberSaveable {mutableStateOf("") }
     val mContext = LocalContext.current
@@ -166,6 +166,6 @@ fun ScreenArticleList(articleViewModel: ArticleViewModel) {
 }
 
 
-fun castItToInt2(it:String):Boolean{
+fun castItToInt(it:String):Boolean{
     return it.trim().toInt()!=null
 }

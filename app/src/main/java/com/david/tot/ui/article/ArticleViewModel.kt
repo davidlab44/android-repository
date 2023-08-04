@@ -13,13 +13,12 @@ import com.david.tot.domain.article.GetArticleListUseCase
 import com.david.tot.domain.model.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Delay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ScreenArticleViewModel @Inject constructor(
+class ArticleViewModel @Inject constructor(
     private val getArticleListUseCase: GetArticleListUseCase,
     private val updateProductUseCase: UpdateProductUseCase,
     private val updateQuantityUseCase: UpdateQuantityUseCase,

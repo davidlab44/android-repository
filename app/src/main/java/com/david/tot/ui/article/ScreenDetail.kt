@@ -1,28 +1,11 @@
 package com.david.tot.ui.article
 
-import android.content.Intent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
-import com.david.tot.ui.DeleteProductActivity
-import com.david.tot.ui.UpdateProductActivity
-import com.david.tot.util.IMAGE_BASE_URL
 
 @Composable
-fun ScreenDetail(local_id: String, screenArticleViewModel: ScreenArticleViewModel) {
+fun ScreenDetail(local_id: String, articleViewModel: ArticleViewModel) {
 
     //screenDetailViewModel.articleLocalId = local_id
     var launchUpdateProductActivity by rememberSaveable { mutableStateOf(false) }
