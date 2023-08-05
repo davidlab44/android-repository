@@ -1,7 +1,7 @@
 package com.david.tot.data
 
 import com.david.tot.data.database.dao.RecipeDao
-import com.david.tot.data.network.ProductService
+import com.david.tot.data.network.article.ProductService
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.toDomain
 import com.david.tot.util.IsImageFile

@@ -1,4 +1,4 @@
-package com.david.tot.data.network
+package com.david.tot.data.network.article
 
 
 import com.david.tot.domain.model.Article
@@ -8,7 +8,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import javax.inject.Inject
 
-class ProductService @Inject constructor(private val api:IProductApiClient) {
+class ProductService @Inject constructor(private val api: IProductApiClient) {
     suspend fun getRecipes(): List<Article> {
         //api.rawJSON()
         return withContext(Dispatchers.IO) {

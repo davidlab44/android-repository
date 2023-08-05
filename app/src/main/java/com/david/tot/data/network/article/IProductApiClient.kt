@@ -1,4 +1,4 @@
-package com.david.tot.data.network
+package com.david.tot.data.network.article
 
 import com.david.tot.domain.model.Article
 import okhttp3.MultipartBody
@@ -13,6 +13,7 @@ interface IProductApiClient {
     suspend fun getAllRecipes(): Response<List<Article>>
     //api/Article
     */
+
     @GET("api/Article")
     suspend fun getAllRecipes(): Response<List<Article>>
 

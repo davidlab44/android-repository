@@ -10,10 +10,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 
 
 @Composable
-fun HomeScreen(articleViewModel: ArticleViewModel) {
+fun HomeScreen(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -31,14 +32,14 @@ fun HomeScreen(articleViewModel: ArticleViewModel) {
         )
         */
 
-        ScreenArticleList(articleViewModel)
+        Text(text = "Home Screen")
     }
 }
 
 
 @Composable
-fun HomeScreenPreview(articleViewModel:ArticleViewModel) {
-    HomeScreen(articleViewModel)
+fun HomeScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+    HomeScreen(articleViewModel, drugsDeliveryConsumerViewHeaderViewModel)
 }
 
 @Composable

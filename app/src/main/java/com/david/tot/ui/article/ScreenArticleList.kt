@@ -30,10 +30,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 
 import androidx.compose.runtime.*
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
+import com.david.tot.ui.drugs_delivery_consumer_view_header.ScreenComponentHeader
 
 
 @Composable
-fun ScreenArticleList(articleViewModel: ArticleViewModel) {
+fun ScreenArticleList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel:DrugsDeliveryConsumerViewHeaderViewModel) {
+
+    drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
+    val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
+
     articleViewModel.onCreate()
     var quantityToRestore by rememberSaveable {mutableStateOf("") }
     val mContext = LocalContext.current
@@ -47,6 +54,8 @@ fun ScreenArticleList(articleViewModel: ArticleViewModel) {
             modifier = Modifier.padding(all = 12.dp),
             horizontalArrangement = Arrangement.Center
         ){
+
+            ScreenComponentHeader()
             /*
             Image(
                 painter = rememberImagePainter("https://upload.wikimedia.org/wikipedia/commons/a/ae/SEPT_17TH_LOS_ANGELES_INTERNATIONAL_TRUCK_PHOTO_PATRICE_RAUNET_HOLLYWOOD.jpg"),

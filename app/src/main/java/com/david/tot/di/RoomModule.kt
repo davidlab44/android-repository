@@ -18,11 +18,16 @@ object RoomModule {
 
     @Singleton
     @Provides
-    fun provideRoom(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, RecipeDatabase::class.java, RECIPE_DATABASE_NAME).build()
+    fun provideRoom(@ApplicationContext context: Context) = Room.databaseBuilder(context, RecipeDatabase::class.java, RECIPE_DATABASE_NAME).build()
 
     @Singleton
     @Provides
     fun provideRecipeDao(db: RecipeDatabase) = db.getRecipeDao()
+
+    @Singleton
+    @Provides
+    fun provideDrugsDeliveryConsumerViewHeaderDao(db: RecipeDatabase) = db.getDrugsDeliveryConsumerViewHeaderDao()
+
+
 }
 

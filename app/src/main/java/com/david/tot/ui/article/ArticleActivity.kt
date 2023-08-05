@@ -6,10 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -20,6 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,13 +31,14 @@ class ArticleActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val articleViewModel = viewModel<ArticleViewModel>()
-            MainScreen(articleViewModel)
+            val drugsDeliveryConsumerViewHeaderViewModel = viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
+            MainScreen(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
         }
     }
 }
 
 @Composable
-fun MainScreen(articleViewModel:ArticleViewModel) {
+fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel:DrugsDeliveryConsumerViewHeaderViewModel) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -42,27 +46,24 @@ fun MainScreen(articleViewModel:ArticleViewModel) {
         bottomBar = { BottomNavigationBar(navController) },
         content = { padding ->
             Box(modifier = Modifier.padding(padding)) {
-                Navigation(articleViewModel,navController = navController)
+                Navigation(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel,navController = navController)
             }
         },
         //backgroundColor = colorResource(R.color.colorPrimaryDark) // Set background color to avoid the white flashing when you switch between screens
     )
 }
 
-
-
 @Composable
-fun MainScreenPreview(articleViewModel:ArticleViewModel) {
-    MainScreen(articleViewModel)
+fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+    MainScreen(articleViewModel, drugsDeliveryConsumerViewHeaderViewModel)
 }
 
-
 @Composable
-fun Navigation(articleViewModel:ArticleViewModel, navController: NavHostController) {
+fun Navigation(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel, navController: NavHostController) {
 
     NavHost(navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Home.route) {
-            HomeScreen(articleViewModel)
+            HomeScreen(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
         }
         composable(NavigationItem.Music.route) {
             MusicScreen()
@@ -96,9 +97,11 @@ fun TopBarPreview() {
     TopBar()
 }
 
-
 @Composable
 fun BottomNavigationBar(navController: NavController) {
+
+    val Purple200 = Color(0xFF7baf4a)
+
     val items = listOf(
         NavigationItem.Home,
         NavigationItem.Music,
@@ -107,7 +110,8 @@ fun BottomNavigationBar(navController: NavController) {
         NavigationItem.Profile
     )
     BottomNavigation(
-        backgroundColor = Color.Gray,
+        //backgroundColor = Color.Gray,
+        backgroundColor= Color(0xFF22475b),
         contentColor = Color.White
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()

@@ -66,6 +66,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         },
+                        /*
                         floatingActionButton = {
                             FloatingActionButton(onClick = {
                                 startActivity(Intent(this@MainActivity,AddProductActivity::class.java))
@@ -77,6 +78,7 @@ class MainActivity : ComponentActivity() {
                             }
                         },
                         floatingActionButtonPosition = FabPosition.End,
+                        */
                         drawerContent = {
                             DrawerContent(context=this@MainActivity) { itemLabel ->
                                 Toast
@@ -151,13 +153,17 @@ private fun MyTopAppBar(onNavIconClick: () -> Unit) {
 @Composable
 private fun DrawerContent(
     context:MainActivity,
-    gradientColors: List<Color> = listOf(Color(0xFFF70A74), Color(0xFFF59118)),
+    //gradientColors: List<Color> = listOf(Color(0xFFF70A74), Color(0xFFF59118)),
+    gradientColors: List<Color> = listOf(Color(0xFF22475b), Color(0xFF7baf4a)),
     itemClick: (String) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(brush = Brush.verticalGradient(colors = gradientColors)),
+            .background(
+                brush = Brush.verticalGradient(colors = gradientColors)
+                //color = Color(0xFF22475b)
+            ),
         horizontalAlignment = Alignment.CenterHorizontally,
         contentPadding = PaddingValues(vertical = 36.dp)
     ) {
@@ -178,14 +184,14 @@ private fun DrawerContent(
             Text(
                 modifier = Modifier
                     .padding(top = 12.dp),
-                text = "Carlos Sabogal",
+                text = "SISMEDICA",
                 fontSize = 26.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
             Text(
                 modifier = Modifier.padding(top = 8.dp, bottom = 30.dp),
-                text = "carlossabogal@gmail.com",
+                text = "gerencia@sismedica.co",
                 fontWeight = FontWeight.Normal,
                 fontSize = 16.sp,
                 color = Color.White
@@ -204,7 +210,7 @@ private fun DrawerContent(
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
                     painter = painterResource(id = R.drawable.baseline_home_24),
-                    contentDescription = "Pedidos pendientes"
+                    contentDescription = "registrar consumo"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 Text(
@@ -216,56 +222,10 @@ private fun DrawerContent(
                 )
             }
         }
-        item {
-            Spacer(modifier = Modifier.height(20.dp))
-            Row(modifier = Modifier
-                .fillMaxSize(),
-                //.border(width = 1.dp, color = Color.Magenta),
-                horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
-                Spacer(modifier = Modifier.width(20.dp))
-                Image(
-                    modifier = Modifier
-                        .size(size = 25.dp)
-                        .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.baseline_home_24),
-                    contentDescription = "Pedidos pendientes"
-                )
-                Spacer(modifier = Modifier.width(20.dp))
-                Text(
-                    modifier = Modifier
-                        .padding(top = 12.dp),
-                    text = "Facturas",
-                    fontSize = 26.sp,
-                    color = Color.White
-                )
-            }
-        }
 
-        item {
-            Spacer(modifier = Modifier.height(20.dp))
-            Row(modifier = Modifier
-                .fillMaxSize(),
-                //.border(width = 1.dp, color = Color.Magenta),
-                horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
-                Spacer(modifier = Modifier.width(20.dp))
-                Image(
-                    modifier = Modifier
-                        .size(size = 25.dp)
-                        .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.baseline_home_24),
-                    contentDescription = "AddProduct"
-                )
-                Spacer(modifier = Modifier.width(20.dp))
-                Text(
-                    modifier = Modifier
-                        .padding(top = 12.dp),
-                    text = "Agregar Producto",
-                    fontSize = 26.sp,
-                    color = Color.White
-                )
-            }
-        }
 
+
+        /*
         item {
             Spacer(modifier = Modifier.height(20.dp))
             Row(modifier = Modifier
@@ -291,57 +251,8 @@ private fun DrawerContent(
 
             }
         }
-        item {
-            Spacer(modifier = Modifier.height(20.dp))
-            Row(modifier = Modifier
-                .fillMaxSize(),
-                //.border(width = 1.dp, color = Color.Magenta),
-                horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
-                Spacer(modifier = Modifier.width(20.dp))
-                Image(
-                    modifier = Modifier
-                        .size(size = 25.dp)
-                        .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.baseline_home_24),
-                    contentDescription = "Perfil"
-                )
-                Spacer(modifier = Modifier.width(20.dp))
-                Text(
-                    modifier = Modifier
-                        .padding(top = 12.dp),
-                    text = "Perfil",
-                    fontSize = 26.sp,
-                    color = Color.White
-                )
-            }
-        }
-        item {
-            Spacer(modifier = Modifier.height(20.dp))
-            Row(modifier = Modifier
-                .fillMaxSize(),
-                //.border(width = 1.dp, color = Color.Magenta),
-                horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
-                Spacer(modifier = Modifier.width(20.dp))
-                Image(
-                    modifier = Modifier
-                        .size(size = 25.dp)
-                        .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.baseline_home_24),
-                    contentDescription = "Configuracion"
-                )
-                Spacer(modifier = Modifier.width(20.dp))
-                ClickableText(
-                    style = TextStyle(
-                        color = Color.White,
-                        fontSize = 26.sp
-                    ),
-                    text = AnnotatedString("Configuracion") ,
-                    onClick = {
-                        context.startActivity(Intent(context,UpdateProductActivity::class.java))
-                    }
-                )
-            }
-        }
+        */
+
 
         item {
             Spacer(modifier = Modifier.height(20.dp))
