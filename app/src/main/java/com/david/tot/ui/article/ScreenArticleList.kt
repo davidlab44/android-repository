@@ -55,7 +55,7 @@ fun ScreenArticleList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerVi
             horizontalArrangement = Arrangement.Center
         ){
 
-            ScreenComponentHeader()
+            //ScreenComponentHeader()
             /*
             Image(
                 painter = rememberImagePainter("https://upload.wikimedia.org/wikipedia/commons/a/ae/SEPT_17TH_LOS_ANGELES_INTERNATIONAL_TRUCK_PHOTO_PATRICE_RAUNET_HOLLYWOOD.jpg"),

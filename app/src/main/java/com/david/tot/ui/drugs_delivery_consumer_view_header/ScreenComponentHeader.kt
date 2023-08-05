@@ -42,9 +42,10 @@ import androidx.compose.ui.text.style.TextAlign
 import com.david.tot.ui.article.ArticleViewModel
 
 @Composable
-fun ScreenComponentHeader() {
+fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+    val drugsDeliveryConsumerViewHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
     Text(
-        text = "INFO DEL Conductor",
+        text = "Tripulante: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader,
         fontWeight = FontWeight.Bold,
         color = Color.Black,
         textAlign = TextAlign.Center,

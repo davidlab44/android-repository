@@ -8,7 +8,7 @@ import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
 
 
-@Database(entities = [Article::class, DrugsDeliveryConsumerViewHeader::class], version = 16)
+@Database(entities = [Article::class, DrugsDeliveryConsumerViewHeader::class], version = 17)
 abstract class RecipeDatabase: RoomDatabase() {
     abstract fun getRecipeDao(): RecipeDao
 

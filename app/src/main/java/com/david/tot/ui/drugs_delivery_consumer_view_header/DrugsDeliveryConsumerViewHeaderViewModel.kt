@@ -56,7 +56,7 @@ class DrugsDeliveryConsumerViewHeaderViewModel @Inject constructor(
 
     var drugsDeliveryConsumerViewHeaderFromApiList by mutableStateOf<List<DrugsDeliveryConsumerViewHeader>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
-    var drugsDeliveryConsumerViewHeader by mutableStateOf<DrugsDeliveryConsumerViewHeader?>(null)
+    var drugsDeliveryConsumerViewHeader by mutableStateOf<DrugsDeliveryConsumerViewHeader?>(DrugsDeliveryConsumerViewHeader(1,"","","","","","","","",""))
 
     fun getAlldrugsDeliveryConsumerViewHeader(){
         CoroutineScope(Dispatchers.IO).launch {

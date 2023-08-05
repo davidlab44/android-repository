@@ -21,7 +21,7 @@ class GetAllDrugsDeliveryConsumerViewHeaderUseCase @Inject constructor(private v
         var recipes = repository.getAllDrugsDeliveryConsumerViewHeaderFromApi()
         return if(recipes.isNotEmpty()){
             //TODO check internet connection before to clear database
-            repository.clearDrugsDeliveryConsumerViewHeader()
+            //repository.clearDrugsDeliveryConsumerViewHeader()
             repository.insertDrugsDeliveryConsumerViewHeader(recipes.map { it.toDatabase() })
             //recipes
             //recipes = repository.getAllRecipesFromApi()
