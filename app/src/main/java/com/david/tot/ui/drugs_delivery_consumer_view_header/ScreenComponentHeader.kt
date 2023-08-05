@@ -1,7 +1,6 @@
 package com.david.tot.ui.drugs_delivery_consumer_view_header
 
 
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -44,32 +43,59 @@ import com.david.tot.ui.article.ArticleViewModel
 @Composable
 fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
     val drugsDeliveryConsumerViewHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
-    Text(
-        text = "Tripulante: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader,
-        fontWeight = FontWeight.Bold,
-        color = Color.Black,
-        textAlign = TextAlign.Center,
-        fontSize = 25.sp
-    )
-    /*
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.fillMaxSize().padding(16.dp),
+        //horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val listModifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .padding(10.dp)
-            .align(Alignment.CenterHorizontally)
-        LazyColumn(modifier = listModifier) {
-            //val drugsDeliveryConsumerViewHeader =drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader
-
-
-
+        Row(
+            modifier = Modifier.padding(all = 1.dp),
+            //horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "Tripulante: " + drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.consumer,
+                color = Color.Black,
+                fontSize = 20.sp
+            )
+        }
+        Row(
+            modifier = Modifier.padding(all = 1.dp),
+            //horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "Licencia: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.license
+                        +" /Cat: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.licenseCategory
+                        +" /Vence: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.licenseExpiration,
+                color = Color.Black,
+                fontSize = 12.sp
+            )
+        }
+        Row(
+            modifier = Modifier.padding(top = 5.dp), horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "VEHICULO: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.vehicle,
+                color = Color.Black,
+                fontSize = 20.sp
+            )
+        }
+        Row(
+            modifier = Modifier.padding(all = 1.dp), horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = " SOAT: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.soat
+                        +" Vence: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.soatExpiration,     color = Color.Black,
+                fontSize = 12.sp
+            )
+        }
+        Row(
+            modifier = Modifier.padding(all = 1.dp), horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = " CRTM: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.crtm
+                        +" Vence: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.crtmExpiration,     color = Color.Black,
+                fontSize = 12.sp
+            )
         }
     }
-
-     */
 }
 

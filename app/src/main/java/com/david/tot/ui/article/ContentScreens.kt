@@ -18,13 +18,14 @@ import com.david.tot.ui.drugs_delivery_consumer_view_header.ScreenComponentHeade
 fun HomeScreen(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
     drugsDeliveryConsumerViewHeaderViewModel.getAlldrugsDeliveryConsumerViewHeader()
     ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
-    Column(
-        modifier = Modifier
+
+    /*
+    Column(modifier = Modifier
             .fillMaxSize()
             //.background(colorResource(id = R.color.colorPrimaryDark))
             .wrapContentSize(Alignment.Center)
     ) {
-        /*
+
         Text(
             text = "Home View",
             fontWeight = FontWeight.Bold,
@@ -33,11 +34,13 @@ fun HomeScreen(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeade
             textAlign = TextAlign.Center,
             fontSize = 25.sp
         )
-        */
+
 
 
         Text(text = "Home Screen")
     }
+    */
+
 }
 
 
