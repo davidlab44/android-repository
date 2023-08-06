@@ -18,6 +18,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Queue
+import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.Sync
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -130,7 +132,37 @@ class MainActivity : ComponentActivity() {
 
 
 
+@Composable
+fun MyTopAppBar(onNavIconClick: () -> Unit) {
+    TopAppBar(
+        title = { Text(text = "GLAPP") },
+        navigationIcon = {
+            IconButton(
+                onClick = {
+                    onNavIconClick()
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Menu,
+                    contentDescription = "Open Navigation Drawer"
+                )
+            }
+        },
+        actions = {
+            IconButton(onClick = { /* doSomething() */ }) {
+                Icon(
+                    imageVector = Icons.Filled.Sync,
+                    contentDescription = "Localized description"
+                )
+            }
+        },
+        backgroundColor = Color(0xFF22475b),
+        contentColor = Color.White
+    )
+}
 
+
+/*
 @Composable
 fun MyTopAppBar(onNavIconClick: () -> Unit) {
     TopAppBar(
@@ -155,10 +187,9 @@ fun MyTopAppBar(onNavIconClick: () -> Unit) {
                 )
             }
         }
-
     )
 }
-
+*/
 
 
 @Composable

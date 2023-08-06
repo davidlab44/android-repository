@@ -209,7 +209,7 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 @Composable
 fun TopAppBar(onNavIconClick: () -> Unit) {
     TopAppBar(
-        title = { Text(text = "Some text here") },
+        title = { Text(text = "GLAPP") },
         navigationIcon = {
             IconButton(
                 onClick = {
@@ -229,8 +229,9 @@ fun TopAppBar(onNavIconClick: () -> Unit) {
                     contentDescription = "Localized description"
                 )
             }
-        }
-
+        },
+        backgroundColor = Color(0xFF22475b),
+        contentColor = Color.White
     )
 }
 
