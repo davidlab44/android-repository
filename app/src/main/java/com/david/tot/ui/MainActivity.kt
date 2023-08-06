@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Queue
 import androidx.compose.runtime.*
@@ -144,7 +145,16 @@ private fun MyTopAppBar(onNavIconClick: () -> Unit) {
                     contentDescription = "Open Navigation Drawer"
                 )
             }
+        },
+        actions = {
+            IconButton(onClick = { /* doSomething() */ }) {
+                Icon(
+                    imageVector = Icons.Filled.Favorite,
+                    contentDescription = "Localized description"
+                )
+            }
         }
+
     )
 }
 
