@@ -14,7 +14,7 @@ interface IProductApiClient {
     //api/Article
     */
 
-    @GET("api/Article")
+    @GET("api/APP_SP_DrugsDeliveryConsumerViewArticlesResult")
     suspend fun getAllRecipes(): Response<List<Article>>
 
     @POST("products")

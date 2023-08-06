@@ -1,7 +1,5 @@
 package com.david.tot.ui.article
 
-
-
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -30,16 +28,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 
 import androidx.compose.runtime.*
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
-import com.david.tot.ui.drugs_delivery_consumer_view_header.ScreenComponentHeader
-
 
 @Composable
-fun ScreenArticleList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel:DrugsDeliveryConsumerViewHeaderViewModel) {
+fun HomeScreenList(articleViewModel: ArticleViewModel) {
 
-    drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
-    val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
+    //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
+    //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
 
     articleViewModel.onCreate()
     var quantityToRestore by rememberSaveable {mutableStateOf("") }
@@ -49,22 +44,8 @@ fun ScreenArticleList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerVi
             .fillMaxSize()
             .padding(16.dp),horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //var text by rememberSaveable { mutableStateOf("") }
-        Row(
-            modifier = Modifier.padding(all = 12.dp),
-            horizontalArrangement = Arrangement.Center
-        ){
+        var text by rememberSaveable { mutableStateOf("") }
 
-            //ScreenComponentHeader()
-            /*
-            Image(
-                painter = rememberImagePainter("https://upload.wikimedia.org/wikipedia/commons/a/ae/SEPT_17TH_LOS_ANGELES_INTERNATIONAL_TRUCK_PHOTO_PATRICE_RAUNET_HOLLYWOOD.jpg"),
-                contentDescription = null,
-                Modifier
-                    .height(200.dp)
-            )
-            */
-        }
         /*
         TextField(
             value = text,
@@ -174,7 +155,3 @@ fun ScreenArticleList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerVi
     }
 }
 
-
-fun castItToInt2(it:String):Boolean{
-    return it.trim().toInt()!=null
-}

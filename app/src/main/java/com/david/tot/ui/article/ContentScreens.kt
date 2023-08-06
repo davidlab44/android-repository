@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 import com.david.tot.ui.drugs_delivery_consumer_view_header.ScreenComponentHeader
@@ -17,30 +18,24 @@ import com.david.tot.ui.drugs_delivery_consumer_view_header.ScreenComponentHeade
 @Composable
 fun HomeScreen(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
     drugsDeliveryConsumerViewHeaderViewModel.getAlldrugsDeliveryConsumerViewHeader()
-    ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
-
-    /*
-    Column(modifier = Modifier
-            .fillMaxSize()
-            //.background(colorResource(id = R.color.colorPrimaryDark))
-            .wrapContentSize(Alignment.Center)
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp),
+        //horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        Text(
-            text = "Home View",
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-            fontSize = 25.sp
-        )
-
-
-
-        Text(text = "Home Screen")
+        //var text by rememberSaveable { mutableStateOf("") }
+        Row(
+            modifier = Modifier.padding(all = 12.dp).height(200.dp),
+            //horizontalArrangement = Arrangement.Center
+        ) {
+            ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
+        }
+        Row(
+            modifier = Modifier.padding(all = 12.dp),
+            //horizontalArrangement = Arrangement.Center
+        ) {
+            HomeScreenList(articleViewModel)
+        }
     }
-    */
-
 }
 
 
