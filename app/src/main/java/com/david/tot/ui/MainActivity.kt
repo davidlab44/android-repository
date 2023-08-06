@@ -1,6 +1,7 @@
 package com.david.tot.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -37,7 +38,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.david.tot.ui.article.*
-import com.david.tot.ui.article.ArticleActivity
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -131,7 +132,7 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-private fun MyTopAppBar(onNavIconClick: () -> Unit) {
+fun MyTopAppBar(onNavIconClick: () -> Unit) {
     TopAppBar(
         title = { Text(text = "Some text here") },
         navigationIcon = {
@@ -161,8 +162,8 @@ private fun MyTopAppBar(onNavIconClick: () -> Unit) {
 
 
 @Composable
-private fun DrawerContent(
-    context:MainActivity,
+fun DrawerContent(
+    context: Context,
     //gradientColors: List<Color> = listOf(Color(0xFFF70A74), Color(0xFFF59118)),
     gradientColors: List<Color> = listOf(Color(0xFF22475b), Color(0xFF7baf4a)),
     itemClick: (String) -> Unit
