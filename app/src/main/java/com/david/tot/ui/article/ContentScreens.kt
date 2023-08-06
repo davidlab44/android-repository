@@ -24,13 +24,13 @@ fun HomeScreen(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeade
     ) {
         //var text by rememberSaveable { mutableStateOf("") }
         Row(
-            modifier = Modifier.padding(all = 12.dp).height(200.dp),
+            modifier = Modifier.padding(all = 2.dp).height(180.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
             ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
         }
         Row(
-            modifier = Modifier.padding(all = 12.dp),
+            modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
             HomeScreenList(articleViewModel)

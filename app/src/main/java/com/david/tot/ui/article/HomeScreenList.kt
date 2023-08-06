@@ -42,7 +42,7 @@ fun HomeScreenList(articleViewModel: ArticleViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),horizontalAlignment = Alignment.CenterHorizontally
+            .padding(2.dp),horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var text by rememberSaveable { mutableStateOf("") }
 
