@@ -42,9 +42,9 @@ import com.david.tot.ui.article.ArticleViewModel
 
 @Composable
 fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
-    val drugsDeliveryConsumerViewHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
+    val drugsDeliveryConsumerViewHeader = drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier.fillMaxSize().padding(5.dp),
         //horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
@@ -52,7 +52,7 @@ fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliver
             //horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Tripulante: " + drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.consumer,
+                text = "Tripulante: " + drugsDeliveryConsumerViewHeader.consumer,
                 color = Color.Black,
                 fontSize = 20.sp
             )
@@ -62,9 +62,9 @@ fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliver
             //horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Licencia: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.license
-                        +" /Cat: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.licenseCategory
-                        +" /Vence: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.licenseExpiration,
+                text = "Licencia: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader.license
+                        +" /Cat: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader.licenseCategory
+                        +" /Vence: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader.licenseExpiration,
                 color = Color.Black,
                 fontSize = 12.sp
             )
@@ -73,7 +73,7 @@ fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliver
             modifier = Modifier.padding(top = 5.dp), horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "VEHICULO: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.vehicle,
+                text = "VEHICULO: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader.vehicle,
                 color = Color.Black,
                 fontSize = 20.sp
             )
@@ -82,8 +82,9 @@ fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliver
             modifier = Modifier.padding(all = 1.dp), horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = " SOAT: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.soat
-                        +" Vence: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.soatExpiration,     color = Color.Black,
+                text = " SOAT: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader.soat
+                        +" Vence: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader.soatExpiration,
+                color = Color.Black,
                 fontSize = 12.sp
             )
         }
@@ -91,8 +92,9 @@ fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliver
             modifier = Modifier.padding(all = 1.dp), horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = " CRTM: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.crtm
-                        +" Vence: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader!!.crtmExpiration,     color = Color.Black,
+                text = " CRTM: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader.crtm
+                        +" Vence: "+drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader.crtmExpiration,
+                color = Color.Black,
                 fontSize = 12.sp
             )
         }

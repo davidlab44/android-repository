@@ -1,6 +1,6 @@
 package com.david.tot.data
 
-import com.david.tot.data.database.dao.RecipeDao
+import com.david.tot.data.database.dao.ArticleDao
 import com.david.tot.data.network.article.ProductService
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.toDomain
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class ProductRepository @Inject constructor(
     private val api: ProductService,
-    private val recipeDao: RecipeDao
+    private val articleDao: ArticleDao
 ) {
 
     suspend fun getAllRecipesFromApi(): List<Article> {
@@ -37,28 +37,28 @@ class ProductRepository @Inject constructor(
     }
 
     suspend fun getAllRecipesFromDatabase():List<Article>{
-        val response: List<Article> = recipeDao.getAllRecipes()
+        val response: List<Article> = articleDao.getAllRecipes()
         return response.map { it.toDomain() }
     }
 
-    /*
-    suspend fun getFilteredRecipesFromDatabase(st: String): List<Article> {
-        val response: List<Article> = recipeDao.getFilteredRecipes(st)
+
+    suspend fun getFiltered(hash: String): List<Article> {
+        val response: List<Article> = articleDao.getFiltered(hash)
         response.map { it.toDomain() }
-        return recipeDao.getFilteredRecipes(st)
+        return articleDao.getFiltered(hash)
     }
-    */
+
 
     suspend fun insertRecipes(recipes:List<Article>){
-        recipeDao.insertAll(recipes)
+        articleDao.insertAll(recipes)
     }
 
     suspend fun clearRecipes(){
-        recipeDao.deleteAllRecipes()
+        articleDao.deleteAllRecipes()
     }
 
     suspend fun getArticleById(local_id:Int): Article {
-        return recipeDao.getArticleById(local_id)
+        return articleDao.getArticleById(local_id)
     }
 
     suspend fun updateImageProduct(idProduct:Int,file: File) :Int {
@@ -91,6 +91,6 @@ class ProductRepository @Inject constructor(
 
 
     suspend fun updateQuantity(idArticle:Int,quantityToRestore:Int){
-        recipeDao.updateQuantity(idArticle,quantityToRestore)
+        articleDao.updateQuantity(idArticle,quantityToRestore)
     }
 }

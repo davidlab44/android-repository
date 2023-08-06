@@ -26,6 +26,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Search
 
 import androidx.compose.runtime.*
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
@@ -37,12 +40,12 @@ fun HomeScreenList(articleViewModel: ArticleViewModel) {
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
 
     articleViewModel.onCreate()
-    var quantityToRestore by rememberSaveable {mutableStateOf("") }
+    //var quantityToRestore by rememberSaveable {mutableStateOf("") }
     val mContext = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(2.dp),horizontalAlignment = Alignment.CenterHorizontally
+            .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var text by rememberSaveable { mutableStateOf("") }
 
@@ -52,17 +55,37 @@ fun HomeScreenList(articleViewModel: ArticleViewModel) {
             onValueChange = {
                 text = it
             },
-            label = { Text("Label") }
+            label = { Text("Buscar") },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Email Icon"
+                )
+            },
         )
         */
-        //recipeViewModel.updateRecipeList(text)
-        //Text(text="Aqui"+text)
 
+        OutlinedTextField(
+            value = text,
+            modifier = Modifier
+                .fillMaxWidth()
+                //.background(Color.White)
+                //.background(Color(0xFF22475b))
+                .padding(12.dp),
+            onValueChange = { newText ->
+                text = newText
+            },
+            label = { Text(text = "Buscar") },
+            placeholder = { Text(text = "") }
+        )
+
+        articleViewModel.updateRecipeList(text)
+        //Text(text="Aqui"+text)
 
         val listModifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(10.dp)
+            .padding(top= 15.dp)
             .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
             val recipeList2 =articleViewModel.recipeModel
@@ -124,7 +147,7 @@ fun HomeScreenList(articleViewModel: ArticleViewModel) {
                                         label = { androidx.compose.material3.Text("Cantidad a reponer:") },
                                         modifier = Modifier
                                             //.padding(start = 16.dp, end = 16.dp, top = 20.dp)
-                                            .width(180.dp)
+                                            .width(170.dp)
                                     )
                                     /*
                                     TextField(

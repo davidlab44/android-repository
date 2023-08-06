@@ -24,7 +24,7 @@ fun HomeScreen(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeade
     ) {
         //var text by rememberSaveable { mutableStateOf("") }
         Row(
-            modifier = Modifier.padding(all = 2.dp).height(180.dp),
+            modifier = Modifier.padding(all = 0.dp).height(165.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
             ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)

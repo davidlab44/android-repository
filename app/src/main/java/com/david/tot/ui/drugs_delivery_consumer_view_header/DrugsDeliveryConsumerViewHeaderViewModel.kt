@@ -56,19 +56,26 @@ class DrugsDeliveryConsumerViewHeaderViewModel @Inject constructor(
 
     var drugsDeliveryConsumerViewHeaderFromApiList by mutableStateOf<List<DrugsDeliveryConsumerViewHeader>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
-    var drugsDeliveryConsumerViewHeader by mutableStateOf<DrugsDeliveryConsumerViewHeader?>(DrugsDeliveryConsumerViewHeader(1,"","","","","","","","",""))
+    var drugsDeliveryConsumerViewHeader by mutableStateOf<DrugsDeliveryConsumerViewHeader>(DrugsDeliveryConsumerViewHeader(1,"","","","","","","","",""))
 
     fun getAlldrugsDeliveryConsumerViewHeader(){
         CoroutineScope(Dispatchers.IO).launch {
             drugsDeliveryConsumerViewHeaderFromApiList = getAllDrugsDeliveryConsumerViewHeaderUseCase.invoke()
+            if(drugsDeliveryConsumerViewHeaderFromApiList.isNotEmpty()){
+                drugsDeliveryConsumerViewHeader = getAnyDrugsDeliveryConsumerViewHeaderUseCase.invoke()
+            }
+
         }
     }
 
+    /*
     fun getAnyDrugsDeliveryConsumerViewHeaderFromDatabase(){
         CoroutineScope(Dispatchers.IO).launch {
             drugsDeliveryConsumerViewHeader = getAnyDrugsDeliveryConsumerViewHeaderUseCase.invoke()
         }
     }
+
+     */
 
     /*
     var recipeModel by mutableStateOf<List<Article>>(emptyList())

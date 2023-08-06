@@ -7,9 +7,9 @@ import androidx.room.Query
 import com.david.tot.domain.model.Article
 
 @Dao
-interface RecipeDao {
+interface ArticleDao {
 
-    @Query("SELECT * FROM article_table")
+    @Query("SELECT * FROM article_table ORDER BY articleDescription ASC")
     suspend fun getAllRecipes():List<Article>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,11 +21,11 @@ interface RecipeDao {
     @Query("SELECT * FROM article_table WHERE local_id = :local_id")
     suspend fun getArticleById(local_id: Int): Article
 
-    /*
-    @Query("SELECT * FROM article_table WHERE name LIKE :recipeHash ORDER BY name DESC LIMIT 10")
-    fun getFilteredRecipes(recipeHash: String): List<Article>
 
-     */
+    @Query("SELECT * FROM article_table WHERE articleDescription LIKE :recipeHash ORDER BY articleDescription ASC")
+    fun getFiltered(recipeHash: String): List<Article>
+
+
 
     @Query("UPDATE article_table SET quantityToRestore = :quantityToRestoreValue WHERE local_id = :localIdArticle")
     suspend fun updateQuantity(localIdArticle:Int,quantityToRestoreValue:Int)

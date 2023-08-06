@@ -41,6 +41,7 @@ import com.david.tot.domain.GetRecipesUseCase
 import com.david.tot.domain.UpdateProductUseCase
 import com.david.tot.domain.article.GetArticleByIdUseCase
 import com.david.tot.domain.article.GetArticleListUseCase
+import com.david.tot.domain.article.GetFilteredArticleListUseCase
 import com.david.tot.domain.article.UpdateQuantityUseCase
 import com.david.tot.domain.model.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -53,7 +54,8 @@ import javax.inject.Inject
 class ArticleViewModel @Inject constructor(
     private val getArticleListUseCase: GetArticleListUseCase,
     private val getArticleByIdUseCase: GetArticleByIdUseCase,
-    private val updateQuantityUseCase: UpdateQuantityUseCase
+    private val updateQuantityUseCase: UpdateQuantityUseCase,
+    private val getFilteredArticleListUseCase: GetFilteredArticleListUseCase
 ) : ViewModel() {
     var recipeModel by mutableStateOf<List<Article>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
@@ -99,16 +101,16 @@ class ArticleViewModel @Inject constructor(
 
      */
 
-    /*
+
     fun updateRecipeList(hash:String){
         CoroutineScope(Dispatchers.IO).launch {
-            val result = getRecipesUseCase.invoke("%$hash%")
+            val result = getFilteredArticleListUseCase.invoke("%$hash%")
             if (!result.isNullOrEmpty()) {
                 recipeModel =result
             }
         }
     }
-    */
+
 
     /*
     fun addProduct(product:Product){
