@@ -32,6 +32,7 @@ import androidx.compose.material.icons.filled.Search
 
 import androidx.compose.runtime.*
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
+import com.yeslab.fastprefs.FastPrefs
 
 @Composable
 fun HomeScreenList(articleViewModel: ArticleViewModel) {
@@ -81,6 +82,12 @@ fun HomeScreenList(articleViewModel: ArticleViewModel) {
 
         articleViewModel.updateRecipeList(text)
         //Text(text="Aqui"+text)
+
+        val prefs = FastPrefs(mContext)
+        prefs.setString("key","value")
+        val value = prefs.getString("key","defaultValue")
+        Text(text= "value= $value")
+
 
         val listModifier = Modifier
             .fillMaxSize()
