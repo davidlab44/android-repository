@@ -31,8 +31,11 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Search
 
 import androidx.compose.runtime.*
+import com.david.tot.domain.model.InventoryOutput
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 import com.yeslab.fastprefs.FastPrefs
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @Composable
 fun HomeScreenList(articleViewModel: ArticleViewModel) {
@@ -66,6 +69,18 @@ fun HomeScreenList(articleViewModel: ArticleViewModel) {
         )
         */
 
+        val dataList = listOf(InventoryOutput(12, 2),InventoryOutput(13, 7))
+
+
+        val prefs = FastPrefs(mContext)
+        prefs.set("key",dataList)
+        val value = prefs.get("key",listOf(InventoryOutput(12, 2),InventoryOutput(13, 7)))
+        Text(text= "value= ${value.toString()}")
+
+
+        val jsonList = Json.encodeToString(dataList)
+        val jsont = jsonList.toString()
+
         OutlinedTextField(
             value = text,
             modifier = Modifier
@@ -82,11 +97,6 @@ fun HomeScreenList(articleViewModel: ArticleViewModel) {
 
         articleViewModel.updateRecipeList(text)
         //Text(text="Aqui"+text)
-
-        val prefs = FastPrefs(mContext)
-        prefs.setString("key","value")
-        val value = prefs.getString("key","defaultValue")
-        Text(text= "value= $value")
 
 
         val listModifier = Modifier
