@@ -4,6 +4,7 @@ import com.david.tot.data.database.dao.DrugsDeliveryConsumerViewHeaderDao
 import com.david.tot.data.network.vehicle.DrugsDeliveryConsumerViewHeaderService
 import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
 import com.david.tot.domain.model.toDomain
+import kotlinx.serialization.json.JsonArray
 import javax.inject.Inject
 
 class DrugsDeliveryConsumerViewHeaderRepository @Inject constructor(
@@ -24,6 +25,10 @@ class DrugsDeliveryConsumerViewHeaderRepository @Inject constructor(
     suspend fun getAnyDrugsDeliveryConsumerViewHeaderFromDatabase():DrugsDeliveryConsumerViewHeader{
         return drugsDeliveryConsumerViewHeaderDao.getAny()
         //return response.map { it.toDomain() }
+    }
+
+    suspend fun saveInventoryOutputInremoteServer(jsonObject: JsonArray):Int{
+        return api.saveInventoryOutputInremoteServer(jsonObject)
     }
 
     suspend fun insertDrugsDeliveryConsumerViewHeader(items:List<DrugsDeliveryConsumerViewHeader>){

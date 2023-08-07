@@ -29,33 +29,31 @@ class ArticleViewModel @Inject constructor(
     */
 
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.david.tot.data.database.dao.DrugsDeliveryConsumerViewHeaderDao
-import com.david.tot.domain.article.GetArticleByIdUseCase
-import com.david.tot.domain.article.GetArticleListUseCase
-import com.david.tot.domain.article.UpdateQuantityUseCase
 import com.david.tot.domain.drugs_delivery_consumer_view_header.GetAllDrugsDeliveryConsumerViewHeaderUseCase
 import com.david.tot.domain.drugs_delivery_consumer_view_header.GetAnyDrugsDeliveryConsumerViewHeaderUseCase
-import com.david.tot.domain.model.Article
+import com.david.tot.domain.drugs_delivery_consumer_view_header.SaveInventoryOutputInremoteServerUseCase
 import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.JsonArray
 import javax.inject.Inject
 
 @HiltViewModel
 class DrugsDeliveryConsumerViewHeaderViewModel @Inject constructor(
     private val getAllDrugsDeliveryConsumerViewHeaderUseCase: GetAllDrugsDeliveryConsumerViewHeaderUseCase,
-    private val getAnyDrugsDeliveryConsumerViewHeaderUseCase: GetAnyDrugsDeliveryConsumerViewHeaderUseCase
+    private val getAnyDrugsDeliveryConsumerViewHeaderUseCase: GetAnyDrugsDeliveryConsumerViewHeaderUseCase,
+    private val saveInventoryOutputInremoteServerUseCase:SaveInventoryOutputInremoteServerUseCase
 ) : ViewModel() {
 
     var drugsDeliveryConsumerViewHeaderFromApiList by mutableStateOf<List<DrugsDeliveryConsumerViewHeader>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
+    var inventoryOutputResponseCode by mutableStateOf<Int>(0)
     var drugsDeliveryConsumerViewHeader by mutableStateOf<DrugsDeliveryConsumerViewHeader>(DrugsDeliveryConsumerViewHeader(1,"","","","","","","","",""))
 
     fun getAlldrugsDeliveryConsumerViewHeader(){
@@ -65,6 +63,13 @@ class DrugsDeliveryConsumerViewHeaderViewModel @Inject constructor(
                 drugsDeliveryConsumerViewHeader = getAnyDrugsDeliveryConsumerViewHeaderUseCase.invoke()
             }
 
+        }
+    }
+
+
+    fun saveInventoryOutputInremoteServer(inventoryOutput: JsonArray){
+        CoroutineScope(Dispatchers.IO).launch {
+            inventoryOutputResponseCode = saveInventoryOutputInremoteServerUseCase.invoke(inventoryOutput)
         }
     }
 

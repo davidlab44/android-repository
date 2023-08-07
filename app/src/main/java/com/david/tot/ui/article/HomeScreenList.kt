@@ -26,19 +26,18 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Search
 
 import androidx.compose.runtime.*
-import com.david.tot.domain.model.InventoryOutput
+import com.david.tot.domain.model.Consumible
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 import com.yeslab.fastprefs.FastPrefs
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
 
 @Composable
-fun HomeScreenList(articleViewModel: ArticleViewModel) {
+fun HomeScreenList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
 
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
@@ -69,18 +68,21 @@ fun HomeScreenList(articleViewModel: ArticleViewModel) {
         )
         */
 
-        val dataList = listOf(InventoryOutput(12, 2),InventoryOutput(13, 7))
+        val dataList = listOf(Consumible(12, 2),Consumible(13, 7))
 
 
         val prefs = FastPrefs(mContext)
         prefs.set("key",dataList)
-        val value = prefs.get("key",listOf(InventoryOutput(12, 2),InventoryOutput(13, 7)))
+        val value = prefs.get("key",listOf(Consumible(12, 2),Consumible(13, 7)))
         Text(text= "value= ${value.toString()}")
 
 
         val jsonList = Json.encodeToString(dataList)
-        val jsont = jsonList.toString()
+        val jsont = jsonList
+        val jsonArray = Json.decodeFromString<JsonArray>(jsont)
 
+        //send json to the server
+        drugsDeliveryConsumerViewHeaderViewModel.saveInventoryOutputInremoteServer(jsonArray)
         OutlinedTextField(
             value = text,
             modifier = Modifier

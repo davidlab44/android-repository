@@ -33,7 +33,7 @@ fun HomeScreen(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeade
             modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            HomeScreenList(articleViewModel)
+            HomeScreenList(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
         }
     }
 }
