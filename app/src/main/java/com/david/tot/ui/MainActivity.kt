@@ -40,11 +40,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.david.tot.ui.article.*
+import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
 
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +59,10 @@ class MainActivity : ComponentActivity() {
                     val coroutineScope = rememberCoroutineScope()
                     val contextForToast = LocalContext.current.applicationContext
                     //var ordeModalWindowCUrrentState by rememberSaveable { mutableStateOf(false) }
-                    //val recipeViewModel = viewModel<RecipeViewModel>()
+                    val articleViewModel = viewModel<ArticleViewModel>()
+                    val drugsDeliveryConsumerViewHeaderViewModel=viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
+                    val recipeViewModel = viewModel<RecipeViewModel>()
+                    NavigationHost(recipeViewModel = recipeViewModel)
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
                         scaffoldState = scaffoldState,
@@ -83,6 +86,11 @@ class MainActivity : ComponentActivity() {
                         },
                         floatingActionButtonPosition = FabPosition.End,
                         */
+                        content = { padding ->
+                            Box(modifier = Modifier.padding(padding)) {
+                                HomeScreenList2(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+                            }
+                        },
                         drawerContent = {
                             DrawerContent(context=this@MainActivity) { itemLabel ->
                                 Toast
@@ -96,23 +104,23 @@ class MainActivity : ComponentActivity() {
                             }
 
                         }
-                    ) {
+                    )
+                    /*
+                    {
+
                         Column(
                             modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            val recipeViewModel = viewModel<RecipeViewModel>()
-                            NavigationHost(recipeViewModel = recipeViewModel)
-                            /*
-                            Text(
-                                text = getResources().getString(R.string.app_name) + " \n ".repeat(
-                                    20
-                                )
-                            )
-                            */
+
+
                         }
+
+
                     }
+
+                     */
                 }
             }
         }
