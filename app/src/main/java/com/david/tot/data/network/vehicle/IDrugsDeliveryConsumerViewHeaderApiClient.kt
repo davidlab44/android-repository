@@ -8,7 +8,6 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
-
 //import retrofit2.Retrofit
 
 interface IDrugsDeliveryConsumerViewHeaderApiClient {
@@ -28,8 +27,6 @@ interface IDrugsDeliveryConsumerViewHeaderApiClient {
     //suspend fun sendJson(@Query("jsonArray") jsonObject: JsonArray): Response<ResponseBody>
     //Response{protocol=http/1.1, code=400, message=Bad Request, url=http://192.168.1.93:53033/api/APP_SP_DrugsDeliveryConsumerViewArticlesResult}
     //suspend fun sendJson(@Body jsonObject:String): Response<ResponseBody>
-
-
 
 }
 

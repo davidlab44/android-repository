@@ -68,21 +68,9 @@ fun HomeScreenList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewH
         )
         */
 
-        val dataList = listOf(Consumible(12, 2),Consumible(13, 7))
 
 
-        val prefs = FastPrefs(mContext)
-        prefs.set("key",dataList)
-        val value = prefs.get("key",listOf(Consumible(12, 2),Consumible(13, 7)))
-        Text(text= "value= ${value.toString()}")
 
-
-        val jsonList = Json.encodeToString(dataList)
-        val jsont = jsonList
-        val jsonArray = Json.decodeFromString<JsonArray>(jsont)
-
-        //send json to the server
-        drugsDeliveryConsumerViewHeaderViewModel.saveInventoryOutputInremoteServer(jsonArray)
         OutlinedTextField(
             value = text,
             modifier = Modifier
@@ -109,6 +97,19 @@ fun HomeScreenList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewH
         LazyColumn(modifier = listModifier) {
             val recipeList2 =articleViewModel.recipeModel
             //val recipeList =CheckList
+            //var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
+            /*
+            var dataList = mutableListOf<Consumible>()
+            val prefs = FastPrefs(mContext)
+            prefs.set("key",dataList)
+            //val value = prefs.get("key",dataList)
+            //Text(text= "value= ${value.toString()}")
+            val jsonList = Json.encodeToString(dataList)
+            val jsont = jsonList
+            val jsonArray = Json.decodeFromString<JsonArray>(jsont)
+            //send json to the server
+            drugsDeliveryConsumerViewHeaderViewModel.saveInventoryOutputInremoteServer(jsonArray)
+            */
             val recipeList =articleViewModel.recipeModel
             items(recipeList) { recipe ->
                 Card(
@@ -157,7 +158,11 @@ fun HomeScreenList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewH
                                             if(it!=""
                                                 //&&it.trim().isNullOrEmpty()&&it.toInt()!=null&&it.toInt()!=null&&it.trim()!=""
                                             ){
-                                                articleViewModel.updateQuantity(recipe.local_id.toInt(),it.trim().toInt())
+
+
+
+
+                                                //articleViewModel.updateQuantity(recipe.local_id.toInt(),it.trim().toInt())
                                                 //screenArticleViewModel.getArticleByIdUseCase(recipe.local_id.toInt())
                                             }else
                                                 Toast.makeText(mContext,"El dato ingresado debe ser un numero" , Toast.LENGTH_SHORT).show()
