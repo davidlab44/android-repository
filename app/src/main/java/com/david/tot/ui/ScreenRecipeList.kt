@@ -23,7 +23,7 @@ import com.david.tot.util.IMAGE_BASE_URL
 
 
 @Composable
-fun ScreenRecipeList(navegarPantalla2: (String) -> Unit,recipeViewModel:RecipeViewModel) {
+fun ScreenRecipeList(navegarPantalla2: (String) -> Unit) {
     //recipeViewModel.onCreate()
     /*
     Column(

@@ -8,7 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.david.tot.ui.Destinations.*
 
 @Composable
-fun NavigationHost(recipeViewModel:RecipeViewModel) {
+fun NavigationHost() {
 
     val navController = rememberNavController()
 
@@ -18,14 +18,14 @@ fun NavigationHost(recipeViewModel:RecipeViewModel) {
             ScreenRecipeList(
                 navegarPantalla2 = { localIdProduct ->
                     navController.navigate(DetailScreen.createRoute(localIdProduct))
-                },recipeViewModel
+                }
             )
         }
 
         composable(DetailScreen.route,arguments = listOf(navArgument("localIdProduct"){ defaultValue = "Pantalla 2" })) { navBackStackEntry ->
             var localIdProduct = navBackStackEntry.arguments?.getString("localIdProduct")
             requireNotNull(localIdProduct)
-            ScreenDetail(localIdProduct,recipeViewModel)
+            ScreenDetail(localIdProduct)
         }
     }
 }

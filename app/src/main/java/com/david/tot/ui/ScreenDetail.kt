@@ -20,7 +20,7 @@ import coil.compose.rememberImagePainter
 import com.david.tot.util.IMAGE_BASE_URL
 
 @Composable
-fun ScreenDetail(remoteIdProduct: String, recipeViewModel:RecipeViewModel) {
+fun ScreenDetail(remoteIdProduct: String) {
 
     Text(text = "activity Screen detail")
     /*

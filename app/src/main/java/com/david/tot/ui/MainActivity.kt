@@ -61,8 +61,8 @@ class MainActivity : ComponentActivity() {
                     //var ordeModalWindowCUrrentState by rememberSaveable { mutableStateOf(false) }
                     val articleViewModel = viewModel<ArticleViewModel>()
                     val drugsDeliveryConsumerViewHeaderViewModel=viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
-                    val recipeViewModel = viewModel<RecipeViewModel>()
-                    NavigationHost(recipeViewModel = recipeViewModel)
+                    //val recipeViewModel = viewModel<RecipeViewModel>()
+                    NavigationHost()
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
                         scaffoldState = scaffoldState,

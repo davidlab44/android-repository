@@ -16,7 +16,7 @@ import com.david.tot.ui.drugs_delivery_consumer_view_header.ScreenComponentHeade
 
 
 @Composable
-fun HomeScreen(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+fun HeaderAndBodyScreen(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
     drugsDeliveryConsumerViewHeaderViewModel.getAlldrugsDeliveryConsumerViewHeader()
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
@@ -33,7 +33,7 @@ fun HomeScreen(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeade
             modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            HomeScreenList(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+            BodyArticleList(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
         }
     }
 }
@@ -41,7 +41,7 @@ fun HomeScreen(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeade
 
 @Composable
 fun HomeScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
-    HomeScreen(articleViewModel, drugsDeliveryConsumerViewHeaderViewModel)
+    HeaderAndBodyScreen(articleViewModel, drugsDeliveryConsumerViewHeaderViewModel)
 }
 
 @Composable

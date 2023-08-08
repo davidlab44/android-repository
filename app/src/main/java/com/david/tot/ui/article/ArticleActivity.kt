@@ -4,45 +4,27 @@ package com.david.tot.ui.article
 
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Queue
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.david.tot.R
 import com.david.tot.ui.theme.TotTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.david.tot.ui.article.*
 
 
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -54,18 +36,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 
  */
-import androidx.compose.material.*
 
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -73,13 +49,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.david.tot.ui.DrawerContent
-import com.david.tot.ui.NavigationHost
-import com.david.tot.ui.RecipeViewModel
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
-import com.david.tot.ui.theme.TotTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ArticleActivity : ComponentActivity() {
@@ -103,8 +74,8 @@ class ArticleActivity : ComponentActivity() {
 
                     //Bottom nav controller
                     val navController = rememberNavController()
-                    val recipeViewModel = viewModel<RecipeViewModel>()
-                    NavigationHost(recipeViewModel = recipeViewModel)
+                    //val recipeViewModel = viewModel<RecipeViewModel>()
+                    //NavigationHost(recipeViewModel = recipeViewModel)
                     //var ordeModalWindowCUrrentState by rememberSaveable { mutableStateOf(false) }
                     //val recipeViewModel = viewModel<RecipeViewModel>()
                     Scaffold(
@@ -249,20 +220,20 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 fun NavigationBotomMenu(articleViewModel:ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel, navController: NavHostController) {
 
 
-    NavHost(navController, startDestination = NavigationItem.Home.route) {
-        composable(NavigationItem.Home.route) {
-            HomeScreen(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+    NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
+        composable(BotomNavigationItem.Home.route) {
+            HeaderAndBodyScreen(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
         }
-        composable(NavigationItem.Music.route) {
+        composable(BotomNavigationItem.Music.route) {
             MusicScreen()
         }
-        composable(NavigationItem.Movies.route) {
+        composable(BotomNavigationItem.Movies.route) {
             MoviesScreen()
         }
-        composable(NavigationItem.Books.route) {
+        composable(BotomNavigationItem.Books.route) {
             BooksScreen()
         }
-        composable(NavigationItem.Profile.route) {
+        composable(BotomNavigationItem.Profile.route) {
             ProfileScreen()
         }
     }
@@ -291,11 +262,11 @@ fun BottomNavigationBar(navController: NavController) {
     val Purple200 = Color(0xFF7baf4a)
 
     val items = listOf(
-        NavigationItem.Home,
-        NavigationItem.Music,
-        NavigationItem.Movies,
-        NavigationItem.Books,
-        NavigationItem.Profile
+        BotomNavigationItem.Home,
+        BotomNavigationItem.Music,
+        BotomNavigationItem.Movies,
+        BotomNavigationItem.Books,
+        BotomNavigationItem.Profile
     )
     BottomNavigation(
         //backgroundColor = Color.Gray,
