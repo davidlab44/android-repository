@@ -8,18 +8,18 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import javax.inject.Inject
 
-class ProductService @Inject constructor(private val api: IProductApiClient) {
+class ArticleService @Inject constructor(private val api: IArticleApiClient) {
     suspend fun getRecipes(): List<Article> {
         //api.rawJSON()
         return withContext(Dispatchers.IO) {
-            val response = api.getAllRecipes()
+            val response = api.getAll()
             response.body() ?: emptyList()
         }
     }
 
     suspend fun addProduct(product:Article):Int{
         return withContext(Dispatchers.IO) {
-            val respuesta = api.addProduct(product)
+            val respuesta = api.addOne(product)
             val respuestaBody =respuesta.body().toString()
             val respuestaBody2 = respuesta.body()
             val respuestaBody3 =respuesta.errorBody()
@@ -41,7 +41,7 @@ class ProductService @Inject constructor(private val api: IProductApiClient) {
 
     suspend fun updateProduct(article:Article):Int{
         return withContext(Dispatchers.IO) {
-            val response = api.updateProduct(article.local_id.toString(),article)
+            val response = api.updateOne(article.local_id.toString(),article)
             val res = response
             response.code()
         }
@@ -49,7 +49,7 @@ class ProductService @Inject constructor(private val api: IProductApiClient) {
 
     suspend fun deleteProduct(id:Int):Int{
         return withContext(Dispatchers.IO) {
-            val response = api.deleteProduct(id)
+            val response = api.deleteOne(id)
             val res = response
             response.code()
         }

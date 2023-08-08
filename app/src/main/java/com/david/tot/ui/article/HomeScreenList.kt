@@ -28,13 +28,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 
 import androidx.compose.runtime.*
-import com.david.tot.domain.model.Consumible
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
-import com.yeslab.fastprefs.FastPrefs
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonArray
 
 @Composable
 fun HomeScreenList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
@@ -68,9 +62,6 @@ fun HomeScreenList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewH
         )
         */
 
-
-
-
         OutlinedTextField(
             value = text,
             modifier = Modifier
@@ -85,7 +76,7 @@ fun HomeScreenList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewH
             placeholder = { Text(text = "") }
         )
 
-        articleViewModel.updateRecipeList(text)
+        articleViewModel.updateFilteredArticleList(text)
         //Text(text="Aqui"+text)
 
 
@@ -95,7 +86,7 @@ fun HomeScreenList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewH
             .padding(top= 15.dp)
             .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
-            val recipeList2 =articleViewModel.recipeModel
+            val recipeList2 =articleViewModel.articleModel
             //val recipeList =CheckList
             //var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
             /*
@@ -110,8 +101,8 @@ fun HomeScreenList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewH
             //send json to the server
             drugsDeliveryConsumerViewHeaderViewModel.saveInventoryOutputInremoteServer(jsonArray)
             */
-            val recipeList =articleViewModel.recipeModel
-            items(recipeList) { recipe ->
+            val articleList =articleViewModel.articleModel
+            items(articleList) { article ->
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -143,14 +134,14 @@ fun HomeScreenList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewH
                                 */
                                 Box(
                                 ) {
-                                    Text(text = recipe.articleDescription)
+                                    Text(text = "Local_id: "+article.local_id+" Descripcion: "+article.articleDescription)
                                 }
                             }
 
                             Row(
                             ) {
                                     OutlinedTextField(
-                                        value = ""+recipe.quantityToRestore,
+                                        value = ""+article.quantityToRestore,
                                         onValueChange = {
                                             //loginViewModel.productDescription = it
                                             //email = loginViewModel.productDescription
@@ -158,12 +149,9 @@ fun HomeScreenList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewH
                                             if(it!=""
                                                 //&&it.trim().isNullOrEmpty()&&it.toInt()!=null&&it.toInt()!=null&&it.trim()!=""
                                             ){
-
-
-
-
-                                                //articleViewModel.updateQuantity(recipe.local_id.toInt(),it.trim().toInt())
-                                                //screenArticleViewModel.getArticleByIdUseCase(recipe.local_id.toInt())
+                                                articleViewModel.updateConsumedQuantity(article.local_id.toInt(),it.trim().toInt())
+                                                articleViewModel.updateFilteredArticleList("")
+                                            //screenArticleViewModel.getArticleByIdUseCase(recipe.local_id.toInt())
                                             }else
                                                 Toast.makeText(mContext,"El dato ingresado debe ser un numero" , Toast.LENGTH_SHORT).show()
                                         },
@@ -191,7 +179,16 @@ fun HomeScreenList(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewH
                                 Box(
 
                                 ) {
-                                    Text(text = "Disponible en inventario: "+recipe.quantityAvailable.toInt().toString()+" "+recipe.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
+                                    Text(text = "Disponible en inventario: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
+                                }
+                            }
+                            Row(
+                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+                            ) {
+                                Box(
+
+                                ) {
+                                    Text(text = "nueva cantidad: "+article.consumedQuantity.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
                                 }
                             }
                         }

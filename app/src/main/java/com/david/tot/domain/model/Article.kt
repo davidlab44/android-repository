@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "article_table")
+@Entity(tableName = "Article")
 data class Article (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "local_id") val local_id: Int = 0,
@@ -14,7 +14,8 @@ data class Article (
     @ColumnInfo(name = "unitOfMeasure") val unitOfMeasure: String,
     @ColumnInfo(name = "quantityAvailable") val quantityAvailable: Double,
     @ColumnInfo(name = "quantityToStock") val quantityToStock: Double,
-    @ColumnInfo(name = "quantityToRestore") val quantityToRestore: Int = 0
+    @ColumnInfo(name = "quantityToRestore") val quantityToRestore: Int = 0,
+    @ColumnInfo(name = "consumedQuantity") val consumedQuantity: Int = 0
     /*
     @ColumnInfo(name = "image") val image: String,
     @ColumnInfo(name = "description") val description: String,

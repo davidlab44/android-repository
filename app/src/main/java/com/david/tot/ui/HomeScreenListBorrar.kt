@@ -1,10 +1,8 @@
 package com.david.tot.ui
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -17,29 +15,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-import androidx.compose.foundation.layout.width
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 
 import androidx.compose.runtime.*
-import com.david.tot.domain.model.Consumible
 import com.david.tot.ui.article.ArticleViewModel
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
-import com.yeslab.fastprefs.FastPrefs
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonArray
 
 @Composable
 fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
 
+
+    /*
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
 
@@ -86,7 +77,7 @@ fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
             placeholder = { Text(text = "") }
         )
 
-        articleViewModel.updateRecipeList(text)
+        articleViewModel.updateFilteredArticleList(text)
         //Text(text="Aqui"+text)
 
 
@@ -96,7 +87,7 @@ fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
             .padding(top= 15.dp)
             .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
-            val recipeList2 =articleViewModel.recipeModel
+            val recipeList2 =articleViewModel.articleModel
             //val recipeList =CheckList
             //var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
             /*
@@ -111,7 +102,7 @@ fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
             //send json to the server
             drugsDeliveryConsumerViewHeaderViewModel.saveInventoryOutputInremoteServer(jsonArray)
             */
-            val recipeList =articleViewModel.recipeModel
+            val recipeList =articleViewModel.articleModel
             items(recipeList) { recipe ->
                 Card(
                     modifier = Modifier
@@ -226,5 +217,7 @@ fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
             }
         }
     }
+
+     */
 }
 

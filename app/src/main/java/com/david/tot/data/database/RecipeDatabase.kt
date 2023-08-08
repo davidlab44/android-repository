@@ -10,7 +10,7 @@ import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
 import com.david.tot.domain.model.Sync
 
 
-@Database(entities = [Article::class, DrugsDeliveryConsumerViewHeader::class, Sync::class], version = 19)
+@Database(entities = [Article::class, DrugsDeliveryConsumerViewHeader::class, Sync::class], version = 20)
 abstract class RecipeDatabase: RoomDatabase() {
     abstract fun getRecipeDao(): ArticleDao
 

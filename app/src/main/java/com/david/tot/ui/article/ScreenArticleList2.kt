@@ -75,9 +75,9 @@ fun ScreenRecipeList2(navegarPantalla2: (String) -> Unit, articleViewModel: Arti
             .padding(10.dp)
             .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
-            val recipeList2 =articleViewModel.recipeModel
+            val recipeList2 =articleViewModel.articleModel
             //val recipeList =CheckList
-            val recipeList =articleViewModel.recipeModel
+            val recipeList =articleViewModel.articleModel
             items(recipeList) { recipe ->
                 Card(
                     modifier = Modifier
@@ -125,7 +125,7 @@ fun ScreenRecipeList2(navegarPantalla2: (String) -> Unit, articleViewModel: Arti
                                             if(it!=""
                                                 //&&it.trim().isNullOrEmpty()&&it.toInt()!=null&&it.toInt()!=null&&it.trim()!=""
                                             ){
-                                                articleViewModel.updateQuantity(recipe.local_id.toInt(),it.trim().toInt())
+                                                articleViewModel.updateConsumedQuantity(recipe.local_id.toInt(),it.trim().toInt())
                                                 //screenArticleViewModel.getArticleByIdUseCase(recipe.local_id.toInt())
                                             }else
                                                 Toast.makeText(mContext,"El dato ingresado debe ser un numero" , Toast.LENGTH_SHORT).show()

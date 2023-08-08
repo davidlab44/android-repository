@@ -8,23 +8,23 @@ import retrofit2.Response
 import retrofit2.http.*
 //import retrofit2.Retrofit
 
-interface IProductApiClient {
+interface IArticleApiClient {
     /*@GET("products")
     suspend fun getAllRecipes(): Response<List<Article>>
     //api/Article
     */
 
     @GET("api/APP_SP_DrugsDeliveryConsumerViewArticlesResult")
-    suspend fun getAllRecipes(): Response<List<Article>>
+    suspend fun getAll(): Response<List<Article>>
 
     @POST("products")
-    suspend fun addProduct(@Body product: Article): Response<ResponseBody>
+    suspend fun addOne(@Body product: Article): Response<ResponseBody>
 
     @PUT("products/{id}")
-    suspend fun updateProduct(@Path("id") id:String, @Body product:Article): Response<ResponseBody>
+    suspend fun updateOne(@Path("id") id:String, @Body product:Article): Response<ResponseBody>
 
     @DELETE("products/{id}")
-    suspend fun deleteProduct(@Path("id") id:Int): Response<ResponseBody>
+    suspend fun deleteOne(@Path("id") id:Int): Response<ResponseBody>
 
     @Multipart
     //@POST("pictures")
@@ -32,9 +32,6 @@ interface IProductApiClient {
     @JvmSuppressWildcards
     //suspend fun uploadPicture(@Part part: MultipartBody.part): Response<ResponseBody>
     suspend fun uploadPicture(@Part part: MultipartBody.Part,@PartMap params: Map<String,RequestBody>): Response<ResponseBody>
-
-
-
 
     //suspend fun uploadPicture(@Part part: MultipartBody.Part,@Field("AltText") AltText:String?,@Field("Description") Description:String?): Response<ResponseBody>
     //suspend fun uploadPicture(@Part part: MultipartBody.Part,@Part("AltText") AltText:String,@Part("Description") Description:String): Response<ResponseBody>

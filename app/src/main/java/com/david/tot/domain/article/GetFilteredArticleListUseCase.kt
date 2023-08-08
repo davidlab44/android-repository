@@ -1,13 +1,14 @@
 package com.david.tot.domain.article
 
-import com.david.tot.data.ProductRepository
+import com.david.tot.data.ArticleRepository
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.toDatabase
 import javax.inject.Inject
 
-class GetFilteredArticleListUseCase @Inject constructor(private val repository: ProductRepository) {
+class GetFilteredArticleListUseCase @Inject constructor(private val repository: ArticleRepository) {
     suspend operator fun invoke(hash:String):List<Article>{
-        var recipes = repository.getAllRecipesFromApi()
+        /*
+        //var recipes = repository.getAllRecipesFromApi()
         return if(recipes.isNotEmpty()){
             //TODO check internet connection before to clear database
             repository.clearRecipes()
@@ -19,5 +20,7 @@ class GetFilteredArticleListUseCase @Inject constructor(private val repository: 
         }else{
             repository.getAllRecipesFromDatabase()
         }
+        */
+        return repository.getFiltered(hash)
     }
 }

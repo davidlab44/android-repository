@@ -1,6 +1,6 @@
 package com.david.tot.di
 
-import com.david.tot.data.network.article.IProductApiClient
+import com.david.tot.data.network.article.IArticleApiClient
 import com.david.tot.data.network.vehicle.IDrugsDeliveryConsumerViewHeaderApiClient
 import com.david.tot.util.BASE_URL
 import dagger.Module
@@ -26,8 +26,8 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRecipeApiClient(retrofit: Retrofit): IProductApiClient {
-        return retrofit.create(IProductApiClient::class.java)
+    fun provideRecipeApiClient(retrofit: Retrofit): IArticleApiClient {
+        return retrofit.create(IArticleApiClient::class.java)
     }
 
     @Singleton
