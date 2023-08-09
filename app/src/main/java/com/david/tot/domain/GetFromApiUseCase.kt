@@ -5,7 +5,7 @@ import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.toDatabase
 import javax.inject.Inject
 
-class GetRecipesUseCase @Inject constructor(private val repository: ArticleRepository) {
+class GetFromApiUseCase @Inject constructor(private val repository: ArticleRepository) {
     suspend operator fun invoke(st: kotlin.String):List<Article>{
         var recipes = repository.getAllRecipesFromApi()
         return if(recipes.isNotEmpty()){

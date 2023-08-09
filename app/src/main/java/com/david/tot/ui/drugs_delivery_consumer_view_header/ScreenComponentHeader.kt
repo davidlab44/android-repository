@@ -41,7 +41,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.david.tot.ui.article.ArticleViewModel
 
 @Composable
-fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+fun ScreenComponentHeader(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
     val drugsDeliveryConsumerViewHeader = drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader
     Column(
         modifier = Modifier.fillMaxSize().padding(5.dp),

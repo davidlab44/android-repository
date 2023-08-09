@@ -27,7 +27,7 @@ fun HeaderAndBodyScreen(articleViewModel: ArticleViewModel, drugsDeliveryConsume
             modifier = Modifier.padding(all = 0.dp).height(165.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
+            ScreenComponentHeader(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
         }
         Row(
             modifier = Modifier.padding(all = 2.dp),

@@ -5,6 +5,7 @@ package com.david.tot.ui.article
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -48,8 +49,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.david.tot.domain.model.Consumible
 import com.david.tot.ui.DrawerContent
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
+import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -64,7 +67,6 @@ class ArticleActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-
                     val scaffoldState = rememberScaffoldState()
                     val coroutineScope = rememberCoroutineScope()
                     val contextForToast = LocalContext.current.applicationContext
@@ -82,7 +84,7 @@ class ArticleActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         scaffoldState = scaffoldState,
                         topBar = {
-                            TopAppBar {
+                            TopAppBar(articleViewModel) {
                                 coroutineScope.launch {
                                     scaffoldState.drawerState.open()
                                 }
@@ -178,7 +180,8 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 
 
 @Composable
-fun TopAppBar(onNavIconClick: () -> Unit) {
+fun TopAppBar(articleViewModel: ArticleViewModel,onNavIconClick: () -> Unit) {
+    val mContext = LocalContext.current.applicationContext
     TopAppBar(
         title = { Text(text = "GLAPP") },
         navigationIcon = {
@@ -194,7 +197,18 @@ fun TopAppBar(onNavIconClick: () -> Unit) {
             }
         },
         actions = {
-            IconButton(onClick = { /* doSomething() */ }) {
+            IconButton(onClick = { /* doSomething() */
+
+                var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
+
+                val prefs = FastPrefs(mContext)
+                val consumibleGuardado = prefs.get(articleViewModel.key.toString(),dataList)
+                if(articleViewModel.saveArticleListToSync(mContext)==1)
+                    Toast.makeText(mContext,"Consumible creado exitosamente"+consumibleGuardado!!.size, Toast.LENGTH_SHORT).show()
+                else
+                    Toast.makeText(mContext,"No hay suficiente cantidad en inventario de algunos productos seleccionados" +consumibleGuardado!!.size, Toast.LENGTH_SHORT).show()
+                Log.e("TAG","TAGTAG")
+            }) {
                 Icon(
                     imageVector = Icons.Filled.Save,
                     contentDescription = "Localized description"
@@ -206,7 +220,6 @@ fun TopAppBar(onNavIconClick: () -> Unit) {
     )
 }
 
-
 /*
 @Composable
 fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
@@ -214,11 +227,8 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 }
 */
 
-
-
 @Composable
 fun NavigationBotomMenu(articleViewModel:ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel, navController: NavHostController) {
-
 
     NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
         composable(BotomNavigationItem.Home.route) {
@@ -304,8 +314,6 @@ fun BottomNavigationBar(navController: NavController) {
         }
     }
 }
-
-
 
 @Preview(showBackground = true)
 @Composable

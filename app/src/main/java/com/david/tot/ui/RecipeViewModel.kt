@@ -1,13 +1,10 @@
 package com.david.tot.ui
 
-import android.content.Intent
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import com.david.tot.domain.AddProductUseCase
-import com.david.tot.domain.GetRecipesUseCase
+import com.david.tot.domain.GetFromApiUseCase
 import com.david.tot.domain.UpdateProductUseCase
 import com.david.tot.domain.model.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipeViewModel @Inject constructor(private val getRecipesUseCase: GetRecipesUseCase,private val updateProductUseCase: UpdateProductUseCase) : ViewModel() {
+class RecipeViewModel @Inject constructor(private val getFromApiUseCase: GetFromApiUseCase, private val updateProductUseCase: UpdateProductUseCase) : ViewModel() {
 
     var recipeModel by mutableStateOf<List<Article>>(emptyList())
 
@@ -46,7 +43,7 @@ class RecipeViewModel @Inject constructor(private val getRecipesUseCase: GetReci
 
     fun updateRecipeList(hash:String){
         CoroutineScope(Dispatchers.IO).launch {
-            val result = getRecipesUseCase.invoke("%$hash%")
+            val result = getFromApiUseCase.invoke("%$hash%")
             if (!result.isNullOrEmpty()) {
                 recipeModel =result
             }

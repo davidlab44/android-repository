@@ -7,6 +7,14 @@ import javax.inject.Inject
 
 class GetAllFromApiUseCase @Inject constructor(private val repository: ArticleRepository) {
     suspend operator fun invoke():List<Article>{
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO no permitir consultar nada hasta que no se termine de sincronizar!!!!
+        //OJO
         var recipes = repository.getAllRecipesFromApi()
         return if(recipes.isNotEmpty()){
             //TODO check internet connection before to clear database

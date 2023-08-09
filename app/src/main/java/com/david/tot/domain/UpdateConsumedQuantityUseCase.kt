@@ -7,6 +7,5 @@ class UpdateConsumedQuantityUseCase @Inject constructor(private val repository: 
 
     suspend operator fun invoke(idArticle:Int,quantityToRestore:Int) {
         val aaa= repository.updateConsumedQuantity(idArticle,quantityToRestore)
-
     }
 }

@@ -75,9 +75,9 @@ fun ScreenRecipeList2(navegarPantalla2: (String) -> Unit, articleViewModel: Arti
             .padding(10.dp)
             .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
-            val recipeList2 =articleViewModel.articleModel
+            val recipeList2 =articleViewModel.articleList
             //val recipeList =CheckList
-            val recipeList =articleViewModel.articleModel
+            val recipeList =articleViewModel.articleList
             items(recipeList) { recipe ->
                 Card(
                     modifier = Modifier

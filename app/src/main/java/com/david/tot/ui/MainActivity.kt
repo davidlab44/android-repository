@@ -46,6 +46,11 @@ import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsume
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    //TODO
+    //TODO no permitir consultar en el API nada hasta que no se termine de sincronizar!!!!
+    //OJO
+    //desde que empiezas a trabajar offline no te trae nueva informacion hasta que no sincronize toda la cola
+
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

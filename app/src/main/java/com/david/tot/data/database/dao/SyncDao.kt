@@ -5,9 +5,16 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.david.tot.domain.model.Article
+import com.david.tot.domain.model.Sync
 
 @Dao
 interface SyncDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addOne(sync: Sync)
+
+    @Query("SELECT * FROM syncTable ORDER BY createdAt ASC")
+    suspend fun getAll():List<Sync>
 
     /*
     @Query("SELECT * FROM syncTable ORDER BY createdAt ASC")

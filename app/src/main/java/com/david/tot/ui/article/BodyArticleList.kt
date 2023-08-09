@@ -1,6 +1,5 @@
 package com.david.tot.ui.article
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -28,6 +27,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 
 import androidx.compose.runtime.*
+import androidx.compose.ui.focus.onFocusEvent
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 
 @Composable
@@ -45,6 +45,7 @@ fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
             .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var text by rememberSaveable { mutableStateOf("") }
+        val pattern = remember { Regex("^\\d+\$") }
 
         /*
         TextField(
@@ -86,7 +87,7 @@ fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
             .padding(top= 15.dp)
             .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
-            val recipeList2 =articleViewModel.articleModel
+            val recipeList2 =articleViewModel.articleList
             //val recipeList =CheckList
             //var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
             /*
@@ -101,7 +102,9 @@ fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
             //send json to the server
             drugsDeliveryConsumerViewHeaderViewModel.saveInventoryOutputInremoteServer(jsonArray)
             */
-            val articleList =articleViewModel.articleModel
+
+            //LIST
+            val articleList =articleViewModel.articleList
             items(articleList) { article ->
                 Card(
                     modifier = Modifier
@@ -140,39 +143,82 @@ fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
 
                             Row(
                             ) {
-                                    OutlinedTextField(
-                                        value = ""+article.quantityToRestore,
-                                        onValueChange = {
-                                            //loginViewModel.productDescription = it
-                                            //email = loginViewModel.productDescription
-                                            //if()
-                                            if(it!=""
-                                                //&&it.trim().isNullOrEmpty()&&it.toInt()!=null&&it.toInt()!=null&&it.trim()!=""
-                                            ){
-                                                articleViewModel.updateConsumedQuantity(article.local_id.toInt(),it.trim().toInt())
-                                                articleViewModel.updateFilteredArticleList("")
-                                            //screenArticleViewModel.getArticleByIdUseCase(recipe.local_id.toInt())
-                                            }else
-                                                Toast.makeText(mContext,"El dato ingresado debe ser un numero" , Toast.LENGTH_SHORT).show()
-                                        },
-                                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                                        label = { androidx.compose.material3.Text("Cantidad a reponer:") },
-                                        modifier = Modifier
-                                            //.padding(start = 16.dp, end = 16.dp, top = 20.dp)
-                                            .width(170.dp)
-                                    )
-                                    /*
-                                    TextField(
-                                        value = quantityToRestore,
-                                        onValueChange = {
-                                            //screenArticleViewModel.updateQuantity(it)
-                                            //quantityToRestore = it
-                                        },
-                                    )
-                                    //+" "+recipe.unitOfMeasure.toLowerCase()
-                                     */
-                            }
 
+                                /*
+                                Text("Cantidad")
+
+                                var txt =""
+                                val pattern = remember { Regex("^\\d+\$") }
+
+                                TextField(
+                                    value = txt,
+                                    onValueChange = {
+                                        if (it.isEmpty() || it.matches(pattern)) {
+                                            txt = it
+                                        }
+                                    },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                                )
+
+                                 */
+
+                                /*
+                                //val pattern = remember { Regex("^\\d+\$") }
+                                val pattern = remember { Regex("0-9") }
+
+                                var requiredQuantity =0
+                                TextField(
+                                    value = ""+requiredQuantity,
+                                    onValueChange = { text ->
+                                        requiredQuantity = text.toInt()
+
+                                        if(text.matches(Regex("^[0-9]*\$"))){
+                                            Toast.makeText(mContext,"match!", Toast.LENGTH_LONG).show()
+                                        }else{
+                                            Toast.makeText(mContext,"no", Toast.LENGTH_LONG).show()
+                                        }
+                                    },
+                                    keyboardOptions = KeyboardOptions.Default.copy(
+                                        keyboardType = KeyboardType.NumberPassword
+                                    ),
+                                    visualTransformation = VisualTransformation.None
+                                )
+                                */
+
+                                var newQuantity by rememberSaveable { mutableStateOf("") }
+                                OutlinedTextField(
+                                    value = newQuantity,
+                                    onValueChange = {
+                                        newQuantity=it
+                                        article.consumedQuantity=it.toInt()
+                                    },
+                                    /*
+                                    onValueChange = {
+                                        val requiredQuantity = it.trim().toInt()
+                                        if(it.matches(pattern) && it.isNotBlank() && it.isNotEmpty() && it.toInt()!=null){
+
+                                            if(requiredQuantity>0 && requiredQuantity<=article.quantityAvailable.toInt()){
+                                                articleViewModel.updateConsumedQuantity(article.local_id.toInt(),requiredQuantity)
+                                                articleViewModel.updateFilteredArticleList("")
+                                            }else{
+                                                Toast.makeText(mContext,"No hay suficiente cantidad en inventario ", Toast.LENGTH_SHORT).show()
+                                            }
+                                        }else{
+                                            Toast.makeText(mContext,"La cantidad ingresada debe ser un NUMERO ENTERO sin puntos ni espacios"+it.trim().toInt(), Toast.LENGTH_LONG).show()
+                                        }
+                                    },
+                                    */
+                                    //keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                    keyboardOptions = KeyboardOptions.Default.copy(
+                                        keyboardType = KeyboardType.NumberPassword
+                                    ),
+                                    label = { androidx.compose.material3.Text("Cantidad a reponer:") },
+                                    modifier = Modifier
+                                        //.padding(start = 16.dp, end = 16.dp, top = 20.dp)
+                                        .width(170.dp)
+                                )
+
+                            }
                             Row(
                                 modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
                             ) {

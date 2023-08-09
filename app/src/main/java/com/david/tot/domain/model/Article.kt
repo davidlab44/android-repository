@@ -12,10 +12,10 @@ data class Article (
     @ColumnInfo(name = "articleCode") val articleCode: String,
     @ColumnInfo(name = "articleDescription") val articleDescription: String,
     @ColumnInfo(name = "unitOfMeasure") val unitOfMeasure: String,
-    @ColumnInfo(name = "quantityAvailable") val quantityAvailable: Double,
+    @ColumnInfo(name = "quantityAvailable") var quantityAvailable: Double,
     @ColumnInfo(name = "quantityToStock") val quantityToStock: Double,
     @ColumnInfo(name = "quantityToRestore") val quantityToRestore: Int = 0,
-    @ColumnInfo(name = "consumedQuantity") val consumedQuantity: Int = 0
+    @ColumnInfo(name = "consumedQuantity") var consumedQuantity: Int = 0
     /*
     @ColumnInfo(name = "image") val image: String,
     @ColumnInfo(name = "description") val description: String,

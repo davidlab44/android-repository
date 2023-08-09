@@ -2,20 +2,16 @@ package com.david.tot.ui
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.AddProductUseCase
-import com.david.tot.domain.GetRecipesUseCase
+import com.david.tot.domain.GetFromApiUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddProductViewModel @Inject constructor(private val getRecipesUseCase: GetRecipesUseCase,private val addProductUseCase: AddProductUseCase) : ViewModel() {
+class AddProductViewModel @Inject constructor(private val getFromApiUseCase: GetFromApiUseCase, private val addProductUseCase: AddProductUseCase) : ViewModel() {
 
     var responseCode by mutableStateOf<Int>(0)
     var productName by mutableStateOf<String>("")
