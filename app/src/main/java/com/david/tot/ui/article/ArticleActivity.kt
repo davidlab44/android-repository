@@ -232,7 +232,7 @@ fun NavigationBotomMenu(articleViewModel:ArticleViewModel, drugsDeliveryConsumer
 
     NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
         composable(BotomNavigationItem.Home.route) {
-            HeaderAndBodyScreen(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+            ArticleHeaderAndBodyScreen(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
         }
         composable(BotomNavigationItem.Music.route) {
             MusicScreen()

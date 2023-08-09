@@ -44,6 +44,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.david.tot.ui.article.*
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
+import com.david.tot.ui.sync.SyncActivity
 
 
 @AndroidEntryPoint
@@ -336,7 +337,7 @@ fun DrawerContent(
                     ),
                     text = AnnotatedString("Syncronizar") ,
                     onClick = {
-                        //context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                        context.startActivity(Intent(context, SyncActivity::class.java))
                     }
                 )
             }

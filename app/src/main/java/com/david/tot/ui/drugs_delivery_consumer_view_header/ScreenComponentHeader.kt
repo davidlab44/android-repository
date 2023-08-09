@@ -1,6 +1,5 @@
 package com.david.tot.ui.drugs_delivery_consumer_view_header
 
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -41,7 +40,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.david.tot.ui.article.ArticleViewModel
 
 @Composable
-fun ScreenComponentHeader(articleViewModel: ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
     val drugsDeliveryConsumerViewHeader = drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeader
     Column(
         modifier = Modifier.fillMaxSize().padding(5.dp),

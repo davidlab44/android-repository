@@ -11,14 +11,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.david.tot.ui.article.ArticleViewModel
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
-import com.david.tot.ui.drugs_delivery_consumer_view_header.ScreenComponentHeader
-
 
 @Composable
-fun HeaderAndBodyScreen(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
-    drugsDeliveryConsumerViewHeaderViewModel.getAlldrugsDeliveryConsumerViewHeader()
+fun HeaderAndBodyScreen(syncViewModel: SyncViewModel) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         //horizontalAlignment = Alignment.CenterHorizontally
@@ -28,22 +24,23 @@ fun HeaderAndBodyScreen(articleViewModel: ArticleViewModel, drugsDeliveryConsume
             modifier = Modifier.padding(all = 0.dp).height(165.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            ScreenComponentHeader(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+            //ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
         }
         Row(
             modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            BodyArticleList(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+            BodySyncList(syncViewModel)
         }
     }
 }
 
-
+/*
 @Composable
-fun HomeScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
-    HeaderAndBodyScreen(articleViewModel, drugsDeliveryConsumerViewHeaderViewModel)
+fun HomeScreenPreview(syncViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+    HeaderAndBodyScreen(syncViewModel, drugsDeliveryConsumerViewHeaderViewModel)
 }
+*/
 
 @Composable
 fun MusicScreen() {

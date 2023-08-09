@@ -14,9 +14,8 @@ import androidx.compose.ui.unit.sp
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 import com.david.tot.ui.drugs_delivery_consumer_view_header.ScreenComponentHeader
 
-
 @Composable
-fun HeaderAndBodyScreen(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+fun ArticleHeaderAndBodyScreen(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
     drugsDeliveryConsumerViewHeaderViewModel.getAlldrugsDeliveryConsumerViewHeader()
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
@@ -27,7 +26,7 @@ fun HeaderAndBodyScreen(articleViewModel: ArticleViewModel, drugsDeliveryConsume
             modifier = Modifier.padding(all = 0.dp).height(165.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            ScreenComponentHeader(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+            ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
         }
         Row(
             modifier = Modifier.padding(all = 2.dp),
@@ -41,7 +40,7 @@ fun HeaderAndBodyScreen(articleViewModel: ArticleViewModel, drugsDeliveryConsume
 
 @Composable
 fun HomeScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
-    HeaderAndBodyScreen(articleViewModel, drugsDeliveryConsumerViewHeaderViewModel)
+    ArticleHeaderAndBodyScreen(articleViewModel, drugsDeliveryConsumerViewHeaderViewModel)
 }
 
 @Composable

@@ -1,11 +1,7 @@
 package com.david.tot.ui.sync
 
-
-
-
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,8 +20,6 @@ import com.david.tot.ui.theme.TotTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.david.tot.ui.article.*
-
-
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -35,10 +29,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-
- */
+*/
 
 import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.Sync
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -70,8 +64,8 @@ class SyncActivity : ComponentActivity() {
                     val scaffoldState = rememberScaffoldState()
                     val coroutineScope = rememberCoroutineScope()
                     val contextForToast = LocalContext.current.applicationContext
-                    val articleViewModel = viewModel<ArticleViewModel>()
-                    val drugsDeliveryConsumerViewHeaderViewModel = viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
+                    val syncViewModel = viewModel<SyncViewModel>()
+                    //val drugsDeliveryConsumerViewHeaderViewModel = viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
                     //val contextArticleActivity = this@ArticleActivity
 
                     //Bottom nav controller
@@ -84,7 +78,7 @@ class SyncActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         scaffoldState = scaffoldState,
                         topBar = {
-                            TopAppBar(articleViewModel) {
+                            TopAppBar(syncViewModel) {
                                 coroutineScope.launch {
                                     scaffoldState.drawerState.open()
                                 }
@@ -93,7 +87,7 @@ class SyncActivity : ComponentActivity() {
                         bottomBar = { BottomNavigationBar(navController) },
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                NavigationBotomMenu(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel,navController = navController)
+                                NavigationBotomMenu(syncViewModel,navController = navController)
                             }
                         },
                         drawerContent = {
@@ -198,7 +192,7 @@ fun TopAppBar(syncViewModel: SyncViewModel, onNavIconClick: () -> Unit) {
         },
         actions = {
             IconButton(onClick = { /* doSomething() */
-
+                /*
                 var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
 
                 val prefs = FastPrefs(mContext)
@@ -208,9 +202,10 @@ fun TopAppBar(syncViewModel: SyncViewModel, onNavIconClick: () -> Unit) {
                 else
                     Toast.makeText(mContext,"No hay suficiente cantidad en inventario de algunos productos seleccionados" +consumibleGuardado!!.size, Toast.LENGTH_SHORT).show()
                 Log.e("TAG","TAGTAG")
+                 */
             }) {
                 Icon(
-                    imageVector = Icons.Filled.Save,
+                    imageVector = Icons.Filled.Sync,
                     contentDescription = "Localized description"
                 )
             }
@@ -228,11 +223,11 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 */
 
 @Composable
-fun NavigationBotomMenu(articleViewModel:ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel, navController: NavHostController) {
+fun NavigationBotomMenu(syncViewModel:SyncViewModel, navController: NavHostController) {
 
     NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
         composable(BotomNavigationItem.Home.route) {
-            HeaderAndBodyScreen(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+            HeaderAndBodyScreen(syncViewModel)
         }
         composable(BotomNavigationItem.Music.route) {
             MusicScreen()

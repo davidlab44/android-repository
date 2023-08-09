@@ -67,5 +67,10 @@
             android:name="com.david.tot.ui.article.ArticleActivity"
             android:noHistory="true">
         </activity>
+        <activity
+            android:name="com.david.tot.ui.sync.SyncActivity"
+            android:noHistory="true">
+        </activity>
+
     </application>
 </manifest>
