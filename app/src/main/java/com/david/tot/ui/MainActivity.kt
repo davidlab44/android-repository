@@ -3,6 +3,7 @@ package com.david.tot.ui
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -33,7 +34,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.david.tot.R
 import com.david.tot.ui.theme.TotTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -225,13 +228,16 @@ fun DrawerContent(
 
         item {
 
+            val myImage: Drawable? = ResourcesCompat.getDrawable(context.resources, R.drawable.logo, null)
+
             // user's image
             Image(
                 modifier = Modifier
                     .size(size = 120.dp)
                     .clip(shape = CircleShape),
                 //painter = painterResource(id = R.drawable.people1),
-                painter = painterResource(id = R.drawable.baseline_home_24),
+                painter = painterResource(id = R.drawable.loga),
+                //painter = painter(id = R.drawable.baseline_home_24),
                 contentDescription = "Profile Image"
             )
 
