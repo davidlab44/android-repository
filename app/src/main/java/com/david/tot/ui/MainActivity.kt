@@ -239,14 +239,14 @@ fun DrawerContent(
             Text(
                 modifier = Modifier
                     .padding(top = 12.dp),
-                text = "SISMEDICA",
+                text = "GENERAL LEDGER ERP",
                 fontSize = 26.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
             Text(
                 modifier = Modifier.padding(top = 8.dp, bottom = 30.dp),
-                text = "gerencia@sismedica.co",
+                text = "Sistema de información gerencial",
                 fontWeight = FontWeight.Normal,
                 fontSize = 16.sp,
                 color = Color.White
@@ -307,8 +307,6 @@ fun DrawerContent(
             }
         }
         */
-
-
         item {
             Spacer(modifier = Modifier.height(20.dp))
             Row(modifier = Modifier
@@ -320,7 +318,89 @@ fun DrawerContent(
                     modifier = Modifier
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.baseline_home_24),
+                    //painter =  painterResource(id = R.drawable.backup_white_18dp_rotated),
+                    painter = painterResource(R.drawable.backup_white_18dp),
+                    contentDescription = "Syncronizar"
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                ClickableText(
+                    style = TextStyle(
+                        color = Color.White,
+                        fontSize = 26.sp
+                    ),
+                    text = AnnotatedString("Syncronizar") ,
+                    onClick = {
+                        //context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                    }
+                )
+            }
+        }
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(modifier = Modifier
+                .fillMaxSize(),
+                //.border(width = 1.dp, color = Color.Magenta),
+                horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(20.dp))
+                Image(
+                    modifier = Modifier
+                        .size(size = 25.dp)
+                        .clip(shape = CircleShape),
+                    painter = painterResource(id = R.drawable.fact_check_white_18dp),
+                    contentDescription = "Preoperativo"
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                ClickableText(
+                    style = TextStyle(
+                        color = Color.White,
+                        fontSize = 26.sp
+                    ),
+                    text = AnnotatedString("Preoperativo") ,
+                    onClick = {
+                        //context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                    }
+                )
+            }
+        }
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(modifier = Modifier
+                .fillMaxSize(),
+                //.border(width = 1.dp, color = Color.Magenta),
+                horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(20.dp))
+                Image(
+                    modifier = Modifier
+                        .size(size = 25.dp)
+                        .clip(shape = CircleShape),
+                    painter = painterResource(id = R.drawable.fact_check_white_18dp),
+                    contentDescription = "Post Operativo"
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                ClickableText(
+                    style = TextStyle(
+                        color = Color.White,
+                        fontSize = 26.sp
+                    ),
+                    text = AnnotatedString("Post Operativo") ,
+                    onClick = {
+                        //context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                    }
+                )
+            }
+        }
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(modifier = Modifier
+                .fillMaxSize(),
+                //.border(width = 1.dp, color = Color.Magenta),
+                horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(20.dp))
+                Image(
+                    modifier = Modifier
+                        .size(size = 25.dp)
+                        .clip(shape = CircleShape),
+                    painter = painterResource(id = R.drawable.build_white_18dp),
                     contentDescription = "Configuracion"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
@@ -329,7 +409,7 @@ fun DrawerContent(
                         color = Color.White,
                         fontSize = 26.sp
                     ),
-                    text = AnnotatedString("Salida de medicamentos") ,
+                    text = AnnotatedString("Reporte novedades") ,
                     onClick = {
                         context.startActivity(Intent(context,UpdateProductActivity::class.java))
                     }
@@ -347,7 +427,7 @@ fun DrawerContent(
                     modifier = Modifier
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.baseline_home_24),
+                    painter = painterResource(id = R.drawable.receipt_long_white_18dp),
                     contentDescription = "Configuracion"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
@@ -356,9 +436,63 @@ fun DrawerContent(
                         color = Color.White,
                         fontSize = 26.sp
                     ),
-                    text = AnnotatedString("Salida de medicamentos") ,
+                    text = AnnotatedString("Salida medicamentos") ,
                     onClick = {
                         context.startActivity(Intent(context, ArticleActivity::class.java))
+                    }
+                )
+            }
+        }
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(modifier = Modifier
+                .fillMaxSize(),
+                //.border(width = 1.dp, color = Color.Magenta),
+                horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(20.dp))
+                Image(
+                    modifier = Modifier
+                        .size(size = 25.dp)
+                        .clip(shape = CircleShape),
+                    painter = painterResource(id = R.drawable.settings_white_18dp),
+                    contentDescription = "Configuracion"
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                ClickableText(
+                    style = TextStyle(
+                        color = Color.White,
+                        fontSize = 26.sp
+                    ),
+                    text = AnnotatedString("Configuracion") ,
+                    onClick = {
+                        //context.startActivity(Intent(context, ArticleActivity::class.java))
+                    }
+                )
+            }
+        }
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(modifier = Modifier
+                .fillMaxSize(),
+                //.border(width = 1.dp, color = Color.Magenta),
+                horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(20.dp))
+                Image(
+                    modifier = Modifier
+                        .size(size = 25.dp)
+                        .clip(shape = CircleShape),
+                    painter = painterResource(id = R.drawable.logout_white_18dp),
+                    contentDescription = "Salir"
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                ClickableText(
+                    style = TextStyle(
+                        color = Color.White,
+                        fontSize = 26.sp
+                    ),
+                    text = AnnotatedString("Salir") ,
+                    onClick = {
+                        //context.startActivity(Intent(context,UpdateProductActivity::class.java))
                     }
                 )
             }

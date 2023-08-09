@@ -1,4 +1,4 @@
-package com.david.tot.ui.article
+package com.david.tot.ui.sync
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,7 +27,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 
 import androidx.compose.runtime.*
-import androidx.compose.ui.focus.onFocusEvent
+import com.david.tot.ui.article.ArticleViewModel
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 
 @Composable
@@ -212,7 +212,7 @@ fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
                                     keyboardOptions = KeyboardOptions.Default.copy(
                                         keyboardType = KeyboardType.NumberPassword
                                     ),
-                                    label = { androidx.compose.material3.Text("Cantidad") },
+                                    label = { androidx.compose.material3.Text("Cantidad a reponer:") },
                                     modifier = Modifier
                                         //.padding(start = 16.dp, end = 16.dp, top = 20.dp)
                                         .width(170.dp)
