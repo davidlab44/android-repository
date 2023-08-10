@@ -26,8 +26,8 @@ class DrugsDeliveryConsumerViewHeaderService @Inject constructor(private val api
             val body = jsonObject.toString().toRequestBody(mediaType)
             val respuesta = api.sendJson(body)
             val respuestaBody =respuesta.body().toString()
-            val respuestaBody2 = respuesta.body()
-            val respuestaBody3 =respuesta.errorBody()
+            val respuestaBody2 = respuesta.message()
+            val respuestaBody3 =respuesta
             val respuestaBody4 =respuesta.isSuccessful
             val respuestaBody5 =respuesta.code()
             val respuestaRaw =respuesta.raw()

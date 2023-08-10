@@ -20,6 +20,10 @@ interface IArticleApiClient {
     @POST("products")
     suspend fun addOne(@Body product: Article): Response<ResponseBody>
 
+    @POST("api/GlappDrugsDeliveryConsumptionDets")
+    suspend fun postMany(@Body jsonArray: RequestBody): Response<ResponseBody>
+
+
     @PUT("products/{id}")
     suspend fun updateOne(@Path("id") id:String, @Body product:Article): Response<ResponseBody>
 

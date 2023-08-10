@@ -5,6 +5,8 @@ import com.david.tot.data.network.article.ArticleService
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.toDomain
 import com.david.tot.util.IsImageFile
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
 import okhttp3.MultipartBody
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -24,6 +26,10 @@ class ArticleRepository @Inject constructor(
 
     suspend fun addProduct(product:Article):Int{
         return api.addProduct(product)
+    }
+
+    suspend fun postMany(jsonArray: JsonArray):Int{
+        return api.postMany(jsonArray)
     }
 
     suspend fun updateProduct(product:Article):Int{

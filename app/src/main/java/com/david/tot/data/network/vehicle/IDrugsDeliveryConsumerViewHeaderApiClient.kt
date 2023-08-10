@@ -21,7 +21,7 @@ interface IDrugsDeliveryConsumerViewHeaderApiClient {
     */
 
     //@Headers("Content-Type, application/json")
-    @POST("api/APP_SP_DrugsDeliveryConsumerViewArticlesResult")
+    @POST("api/GlappDrugsDeliveryConsumptions")
     suspend fun sendJson(@Body jsonArray: RequestBody): Response<ResponseBody>
 
     //suspend fun sendJson(@Query("jsonArray") jsonObject: JsonArray): Response<ResponseBody>

@@ -48,6 +48,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.Date
 import javax.inject.Inject
 
@@ -63,7 +64,11 @@ class ArticleViewModel @Inject constructor(
 ) : ViewModel() {
     var articleList by mutableStateOf<List<Article>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
-    var key by mutableStateOf<Int>(20230808)
+    //TODO take another approach to create this pkey
+    val sdf = SimpleDateFormat("MMdd hh:mm:ss")
+    val currentDate = sdf.format(Date())
+    val date = currentDate.filter {it in '0'..'9'}
+    val key = date.toInt()
 
     fun onCreate() {
         Log.e("TAG","TAG")
@@ -78,60 +83,60 @@ class ArticleViewModel @Inject constructor(
     }
 
     fun saveArticleListToSync(context: Context):Int {
-
-            var dataList = mutableListOf<Consumible>()
-            val prefs = FastPrefs(context)
-
-            //val pattern = remember { Regex("^\\d+\$") }
-            var pattern by mutableStateOf<Regex>(Regex("^\\d+\$"))
+        var dataList = mutableListOf<Consumible>()
+        val prefs = FastPrefs(context)
+        //val pattern = remember { Regex("^\\d+\$") }
+        var pattern by mutableStateOf<Regex>(Regex("^\\d+\$"))
         val failedList = mutableListOf<Int>()
+        var quantityAvailable = 0
+        articleList.forEach { article -> quantityAvailable = article.quantityAvailable.toInt()-article.consumedQuantity.toInt()
+            if(article.consumedQuantity.toInt()>0){
+                if(quantityAvailable>0){
+                    article.quantityAvailable = quantityAvailable.toDouble()
+                    dataList.add(Consumible(article.local_id,key,article.articleDescription,article.consumedQuantity,article.unitOfMeasure,"2023-08-08T00:48:12.104Z",0))
+                    //updateConsumedQuantity(article.local_id.toInt(),requiredQuantity)
+                    //updateFilteredArticleList("")
 
-            var quantityAvailable = 0
-
-            articleList.forEach { article -> quantityAvailable = article.quantityAvailable.toInt()-article.consumedQuantity.toInt()
-                if(article.consumedQuantity.toInt()>0){
-                    if(quantityAvailable>0){
-                        article.quantityAvailable = quantityAvailable.toDouble()
-                        dataList.add(Consumible(article.local_id,key,article.articleDescription,article.consumedQuantity,article.unitOfMeasure,"2023-08-08T00:48:12.104Z",0))
-                        //updateConsumedQuantity(article.local_id.toInt(),requiredQuantity)
-                        //updateFilteredArticleList("")
-
-                    }else{
-                        failedList.add(article.local_id)
-                    }
-                }
-            }
-            if(failedList.isEmpty()){
-                //Guardar en shared preferences
-                //Guardar en la base de datos
-                prefs.set(""+key,dataList)
-                CoroutineScope(Dispatchers.IO).launch {
-                    addOneSyncFromLocalDatabaseUseCase.invoke(Sync(key, "Consumible", Date().toString(),key))
-                    val syncPendingList = getAllSyncFromLocalDatabaseUseCase.invoke()
-                    val syncListToString = syncPendingList.toString()
-                }
-
-                return 1
-            }else{
-                //retorna un aviso que faltan
-                return 2
-            }
-            /*
-            articleList.forEach {article->
-                if(article.consumedQuantity.toInt()>0){
-                    if(requiredQuantity>0 && requiredQuantity<=article.quantityAvailable.toInt()){
-                        articleViewModel.updateConsumedQuantity(article.local_id.toInt(),requiredQuantity)
-                        articleViewModel.updateFilteredArticleList("")
-                    }else{
-                        Toast.makeText(mContext,"No hay suficiente cantidad en inventario ", Toast.LENGTH_SHORT).show()
-                    }
                 }else{
-                    Toast.makeText(mContext,"La cantidad ingresada debe ser un NUMERO ENTERO sin puntos ni espacios"+it.trim().toInt(), Toast.LENGTH_LONG).show()
+                    failedList.add(article.local_id)
                 }
             }
-            */
+        }
+        if(failedList.isEmpty()){
+            //Guardar en shared preferences
+            //Guardar en la base de datos
+            prefs.set(""+key,dataList)
+            CoroutineScope(Dispatchers.IO).launch {
+                addOneSyncFromLocalDatabaseUseCase.invoke(Sync(key, key,"Consumible", Date().toString(),currentDate))
+                val syncPendingList = getAllSyncFromLocalDatabaseUseCase.invoke()
+                val syncListToString = syncPendingList.toString()
+            }
 
-
+            return 1
+        }else{
+            //TODO Erase this block until return ...
+            System.out.println(" C DATE is  "+currentDate)
+            Log.e("TAG",""+sdf)
+            Log.e("TAG",""+currentDate)
+            Log.e("TAG",""+key)
+            Log.e("TAG",""+currentDate)
+            //retorna un aviso que faltan
+            return 2
+        }
+        /*
+        articleList.forEach {article->
+            if(article.consumedQuantity.toInt()>0){
+                if(requiredQuantity>0 && requiredQuantity<=article.quantityAvailable.toInt()){
+                    articleViewModel.updateConsumedQuantity(article.local_id.toInt(),requiredQuantity)
+                    articleViewModel.updateFilteredArticleList("")
+                }else{
+                    Toast.makeText(mContext,"No hay suficiente cantidad en inventario ", Toast.LENGTH_SHORT).show()
+                }
+            }else{
+                Toast.makeText(mContext,"La cantidad ingresada debe ser un NUMERO ENTERO sin puntos ni espacios"+it.trim().toInt(), Toast.LENGTH_LONG).show()
+            }
+        }
+        */
 
     }
     /*

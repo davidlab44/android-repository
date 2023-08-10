@@ -4,6 +4,7 @@ import com.david.tot.data.database.dao.ArticleDao
 import com.david.tot.data.database.dao.SyncDao
 import com.david.tot.data.network.article.ArticleService
 import com.david.tot.domain.model.Article
+import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.toDomain
 import com.david.tot.util.IsImageFile
@@ -25,4 +26,5 @@ class SyncRepository @Inject constructor(
         val response: List<Sync> = syncDao.getAll()
         return response.map { it.toDomain() }
     }
+
 }
