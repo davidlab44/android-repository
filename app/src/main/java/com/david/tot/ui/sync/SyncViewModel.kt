@@ -1,32 +1,23 @@
 package com.david.tot.ui.sync
 
-import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.david.tot.domain.UpdateConsumedQuantityUseCase
-import com.david.tot.domain.article.GetAllFromApiUseCase
-import com.david.tot.domain.article.GetAllFromLocalDatabaseUseCase
-import com.david.tot.domain.article.GetArticleByIdUseCase
-import com.david.tot.domain.article.GetFilteredArticleListUseCase
-import com.david.tot.domain.model.Article
-import com.david.tot.domain.model.Consumible
+import com.david.tot.domain.drugs_delivery_consumer_view_header.PostOneDrugsDeliveryConsumerViewHeaderUseCase
 import com.david.tot.domain.model.Sync
-import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
-import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
 class SyncViewModel @Inject constructor(
     private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase,
+    private val postOneDrugsDeliveryConsumerViewHeaderUseCase: PostOneDrugsDeliveryConsumerViewHeaderUseCase
 ) : ViewModel() {
     var articleList by mutableStateOf<List<Sync>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
@@ -44,8 +35,21 @@ class SyncViewModel @Inject constructor(
         }
     }
 
-    fun sync(){
+    fun syncConsumible(){
         //Crear el header
+        CoroutineScope(Dispatchers.IO).launch {
+            //val id = Calendar.getInstance().time
+            //1.obtener any consumible de la base de datos
+            //2.enviar header
+            //3.extraer el id del header creado
+            //4.actualizar la lista de consumibles con el id de
+            //5.enviar la lista de consumibles
+            //6.notificar que se creo exitosamente/o no se pudo crear,  y en caso exitoso ir atras al MainActivity
+            val result = getAllSyncFromLocalDatabaseUseCase.invoke()
+            if (!result.isNullOrEmpty()) {
+                articleList =result
+            }
+        }
     }
 
     /*

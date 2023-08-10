@@ -189,7 +189,7 @@ fun TopAppBarSyncAcivity(syncViewModel: SyncViewModel, onNavIconClick: () -> Uni
         actions = {
             IconButton(onClick = { /* doSomething() */
                 //enviar lo que hay pendiente al servidor, crear la header y enviarla [se usa el tipo de dato vehicle]
-                syncViewModel.sync()
+                syncViewModel.syncConsumible()
                 //cuando el header responda ...
                 //...Insertar los consumibles
                 //cuando los consumibles responda ok

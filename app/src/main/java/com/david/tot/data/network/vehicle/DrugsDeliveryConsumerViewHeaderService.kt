@@ -5,6 +5,7 @@ import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
@@ -18,7 +19,7 @@ class DrugsDeliveryConsumerViewHeaderService @Inject constructor(private val api
         }
     }
 
-    suspend fun saveInventoryOutputInremoteServer(jsonObject: JsonArray):Int{
+    suspend fun postOne(jsonObject: JsonObject):Int{
         return withContext(Dispatchers.IO) {
 
             val mediaType = "application/json".toMediaType()

@@ -35,7 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.drugs_delivery_consumer_view_header.GetAllDrugsDeliveryConsumerViewHeaderUseCase
 import com.david.tot.domain.drugs_delivery_consumer_view_header.GetAnyDrugsDeliveryConsumerViewHeaderUseCase
-import com.david.tot.domain.drugs_delivery_consumer_view_header.SaveInventoryOutputInremoteServerUseCase
+import com.david.tot.domain.drugs_delivery_consumer_view_header.PostOneDrugsDeliveryConsumerViewHeaderUseCase
 import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -48,7 +48,7 @@ import javax.inject.Inject
 class DrugsDeliveryConsumerViewHeaderViewModel @Inject constructor(
     private val getAllDrugsDeliveryConsumerViewHeaderUseCase: GetAllDrugsDeliveryConsumerViewHeaderUseCase,
     private val getAnyDrugsDeliveryConsumerViewHeaderUseCase: GetAnyDrugsDeliveryConsumerViewHeaderUseCase,
-    private val saveInventoryOutputInremoteServerUseCase:SaveInventoryOutputInremoteServerUseCase
+    private val postOneDrugsDeliveryConsumerViewHeaderUseCase:PostOneDrugsDeliveryConsumerViewHeaderUseCase
 ) : ViewModel() {
 
     var drugsDeliveryConsumerViewHeaderFromApiList by mutableStateOf<List<DrugsDeliveryConsumerViewHeader>>(emptyList())
@@ -69,7 +69,7 @@ class DrugsDeliveryConsumerViewHeaderViewModel @Inject constructor(
 
     fun saveInventoryOutputInremoteServer(inventoryOutput: JsonArray){
         CoroutineScope(Dispatchers.IO).launch {
-            inventoryOutputResponseCode = saveInventoryOutputInremoteServerUseCase.invoke(inventoryOutput)
+            inventoryOutputResponseCode = postOneDrugsDeliveryConsumerViewHeaderUseCase.invoke(inventoryOutput)
         }
     }
 

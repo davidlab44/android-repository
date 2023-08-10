@@ -17,7 +17,6 @@ import javax.inject.Inject
 class SyncRepository @Inject constructor(
     private val syncDao: SyncDao
 ) {
-
     suspend fun addOne(sync:Sync){
         return syncDao.addOne(sync)
     }
@@ -26,39 +25,4 @@ class SyncRepository @Inject constructor(
         val response: List<Sync> = syncDao.getAll()
         return response.map { it.toDomain() }
     }
-    /*
-    suspend fun addOne(sync:Sync):Int{
-        return api.addProduct(product)
-    }
-
-    suspend fun updateProduct(product:Article):Int{
-        val responseCode = api.updateProduct(product)
-        return responseCode
-    }
-
-    suspend fun deleteProduct(id:Int):Int{
-        val responseCode = api.deleteProduct(id)
-        return responseCode
-    }
-
-    suspend fun getAllRecipesFromDatabase():List<Article>{
-        val response: List<Article> = articleDao.getAll()
-        return response.map { it.toDomain() }
-    }
-
-    suspend fun getFiltered(hash: String): List<Article> {
-        val response: List<Article> = articleDao.getFiltered(hash)
-        response.map { it.toDomain() }
-        return articleDao.getFiltered(hash)
-    }
-
-    suspend fun insertOne(sync: Sync){
-        articleDao.insertAll(sync)
-    }
-
-    suspend fun clearRecipes(){
-        articleDao.deleteAll()
-    }
-    */
-
 }
