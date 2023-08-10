@@ -61,9 +61,6 @@ fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
 
         */
 
-
-
-
         OutlinedTextField(
             value = text,
             modifier = Modifier
@@ -80,7 +77,6 @@ fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
 
         articleViewModel.updateFilteredArticleList(text)
         //Text(text="Aqui"+text)
-
 
         val listModifier = Modifier
             .fillMaxSize()
@@ -139,8 +135,6 @@ fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
                                     Text(text = recipe.articleDescription)
                                 }
                             }
-
-
                             Row(
                                 modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
                             ) {
@@ -175,10 +169,6 @@ fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
                                             if(it!=""
                                                 //&&it.trim().isNullOrEmpty()&&it.toInt()!=null&&it.toInt()!=null&&it.trim()!=""
                                             ){
-
-
-
-
                                                 //articleViewModel.updateQuantity(recipe.local_id.toInt(),it.trim().toInt())
                                                 //screenArticleViewModel.getArticleByIdUseCase(recipe.local_id.toInt())
                                             }else

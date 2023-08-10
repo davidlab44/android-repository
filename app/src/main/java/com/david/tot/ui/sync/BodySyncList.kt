@@ -67,7 +67,7 @@ fun BodySyncList(syncViewModel: SyncViewModel) {
                             ) {
                                 Box(
                                 ) {
-                                    Text(text = "Local_id: "+sync.local_id)
+                                    Text(text = "ID: "+sync.local_id)
                                 }
                             }
                             Row(
@@ -76,7 +76,7 @@ fun BodySyncList(syncViewModel: SyncViewModel) {
                                 Box(
 
                                 ) {
-                                    Text(text = "key: "+sync.objectId)
+                                    Text(text = "Tipo: "+sync.objectId)
                                 }
                             }
                             Row(
@@ -85,18 +85,20 @@ fun BodySyncList(syncViewModel: SyncViewModel) {
                                 Box(
 
                                 ) {
-                                    Text(text = "tipo: "+sync.objectType)
+                                    Text(text = "Fecha: "+sync.objectType)
                                 }
                             }
+                            /*
                             Row(
                                 modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
                             ) {
                                 Box(
 
                                 ) {
-                                    Text(text = "Fecha de creacion: "+sync.createdAt)
+                                    Text(text = "Fecha de creación: "+sync.createdAt)
                                 }
                             }
+                            */
                         }
                     }
                 )
