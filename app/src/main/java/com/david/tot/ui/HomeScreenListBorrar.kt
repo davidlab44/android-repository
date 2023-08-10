@@ -43,6 +43,8 @@ fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
         var text by rememberSaveable { mutableStateOf("") }
 
         /*
+        //filtro
+
         TextField(
             value = text,
             onValueChange = {
@@ -56,6 +58,7 @@ fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
                 )
             },
         )
+
         */
 
 
