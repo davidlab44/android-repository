@@ -2,11 +2,8 @@ package com.david.tot.data
 
 import com.david.tot.data.database.dao.DrugsDeliveryConsumerViewHeaderDao
 import com.david.tot.data.network.vehicle.DrugsDeliveryConsumerViewHeaderService
-import com.david.tot.domain.model.ConsumibleHeader
 import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
 import com.david.tot.domain.model.toDomain
-import kotlinx.serialization.json.JsonObject
-import org.json.JSONObject
 import javax.inject.Inject
 
 class DrugsDeliveryConsumerViewHeaderRepository @Inject constructor(
@@ -29,7 +26,7 @@ class DrugsDeliveryConsumerViewHeaderRepository @Inject constructor(
         //return response.map { it.toDomain() }
     }
 
-    suspend fun postOneDrugsDeliveryConsumerViewHeader(jsonObject: JsonObject):Int{
+    suspend fun postOneDrugsDeliveryConsumerViewHeader(jsonObject: String):Int{
         return api.postOne(jsonObject)
     }
 

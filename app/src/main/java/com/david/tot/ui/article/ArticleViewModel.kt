@@ -138,7 +138,7 @@ class ArticleViewModel @Inject constructor(
                         key,
                         key,
                         "Consumible",
-                        Date().toString(),
+                        "2023-08-08T00:48:12.104Z",
                         currentDate
                     )
                 )

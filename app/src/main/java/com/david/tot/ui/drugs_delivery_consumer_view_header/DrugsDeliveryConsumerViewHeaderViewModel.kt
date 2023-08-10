@@ -41,7 +41,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import javax.inject.Inject
 
@@ -67,12 +66,14 @@ class DrugsDeliveryConsumerViewHeaderViewModel @Inject constructor(
         }
     }
 
-
+/*
     fun saveInventoryOutputInremoteServer(inventoryOutput: JsonObject){
         CoroutineScope(Dispatchers.IO).launch {
             inventoryOutputResponseCode = postOneDrugsDeliveryConsumerViewHeaderUseCase.invoke(inventoryOutput)
         }
     }
+
+ */
 
     /*
     fun getAnyDrugsDeliveryConsumerViewHeaderFromDatabase(){

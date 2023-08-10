@@ -1,13 +1,15 @@
 package com.david.tot.data.network.vehicle
 
 
+import com.david.tot.domain.model.ConsumibleHeader
 import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonObject
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.text.SimpleDateFormat
+import java.util.Date
 import javax.inject.Inject
 
 class DrugsDeliveryConsumerViewHeaderService @Inject constructor(private val api: IDrugsDeliveryConsumerViewHeaderApiClient) {
@@ -19,11 +21,22 @@ class DrugsDeliveryConsumerViewHeaderService @Inject constructor(private val api
         }
     }
 
-    suspend fun postOne(jsonObject: JsonObject):Int{
+    suspend fun postOne(jsonObject: String):Int{
         return withContext(Dispatchers.IO) {
 
+            val sdf = SimpleDateFormat("hh:mm:ss")
+            val currentDate = sdf.format(Date())
+            val date = currentDate.filter {it in '0'..'9'}
+
+
+            var gson = Gson()
+            var yourModel = gson.fromJson(jsonObject, ConsumibleHeader::class.java)
+            yourModel.consumptionId=0
+            yourModel.creationDate = "2019-08-10T19:18:30.384Z"
+            var headerConsumible = gson.toJson(yourModel)
+
             val mediaType = "application/json".toMediaType()
-            val body = jsonObject.toString().toRequestBody(mediaType)
+            val body = headerConsumible.toString().toRequestBody(mediaType)
             val respuesta = api.sendJson(body)
             val respuestaBody =respuesta.body().toString()
             val respuestaBody2 = respuesta.message()

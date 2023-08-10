@@ -1,5 +1,7 @@
 package com.david.tot.ui.sync
 
+import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -7,12 +9,20 @@ import androidx.lifecycle.ViewModel
 import com.david.tot.domain.article.PostManyArticleUseCase
 import com.david.tot.domain.drugs_delivery_consumer_view_header.GetAnyDrugsDeliveryConsumerViewHeaderUseCase
 import com.david.tot.domain.drugs_delivery_consumer_view_header.PostOneDrugsDeliveryConsumerViewHeaderUseCase
+import com.david.tot.domain.model.Consumible
+import com.david.tot.domain.model.ConsumibleHeader
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
+import com.google.gson.Gson
+import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,8 +50,8 @@ class SyncViewModel @Inject constructor(
         }
     }
 
-    /*
-    fun syncConsumible(mContext:Context){
+
+    fun syncConsumible(mContext: Context){
         //Crear el header
         CoroutineScope(Dispatchers.IO).launch {
             //-1.val id = Calendar.getInstance().time
@@ -58,10 +68,15 @@ class SyncViewModel @Inject constructor(
                 var dataList = mutableListOf<Consumible>()
                 val prefs = FastPrefs(mContext)
                 prefs.get(""+key,dataList)
-                var headerConsumible = ConsumibleHeader(key.toInt(),consumible.consumer,consumible.vehicle,"Example2","2023-08-10T01:42:45.655Z",0)
-                var headerConsumibleToJson = Json.encodeToString(headerConsumible)
-                val JsonObject = Json.decodeFromString<JsonObject>(headerConsumibleToJson)
-                val responseCode =postOneDrugsDeliveryConsumerViewHeaderUseCase.invoke(JsonObject)
+                var headerCons = ConsumibleHeader(key.toInt(),consumible.consumer,consumible.vehicle,"Example2","2023-08-10T01:42:45.655Z",0)
+                var gson = Gson()
+                var headerConsumible = gson.toJson(headerCons)
+                //var headerConsumibleToJson = Json.encodeToString(headerConsumible)
+                //val JsonObject = Json.decodeFromString<ConsumibleHeader>(headerConsumibleToJson)
+                //val tt=  JsonObject.toString()
+                Log.e("TAG",""+headerConsumible)
+
+                val responseCode =postOneDrugsDeliveryConsumerViewHeaderUseCase.invoke(headerConsumible)
                 if(responseCode in 200..300){
                     var consumibleToJsonArray = Json.encodeToString(dataList)
                     val jsonArray = Json.decodeFromString<JsonArray>(consumibleToJsonArray)
@@ -69,11 +84,12 @@ class SyncViewModel @Inject constructor(
                     if(responseCodeConsumible in 200..300)
                         toastInsertedSuccessfully=true
                 }
+
             }else{
                 toastTheresNotConsumiblesToSync=true
             }
         }
     }
 
-     */
+
 }
