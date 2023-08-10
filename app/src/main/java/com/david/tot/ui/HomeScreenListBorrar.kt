@@ -29,8 +29,6 @@ import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsume
 @Composable
 fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
 
-
-    /*
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
 
@@ -87,7 +85,7 @@ fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
             .padding(top= 15.dp)
             .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
-            val recipeList2 =articleViewModel.articleModel
+            val recipeList2 =articleViewModel.articleList
             //val recipeList =CheckList
             //var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
             /*
@@ -102,7 +100,7 @@ fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
             //send json to the server
             drugsDeliveryConsumerViewHeaderViewModel.saveInventoryOutputInremoteServer(jsonArray)
             */
-            val recipeList =articleViewModel.articleModel
+            val recipeList =articleViewModel.articleList
             items(recipeList) { recipe ->
                 Card(
                     modifier = Modifier
@@ -217,7 +215,5 @@ fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
             }
         }
     }
-
-     */
 }
 

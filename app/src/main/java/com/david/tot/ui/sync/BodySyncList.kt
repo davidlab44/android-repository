@@ -32,39 +32,15 @@ import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsume
 
 @Composable
 fun BodySyncList(syncViewModel: SyncViewModel) {
-
-    syncViewModel.onCreate()
-    //var quantityToRestore by rememberSaveable {mutableStateOf("") }
     val mContext = LocalContext.current
     val articleList =syncViewModel.articleList
-    val size = articleList.size
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var text by rememberSaveable { mutableStateOf("") }
-        val pattern = remember { Regex("^\\d+\$") }
-
-        Box(){
-           Card(
-               modifier = Modifier.fillMaxWidth().padding(8.dp).clickable{},
-               elevation = 10.dp,
-               content = {
-                   Column( horizontalAlignment = Alignment.CenterHorizontally,
-                       modifier = Modifier.border(1.dp, Color.Gray, RectangleShape).fillMaxWidth().padding(20.dp)) {
-                       Row(
-                           modifier = Modifier.padding(all = 12.dp),horizontalArrangement = Arrangement.Center
-                       ){
-                           Text(
-                               text = "ELEMENTOS PENDIENTES: "+size,
-                               color = Color.Black, fontSize = 15.sp, fontWeight = FontWeight.Black)
-                       }
-                   }
-               }
-           )
-       }
-
+        //var text by rememberSaveable { mutableStateOf("") }
+        //val pattern = remember { Regex("^\\d+\$") }
         val listModifier = Modifier
             .fillMaxSize()
             .background(Color.White)
@@ -72,7 +48,6 @@ fun BodySyncList(syncViewModel: SyncViewModel) {
             .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
             //LIST
-
             items(articleList) { sync ->
                 Card(
                     modifier = Modifier
@@ -95,7 +70,6 @@ fun BodySyncList(syncViewModel: SyncViewModel) {
                                     Text(text = "Local_id: "+sync.local_id)
                                 }
                             }
-
                             Row(
                                 modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
                             ) {
@@ -129,114 +103,4 @@ fun BodySyncList(syncViewModel: SyncViewModel) {
             }
         }
     }
-
-    /*
-    syncViewModel.onCreate()
-    //var quantityToRestore by rememberSaveable {mutableStateOf("") }
-    val mContext = LocalContext.current
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        var text by rememberSaveable { mutableStateOf("") }
-        val pattern = remember { Regex("^\\d+\$") }
-
-        OutlinedTextField(
-            value = text,
-            modifier = Modifier
-                .fillMaxWidth()
-                //.background(Color.White)
-                //.background(Color(0xFF22475b))
-                .padding(12.dp),
-            onValueChange = { newText ->
-                text = newText
-            },
-            label = { Text(text = "Buscar") },
-            placeholder = { Text(text = "") }
-        )
-
-        //syncViewModel.updateFilteredArticleList(text)
-        //Text(text="Aqui"+text)
-
-
-        val listModifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .padding(top= 15.dp)
-            .align(Alignment.CenterHorizontally)
-        LazyColumn(modifier = listModifier) {
-            val recipeList2 =syncViewModel.articleList
-            //val recipeList =CheckList
-            //var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
-            //LIST
-            val articleList =syncViewModel.articleList
-            items(articleList) { article ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                        .clickable { },
-                    elevation = 10.dp,
-                    content = {
-                        Column(
-                            //horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier
-                                .border(1.dp, Color.Gray, RectangleShape)
-                                .fillMaxWidth()
-                                .padding(10.dp)) {
-                            Row(
-                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
-                            ) {
-                                Box(
-                                ) {
-                                    Text(text = "Local_id: "+article.local_id+" Descripcion: "+article.articleDescription)
-                                }
-                            }
-
-                            Row(
-                            ) {
-                                var newQuantity by rememberSaveable { mutableStateOf("") }
-                                OutlinedTextField(
-                                    value = newQuantity,
-                                    onValueChange = {
-                                        newQuantity=it
-                                        article.consumedQuantity=it.toInt()
-                                    },
-                                    keyboardOptions = KeyboardOptions.Default.copy(
-                                        keyboardType = KeyboardType.NumberPassword
-                                    ),
-                                    label = { androidx.compose.material3.Text("Cantidad a reponer:") },
-                                    modifier = Modifier
-                                        //.padding(start = 16.dp, end = 16.dp, top = 20.dp)
-                                        .width(170.dp)
-                                )
-
-                            }
-                            Row(
-                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
-                            ) {
-                                Box(
-
-                                ) {
-                                    Text(text = "Disponible en inventario: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
-                                }
-                            }
-                            Row(
-                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
-                            ) {
-                                Box(
-
-                                ) {
-                                    Text(text = "nueva cantidad: "+article.consumedQuantity.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
-                                }
-                            }
-                        }
-                    }
-                )
-            }
-        }
-    }
-
-     */
 }

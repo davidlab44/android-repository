@@ -34,6 +34,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.UpdateConsumedQuantityUseCase
+import com.david.tot.domain.article.AddAllArticleToLocalDatabaseUseCase
 import com.david.tot.domain.article.GetAllFromApiUseCase
 import com.david.tot.domain.article.GetAllFromLocalDatabaseUseCase
 import com.david.tot.domain.article.GetArticleByIdUseCase
@@ -62,7 +63,8 @@ class ArticleViewModel @Inject constructor(
     private val getAllFromLocalDatabaseUseCase: GetAllFromLocalDatabaseUseCase,
     private val addOneSyncFromLocalDatabaseUseCase: AddOneSyncFromLocalDatabaseUseCase,
     private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase,
-    private val updateAllArticlesInLocalDatabaseUseCase: UpdateAllArticlesInLocalDatabaseUseCase
+    private val updateAllArticlesInLocalDatabaseUseCase: UpdateAllArticlesInLocalDatabaseUseCase,
+    private val addAllArticleToLocalDatabaseUseCase: AddAllArticleToLocalDatabaseUseCase
 ) : ViewModel() {
     var articleList by mutableStateOf<List<Article>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
@@ -93,7 +95,8 @@ class ArticleViewModel @Inject constructor(
         var quantityAvailable = 0
         articleList.forEach { article ->
             quantityAvailable = article.quantityAvailable.toInt() - article.consumedQuantity.toInt()
-            if (article.consumedQuantity.toInt() > 0) {
+
+            if (article.consumedQuantity> 0) {
                 if (quantityAvailable > 0) {
                     article.quantityAvailable = quantityAvailable.toDouble()
                     dataList.add(
@@ -126,6 +129,10 @@ class ArticleViewModel @Inject constructor(
                 )
                 val syncPendingList = getAllSyncFromLocalDatabaseUseCase.invoke()
                 val syncListToString = syncPendingList.toString()
+                val result = addAllArticleToLocalDatabaseUseCase.invoke(articleList)
+                if (!result.isNullOrEmpty()) {
+                    articleList =result
+                }
             }
             return 1
         } else {

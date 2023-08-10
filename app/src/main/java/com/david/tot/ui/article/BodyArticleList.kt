@@ -188,26 +188,11 @@ fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
                                 var newQuantity by rememberSaveable { mutableStateOf("") }
                                 OutlinedTextField(
                                     value = newQuantity,
-                                    onValueChange = {
-                                        newQuantity=it
-                                        article.consumedQuantity=it.toInt()
+                                    onValueChange = {cant->
+                                        newQuantity=cant
+                                        val cantCasted = cant.filter {it in '0'..'9'}
+                                        article.consumedQuantity=cantCasted.toInt()
                                     },
-                                    /*
-                                    onValueChange = {
-                                        val requiredQuantity = it.trim().toInt()
-                                        if(it.matches(pattern) && it.isNotBlank() && it.isNotEmpty() && it.toInt()!=null){
-
-                                            if(requiredQuantity>0 && requiredQuantity<=article.quantityAvailable.toInt()){
-                                                articleViewModel.updateConsumedQuantity(article.local_id.toInt(),requiredQuantity)
-                                                articleViewModel.updateFilteredArticleList("")
-                                            }else{
-                                                Toast.makeText(mContext,"No hay suficiente cantidad en inventario ", Toast.LENGTH_SHORT).show()
-                                            }
-                                        }else{
-                                            Toast.makeText(mContext,"La cantidad ingresada debe ser un NUMERO ENTERO sin puntos ni espacios"+it.trim().toInt(), Toast.LENGTH_LONG).show()
-                                        }
-                                    },
-                                    */
                                     //keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     keyboardOptions = KeyboardOptions.Default.copy(
                                         keyboardType = KeyboardType.NumberPassword

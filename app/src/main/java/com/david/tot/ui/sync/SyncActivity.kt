@@ -61,6 +61,7 @@ class SyncActivity : ComponentActivity() {
                     val coroutineScope = rememberCoroutineScope()
                     val contextForToast = LocalContext.current.applicationContext
                     val syncViewModel = viewModel<SyncViewModel>()
+                    syncViewModel.onCreate()
                     //val drugsDeliveryConsumerViewHeaderViewModel = viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
                     //val contextArticleActivity = this@ArticleActivity
                     if(syncViewModel.toastTheresNotConsumiblesToSync)
