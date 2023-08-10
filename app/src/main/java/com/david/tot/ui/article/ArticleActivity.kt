@@ -84,7 +84,7 @@ class ArticleActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         scaffoldState = scaffoldState,
                         topBar = {
-                            TopAppBar(articleViewModel) {
+                            TopAppBarSyncAcivity(articleViewModel) {
                                 coroutineScope.launch {
                                     scaffoldState.drawerState.open()
                                 }
@@ -180,7 +180,7 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 
 
 @Composable
-fun TopAppBar(articleViewModel: ArticleViewModel,onNavIconClick: () -> Unit) {
+fun TopAppBarSyncAcivity(articleViewModel: ArticleViewModel, onNavIconClick: () -> Unit) {
     val mContext = LocalContext.current.applicationContext
     TopAppBar(
         title = { Text(text = "GLAPP") },

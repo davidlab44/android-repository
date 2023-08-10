@@ -44,6 +44,9 @@ class SyncViewModel @Inject constructor(
         }
     }
 
+    fun sync(){
+        //Crear el header
+    }
 
     /*
     fun saveArticleListToSync(context: Context):Int {

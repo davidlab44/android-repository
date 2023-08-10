@@ -33,7 +33,6 @@ import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsume
 @Composable
 fun BodySyncList(syncViewModel: SyncViewModel) {
 
-
     syncViewModel.onCreate()
     //var quantityToRestore by rememberSaveable {mutableStateOf("") }
     val mContext = LocalContext.current
@@ -65,7 +64,6 @@ fun BodySyncList(syncViewModel: SyncViewModel) {
                }
            )
        }
-
 
         val listModifier = Modifier
             .fillMaxSize()
@@ -132,7 +130,7 @@ fun BodySyncList(syncViewModel: SyncViewModel) {
         }
     }
 
-/*
+    /*
     syncViewModel.onCreate()
     //var quantityToRestore by rememberSaveable {mutableStateOf("") }
     val mContext = LocalContext.current

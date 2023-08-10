@@ -31,7 +31,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 */
 
-import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -43,10 +42,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.david.tot.domain.model.Consumible
 import com.david.tot.ui.DrawerContent
-import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
-import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -78,7 +74,7 @@ class SyncActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         scaffoldState = scaffoldState,
                         topBar = {
-                            TopAppBar(syncViewModel) {
+                            TopAppBarSyncAcivity(syncViewModel) {
                                 coroutineScope.launch {
                                     scaffoldState.drawerState.open()
                                 }
@@ -174,7 +170,7 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 
 
 @Composable
-fun TopAppBar(syncViewModel: SyncViewModel, onNavIconClick: () -> Unit) {
+fun TopAppBarSyncAcivity(syncViewModel: SyncViewModel, onNavIconClick: () -> Unit) {
     val mContext = LocalContext.current.applicationContext
     TopAppBar(
         title = { Text(text = "GLAPP") },
@@ -192,17 +188,16 @@ fun TopAppBar(syncViewModel: SyncViewModel, onNavIconClick: () -> Unit) {
         },
         actions = {
             IconButton(onClick = { /* doSomething() */
-                /*
-                var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
+                //enviar lo que hay pendiente al servidor, crear la header y enviarla [se usa el tipo de dato vehicle]
+                syncViewModel.sync()
+                //cuando el header responda ...
+                //...Insertar los consumibles
+                //cuando los consumibles responda ok
+                //eliminar el registro de la tabla
 
-                val prefs = FastPrefs(mContext)
-                val consumibleGuardado = prefs.get(syncViewModel.key.toString(),dataList)
-                if(syncViewModel.saveArticleListToSync(mContext)==1)
-                    Toast.makeText(mContext,"Consumible creado exitosamente"+consumibleGuardado!!.size, Toast.LENGTH_SHORT).show()
-                else
-                    Toast.makeText(mContext,"No hay suficiente cantidad en inventario de algunos productos seleccionados" +consumibleGuardado!!.size, Toast.LENGTH_SHORT).show()
-                Log.e("TAG","TAGTAG")
-                 */
+
+                ///TODO cuando elimine el registro verificar si hay mas elementos pendientes  y repetir la operacion
+
             }) {
                 Icon(
                     imageVector = Icons.Filled.Sync,
