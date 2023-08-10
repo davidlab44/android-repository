@@ -38,6 +38,7 @@ import com.david.tot.domain.article.GetAllFromApiUseCase
 import com.david.tot.domain.article.GetAllFromLocalDatabaseUseCase
 import com.david.tot.domain.article.GetArticleByIdUseCase
 import com.david.tot.domain.article.GetFilteredArticleListUseCase
+import com.david.tot.domain.article.UpdateAllArticlesInLocalDatabaseUseCase
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.Sync
@@ -61,6 +62,7 @@ class ArticleViewModel @Inject constructor(
     private val getAllFromLocalDatabaseUseCase: GetAllFromLocalDatabaseUseCase,
     private val addOneSyncFromLocalDatabaseUseCase: AddOneSyncFromLocalDatabaseUseCase,
     private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase,
+    private val updateAllArticlesInLocalDatabaseUseCase: UpdateAllArticlesInLocalDatabaseUseCase
 ) : ViewModel() {
     var articleList by mutableStateOf<List<Article>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
@@ -86,79 +88,55 @@ class ArticleViewModel @Inject constructor(
         var dataList = mutableListOf<Consumible>()
         val prefs = FastPrefs(context)
         //val pattern = remember { Regex("^\\d+\$") }
-        var pattern by mutableStateOf<Regex>(Regex("^\\d+\$"))
+        //var pattern by mutableStateOf<Regex>(Regex("^\\d+\$"))
         val failedList = mutableListOf<Int>()
         var quantityAvailable = 0
-        articleList.forEach { article -> quantityAvailable = article.quantityAvailable.toInt()-article.consumedQuantity.toInt()
-            if(article.consumedQuantity.toInt()>0){
-                if(quantityAvailable>0){
+        articleList.forEach { article ->
+            quantityAvailable = article.quantityAvailable.toInt() - article.consumedQuantity.toInt()
+            if (article.consumedQuantity.toInt() > 0) {
+                if (quantityAvailable > 0) {
                     article.quantityAvailable = quantityAvailable.toDouble()
-                    dataList.add(Consumible(article.local_id,key,article.articleDescription,article.consumedQuantity,article.unitOfMeasure,"2023-08-08T00:48:12.104Z",0))
-                    //updateConsumedQuantity(article.local_id.toInt(),requiredQuantity)
-                    //updateFilteredArticleList("")
-
-                }else{
+                    dataList.add(
+                        Consumible(
+                            article.local_id,
+                            key,
+                            article.articleDescription,
+                            article.consumedQuantity,
+                            article.unitOfMeasure,
+                            "2023-08-08T00:48:12.104Z",
+                            0
+                        )
+                    )
+                } else {
                     failedList.add(article.local_id)
                 }
             }
         }
-        if(failedList.isEmpty()){
-            //Guardar en shared preferences
-            //Guardar en la base de datos
-            prefs.set(""+key,dataList)
+        if (failedList.isEmpty()) {
+            prefs.set("" + key, dataList)
             CoroutineScope(Dispatchers.IO).launch {
-                addOneSyncFromLocalDatabaseUseCase.invoke(Sync(key, key,"Consumible", Date().toString(),currentDate))
+                addOneSyncFromLocalDatabaseUseCase.invoke(
+                    Sync(
+                        key,
+                        key,
+                        "Consumible",
+                        Date().toString(),
+                        currentDate
+                    )
+                )
                 val syncPendingList = getAllSyncFromLocalDatabaseUseCase.invoke()
                 val syncListToString = syncPendingList.toString()
             }
-
             return 1
-        }else{
-            //TODO Erase this block until return ...
-            System.out.println(" C DATE is  "+currentDate)
-            Log.e("TAG",""+sdf)
-            Log.e("TAG",""+currentDate)
-            Log.e("TAG",""+key)
-            Log.e("TAG",""+currentDate)
-            //retorna un aviso que faltan
+        } else {
             return 2
         }
-        /*
-        articleList.forEach {article->
-            if(article.consumedQuantity.toInt()>0){
-                if(requiredQuantity>0 && requiredQuantity<=article.quantityAvailable.toInt()){
-                    articleViewModel.updateConsumedQuantity(article.local_id.toInt(),requiredQuantity)
-                    articleViewModel.updateFilteredArticleList("")
-                }else{
-                    Toast.makeText(mContext,"No hay suficiente cantidad en inventario ", Toast.LENGTH_SHORT).show()
-                }
-            }else{
-                Toast.makeText(mContext,"La cantidad ingresada debe ser un NUMERO ENTERO sin puntos ni espacios"+it.trim().toInt(), Toast.LENGTH_LONG).show()
-            }
-        }
-        */
-
     }
-    /*
-    fun getAllFromLocalDatabase() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = getAllFromLocalDatabaseUseCase.invoke()
-            val rt = result.toString()
-            if (!result.isNullOrEmpty()) {
-                articleModel =result
-            }
-            else{
-                Log.e("TAG","TAG")
-            }
-        }
-    }
-    */
 
     fun updateConsumedQuantity(idArticle:Int, consumibleNewQuantity:Int){
         CoroutineScope(Dispatchers.IO).launch {
             val xr = getArticleByIdUseCase(idArticle)
             val xf = xr.toString()
-            //Thread.sleep(1000)
             val quantityToRestore = updateConsumedQuantityUseCase(idArticle,consumibleNewQuantity).toString()
             val article = getArticleByIdUseCase.invoke(idArticle)
             val article2 = article
@@ -170,12 +148,6 @@ class ArticleViewModel @Inject constructor(
         }
     }
 
-    /*
-    fun getArticleByIdUseCase(idArticle:Int){
-        CoroutineScope(Dispatchers.IO).launch {
-        }
-    }
-    */
 
     fun updateFilteredArticleList(hash:String){
         CoroutineScope(Dispatchers.IO).launch {
@@ -186,21 +158,9 @@ class ArticleViewModel @Inject constructor(
         }
     }
 
-    /*
-    fun addProduct(product:Product){
-        //TODO mostrar lo que retorna el producto creado  o por lo menos un aconfirmacion visual para  el usuario de que si se creo el producto
-        CoroutineScope(Dispatchers.IO).launch {
-            addProductUseCase.invoke(product)
-        }
-    }
-    */
 
-    //Edit Product
-    //the purpose of this group of variables is jus pass the necesary information to Screen Detail in order to create bundle
-    var productLocalId by mutableStateOf<Int>(0)
-    var productRemoteId by mutableStateOf<Int>(0)
-    var productName by mutableStateOf<String>("")
-    var productDescription by mutableStateOf<String>("")
-    var productImage by mutableStateOf<String>("")
-    var productPrice by mutableStateOf<Int>(0)
+
+
+    //var productDescription by mutableStateOf<String>("")
+
 }
