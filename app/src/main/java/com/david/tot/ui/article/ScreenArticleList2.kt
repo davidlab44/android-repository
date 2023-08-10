@@ -34,7 +34,7 @@ import androidx.compose.runtime.*
 
 @Composable
 fun ScreenRecipeList2(navegarPantalla2: (String) -> Unit, articleViewModel: ArticleViewModel) {
-    articleViewModel.onCreate()
+    articleViewModel.getAllFromLocalDatabase()
     var quantityToRestore by rememberSaveable {mutableStateOf("") }
     val mContext = LocalContext.current
     Column(

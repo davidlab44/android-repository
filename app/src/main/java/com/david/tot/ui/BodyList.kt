@@ -27,12 +27,12 @@ import com.david.tot.ui.article.ArticleViewModel
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 
 @Composable
-fun HomeScreenList2(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+fun BodyList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
 
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
 
-    articleViewModel.onCreate()
+    articleViewModel.getAllFromApi()
     //var quantityToRestore by rememberSaveable {mutableStateOf("") }
     val mContext = LocalContext.current
     Column(

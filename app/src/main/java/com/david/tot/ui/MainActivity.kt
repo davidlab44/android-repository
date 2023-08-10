@@ -16,10 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Queue
-import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -36,7 +33,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.david.tot.R
 import com.david.tot.ui.theme.TotTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -97,7 +93,7 @@ class MainActivity : ComponentActivity() {
                         */
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                HomeScreenList2(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+                                BodyList(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
                             }
                         },
                         drawerContent = {

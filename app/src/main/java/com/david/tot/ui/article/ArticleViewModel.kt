@@ -74,12 +74,27 @@ class ArticleViewModel @Inject constructor(
     val date = currentDate.filter {it in '0'..'9'}
     val key = date.toInt()
 
-    fun onCreate() {
+
+    fun getAllFromApi() {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
             //val id = Calendar.getInstance().time
             val result = getAllFromApiUseCase.invoke()
+            //val result = getAllFromLocalDatabaseUseCase.invoke()
+            if (!result.isNullOrEmpty()) {
+                articleList =result
+            }
+        }
+    }
+
+    fun getAllFromLocalDatabase() {
+        Log.e("TAG","TAG")
+        //viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            //val id = Calendar.getInstance().time
+            //val result = getAllFromApiUseCase.invoke()
+            val result = getAllFromLocalDatabaseUseCase.invoke()
             if (!result.isNullOrEmpty()) {
                 articleList =result
             }

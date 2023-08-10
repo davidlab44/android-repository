@@ -27,7 +27,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 
 import androidx.compose.runtime.*
-import androidx.compose.ui.focus.onFocusEvent
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 
 @Composable
@@ -36,7 +35,7 @@ fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
 
-    articleViewModel.onCreate()
+    articleViewModel.getAllFromLocalDatabase()
     //var quantityToRestore by rememberSaveable {mutableStateOf("") }
     val mContext = LocalContext.current
     Column(
@@ -137,7 +136,7 @@ fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
                                 */
                                 Box(
                                 ) {
-                                    Text(text = "Local_id: "+article.local_id+" Descripcion: "+article.articleDescription)
+                                    Text(text = "Descripción: "+article.articleDescription)
                                 }
                             }
 
@@ -184,7 +183,6 @@ fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
                                     visualTransformation = VisualTransformation.None
                                 )
                                 */
-
                                 var newQuantity by rememberSaveable { mutableStateOf("") }
                                 OutlinedTextField(
                                     value = newQuantity,
@@ -213,6 +211,7 @@ fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
                                     Text(text = "Disponible en inventario: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
                                 }
                             }
+                            /*
                             Row(
                                 modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
                             ) {
@@ -222,6 +221,7 @@ fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
                                     Text(text = "nueva cantidad: "+article.consumedQuantity.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
                                 }
                             }
+                            */
                         }
                     }
                 )

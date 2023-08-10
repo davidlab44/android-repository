@@ -4,6 +4,7 @@ package com.david.tot.ui.article
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -43,6 +44,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -51,6 +53,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.david.tot.domain.model.Consumible
 import com.david.tot.ui.DrawerContent
+import com.david.tot.ui.MainActivity
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.AndroidEntryPoint
@@ -84,7 +87,7 @@ class ArticleActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         scaffoldState = scaffoldState,
                         topBar = {
-                            TopAppBarSyncAcivity(articleViewModel) {
+                            TopAppBarArticleAcivity(this@ArticleActivity,articleViewModel) {
                                 coroutineScope.launch {
                                     scaffoldState.drawerState.open()
                                 }
@@ -180,7 +183,7 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 
 
 @Composable
-fun TopAppBarSyncAcivity(articleViewModel: ArticleViewModel, onNavIconClick: () -> Unit) {
+fun TopAppBarArticleAcivity(nContext:ArticleActivity,articleViewModel: ArticleViewModel, onNavIconClick: () -> Unit) {
     val mContext = LocalContext.current.applicationContext
     TopAppBar(
         title = { Text(text = "GLAPP") },
@@ -203,10 +206,12 @@ fun TopAppBarSyncAcivity(articleViewModel: ArticleViewModel, onNavIconClick: () 
 
                 val prefs = FastPrefs(mContext)
                 val consumibleGuardado = prefs.get(articleViewModel.key.toString(),dataList)
-                if(articleViewModel.saveArticleListToSync(mContext)==1)
+                if(articleViewModel.saveArticleListToSync(mContext)==1){
                     Toast.makeText(mContext,"Consumible creado exitosamente"+consumibleGuardado!!.size, Toast.LENGTH_SHORT).show()
-                else
+                    nContext.startActivity(Intent(nContext,ArticleActivity::class.java))
+                }else{
                     Toast.makeText(mContext,"No hay suficiente cantidad en inventario de algunos productos seleccionados" +consumibleGuardado!!.size, Toast.LENGTH_SHORT).show()
+                }
                 Log.e("TAG","TAGTAG")
             }) {
                 Icon(

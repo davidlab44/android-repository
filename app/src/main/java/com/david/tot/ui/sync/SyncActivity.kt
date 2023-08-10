@@ -61,7 +61,7 @@ class SyncActivity : ComponentActivity() {
                     val coroutineScope = rememberCoroutineScope()
                     val contextForToast = LocalContext.current.applicationContext
                     val syncViewModel = viewModel<SyncViewModel>()
-                    syncViewModel.onCreate()
+                    //syncViewModel.onCreate()
                     //val drugsDeliveryConsumerViewHeaderViewModel = viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
                     //val contextArticleActivity = this@ArticleActivity
                     if(syncViewModel.toastTheresNotConsumiblesToSync)
@@ -193,7 +193,7 @@ fun TopAppBarSyncAcivity(syncViewModel: SyncViewModel, onNavIconClick: () -> Uni
         actions = {
             IconButton(onClick = { /* doSomething() */
                 //enviar lo que hay pendiente al servidor, crear la header y enviarla [se usa el tipo de dato vehicle]
-                syncViewModel.syncConsumible(mContext)
+                //syncViewModel.syncConsumible(mContext)
                 //cuando el header responda ...
                 //...Insertar los consumibles
                 //cuando los consumibles responda ok
