@@ -5,8 +5,7 @@ import com.david.tot.data.network.article.ArticleService
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.toDomain
 import com.david.tot.util.IsImageFile
-import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonObject
+import com.google.gson.JsonArray
 import okhttp3.MultipartBody
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType

@@ -2,10 +2,9 @@ package com.david.tot.data.network.article
 
 
 import com.david.tot.domain.model.Article
+import com.google.gson.JsonArray
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonObject
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -26,9 +25,6 @@ class ArticleService @Inject constructor(private val api: IArticleApiClient) {
 
     suspend fun postMany(jsonArray: JsonArray):Int{
         return withContext(Dispatchers.IO) {
-
-
-
             val mediaType = "application/json".toMediaType()
             val body = jsonArray.toString().toRequestBody(mediaType)
             val respuesta = api.postMany(body)

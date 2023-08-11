@@ -15,15 +15,12 @@ import com.david.tot.domain.model.ConsumibleHeader
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonArray
 import javax.inject.Inject
 
 @HiltViewModel
@@ -51,7 +48,6 @@ class SyncViewModel @Inject constructor(
         }
     }
 
-
     @SuppressLint("SuspiciousIndentation")
     fun syncConsumible(mContext: Context){
         //Crear el header
@@ -67,11 +63,10 @@ class SyncViewModel @Inject constructor(
                 //1.obtener any headerConsumible de la base de datos
                 var consumible=getAnyDrugsDeliveryConsumerViewHeaderUseCase.invoke()
                 //extraer el id de un elemento de la lista
-                var dataList = mutableListOf<Consumible>()
-                val prefs = FastPrefs(mContext)
-                dataList = prefs.get("david",dataList)!!
 
-                var headerCons = ConsumibleHeader(key.toInt(),consumible.consumer,consumible.vehicle,"Example2","2023-08-10T01:42:45.655Z",0)
+
+                //TODO ya en el servicion no tienes que tocar este Json
+                var headerCons = ConsumibleHeader(0,consumible.consumer,consumible.vehicle,"Example2","2023-08-10T01:42:45.655Z",0)
                 var gson = Gson()
                 var headerConsumible = gson.toJson(headerCons)
                 //var headerConsumibleToJson = Json.encodeToString(headerConsumible)
@@ -81,14 +76,46 @@ class SyncViewModel @Inject constructor(
 
                 val responseCode =postOneDrugsDeliveryConsumerViewHeaderUseCase.invoke(headerConsumible)
 
-                   if(responseCode in 200..300){
-                    var consumibleToJsonArray = Json.encodeToString(dataList)
-                    val jsonArray = Json.decodeFromString<JsonArray>(consumibleToJsonArray)
-                    val responseCodeConsumible=postManyArticleUseCase.invoke(jsonArray)
+                if(responseCode in 200..300){
+                    var dataList = mutableListOf<Consumible>()
+                    val prefs = FastPrefs(mContext)
+                    //Cambiar el nombre de la preferencia  que esta quemado aqui
+                    //un detalle importante la misma data list que le paso por defecto a la sp pa que no chille es la misma donde almaceno el contenido de la sp
+                    //dataList = prefs.get("david",dataList)!!
+
+                    var consumibleList:List<Consumible> = prefs.get("david",dataList)!!
+
+                    Log.e("consumibleList",""+consumibleList)
+
+                    val jsonArray1: JsonArray = Gson().toJsonTree(consumibleList).asJsonArray
+                    //var list=ArrayList<Consumible>()
+                    //val listresult: Array<Consumible> = Gson().fromJson(consumibleList,Array<Consumible>:: class.java)
+                    //list.addAll(listresult)
+                    Log.e("TAG","TAG")
+                    Log.e("TAG","TAG"+jsonArray1)
+                    //val gsonHandler = Gson()
+                    //val weatherList: List<Consumible> = gsonHandler.fromJson(consumibleList.toString() , Array<Consumible>::class.java).toList()
+                    //Log.e("",""+weatherList)
+
+                     //val element: JsonElement = gsonHandler.toJsonTree(consumibleList, object : TypeToken<List<Consumible>>() {}.type)
+                    //val element = gsonHandler.toJsonTree(consumibleList, object : TypeToken<List<Consumible>>() {}.type)
+
+
+                    /*
+                    var gson = Gson()
+                    var manyConsumibleHeader = gson.fromJson(dataList.toString(), ManyConsumibleHeader::class.java)
+                    var consumibleList = gson.toJson(manyConsumibleHeader)
+                    */
+
+                    //var consumibleToJsonArray = Json.encodeToString(dataList)
+                    //val jsonArray = Json.decodeFromString<JsonArray>(consumibleToJsonArray)
+
+
+                    val responseCodeConsumible=postManyArticleUseCase.invoke(jsonArray1)
                     if(responseCodeConsumible in 200..300)
                         toastInsertedSuccessfully=true
-                }
 
+                }
             }else{
                 toastTheresNotConsumiblesToSync=true
             }

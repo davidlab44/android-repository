@@ -129,7 +129,12 @@ class ArticleViewModel @Inject constructor(
             }
         }
         if (failedList.isEmpty()) {
-            prefs.set("david", dataList)
+            prefs.set("mula", dataList)
+            val gette = prefs.get("mula", dataList)
+            Log.e("gette",""+gette)
+            Log.e("gette",""+gette)
+
+
             CoroutineScope(Dispatchers.IO).launch {
                 addOneSyncFromLocalDatabaseUseCase.invoke(
                     Sync(1,1,"david", "Consumible",currentDate)
