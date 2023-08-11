@@ -16,7 +16,7 @@ import com.david.tot.domain.model.Sync
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import com.google.gson.Gson
 import com.google.gson.JsonArray
-import com.yeslab.fastprefs.FastPrefs
+//import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -75,10 +75,11 @@ class SyncViewModel @Inject constructor(
                 Log.e("TAG",""+headerConsumible)
 
                 val responseCode =postOneDrugsDeliveryConsumerViewHeaderUseCase.invoke(headerConsumible)
-
+                //TODO virtualassembler 2
+                /*
                 if(responseCode in 200..300){
                     var dataList = mutableListOf<Consumible>()
-                    val prefs = FastPrefs(mContext)
+                    //val prefs = FastPrefs(mContext)
                     //Cambiar el nombre de la preferencia  que esta quemado aqui
                     //un detalle importante la misma data list que le paso por defecto a la sp pa que no chille es la misma donde almaceno el contenido de la sp
                     //dataList = prefs.get("david",dataList)!!
@@ -115,7 +116,9 @@ class SyncViewModel @Inject constructor(
                     if(responseCodeConsumible in 200..300)
                         toastInsertedSuccessfully=true
 
+
                 }
+                */
             }else{
                 toastTheresNotConsumiblesToSync=true
             }

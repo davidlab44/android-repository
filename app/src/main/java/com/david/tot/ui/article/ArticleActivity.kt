@@ -55,7 +55,7 @@ import com.david.tot.domain.model.Consumible
 import com.david.tot.ui.DrawerContent
 import com.david.tot.ui.MainActivity
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
-import com.yeslab.fastprefs.FastPrefs
+//import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -202,6 +202,7 @@ fun TopAppBarArticleAcivity(nContext:ArticleActivity,articleViewModel: ArticleVi
         actions = {
             IconButton(onClick = { /* doSomething() */
 
+                /*
                 var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
 
                 val prefs = FastPrefs(mContext)
@@ -212,6 +213,8 @@ fun TopAppBarArticleAcivity(nContext:ArticleActivity,articleViewModel: ArticleVi
                 }else{
                     Toast.makeText(mContext,"No hay suficiente cantidad en inventario de algunos productos seleccionados" +consumibleGuardado!!.size, Toast.LENGTH_SHORT).show()
                 }
+
+                 */
                 Log.e("TAG","TAGTAG")
             }) {
                 Icon(

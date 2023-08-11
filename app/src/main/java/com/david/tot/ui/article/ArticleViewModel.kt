@@ -45,7 +45,6 @@ import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
-import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -103,7 +102,7 @@ class ArticleViewModel @Inject constructor(
 
     fun saveArticleListToSync(context: Context):Int {
         var dataList = mutableListOf<Consumible>()
-        val prefs = FastPrefs(context)
+        //val prefs = FastPrefs(context)
         //val pattern = remember { Regex("^\\d+\$") }
         //var pattern by mutableStateOf<Regex>(Regex("^\\d+\$"))
         val failedList = mutableListOf<Int>()
@@ -129,10 +128,14 @@ class ArticleViewModel @Inject constructor(
             }
         }
         if (failedList.isEmpty()) {
+            //TODO virtualassembler
+            /*
             prefs.set("mula", dataList)
             val gette = prefs.get("mula", dataList)
             Log.e("gette",""+gette)
             Log.e("gette",""+gette)
+            */
+
 
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -167,7 +170,6 @@ class ArticleViewModel @Inject constructor(
         }
     }
 
-
     fun updateFilteredArticleList(hash:String){
         CoroutineScope(Dispatchers.IO).launch {
             val result = getFilteredArticleListUseCase.invoke("%$hash%")
@@ -176,10 +178,5 @@ class ArticleViewModel @Inject constructor(
             }
         }
     }
-
-
-
-
     //var productDescription by mutableStateOf<String>("")
-
 }
