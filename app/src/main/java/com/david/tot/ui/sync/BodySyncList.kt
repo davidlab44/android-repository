@@ -64,7 +64,7 @@ fun BodySyncList(syncViewModel: SyncViewModel) {
                                 Box(
 
                                 ) {
-                                    Text(text = "Tipo: "+sync.objectId)
+                                    Text(text = "Tipo: "+sync.sharedPreferenceName)
                                 }
                             }
                             Row(

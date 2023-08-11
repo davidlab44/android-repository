@@ -1,5 +1,6 @@
 package com.david.tot.ui.sync
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -51,6 +52,7 @@ class SyncViewModel @Inject constructor(
     }
 
 
+    @SuppressLint("SuspiciousIndentation")
     fun syncConsumible(mContext: Context){
         //Crear el header
         CoroutineScope(Dispatchers.IO).launch {
@@ -67,7 +69,8 @@ class SyncViewModel @Inject constructor(
                 //extraer el id de un elemento de la lista
                 var dataList = mutableListOf<Consumible>()
                 val prefs = FastPrefs(mContext)
-                prefs.get(""+key,dataList)
+                dataList = prefs.get("david",dataList)!!
+
                 var headerCons = ConsumibleHeader(key.toInt(),consumible.consumer,consumible.vehicle,"Example2","2023-08-10T01:42:45.655Z",0)
                 var gson = Gson()
                 var headerConsumible = gson.toJson(headerCons)
@@ -77,7 +80,8 @@ class SyncViewModel @Inject constructor(
                 Log.e("TAG",""+headerConsumible)
 
                 val responseCode =postOneDrugsDeliveryConsumerViewHeaderUseCase.invoke(headerConsumible)
-                if(responseCode in 200..300){
+
+                   if(responseCode in 200..300){
                     var consumibleToJsonArray = Json.encodeToString(dataList)
                     val jsonArray = Json.decodeFromString<JsonArray>(consumibleToJsonArray)
                     val responseCodeConsumible=postManyArticleUseCase.invoke(jsonArray)

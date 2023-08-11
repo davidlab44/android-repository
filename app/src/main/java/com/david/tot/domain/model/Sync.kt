@@ -12,9 +12,9 @@ data class Sync (
     @ColumnInfo(name = "local_id") val local_id: Int = 0,
     //@ColumnInfo(name = "remote_id") val id: Int,
     @ColumnInfo(name = "consumptionId") val consumptionId: Int,
-    @ColumnInfo(name = "objectId") val objectId: String,
+    @ColumnInfo(name = "sharedPreferenceName") val sharedPreferenceName: String,
     @ColumnInfo(name = "objectType") val objectType: String,
     @ColumnInfo(name = "createdAt") val createdAt: String = "",
     )
-fun Sync.toDomain() = Sync(local_id,consumptionId,objectId,objectType,createdAt)
-fun Sync.toDatabase() = Sync(local_id=local_id,consumptionId=consumptionId,objectId=objectId,objectType=objectType,createdAt=createdAt)
+fun Sync.toDomain() = Sync(local_id,consumptionId,sharedPreferenceName,objectType,createdAt)
+fun Sync.toDatabase() = Sync(local_id=local_id,consumptionId=consumptionId,sharedPreferenceName=sharedPreferenceName,objectType=objectType,createdAt=createdAt)

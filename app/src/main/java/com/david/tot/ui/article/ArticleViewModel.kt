@@ -115,9 +115,7 @@ class ArticleViewModel @Inject constructor(
                 if (quantityAvailable > 0) {
                     article.quantityAvailable = quantityAvailable.toDouble()
                     dataList.add(
-                        Consumible(
-                            article.local_id,
-                            key,
+                        Consumible(0, 1,
                             article.articleDescription,
                             article.consumedQuantity,
                             article.unitOfMeasure,
@@ -131,16 +129,10 @@ class ArticleViewModel @Inject constructor(
             }
         }
         if (failedList.isEmpty()) {
-            prefs.set("" + key, dataList)
+            prefs.set("david", dataList)
             CoroutineScope(Dispatchers.IO).launch {
                 addOneSyncFromLocalDatabaseUseCase.invoke(
-                    Sync(
-                        key,
-                        key,
-                        "Consumible",
-                        "2023-08-08T00:48:12.104Z",
-                        currentDate
-                    )
+                    Sync(1,1,"david", "Consumible",currentDate)
                 )
                 val syncPendingList = getAllSyncFromLocalDatabaseUseCase.invoke()
                 val syncListToString = syncPendingList.toString()

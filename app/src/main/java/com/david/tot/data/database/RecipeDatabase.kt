@@ -9,8 +9,7 @@ import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
 import com.david.tot.domain.model.Sync
 
-
-@Database(entities = [Article::class, DrugsDeliveryConsumerViewHeader::class, Sync::class], version = 21)
+@Database(entities = [Article::class, DrugsDeliveryConsumerViewHeader::class, Sync::class], version = 22)
 abstract class RecipeDatabase: RoomDatabase() {
     abstract fun getRecipeDao(): ArticleDao
 
