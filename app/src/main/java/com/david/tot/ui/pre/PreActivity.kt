@@ -1,4 +1,4 @@
-package com.david.tot.ui.article
+package com.david.tot.ui.pre
 
 
 
@@ -55,7 +55,7 @@ import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsume
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ArticleActivity : ComponentActivity() {
+class PreActivity : ComponentActivity() {
 
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,8 +69,8 @@ class ArticleActivity : ComponentActivity() {
                     val scaffoldState = rememberScaffoldState()
                     val coroutineScope = rememberCoroutineScope()
                     val contextForToast = LocalContext.current.applicationContext
-                    val articleViewModel = viewModel<ArticleViewModel>()
-                    val drugsDeliveryConsumerViewHeaderViewModel = viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
+                    val preViewModel = viewModel<PreViewModel>()
+                    //val drugsDeliveryConsumerViewHeaderViewModel = viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
                     //val contextArticleActivity = this@ArticleActivity
 
                     //Bottom nav controller
@@ -83,7 +83,7 @@ class ArticleActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         scaffoldState = scaffoldState,
                         topBar = {
-                            TopAppBarArticleAcivity(this@ArticleActivity,articleViewModel) {
+                            TopAppBarPreAcivity(this@PreActivity,preViewModel) {
                                 coroutineScope.launch {
                                     scaffoldState.drawerState.open()
                                 }
@@ -92,11 +92,12 @@ class ArticleActivity : ComponentActivity() {
                         bottomBar = { BottomNavigationBar(navController) },
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                NavigationBotomMenu(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel,navController = navController)
+                                //NavigationBotomMenu(preViewModel,drugsDeliveryConsumerViewHeaderViewModel,navController = navController)
+                                NavigationBotomMenu(navController = navController)
                             }
                         },
                         drawerContent = {
-                            DrawerContent(context=this@ArticleActivity) { itemLabel ->
+                            DrawerContent(context=this@PreActivity) { itemLabel ->
                                 Toast
                                     .makeText(contextForToast, itemLabel, Toast.LENGTH_SHORT)
                                     .show()
@@ -179,7 +180,7 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 
 
 @Composable
-fun TopAppBarArticleAcivity(nContext:ArticleActivity,articleViewModel: ArticleViewModel, onNavIconClick: () -> Unit) {
+fun TopAppBarPreAcivity(nContext:PreActivity, articleViewModel: PreViewModel, onNavIconClick: () -> Unit) {
     val mContext = LocalContext.current.applicationContext
     TopAppBar(
         title = { Text(text = "GLAPP") },
@@ -232,22 +233,23 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 */
 
 @Composable
-fun NavigationBotomMenu(articleViewModel:ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel, navController: NavHostController) {
+//fun NavigationBotomMenu(preViewModel:PreViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel, navController: NavHostController) {
+fun NavigationBotomMenu(navController: NavHostController) {
 
-    NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
-        composable(BotomNavigationItem.Home.route) {
-            ArticleHeaderAndBodyScreen(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+    NavHost(navController, startDestination = PreBotomNavigationItem.Home.route) {
+        composable(PreBotomNavigationItem.Home.route) {
+            PreHeaderAndBodyScreen()
         }
-        composable(BotomNavigationItem.Music.route) {
+        composable(PreBotomNavigationItem.Music.route) {
             MusicScreen()
         }
-        composable(BotomNavigationItem.Movies.route) {
+        composable(PreBotomNavigationItem.Movies.route) {
             MoviesScreen()
         }
-        composable(BotomNavigationItem.Books.route) {
+        composable(PreBotomNavigationItem.Books.route) {
             BooksScreen()
         }
-        composable(BotomNavigationItem.Profile.route) {
+        composable(PreBotomNavigationItem.Profile.route) {
             ProfileScreen()
         }
     }
@@ -276,11 +278,11 @@ fun BottomNavigationBar(navController: NavController) {
     val Purple200 = Color(0xFF7baf4a)
 
     val items = listOf(
-        BotomNavigationItem.Home,
-        BotomNavigationItem.Music,
-        BotomNavigationItem.Movies,
-        BotomNavigationItem.Books,
-        BotomNavigationItem.Profile
+        PreBotomNavigationItem.Home,
+        PreBotomNavigationItem.Music,
+        PreBotomNavigationItem.Movies,
+        PreBotomNavigationItem.Books,
+        PreBotomNavigationItem.Profile
     )
     BottomNavigation(
         //backgroundColor = Color.Gray,

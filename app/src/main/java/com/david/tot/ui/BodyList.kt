@@ -1,9 +1,10 @@
 package com.david.tot.ui
 
-import android.util.Log
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -16,21 +17,162 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-
 import androidx.compose.runtime.*
+import androidx.compose.ui.text.style.TextAlign
+import android.util.Log
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.*
+import com.david.tot.domain.model.Article
+import com.david.tot.domain.model.Asset
+import com.david.tot.domain.model.Consumible
+import com.david.tot.domain.model.ConsumibleHeader
+
 import com.david.tot.ui.article.ArticleViewModel
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
+import com.david.tot.ui.pre.BodyPreList
+import com.david.tot.ui.pre.Header
+import com.david.tot.util.assetList
+import com.david.tot.util.preList
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun BodyList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
 
-    Log.e("","algo")
+    //
+    //var lista by mutableStateOf<List<Asset>>(emptyList())
+
+    //var lista by mutableStateOf<MutableListList<Asset>>(MutableE)
+    //var lista by mutableStateOf<List<Asset>>(emptyList())
+
+
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp),
+        //horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        //var text by rememberSaveable { mutableStateOf("") }
+        Row(
+            modifier = Modifier.padding(all = 0.dp).height(80.dp),horizontalArrangement = Arrangement.Center
+            //horizontalArrangement = Arrangement.Center
+        ) {
+            //ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
+            Box(){
+                Card(
+                    modifier = Modifier.fillMaxWidth().padding(0.dp).clickable{},
+                    elevation = 10.dp,
+                    content = {
+                        Column( horizontalAlignment = Alignment.Start,
+                            modifier = Modifier.border(0.dp, Color.Gray, RectangleShape).fillMaxWidth().padding(5.dp)) {
+                            Row(
+                                modifier = Modifier.padding(all = 12.dp),horizontalArrangement = Arrangement.Center
+                            ){
+                                androidx.compose.material3.Text(
+                                    text = "LISTADO DE VEHICULOS",
+                                    textAlign =TextAlign.Center,
+                                    color = Color.Black, fontSize = 15.sp,
+                                )
+                            }
+                        }
+                    }
+                )
+            }
+
+        }
+
+        Row(
+            modifier = Modifier.padding(all = 0.dp).height(75.dp),horizontalArrangement = Arrangement.Center
+            //horizontalArrangement = Arrangement.Center
+        ) {
+            //ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
+            var text by rememberSaveable { mutableStateOf("") }
+            TextField(
+                value = text,
+                onValueChange = {
+                    text = it
+                    //articleViewModel.actualizarLista(it)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    //.background(Color.White)
+                    //.background(Color(0xFF22475b))
+                    .padding(12.dp),
+                label = { Text("Buscar") },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Email Icon"
+                    )
+                },
+            )
+
+        }
+
+        Row(
+            modifier = Modifier.padding(all = 2.dp),
+            //horizontalArrangement = Arrangement.Center
+        ) {
+            //BodyPreList(preViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+            val listModifier = Modifier.fillMaxSize().background(Color.White).padding(10.dp)
+            LazyColumn(modifier = listModifier) {
+                //val recipeList2 =recipeViewModel.recipeModel
+                //val recipeList =CheckList
+                val articleList = assetList
+                items(articleList) { recipe ->
+                    Card(
+                        modifier = Modifier.fillMaxWidth().padding(8.dp).clickable{},
+                        elevation = 10.dp,
+                        content = {
+                            Column( horizontalAlignment = Alignment.Start,
+                                modifier = Modifier.border(1.dp, Color.Gray, RectangleShape).fillMaxWidth().padding(20.dp)) {
+                                Row(
+                                    modifier = Modifier.padding(all = 6.dp),horizontalArrangement = Arrangement.Center
+                                ){
+                                    Text(
+                                        text = recipe.name,
+                                        textAlign = TextAlign.Start, color = Color.Black, fontSize = 15.sp)
+                                }
+                                Row(
+                                    modifier = Modifier.padding(all = 6.dp),horizontalArrangement = Arrangement.Center
+                                ){
+                                    Text(
+                                        text = "PLACA: "+recipe.placa,
+                                        textAlign = TextAlign.Start, color = Color.Black, fontSize = 14.sp)
+                                }
+
+                            }
+                        }
+                    )
+                }
+            }
+        }
+    }
+
+
+
 
 
     /*

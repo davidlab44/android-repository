@@ -40,6 +40,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.david.tot.ui.article.*
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
+import com.david.tot.ui.pre.PreActivity
 import com.david.tot.ui.sync.SyncActivity
 
 
@@ -255,9 +256,8 @@ fun DrawerContent(
                 color = Color.White
             )
         }
-
         item {
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             Row(modifier = Modifier
                 .fillMaxSize(),
                 //.border(width = 1.dp, color = Color.Magenta),
@@ -267,22 +267,22 @@ fun DrawerContent(
                     modifier = Modifier
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.baseline_home_24),
-                    contentDescription = "registrar consumo"
+                    painter = painterResource(id = R.drawable.build_white_18dp),
+                    contentDescription = "configuracion"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
-                Text(
-                    modifier = Modifier
-                        .padding(top = 12.dp),
-                    text = "Inicio",
-                    fontSize = 26.sp,
-                    color = Color.White
+                ClickableText(
+                    style = TextStyle(
+                        color = Color.White,
+                        fontSize = 26.sp
+                    ),
+                    text = AnnotatedString("Inicio") ,
+                    onClick = {
+                        context.startActivity(Intent(context,MainActivity::class.java))
+                    }
                 )
             }
         }
-
-
-
         /*
         item {
             Spacer(modifier = Modifier.height(20.dp))
@@ -358,9 +358,9 @@ fun DrawerContent(
                         color = Color.White,
                         fontSize = 26.sp
                     ),
-                    text = AnnotatedString("Preoperativo") ,
+                    text = AnnotatedString("Pre operativo") ,
                     onClick = {
-                        //context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                        context.startActivity(Intent(context, PreActivity::class.java))
                     }
                 )
             }
@@ -377,7 +377,7 @@ fun DrawerContent(
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
                     painter = painterResource(id = R.drawable.fact_check_white_18dp),
-                    contentDescription = "Post Operativo"
+                    contentDescription = "Post operativo"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 ClickableText(
@@ -385,7 +385,7 @@ fun DrawerContent(
                         color = Color.White,
                         fontSize = 26.sp
                     ),
-                    text = AnnotatedString("Post Operativo") ,
+                    text = AnnotatedString("Post operativo") ,
                     onClick = {
                         //context.startActivity(Intent(context,UpdateProductActivity::class.java))
                     }
@@ -430,6 +430,34 @@ fun DrawerContent(
                     modifier = Modifier
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
+                    painter = painterResource(id = R.drawable.build_white_18dp),
+                    contentDescription = "Configuración"
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                ClickableText(
+                    style = TextStyle(
+                        color = Color.White,
+                        fontSize = 26.sp
+                    ),
+                    text = AnnotatedString("Anticipos") ,
+                    onClick = {
+                        context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                    }
+                )
+            }
+        }
+        /*
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(modifier = Modifier
+                .fillMaxSize(),
+                //.border(width = 1.dp, color = Color.Magenta),
+                horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(20.dp))
+                Image(
+                    modifier = Modifier
+                        .size(size = 25.dp)
+                        .clip(shape = CircleShape),
                     painter = painterResource(id = R.drawable.receipt_long_white_18dp),
                     contentDescription = "Configuracion"
                 )
@@ -446,6 +474,7 @@ fun DrawerContent(
                 )
             }
         }
+        */
         item {
             Spacer(modifier = Modifier.height(20.dp))
             Row(modifier = Modifier
@@ -466,13 +495,15 @@ fun DrawerContent(
                         color = Color.White,
                         fontSize = 26.sp
                     ),
-                    text = AnnotatedString("Configuracion") ,
+                    text = AnnotatedString("Configuración") ,
                     onClick = {
                         //context.startActivity(Intent(context, ArticleActivity::class.java))
                     }
                 )
             }
         }
+
+
         item {
             Spacer(modifier = Modifier.height(20.dp))
             Row(modifier = Modifier

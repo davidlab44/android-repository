@@ -1,4 +1,4 @@
-package com.david.tot.ui.article
+package com.david.tot.ui.pre
 
 /*
 import android.util.Log
@@ -41,12 +41,10 @@ import com.david.tot.domain.article.GetArticleByIdUseCase
 import com.david.tot.domain.article.GetFilteredArticleListUseCase
 import com.david.tot.domain.article.UpdateAllArticlesInLocalDatabaseUseCase
 import com.david.tot.domain.model.Article
-import com.david.tot.domain.model.Asset
 import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
-import com.david.tot.util.assetList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -56,7 +54,8 @@ import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
-class ArticleViewModel @Inject constructor(
+class PreViewModel @Inject constructor(
+    /*
     private val getAllFromApiUseCase: GetAllFromApiUseCase,
     private val getArticleByIdUseCase: GetArticleByIdUseCase,
     private val updateConsumedQuantityUseCase: UpdateConsumedQuantityUseCase,
@@ -66,33 +65,19 @@ class ArticleViewModel @Inject constructor(
     private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase,
     private val updateAllArticlesInLocalDatabaseUseCase: UpdateAllArticlesInLocalDatabaseUseCase,
     private val addAllArticleToLocalDatabaseUseCase: AddAllArticleToLocalDatabaseUseCase
+     */
 ) : ViewModel() {
-    var articleList by mutableStateOf<List<Article>>(emptyList())
+    var preList by mutableStateOf<List<Article>>(emptyList())
+    /*
     var quantityToRestore by mutableStateOf<String>("")
     //TODO take another approach to create this pkey
     val sdf = SimpleDateFormat("MMdd hh:mm:ss")
     val currentDate = sdf.format(Date())
     val date = currentDate.filter {it in '0'..'9'}
     val key = date.toInt()
+   */
 
-    //var invepastoList by mutableStateOf<List<Asset>>(emptyList())
-
-
-    /*
-    fun actualizarLista(hash:String) {
-        val list: MutableList<Asset> = mutableListOf()        // or, use `arrayListOf`
-        assetList.forEach {
-            if (it.name.contains(hash)
-            ) {
-                list.add(it)
-            }
-        }
-        invepastoList= list.toList()
-    }
-
-     */
-
-
+/*
 
     fun getAllFromApi() {
         Log.e("TAG","TAG")
@@ -102,11 +87,12 @@ class ArticleViewModel @Inject constructor(
             val result = getAllFromApiUseCase.invoke()
             //val result = getAllFromLocalDatabaseUseCase.invoke()
             if (!result.isNullOrEmpty()) {
-                articleList =result
+                preList =result
             }
         }
     }
-
+    */
+/*
     fun getAllFromLocalDatabase() {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
@@ -115,7 +101,7 @@ class ArticleViewModel @Inject constructor(
             //val result = getAllFromApiUseCase.invoke()
             val result = getAllFromLocalDatabaseUseCase.invoke()
             if (!result.isNullOrEmpty()) {
-                articleList =result
+                preList =result
             }
         }
     }
@@ -127,7 +113,7 @@ class ArticleViewModel @Inject constructor(
         //var pattern by mutableStateOf<Regex>(Regex("^\\d+\$"))
         val failedList = mutableListOf<Int>()
         var quantityAvailable = 0
-        articleList.forEach { article ->
+        preList.forEach { article ->
             quantityAvailable = article.quantityAvailable.toInt() - article.consumedQuantity.toInt()
 
             if (article.consumedQuantity> 0) {
@@ -164,9 +150,9 @@ class ArticleViewModel @Inject constructor(
                 )
                 val syncPendingList = getAllSyncFromLocalDatabaseUseCase.invoke()
                 val syncListToString = syncPendingList.toString()
-                val result = addAllArticleToLocalDatabaseUseCase.invoke(articleList)
+                val result = addAllArticleToLocalDatabaseUseCase.invoke(preList)
                 if (!result.isNullOrEmpty()) {
-                    articleList =result
+                    preList =result
                 }
             }
             return 1
@@ -194,9 +180,11 @@ class ArticleViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             val result = getFilteredArticleListUseCase.invoke("%$hash%")
             if (!result.isNullOrEmpty()) {
-                articleList =result
+                preList =result
             }
         }
     }
     //var productDescription by mutableStateOf<String>("")
+
+ */
 }

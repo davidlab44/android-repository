@@ -68,9 +68,12 @@
             android:noHistory="true">
         </activity>
         <activity
+            android:name="com.david.tot.ui.pre.PreActivity"
+            android:noHistory="true">
+        </activity>
+        <activity
             android:name="com.david.tot.ui.sync.SyncActivity"
             android:noHistory="true">
         </activity>
-
     </application>
 </manifest>
