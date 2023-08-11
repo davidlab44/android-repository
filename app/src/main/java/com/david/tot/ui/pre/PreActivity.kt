@@ -180,7 +180,7 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 
 
 @Composable
-fun TopAppBarPreAcivity(nContext:PreActivity, articleViewModel: PreViewModel, onNavIconClick: () -> Unit) {
+fun TopAppBarPreAcivity(nContext:PreActivity, preViewModel: PreViewModel, onNavIconClick: () -> Unit) {
     val mContext = LocalContext.current.applicationContext
     TopAppBar(
         title = { Text(text = "GLAPP") },
@@ -198,7 +198,7 @@ fun TopAppBarPreAcivity(nContext:PreActivity, articleViewModel: PreViewModel, on
         },
         actions = {
             IconButton(onClick = { /* doSomething() */
-
+                preViewModel.getAllPreFromLocalDatabase()
                 /*
                 var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
 

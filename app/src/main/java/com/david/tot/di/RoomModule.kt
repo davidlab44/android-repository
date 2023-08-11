@@ -33,6 +33,10 @@ object RoomModule {
     @Provides
     fun SyncDao(db: RecipeDatabase) = db.syncDao()
 
+    @Singleton
+    @Provides
+    fun PreDao(db: RecipeDatabase) = db.getPreDao()
+
 
 }
 

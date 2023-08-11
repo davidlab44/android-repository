@@ -42,7 +42,10 @@ import com.david.tot.domain.article.GetFilteredArticleListUseCase
 import com.david.tot.domain.article.UpdateAllArticlesInLocalDatabaseUseCase
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Consumible
+import com.david.tot.domain.model.Pre
 import com.david.tot.domain.model.Sync
+import com.david.tot.domain.pre.AddOnePreFromLocalDatabaseUseCase
+import com.david.tot.domain.pre.GetAllPreFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -55,6 +58,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PreViewModel @Inject constructor(
+    private val addOnePreFromLocalDatabaseUseCase: AddOnePreFromLocalDatabaseUseCase,
+    private val getAllPreFromLocalDatabaseUseCase: GetAllPreFromLocalDatabaseUseCase
     /*
     private val getAllFromApiUseCase: GetAllFromApiUseCase,
     private val getArticleByIdUseCase: GetArticleByIdUseCase,
@@ -77,21 +82,41 @@ class PreViewModel @Inject constructor(
     val key = date.toInt()
    */
 
-/*
+    val pres = addOnePreFromLocalDatabase()
 
-    fun getAllFromApi() {
-        Log.e("TAG","TAG")
-        //viewModelScope.launch {
+
+
+    fun addOnePreFromLocalDatabase(){
         CoroutineScope(Dispatchers.IO).launch {
-            //val id = Calendar.getInstance().time
-            val result = getAllFromApiUseCase.invoke()
-            //val result = getAllFromLocalDatabaseUseCase.invoke()
-            if (!result.isNullOrEmpty()) {
-                preList =result
-            }
+            addOnePreFromLocalDatabaseUseCase.invoke(Pre(0,"gasolina",0))
         }
     }
-    */
+
+
+    fun getAllPreFromLocalDatabase(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val muchasPre = getAllPreFromLocalDatabaseUseCase.invoke()
+            Log.e("TAG","PRA"+muchasPre)
+        }
+    }
+
+
+
+    /*
+
+        fun getAllFromApi() {
+            Log.e("TAG","TAG")
+            //viewModelScope.launch {
+            CoroutineScope(Dispatchers.IO).launch {
+                //val id = Calendar.getInstance().time
+                val result = getAllFromApiUseCase.invoke()
+                //val result = getAllFromLocalDatabaseUseCase.invoke()
+                if (!result.isNullOrEmpty()) {
+                    preList =result
+                }
+            }
+        }
+        */
 /*
     fun getAllFromLocalDatabase() {
         Log.e("TAG","TAG")
