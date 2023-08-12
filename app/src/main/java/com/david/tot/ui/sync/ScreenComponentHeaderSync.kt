@@ -18,9 +18,9 @@ import androidx.compose.foundation.clickable
 
 @Composable
 fun ScreenComponentHeader(syncViewModel: SyncViewModel) {
-    val mContext = LocalContext.current
-    val articleList =syncViewModel.syncList
-    val size = articleList.size
+    //val mContext = LocalContext.current
+    val syncList =syncViewModel.syncList
+    val size = syncList.size
 
     Box(){
         Card(

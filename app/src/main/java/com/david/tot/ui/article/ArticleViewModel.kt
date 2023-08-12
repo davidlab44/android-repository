@@ -27,7 +27,6 @@ class ArticleViewModel @Inject constructor(
     ) : ViewModel() {
     */
 
-import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,12 +40,12 @@ import com.david.tot.domain.article.GetArticleByIdUseCase
 import com.david.tot.domain.article.GetFilteredArticleListUseCase
 import com.david.tot.domain.article.UpdateAllArticlesInLocalDatabaseUseCase
 import com.david.tot.domain.model.Article
-import com.david.tot.domain.model.Asset
 import com.david.tot.domain.model.Consumible
+import com.david.tot.domain.model.Pre
 import com.david.tot.domain.model.Sync
+import com.david.tot.domain.model.SyncConsumible
 import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
-import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
-import com.david.tot.util.assetList
+import com.david.tot.domain.sync.sync_consumible.AddManyArticleToLocalDatabaseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -62,13 +61,14 @@ class ArticleViewModel @Inject constructor(
     private val updateConsumedQuantityUseCase: UpdateConsumedQuantityUseCase,
     private val getFilteredArticleListUseCase: GetFilteredArticleListUseCase,
     private val getAllFromLocalDatabaseUseCase: GetAllFromLocalDatabaseUseCase,
-    private val addOneSyncFromLocalDatabaseUseCase: AddOneSyncFromLocalDatabaseUseCase,
-    private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase,
-    private val updateAllArticlesInLocalDatabaseUseCase: UpdateAllArticlesInLocalDatabaseUseCase,
-    private val addAllArticleToLocalDatabaseUseCase: AddAllArticleToLocalDatabaseUseCase
+    private val addOneSyncToLocalDatabaseUseCase: AddOneSyncFromLocalDatabaseUseCase,
+    //private val updateAllArticlesInLocalDatabaseUseCase: UpdateAllArticlesInLocalDatabaseUseCase,
+    //private val addAllArticleToLocalDatabaseUseCase: AddAllArticleToLocalDatabaseUseCase,
+    private val addManyArticleToLocalDatabaseUseCase: AddManyArticleToLocalDatabaseUseCase
 ) : ViewModel() {
     var articleList by mutableStateOf<List<Article>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
+    var toastSuccess by mutableStateOf<Boolean>(false)
     //TODO take another approach to create this pkey
     val sdf = SimpleDateFormat("MMdd hh:mm:ss")
     val currentDate = sdf.format(Date())
@@ -120,6 +120,36 @@ class ArticleViewModel @Inject constructor(
         }
     }
 
+    fun saveArticleListToSync(){
+        var consumibleList = mutableListOf<SyncConsumible>()
+        //TODO take another approach to create this pkey
+        val sdf = SimpleDateFormat("hh:mm:ss")
+        val currentDate = sdf.format(Date())
+        val date = currentDate.filter {it in '0'..'9'}
+        val syncId = date.toInt()
+        var quantityAvailable = 0
+        articleList.forEach { article ->
+            quantityAvailable = article.quantityAvailable.toInt() - article.consumedQuantity.toInt()
+            if (article.consumedQuantity> 0) {
+                if (quantityAvailable > 0) {
+                    article.quantityAvailable = quantityAvailable.toDouble()
+                    consumibleList.add(SyncConsumible(syncId=syncId,consumptionId=0,articleCode=article.articleDescription,quantity=article.consumedQuantity,unitOfMeasure=article.unitOfMeasure,creationDate="2023-08-08T00:48:12.104Z",delivered=0))
+                }
+            }
+        }
+        CoroutineScope(Dispatchers.IO).launch {
+            if (consumibleList.isNotEmpty()) {
+                addOneSyncToLocalDatabaseUseCase.invoke(Sync(dataType = "Consumible",createdAt = "" + currentDate))
+                addManyArticleToLocalDatabaseUseCase.invoke(consumibleList)
+                toastSuccess=true
+                //TODO virtualassembler aqui
+                // clear database()
+                // guardar el recipe list en la base de datos
+            }
+        }
+    }
+
+    /*
     fun saveArticleListToSync(context: Context):Int {
         var dataList = mutableListOf<Consumible>()
         //val prefs = FastPrefs(context)
@@ -174,6 +204,8 @@ class ArticleViewModel @Inject constructor(
             return 2
         }
     }
+
+     */
 
     fun updateConsumedQuantity(idArticle:Int, consumibleNewQuantity:Int){
         CoroutineScope(Dispatchers.IO).launch {

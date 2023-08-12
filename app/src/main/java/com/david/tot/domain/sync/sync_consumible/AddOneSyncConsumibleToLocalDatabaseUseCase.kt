@@ -1,4 +1,4 @@
-package com.david.tot.domain.sync_consumible
+package com.david.tot.domain.sync.sync_consumible
 
 import com.david.tot.data.SyncConsumibleRepository
 import com.david.tot.data.SyncRepository

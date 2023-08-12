@@ -5,6 +5,7 @@ import com.david.tot.data.database.dao.SyncConsumibleDao
 import com.david.tot.data.database.dao.SyncDao
 import com.david.tot.data.network.article.ArticleService
 import com.david.tot.domain.model.Article
+import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
@@ -25,9 +26,19 @@ class SyncConsumibleRepository @Inject constructor(
         return syncConsumibleDao.addOneSyncConsumibleToLocaDatabase (syncConsumible)
     }
 
+    suspend fun getAllConsumibleFromLocalDatabaseUseCase():List<Consumible>{
+        val response: List<Consumible> = syncConsumibleDao.getAllConsumibleFromLocalDatabaseUseCase()
+        return response.map { it.toDomain() }
+    }
+
     suspend fun getAll():List<SyncConsumible>{
         val response: List<SyncConsumible> = syncConsumibleDao.getAllSyncConsumibleFromLocaDatabase()
         return response.map { it.toDomain() }
     }
+
+    suspend fun addManyArticleToLocalDatabase(recipes:List<SyncConsumible>){
+        syncConsumibleDao.addManyArticleToLocalDatabase(recipes)
+    }
+
 
 }

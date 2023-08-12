@@ -48,7 +48,6 @@ import com.david.tot.domain.pre.AddOnePreFromLocalDatabaseUseCase
 import com.david.tot.domain.pre.GetAllDvFromLocalDatabaseUseCase
 import com.david.tot.domain.pre.GetAllPreFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
-import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -77,11 +76,7 @@ class PreViewModel @Inject constructor(
     var preList by mutableStateOf<List<Article>>(emptyList())
     /*
     var quantityToRestore by mutableStateOf<String>("")
-    //TODO take another approach to create this pkey
-    val sdf = SimpleDateFormat("MMdd hh:mm:ss")
-    val currentDate = sdf.format(Date())
-    val date = currentDate.filter {it in '0'..'9'}
-    val key = date.toInt()
+
    */
 
     val pres = addOnePreFromLocalDatabase()

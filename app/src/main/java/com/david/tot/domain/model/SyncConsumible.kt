@@ -9,12 +9,15 @@ import kotlinx.serialization.Serializable
 @Entity(tableName = "SyncConsumibleTable")
 data class SyncConsumible (
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "local_id") val local_id: Int = 0,
-    //@ColumnInfo(name = "remote_id") val id: Int,
-    @ColumnInfo(name = "consumptionId") val consumptionId: Int,
-    @ColumnInfo(name = "sharedPreferenceName") val sharedPreferenceName: String,
-    @ColumnInfo(name = "objectType") val objectType: String,
-    @ColumnInfo(name = "createdAt") val createdAt: String = "",
-    )
-fun SyncConsumible.toDomain() = SyncConsumible(local_id,consumptionId,sharedPreferenceName,objectType,createdAt)
-fun SyncConsumible.toDatabase() = SyncConsumible(local_id=local_id,consumptionId=consumptionId,sharedPreferenceName=sharedPreferenceName,objectType=objectType,createdAt=createdAt)
+    @ColumnInfo(name = "localId") val localId: Int = 0,
+    @ColumnInfo(name = "syncId") val syncId: Int,
+    @ColumnInfo(name = "consumptionDetailId") val consumptionDetailId: Int=0,
+    @ColumnInfo(name = "consumptionId") val consumptionId: Int=0,
+    @ColumnInfo(name = "articleCode") val articleCode: String="",
+    @ColumnInfo(name = "quantity") val quantity: Int=0,
+    @ColumnInfo(name = "unitOfMeasure") val unitOfMeasure: String="",
+    @ColumnInfo(name = "creationDate") val creationDate: String="2023-01-14T09:15:07.76",
+    @ColumnInfo(name = "delivered") val delivered: Int=0
+)
+fun SyncConsumible.toDomain() = SyncConsumible(localId,syncId,consumptionDetailId,consumptionId,articleCode,quantity,unitOfMeasure,creationDate,delivered)
+fun SyncConsumible.toDatabase() = SyncConsumible(localId=localId,syncId=syncId,consumptionDetailId=consumptionDetailId,consumptionId=consumptionId,articleCode=articleCode,quantity=quantity,unitOfMeasure=unitOfMeasure,creationDate=creationDate,delivered=delivered)

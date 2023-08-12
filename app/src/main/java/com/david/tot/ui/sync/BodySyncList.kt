@@ -71,7 +71,7 @@ fun BodySyncList(syncViewModel: SyncViewModel) {
                                 Box(
 
                                 ) {
-                                    Text(text = "Tipo: "+sync.sharedPreferenceName)
+                                    Text(text = "Tipo: "+sync.dataType)
                                 }
                             }
                             Row(
@@ -80,7 +80,7 @@ fun BodySyncList(syncViewModel: SyncViewModel) {
                                 Box(
 
                                 ) {
-                                    Text(text = "Fecha: "+sync.objectType)
+                                    Text(text = "idSync: "+sync.idSync)
                                 }
                             }
                             /*

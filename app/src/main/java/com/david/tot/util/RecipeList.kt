@@ -1,6 +1,5 @@
 package com.david.tot.util
 
-import com.david.tot.domain.model.Coordinate
 import com.david.tot.domain.model.Pre
 
 val preList: List<Pre> = listOf(

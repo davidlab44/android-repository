@@ -28,19 +28,17 @@ object RoomModule {
     @Provides
     fun provideDrugsDeliveryConsumerViewHeaderDao(db: RecipeDatabase) = db.getDrugsDeliveryConsumerViewHeaderDao()
 
+    @Singleton
+    @Provides
+    fun provideSyncDao(db: RecipeDatabase) = db.getSyncDao()
 
     @Singleton
     @Provides
-    fun SyncDao(db: RecipeDatabase) = db.getSyncDao()
+    fun providePreDao(db: RecipeDatabase) = db.getPreDao()
 
     @Singleton
     @Provides
-    fun PreDao(db: RecipeDatabase) = db.getPreDao()
-
-
-    @Singleton
-    @Provides
-    fun SynConsumibleDao(db: RecipeDatabase) = db.getSyncConsumibleDao()
+    fun provideSynConsumibleDao(db: RecipeDatabase) = db.getSyncConsumibleDao()
 
 }
 

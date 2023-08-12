@@ -446,7 +446,7 @@ fun DrawerContent(
                 )
             }
         }
-        /*
+
         item {
             Spacer(modifier = Modifier.height(20.dp))
             Row(modifier = Modifier
@@ -459,7 +459,7 @@ fun DrawerContent(
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
                     painter = painterResource(id = R.drawable.receipt_long_white_18dp),
-                    contentDescription = "Configuracion"
+                    contentDescription = "Consumibles"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 ClickableText(
@@ -467,14 +467,14 @@ fun DrawerContent(
                         color = Color.White,
                         fontSize = 26.sp
                     ),
-                    text = AnnotatedString("Salida medicamentos") ,
+                    text = AnnotatedString("Salida consumibles") ,
                     onClick = {
                         context.startActivity(Intent(context, ArticleActivity::class.java))
                     }
                 )
             }
         }
-        */
+
         item {
             Spacer(modifier = Modifier.height(20.dp))
             Row(modifier = Modifier

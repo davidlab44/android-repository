@@ -193,15 +193,12 @@ fun TopAppBarSyncAcivity(syncViewModel: SyncViewModel, onNavIconClick: () -> Uni
         actions = {
             IconButton(onClick = { /* doSomething() */
                 //enviar lo que hay pendiente al servidor, crear la header y enviarla [se usa el tipo de dato vehicle]
-                syncViewModel.syncConsumible(mContext)
+                syncViewModel.syncConsumible()
                 //cuando el header responda ...
                 //...Insertar los consumibles
                 //cuando los consumibles responda ok
                 //eliminar el registro de la tabla
-
-
                 ///TODO cuando elimine el registro verificar si hay mas elementos pendientes  y repetir la operacion
-
             }) {
                 Icon(
                     imageVector = Icons.Filled.Sync,

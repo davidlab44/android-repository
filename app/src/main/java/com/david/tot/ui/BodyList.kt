@@ -62,7 +62,7 @@ import com.david.tot.util.preList
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun BodyList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
-
+/*
     //
     //var lista by mutableStateOf<List<Asset>>(emptyList())
 
@@ -170,192 +170,188 @@ fun BodyList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeader
             }
         }
     }
+*/
 
 
 
+    //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
+    //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
 
+    articleViewModel.getAllFromApi()
+    //var quantityToRestore by rememberSaveable {mutableStateOf("") }
+    val mContext = LocalContext.current
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        var text by rememberSaveable { mutableStateOf("") }
 
-    /*
-        //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
-        //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
+        /*
+        //filtro
 
-        articleViewModel.getAllFromApi()
-        //var quantityToRestore by rememberSaveable {mutableStateOf("") }
-        val mContext = LocalContext.current
-        Column(
+        TextField(
+            value = text,
+            onValueChange = {
+                text = it
+            },
+            label = { Text("Buscar") },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Email Icon"
+                )
+            },
+        )
+
+        */
+
+        OutlinedTextField(
+            value = text,
             modifier = Modifier
-                .fillMaxSize()
-                .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            var text by rememberSaveable { mutableStateOf("") }
+                .fillMaxWidth()
+                //.background(Color.White)
+                //.background(Color(0xFF22475b))
+                .padding(12.dp),
+            onValueChange = { newText ->
+                text = newText
+            },
+            label = { Text(text = "Buscar") },
+            placeholder = { Text(text = "") }
+        )
 
+        articleViewModel.updateFilteredArticleList(text)
+        //Text(text="Aqui"+text)
+
+        val listModifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(top= 15.dp)
+            .align(Alignment.CenterHorizontally)
+        LazyColumn(modifier = listModifier) {
+            val recipeList2 =articleViewModel.articleList
+            //val recipeList =CheckList
+            //var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
             /*
-            //filtro
-
-            TextField(
-                value = text,
-                onValueChange = {
-                    text = it
-                },
-                label = { Text("Buscar") },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = "Email Icon"
-                    )
-                },
-            )
-
+            var dataList = mutableListOf<Consumible>()
+            val prefs = FastPrefs(mContext)
+            prefs.set("key",dataList)
+            //val value = prefs.get("key",dataList)
+            //Text(text= "value= ${value.toString()}")
+            val jsonList = Json.encodeToString(dataList)
+            val jsont = jsonList
+            val jsonArray = Json.decodeFromString<JsonArray>(jsont)
+            //send json to the server
+            drugsDeliveryConsumerViewHeaderViewModel.saveInventoryOutputInremoteServer(jsonArray)
             */
-
-            OutlinedTextField(
-                value = text,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    //.background(Color.White)
-                    //.background(Color(0xFF22475b))
-                    .padding(12.dp),
-                onValueChange = { newText ->
-                    text = newText
-                },
-                label = { Text(text = "Buscar") },
-                placeholder = { Text(text = "") }
-            )
-
-            articleViewModel.updateFilteredArticleList(text)
-            //Text(text="Aqui"+text)
-
-            val listModifier = Modifier
-                .fillMaxSize()
-                .background(Color.White)
-                .padding(top= 15.dp)
-                .align(Alignment.CenterHorizontally)
-            LazyColumn(modifier = listModifier) {
-                val recipeList2 =articleViewModel.articleList
-                //val recipeList =CheckList
-                //var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
-                /*
-                var dataList = mutableListOf<Consumible>()
-                val prefs = FastPrefs(mContext)
-                prefs.set("key",dataList)
-                //val value = prefs.get("key",dataList)
-                //Text(text= "value= ${value.toString()}")
-                val jsonList = Json.encodeToString(dataList)
-                val jsont = jsonList
-                val jsonArray = Json.decodeFromString<JsonArray>(jsont)
-                //send json to the server
-                drugsDeliveryConsumerViewHeaderViewModel.saveInventoryOutputInremoteServer(jsonArray)
-                */
-                val recipeList =articleViewModel.articleList
-                items(recipeList) { recipe ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp)
-                            .clickable { },
-                        elevation = 10.dp,
-                        content = {
-                            Column(
-                                //horizontalAlignment = Alignment.CenterHorizontally,
-                                modifier = Modifier
-                                    .border(1.dp, Color.Gray, RectangleShape)
-                                    .fillMaxWidth()
-                                    .padding(10.dp)) {
-                                Row(
-                                    modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
-                                ) {
-                                    /*
-                                    Box(
-                                        modifier = Modifier.fillMaxWidth().padding(1.dp),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Text(
-                                            text = recipe.articleDescription,
-                                            textAlign = TextAlign.Center,
-                                            color = Color.Black,
-                                            fontSize = 18.sp
-                                        )
-                                    }
-                                    */
-                                    Box(
-                                    ) {
-                                        Text(text = recipe.articleDescription)
-                                    }
-                                }
-                                Row(
-                                    modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
-                                ) {
-                                    /*
-                                    Box(
-                                        modifier = Modifier.fillMaxWidth().padding(1.dp),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Text(
-                                            text = recipe.articleDescription,
-                                            textAlign = TextAlign.Center,
-                                            color = Color.Black,
-                                            fontSize = 18.sp
-                                        )
-                                    }
-                                    */
-                                    Box(
-                                    ) {
-                                        Text(text = ""+recipe.quantityToRestore)
-                                    }
-                                }
-
+            val recipeList =articleViewModel.articleList
+            items(recipeList) { recipe ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                        .clickable { },
+                    elevation = 10.dp,
+                    content = {
+                        Column(
+                            //horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier
+                                .border(1.dp, Color.Gray, RectangleShape)
+                                .fillMaxWidth()
+                                .padding(10.dp)) {
+                            Row(
+                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+                            ) {
                                 /*
-                                Row(
+                                Box(
+                                    modifier = Modifier.fillMaxWidth().padding(1.dp),
+                                    contentAlignment = Alignment.Center
                                 ) {
-                                        OutlinedTextField(
-                                            value = ""+recipe.quantityToRestore,
-                                            onValueChange = {
-                                                //loginViewModel.productDescription = it
-                                                //email = loginViewModel.productDescription
-                                                //if()
-                                                if(it!=""
-                                                    //&&it.trim().isNullOrEmpty()&&it.toInt()!=null&&it.toInt()!=null&&it.trim()!=""
-                                                ){
-                                                    //articleViewModel.updateQuantity(recipe.local_id.toInt(),it.trim().toInt())
-                                                    //screenArticleViewModel.getArticleByIdUseCase(recipe.local_id.toInt())
-                                                }else
-                                                    Toast.makeText(mContext,"El dato ingresado debe ser un numero" , Toast.LENGTH_SHORT).show()
-                                            },
-                                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                                            label = { androidx.compose.material3.Text("Cantidad a reponer:") },
-                                            modifier = Modifier
-                                                //.padding(start = 16.dp, end = 16.dp, top = 20.dp)
-                                                .width(170.dp)
-                                        )
-                                        /*
-                                        TextField(
-                                            value = quantityToRestore,
-                                            onValueChange = {
-                                                //screenArticleViewModel.updateQuantity(it)
-                                                //quantityToRestore = it
-                                            },
-                                        )
-                                        //+" "+recipe.unitOfMeasure.toLowerCase()
-                                         */
+                                    Text(
+                                        text = recipe.articleDescription,
+                                        textAlign = TextAlign.Center,
+                                        color = Color.Black,
+                                        fontSize = 18.sp
+                                    )
                                 }
                                 */
-
-                                Row(
-                                    modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+                                Box(
                                 ) {
-                                    Box(
+                                    Text(text = recipe.articleDescription)
+                                }
+                            }
+                            Row(
+                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+                            ) {
+                                /*
+                                Box(
+                                    modifier = Modifier.fillMaxWidth().padding(1.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = recipe.articleDescription,
+                                        textAlign = TextAlign.Center,
+                                        color = Color.Black,
+                                        fontSize = 18.sp
+                                    )
+                                }
+                                */
+                                Box(
+                                ) {
+                                    Text(text = ""+recipe.quantityToRestore)
+                                }
+                            }
 
-                                    ) {
-                                        Text(text = "Disponible en inventario: "+recipe.quantityAvailable.toInt().toString()+" "+recipe.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
-                                    }
+                            /*
+                            Row(
+                            ) {
+                                    OutlinedTextField(
+                                        value = ""+recipe.quantityToRestore,
+                                        onValueChange = {
+                                            //loginViewModel.productDescription = it
+                                            //email = loginViewModel.productDescription
+                                            //if()
+                                            if(it!=""
+                                                //&&it.trim().isNullOrEmpty()&&it.toInt()!=null&&it.toInt()!=null&&it.trim()!=""
+                                            ){
+                                                //articleViewModel.updateQuantity(recipe.local_id.toInt(),it.trim().toInt())
+                                                //screenArticleViewModel.getArticleByIdUseCase(recipe.local_id.toInt())
+                                            }else
+                                                Toast.makeText(mContext,"El dato ingresado debe ser un numero" , Toast.LENGTH_SHORT).show()
+                                        },
+                                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                        label = { androidx.compose.material3.Text("Cantidad a reponer:") },
+                                        modifier = Modifier
+                                            //.padding(start = 16.dp, end = 16.dp, top = 20.dp)
+                                            .width(170.dp)
+                                    )
+                                    /*
+                                    TextField(
+                                        value = quantityToRestore,
+                                        onValueChange = {
+                                            //screenArticleViewModel.updateQuantity(it)
+                                            //quantityToRestore = it
+                                        },
+                                    )
+                                    //+" "+recipe.unitOfMeasure.toLowerCase()
+                                     */
+                            }
+                            */
+
+                            Row(
+                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+                            ) {
+                                Box(
+
+                                ) {
+                                    Text(text = "Disponible en inventario: "+recipe.quantityAvailable.toInt().toString()+" "+recipe.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
                                 }
                             }
                         }
-                    )
-                }
+                    }
+                )
             }
         }
-
-     */
+    }
 }
 

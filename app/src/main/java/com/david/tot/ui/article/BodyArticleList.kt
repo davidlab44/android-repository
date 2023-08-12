@@ -1,5 +1,6 @@
 package com.david.tot.ui.article
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -32,12 +33,15 @@ import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsume
 @Composable
 fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
 
+    val mContext = LocalContext.current
+    if(articleViewModel.toastSuccess)
+        Toast.makeText(mContext,"Consumible creado exitosamente!", Toast.LENGTH_LONG).show()
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
 
     articleViewModel.getAllFromLocalDatabase()
     //var quantityToRestore by rememberSaveable {mutableStateOf("") }
-    val mContext = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -211,7 +215,7 @@ fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
                                     Text(text = "Disponible en inventario: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
                                 }
                             }
-                            /*
+
                             Row(
                                 modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
                             ) {
@@ -221,7 +225,7 @@ fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerVie
                                     Text(text = "nueva cantidad: "+article.consumedQuantity.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
                                 }
                             }
-                            */
+
                         }
                     }
                 )

@@ -1,6 +1,5 @@
 package com.david.tot.util
 
-import com.david.tot.domain.model.Coordinate
 import com.david.tot.domain.model.Asset
 
 val assetList: List<Asset> = listOf(

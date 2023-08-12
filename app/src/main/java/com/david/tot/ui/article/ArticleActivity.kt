@@ -198,6 +198,7 @@ fun TopAppBarArticleAcivity(nContext:ArticleActivity,articleViewModel: ArticleVi
         actions = {
             IconButton(onClick = { /* doSomething() */
 
+                articleViewModel.saveArticleListToSync()
                 /*
                 var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
 

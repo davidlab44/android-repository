@@ -12,3 +12,5 @@ data class Consumible (
     val creationDate: String = "2023-08-08T00:48:12.104Z",
     val delivered: Int = 0
 )
+fun Consumible.toDomain() = Consumible(consumptionDetailId,consumptionId,articleCode,quantity,unitOfMeasure,creationDate,delivered)
+fun Consumible.toDatabase() = Consumible(consumptionDetailId=consumptionDetailId,consumptionId=consumptionId,articleCode=articleCode,quantity=quantity,unitOfMeasure=unitOfMeasure,creationDate=creationDate,delivered=delivered)
