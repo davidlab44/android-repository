@@ -4,6 +4,7 @@ import com.david.tot.data.database.dao.ArticleDao
 import com.david.tot.data.database.dao.PreDao
 import com.david.tot.data.network.article.ArticleService
 import com.david.tot.domain.model.Article
+import com.david.tot.domain.model.Dv
 import com.david.tot.domain.model.Pre
 import com.david.tot.domain.model.toDomain
 import com.david.tot.util.IsImageFile
@@ -21,6 +22,11 @@ class PreRepository @Inject constructor(
 
     suspend fun getAllPreFromDatabase():List<Pre>{
         val response: List<Pre> = preDao.getAll()
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getAllDvFromDatabase():List<Dv>{
+        val response: List<Dv> = preDao.getAllDv()
         return response.map { it.toDomain() }
     }
 

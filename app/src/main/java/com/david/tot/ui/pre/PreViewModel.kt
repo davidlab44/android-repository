@@ -45,6 +45,7 @@ import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.Pre
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.pre.AddOnePreFromLocalDatabaseUseCase
+import com.david.tot.domain.pre.GetAllDvFromLocalDatabaseUseCase
 import com.david.tot.domain.pre.GetAllPreFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
@@ -59,7 +60,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PreViewModel @Inject constructor(
     private val addOnePreFromLocalDatabaseUseCase: AddOnePreFromLocalDatabaseUseCase,
-    private val getAllPreFromLocalDatabaseUseCase: GetAllPreFromLocalDatabaseUseCase
+    private val getAllPreFromLocalDatabaseUseCase: GetAllPreFromLocalDatabaseUseCase,
+    private val getAllDvFromLocalDatabaseUseCase: GetAllDvFromLocalDatabaseUseCase,
     /*
     private val getAllFromApiUseCase: GetAllFromApiUseCase,
     private val getArticleByIdUseCase: GetArticleByIdUseCase,
@@ -97,10 +99,13 @@ class PreViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             val muchasPre = getAllPreFromLocalDatabaseUseCase.invoke()
             Log.e("TAG","PRA"+muchasPre)
+            val muchasDv = getAllDvFromLocalDatabaseUseCase.invoke()
+            Log.e("TAG","PRA"+muchasDv)
+            Log.e("TAG","PRA"+muchasDv.toString())
+            Log.e("TAG","PRA"+muchasDv.size)
+
         }
     }
-
-
 
     /*
 
