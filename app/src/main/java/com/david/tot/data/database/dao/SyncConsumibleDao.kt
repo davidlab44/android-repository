@@ -6,15 +6,16 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Sync
+import com.david.tot.domain.model.SyncConsumible
 
 @Dao
-interface SyncDao {
+interface SyncConsumibleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addOne(sync: Sync)
+    suspend fun addOneSyncConsumibleToLocaDatabase(syncConsumible: SyncConsumible)
 
-    @Query("SELECT * FROM SyncTable ORDER BY createdAt ASC")
-    suspend fun getAll():List<Sync>
+    @Query("SELECT * FROM SyncConsumibleTable ORDER BY createdAt ASC")
+    suspend fun getAllSyncConsumibleFromLocaDatabase():List<SyncConsumible>
 
     /*
     @Query("SELECT * FROM syncTable ORDER BY createdAt ASC")

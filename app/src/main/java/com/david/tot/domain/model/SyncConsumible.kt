@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Entity(tableName = "SyncTable")
-data class Sync (
+@Entity(tableName = "SyncConsumibleTable")
+data class SyncConsumible (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "local_id") val local_id: Int = 0,
     //@ColumnInfo(name = "remote_id") val id: Int,
@@ -16,5 +16,5 @@ data class Sync (
     @ColumnInfo(name = "objectType") val objectType: String,
     @ColumnInfo(name = "createdAt") val createdAt: String = "",
     )
-fun Sync.toDomain() = Sync(local_id,consumptionId,sharedPreferenceName,objectType,createdAt)
-fun Sync.toDatabase() = Sync(local_id=local_id,consumptionId=consumptionId,sharedPreferenceName=sharedPreferenceName,objectType=objectType,createdAt=createdAt)
+fun SyncConsumible.toDomain() = SyncConsumible(local_id,consumptionId,sharedPreferenceName,objectType,createdAt)
+fun SyncConsumible.toDatabase() = SyncConsumible(local_id=local_id,consumptionId=consumptionId,sharedPreferenceName=sharedPreferenceName,objectType=objectType,createdAt=createdAt)

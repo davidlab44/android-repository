@@ -5,21 +5,25 @@ import androidx.room.RoomDatabase
 import com.david.tot.data.database.dao.DrugsDeliveryConsumerViewHeaderDao
 import com.david.tot.data.database.dao.ArticleDao
 import com.david.tot.data.database.dao.PreDao
+import com.david.tot.data.database.dao.SyncConsumibleDao
 import com.david.tot.data.database.dao.SyncDao
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
 import com.david.tot.domain.model.Pre
 import com.david.tot.domain.model.Sync
+import com.david.tot.domain.model.SyncConsumible
 
-@Database(entities = [Article::class, DrugsDeliveryConsumerViewHeader::class, Sync::class, Pre::class], version = 24)
+@Database(entities = [Article::class, DrugsDeliveryConsumerViewHeader::class, Sync::class, Pre::class, SyncConsumible::class], version = 26)
 abstract class RecipeDatabase: RoomDatabase() {
     abstract fun getRecipeDao(): ArticleDao
 
     abstract fun getDrugsDeliveryConsumerViewHeaderDao(): DrugsDeliveryConsumerViewHeaderDao
 
-    abstract fun syncDao(): SyncDao
+    abstract fun getSyncDao(): SyncDao
 
     abstract fun getPreDao(): PreDao
+
+    abstract fun getSyncConsumibleDao(): SyncConsumibleDao
 }
 
 
