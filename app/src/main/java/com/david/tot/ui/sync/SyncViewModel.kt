@@ -50,9 +50,17 @@ class SyncViewModel @Inject constructor(
     fun postManyConsumibleToApi() {
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
+            var consumibleHeader=getAnyDrugsDeliveryConsumerViewHeaderUseCase.invoke()
+            var headerCons = ConsumibleHeader(0,consumibleHeader.consumer,consumibleHeader.vehicle,"Example2","2023-08-10T01:42:45.655Z",0)
+            var gson = Gson()
+            var headerConsumible = gson.toJson(headerCons)
+            val consumibleHeaderId =postOneDrugsDeliveryConsumerViewHeaderUseCase.invoke(headerConsumible)
             var consumibleList by mutableStateOf<List<Consumible>>(emptyList())
             consumibleList = getAllConsumibleFromSyncConsumibleTableUseCase.invoke()
-            if (!consumibleList.isNullOrEmpty()) {
+            if (!consumibleList.isNullOrEmpty()&&consumibleHeaderId.toInt()>0) {
+                consumibleList.forEach { consumible->
+                    consumible.consumptionId=consumibleHeaderId
+                }
                 val jsonArray: JsonArray = Gson().toJsonTree(consumibleList).asJsonArray
                 val postManyArticleUseCase = postManyArticleUseCase.invoke(jsonArray)
                 if(postManyArticleUseCase in 200..300)
