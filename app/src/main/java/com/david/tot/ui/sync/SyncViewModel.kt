@@ -36,6 +36,7 @@ class SyncViewModel @Inject constructor(
 
     var syncList by mutableStateOf<List<Sync>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
+    var isSyncing by mutableStateOf<Boolean>(false)
     var toastTheresNotConsumiblesToSync by mutableStateOf<Boolean>(false)
     var toastConsumiblesSynced by mutableStateOf<Boolean>(false)
     var toastInsertedSuccessfully by mutableStateOf<Boolean>(false)
@@ -49,6 +50,7 @@ class SyncViewModel @Inject constructor(
 
     suspend fun postManyConsumibleToApi() {
         CoroutineScope(Dispatchers.IO).launch {
+            isSyncing=true
             //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
             val consumibleHeader=getAnyDrugsDeliveryConsumerViewHeaderUseCase.invoke()
             var headerCons = ConsumibleHeader(0,consumibleHeader.consumer,consumibleHeader.vehicle,"Example2","2023-08-10T01:42:45.655Z",0)
@@ -75,6 +77,7 @@ class SyncViewModel @Inject constructor(
                         postManyConsumibleToApi()
                     }else{
                         toastConsumiblesSynced=true
+                        isSyncing=false
                     }
                 }
             }

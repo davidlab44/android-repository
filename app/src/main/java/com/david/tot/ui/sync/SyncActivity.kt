@@ -23,6 +23,7 @@ import com.david.tot.ui.article.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.filled.Stop
 /*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,6 +36,7 @@ import androidx.compose.material.icons.filled.Sync
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -177,6 +179,7 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 @Composable
 fun TopAppBarSyncAcivity(syncViewModel: SyncViewModel, onNavIconClick: () -> Unit) {
     val mContext = LocalContext.current.applicationContext
+    var icono by rememberSaveable {mutableStateOf("Sync") }
     TopAppBar(
         title = { Text(text = "GLAPP") },
         navigationIcon = {
@@ -192,22 +195,28 @@ fun TopAppBarSyncAcivity(syncViewModel: SyncViewModel, onNavIconClick: () -> Uni
             }
         },
         actions = {
-            IconButton(onClick = { /* doSomething() */
-                //enviar lo que hay pendiente al servidor, crear la header y enviarla [se usa el tipo de dato vehicle]
-                runBlocking {
-                    syncViewModel.postManyConsumibleToApi()
+            if(syncViewModel.isSyncing){
+                IconButton(onClick = {
+                /* doSomething() */
+                }) {
+                    Icon(
+                        imageVector = Icons.Filled.Stop,
+                        contentDescription = "Localized description"
+                    )
                 }
-                //cuando el header responda ...
-                //...Insertar los consumibles
-                //cuando los consumibles responda ok
-                //eliminar el registro de la tabla
-                ///TODO cuando elimine el registro verificar si hay mas elementos pendientes  y repetir la operacion
-            }) {
-                Icon(
-                    imageVector = Icons.Filled.Sync,
-                    contentDescription = "Localized description"
-                )
+            }else{
+                IconButton(onClick = { /* doSomething() */
+                    runBlocking {
+                        syncViewModel.postManyConsumibleToApi()
+                    }
+                }) {
+                    Icon(
+                        imageVector = Icons.Filled.Sync,
+                        contentDescription = "Localized description"
+                    )
+                }
             }
+
         },
         backgroundColor = Color(0xFF22475b),
         contentColor = Color.White
