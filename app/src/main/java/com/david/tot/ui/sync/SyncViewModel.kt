@@ -12,7 +12,8 @@ import com.david.tot.domain.drugs_delivery_consumer_view_header.PostOneDrugsDeli
 import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.ConsumibleHeader
 import com.david.tot.domain.model.Sync
-import com.david.tot.domain.sync.sync_consumible.GetAllConsumibleFromLocalDatabaseUseCase
+import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
+import com.david.tot.domain.sync.consumible.GetAllConsumibleFromSyncConsumibleTableUseCase
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 //import com.yeslab.fastprefs.FastPrefs
@@ -24,12 +25,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SyncViewModel @Inject constructor(
-    private val getAllConsumibleFromLocalDatabaseUseCase: GetAllConsumibleFromLocalDatabaseUseCase,
+    private val getAllConsumibleFromSyncConsumibleTableUseCase: GetAllConsumibleFromSyncConsumibleTableUseCase,
     private val postOneDrugsDeliveryConsumerViewHeaderUseCase: PostOneDrugsDeliveryConsumerViewHeaderUseCase,
     private val getAnyDrugsDeliveryConsumerViewHeaderUseCase: GetAnyDrugsDeliveryConsumerViewHeaderUseCase,
-    private val postManyArticleUseCase: PostManyArticleUseCase
+    private val postManyArticleUseCase: PostManyArticleUseCase,
+    private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase
 ) : ViewModel() {
-
 
     var syncList by mutableStateOf<List<Sync>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
@@ -42,7 +43,7 @@ class SyncViewModel @Inject constructor(
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
             //val id = Calendar.getInstance().time
-            //val syncList = getAllSyncsFromLocalDatabaseUseCase.invoke()
+            syncList = getAllSyncFromLocalDatabaseUseCase.invoke()
         }
     }
 
@@ -51,7 +52,7 @@ class SyncViewModel @Inject constructor(
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
             var consumibleList by mutableStateOf<List<Consumible>>(emptyList())
-            consumibleList = getAllConsumibleFromLocalDatabaseUseCase.invoke()
+            consumibleList = getAllConsumibleFromSyncConsumibleTableUseCase.invoke()
             if (!consumibleList.isNullOrEmpty()) {
                 val jsonArray: JsonArray = Gson().toJsonTree(consumibleList).asJsonArray
                 val postManyArticleUseCase = postManyArticleUseCase.invoke(jsonArray)
@@ -66,7 +67,7 @@ class SyncViewModel @Inject constructor(
     @SuppressLint("SuspiciousIndentation")
     fun syncConsumible(){
         CoroutineScope(Dispatchers.IO).launch {
-            val consumibleList = getAllConsumibleFromLocalDatabaseUseCase.invoke()
+            val consumibleList = getAllConsumibleFromSyncConsumibleTableUseCase.invoke()
            //TODO TODO OJO para syncronizar varios elementos hay qque modificar este ciclo asi como esta unicamante manda uno
             consumibleList.forEach {
                 key = it.consumptionId

@@ -33,19 +33,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.UpdateConsumedQuantityUseCase
-import com.david.tot.domain.article.AddAllArticleToLocalDatabaseUseCase
 import com.david.tot.domain.article.GetAllFromApiUseCase
 import com.david.tot.domain.article.GetAllFromLocalDatabaseUseCase
 import com.david.tot.domain.article.GetArticleByIdUseCase
 import com.david.tot.domain.article.GetFilteredArticleListUseCase
-import com.david.tot.domain.article.UpdateAllArticlesInLocalDatabaseUseCase
 import com.david.tot.domain.model.Article
-import com.david.tot.domain.model.Consumible
-import com.david.tot.domain.model.Pre
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
 import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
-import com.david.tot.domain.sync.sync_consumible.AddManyArticleToLocalDatabaseUseCase
+import com.david.tot.domain.sync.consumible.AddManySyncConsumibleToLocalDatabaseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -64,7 +60,7 @@ class ArticleViewModel @Inject constructor(
     private val addOneSyncToLocalDatabaseUseCase: AddOneSyncFromLocalDatabaseUseCase,
     //private val updateAllArticlesInLocalDatabaseUseCase: UpdateAllArticlesInLocalDatabaseUseCase,
     //private val addAllArticleToLocalDatabaseUseCase: AddAllArticleToLocalDatabaseUseCase,
-    private val addManyArticleToLocalDatabaseUseCase: AddManyArticleToLocalDatabaseUseCase
+    private val addManySyncConsumibleToLocalDatabaseUseCase: AddManySyncConsumibleToLocalDatabaseUseCase
 ) : ViewModel() {
     var articleList by mutableStateOf<List<Article>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
@@ -140,7 +136,7 @@ class ArticleViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             if (consumibleList.isNotEmpty()) {
                 addOneSyncToLocalDatabaseUseCase.invoke(Sync(dataType = "Consumible",createdAt = "" + currentDate))
-                addManyArticleToLocalDatabaseUseCase.invoke(consumibleList)
+                addManySyncConsumibleToLocalDatabaseUseCase.invoke(consumibleList)
                 toastSuccess=true
                 //TODO virtualassembler aqui
                 // clear database()

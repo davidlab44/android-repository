@@ -13,7 +13,7 @@ import com.david.tot.domain.model.Pre
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
 
-@Database(entities = [Article::class, DrugsDeliveryConsumerViewHeader::class, Sync::class, Pre::class, SyncConsumible::class], version = 27)
+@Database(entities = [Article::class, DrugsDeliveryConsumerViewHeader::class, Sync::class, Pre::class, SyncConsumible::class], version = 28)
 abstract class RecipeDatabase: RoomDatabase() {
     abstract fun getRecipeDao(): ArticleDao
 

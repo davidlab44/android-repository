@@ -22,8 +22,8 @@ class SyncRepository @Inject constructor(
         return syncDao.addOne(sync)
     }
 
-    suspend fun getAll():List<Sync>{
-        val response: List<Sync> = syncDao.getAll()
+    suspend fun getAllSyncFromLocalDatabase():List<Sync>{
+        val response: List<Sync> = syncDao.getAllSyncFromLocalDatabase()
         return response.map { it.toDomain() }
     }
 

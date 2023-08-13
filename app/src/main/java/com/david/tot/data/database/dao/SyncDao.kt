@@ -13,8 +13,8 @@ interface SyncDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addOne(sync: Sync)
 
-    @Query("SELECT * FROM SyncTable ORDER BY createdAt ASC")
-    suspend fun getAll():List<Sync>
+    @Query("SELECT * FROM SyncTable")
+    suspend fun getAllSyncFromLocalDatabase():List<Sync>
 
     /*
     @Query("SELECT * FROM syncTable ORDER BY createdAt ASC")
