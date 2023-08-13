@@ -15,7 +15,7 @@ import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsume
 import com.david.tot.ui.drugs_delivery_consumer_view_header.ScreenComponentHeader
 
 @Composable
-fun ArticleHeaderAndBodyScreen(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+fun ArticleHeaderAndBodyScreen(contextActivity:ArticleActivity,articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
     drugsDeliveryConsumerViewHeaderViewModel.getAlldrugsDeliveryConsumerViewHeader()
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
@@ -32,16 +32,17 @@ fun ArticleHeaderAndBodyScreen(articleViewModel: ArticleViewModel, drugsDelivery
             modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            BodyArticleList(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+            BodyArticleList(contextActivity,articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
         }
     }
 }
 
-
+/*
 @Composable
 fun HomeScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
     ArticleHeaderAndBodyScreen(articleViewModel, drugsDeliveryConsumerViewHeaderViewModel)
 }
+ */
 
 @Composable
 fun MusicScreen() {

@@ -92,7 +92,7 @@ class ArticleActivity : ComponentActivity() {
                         bottomBar = { BottomNavigationBar(navController) },
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                NavigationBotomMenu(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel,navController = navController)
+                                NavigationBotomMenu(this@ArticleActivity,articleViewModel,drugsDeliveryConsumerViewHeaderViewModel,navController = navController)
                             }
                         },
                         drawerContent = {
@@ -233,11 +233,11 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 */
 
 @Composable
-fun NavigationBotomMenu(articleViewModel:ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel, navController: NavHostController) {
+fun NavigationBotomMenu(contextActivity:ArticleActivity,articleViewModel:ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel, navController: NavHostController) {
 
     NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
         composable(BotomNavigationItem.Home.route) {
-            ArticleHeaderAndBodyScreen(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+            ArticleHeaderAndBodyScreen(contextActivity,articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
         }
         composable(BotomNavigationItem.Music.route) {
             MusicScreen()

@@ -23,7 +23,7 @@ class ArticleService @Inject constructor(private val api: IArticleApiClient) {
 
 
 
-    suspend fun postMany(jsonArray: JsonArray):Int{
+    suspend fun postManyConsumible(jsonArray: JsonArray):Int{
         return withContext(Dispatchers.IO) {
             val mediaType = "application/json".toMediaType()
             val body = jsonArray.toString().toRequestBody(mediaType)

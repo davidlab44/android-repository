@@ -10,9 +10,9 @@ import kotlinx.serialization.Serializable
 data class Sync (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "local_id") val local_id: Int = 0,
-    @ColumnInfo(name = "idSync") val idSync: Int = 0,
+    @ColumnInfo(name = "objectId") val objectId: Int = 0,
     @ColumnInfo(name = "dataType") val dataType: String,
     @ColumnInfo(name = "createdAt") val createdAt: String = "",
     )
-fun Sync.toDomain() = Sync(local_id,idSync,dataType,createdAt)
-fun Sync.toDatabase() = Sync(local_id=local_id,idSync=idSync,dataType=dataType,createdAt=createdAt)
+fun Sync.toDomain() = Sync(local_id,objectId,dataType,createdAt)
+fun Sync.toDatabase() = Sync(local_id=local_id,objectId=objectId,dataType=dataType,createdAt=createdAt)

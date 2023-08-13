@@ -65,14 +65,8 @@ class ArticleViewModel @Inject constructor(
     var articleList by mutableStateOf<List<Article>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
     var toastSuccess by mutableStateOf<Boolean>(false)
-    //TODO take another approach to create this pkey
-    val sdf = SimpleDateFormat("MMdd hh:mm:ss")
-    val currentDate = sdf.format(Date())
-    val date = currentDate.filter {it in '0'..'9'}
-    val key = date.toInt()
 
     //var invepastoList by mutableStateOf<List<Asset>>(emptyList())
-
 
     /*
     fun actualizarLista(hash:String) {
@@ -85,9 +79,7 @@ class ArticleViewModel @Inject constructor(
         }
         invepastoList= list.toList()
     }
-
      */
-
 
 
     fun getAllFromApi() {
@@ -107,8 +99,6 @@ class ArticleViewModel @Inject constructor(
         Log.e("TAG","TAG")
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
-            //val id = Calendar.getInstance().time
-            //val result = getAllFromApiUseCase.invoke()
             val result = getAllFromLocalDatabaseUseCase.invoke()
             if (!result.isNullOrEmpty()) {
                 articleList =result
@@ -119,28 +109,26 @@ class ArticleViewModel @Inject constructor(
     fun saveArticleListToSync(){
         var consumibleList = mutableListOf<SyncConsumible>()
         //TODO take another approach to create this pkey
-        val sdf = SimpleDateFormat("hh:mm:ss")
+        val sdf = SimpleDateFormat("MMdd hh:mm:ss")
         val currentDate = sdf.format(Date())
         val date = currentDate.filter {it in '0'..'9'}
-        val syncId = date.toInt()
+        val objectId = date.toInt()
         var quantityAvailable = 0
         articleList.forEach { article ->
             quantityAvailable = article.quantityAvailable.toInt() - article.consumedQuantity.toInt()
             if (article.consumedQuantity> 0) {
                 if (quantityAvailable > 0) {
                     article.quantityAvailable = quantityAvailable.toDouble()
-                    consumibleList.add(SyncConsumible(syncId=syncId,consumptionId=0,articleCode=article.articleDescription,quantity=article.consumedQuantity,unitOfMeasure=article.unitOfMeasure,creationDate="2023-08-08T00:48:12.104Z",delivered=0))
+                    consumibleList.add(SyncConsumible(objectId=objectId,consumptionId=0,articleCode=article.articleDescription,quantity=article.consumedQuantity,unitOfMeasure=article.unitOfMeasure,creationDate="2023-08-08T00:48:12.104Z",delivered=0))
                 }
             }
         }
         CoroutineScope(Dispatchers.IO).launch {
             if (consumibleList.isNotEmpty()) {
-                addOneSyncToLocalDatabaseUseCase.invoke(Sync(dataType = "Consumible",createdAt = "" + currentDate))
+                addOneSyncToLocalDatabaseUseCase.invoke(Sync(objectId=objectId, dataType = "Consumible",createdAt = "" + currentDate))
                 addManySyncConsumibleToLocalDatabaseUseCase.invoke(consumibleList)
                 toastSuccess=true
-                //TODO virtualassembler aqui
-                // clear database()
-                // guardar el recipe list en la base de datos
+
             }
         }
     }

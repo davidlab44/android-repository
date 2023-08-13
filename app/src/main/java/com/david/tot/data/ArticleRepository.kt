@@ -28,7 +28,7 @@ class ArticleRepository @Inject constructor(
     }
 
     suspend fun postMany(jsonArray: JsonArray):Int{
-        return api.postMany(jsonArray)
+        return api.postManyConsumible(jsonArray)
     }
 
     suspend fun updateProduct(product:Article):Int{

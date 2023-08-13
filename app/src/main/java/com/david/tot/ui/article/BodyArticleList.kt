@@ -31,14 +31,16 @@ import androidx.compose.runtime.*
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 
 @Composable
-fun BodyArticleList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+fun BodyArticleList(contextActivity:ArticleActivity,articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
 
     val mContext = LocalContext.current
-    if(articleViewModel.toastSuccess)
+    if(articleViewModel.toastSuccess){
         Toast.makeText(mContext,"Consumible creado exitosamente!", Toast.LENGTH_LONG).show()
+        contextActivity.finish()
+    }
+
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
-
     articleViewModel.getAllFromLocalDatabase()
     //var quantityToRestore by rememberSaveable {mutableStateOf("") }
 

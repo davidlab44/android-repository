@@ -1,6 +1,5 @@
 package com.david.tot.ui.sync
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -17,8 +16,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 
 import androidx.compose.runtime.*
-import androidx.compose.ui.platform.LocalContext
-import com.david.tot.domain.model.Consumible
 
 @Composable
 fun BodySyncList(syncViewModel: SyncViewModel) {
@@ -80,7 +77,7 @@ fun BodySyncList(syncViewModel: SyncViewModel) {
                                 Box(
 
                                 ) {
-                                    Text(text = "idSync: "+sync.idSync)
+                                    Text(text = "idSync: "+sync.objectId)
                                 }
                             }
                             /*

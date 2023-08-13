@@ -12,8 +12,10 @@ import com.david.tot.domain.drugs_delivery_consumer_view_header.PostOneDrugsDeli
 import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.ConsumibleHeader
 import com.david.tot.domain.model.Sync
+import com.david.tot.domain.model.SyncConsumible
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.consumible.GetAllConsumibleFromSyncConsumibleTableUseCase
+import com.david.tot.domain.sync.consumible.GetAllSyncConsumibleFromLocalDatabaseUseCase
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 //import com.yeslab.fastprefs.FastPrefs
@@ -29,7 +31,8 @@ class SyncViewModel @Inject constructor(
     private val postOneDrugsDeliveryConsumerViewHeaderUseCase: PostOneDrugsDeliveryConsumerViewHeaderUseCase,
     private val getAnyDrugsDeliveryConsumerViewHeaderUseCase: GetAnyDrugsDeliveryConsumerViewHeaderUseCase,
     private val postManyArticleUseCase: PostManyArticleUseCase,
-    private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase
+    private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase,
+    private val getAllSyncConsumibleFromLocalDatabaseUseCase: GetAllSyncConsumibleFromLocalDatabaseUseCase
 ) : ViewModel() {
 
     var syncList by mutableStateOf<List<Sync>>(emptyList())
@@ -50,21 +53,38 @@ class SyncViewModel @Inject constructor(
     fun postManyConsumibleToApi() {
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
+            //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
             var consumibleHeader=getAnyDrugsDeliveryConsumerViewHeaderUseCase.invoke()
             var headerCons = ConsumibleHeader(0,consumibleHeader.consumer,consumibleHeader.vehicle,"Example2","2023-08-10T01:42:45.655Z",0)
             var gson = Gson()
             var headerConsumible = gson.toJson(headerCons)
             val consumibleHeaderId =postOneDrugsDeliveryConsumerViewHeaderUseCase.invoke(headerConsumible)
+            var syncConsumibleList by mutableStateOf<List<SyncConsumible>>(emptyList())
+            syncConsumibleList = getAllSyncConsumibleFromLocalDatabaseUseCase.invoke()
             var consumibleList by mutableStateOf<List<Consumible>>(emptyList())
-            consumibleList = getAllConsumibleFromSyncConsumibleTableUseCase.invoke()
-            if (!consumibleList.isNullOrEmpty()&&consumibleHeaderId.toInt()>0) {
-                consumibleList.forEach { consumible->
-                    consumible.consumptionId=consumibleHeaderId
+            var consumibleMutableList = consumibleList.toMutableList()
+
+            var syncConsumibleToDeleteId=0
+            if (!syncConsumibleList.isNullOrEmpty()&&consumibleHeaderId.toInt()>0) {
+                syncConsumibleList.forEach { syncConsumible->
+                    val consumible = Consumible(0,consumibleHeaderId,syncConsumible.articleCode,syncConsumible.quantity,"UND","2023-08-10T01:42:45.655Z",0)
+                    consumibleMutableList.add(consumible)
+                    syncConsumibleToDeleteId=syncConsumible.objectId
                 }
-                val jsonArray: JsonArray = Gson().toJsonTree(consumibleList).asJsonArray
+                val jsonArray: JsonArray = Gson().toJsonTree(consumibleMutableList).asJsonArray
                 val postManyArticleUseCase = postManyArticleUseCase.invoke(jsonArray)
-                if(postManyArticleUseCase in 200..300)
+                if(postManyArticleUseCase in 200..300){
+
+
+
+                    //TODO
+                    // borrar los SyncConsumibles Syncronizados de la base de datos local
+
+
+
                     toastConsumiblesSynced=true
+                }
+
             }
         }
     }
