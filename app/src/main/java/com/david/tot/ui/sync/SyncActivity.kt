@@ -44,6 +44,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.david.tot.ui.DrawerContent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class SyncActivity : ComponentActivity() {
@@ -193,7 +194,9 @@ fun TopAppBarSyncAcivity(syncViewModel: SyncViewModel, onNavIconClick: () -> Uni
         actions = {
             IconButton(onClick = { /* doSomething() */
                 //enviar lo que hay pendiente al servidor, crear la header y enviarla [se usa el tipo de dato vehicle]
-                syncViewModel.coordinateSync()
+                runBlocking {
+                    syncViewModel.postManyConsumibleToApi()
+                }
                 //cuando el header responda ...
                 //...Insertar los consumibles
                 //cuando los consumibles responda ok

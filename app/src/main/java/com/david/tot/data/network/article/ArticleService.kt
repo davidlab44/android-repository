@@ -1,6 +1,5 @@
 package com.david.tot.data.network.article
 
-
 import com.david.tot.domain.model.Article
 import com.google.gson.JsonArray
 import kotlinx.coroutines.Dispatchers
@@ -19,9 +18,6 @@ class ArticleService @Inject constructor(private val api: IArticleApiClient) {
             response.body() ?: emptyList()
         }
     }
-
-
-
 
     suspend fun postManyConsumible(jsonArray: JsonArray):Int{
         return withContext(Dispatchers.IO) {
@@ -46,7 +42,6 @@ class ArticleService @Inject constructor(private val api: IArticleApiClient) {
             respuesta.code()
         }
     }
-
 
     suspend fun addProduct(product:Article):Int{
         return withContext(Dispatchers.IO) {
@@ -85,6 +80,7 @@ class ArticleService @Inject constructor(private val api: IArticleApiClient) {
             response.code()
         }
     }
+
     suspend fun uploadPicture(params: HashMap<String,RequestBody>,part:MultipartBody.Part):Int{
         return withContext(Dispatchers.IO) {
             val response = api.uploadPicture(part,params)

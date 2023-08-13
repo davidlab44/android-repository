@@ -56,16 +56,18 @@ class SyncViewModel @Inject constructor(
         }
     }
 
-    fun coordinateSync(){
+    /*
+    suspend fun coordinateSync(){
         CoroutineScope(Dispatchers.IO).launch {
             var syncList=getAllSyncConsumibleFromLocalDatabaseUseCase.invoke()
             syncList.forEach {sync->
-                //postManyConsumibleToApi()
+                postManyConsumibleToApi()
             }
         }
     }
+    */
 
-    private suspend fun postManyConsumibleToApi():Int {
+    suspend fun postManyConsumibleToApi() {
         CoroutineScope(Dispatchers.IO).launch {
             //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
             val consumibleHeader=getAnyDrugsDeliveryConsumerViewHeaderUseCase.invoke()
@@ -89,16 +91,15 @@ class SyncViewModel @Inject constructor(
                 if(postManyArticleUseCase in 200..300){
                     val consumibleDeleted = removeManySyncConsumiblesFromLocalDatabaseUseCase.invoke(syncConsumibleToDeleteId)
                     val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncConsumibleToDeleteId)
-                    toastConsumiblesSynced=true
+                    if(getAllSyncConsumibleFromLocalDatabaseUseCase.invoke().isNotEmpty()){
+                        postManyConsumibleToApi()
+                    }else{
+                        toastConsumiblesSynced=true
+                    }
                 }
-                return 1
-            }else{
-                return 2
             }
-            return 3
         }
     }
-
 
     /*
     @SuppressLint("SuspiciousIndentation")
