@@ -47,7 +47,6 @@ class SyncViewModel @Inject constructor(
         }
     }
 
-
     fun postManyConsumibleToApi() {
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
@@ -63,7 +62,7 @@ class SyncViewModel @Inject constructor(
     }
 
 
-
+    /*
     @SuppressLint("SuspiciousIndentation")
     fun syncConsumible(){
         CoroutineScope(Dispatchers.IO).launch {
@@ -133,7 +132,7 @@ class SyncViewModel @Inject constructor(
             }
         }
     }
-
+*/
 
 
 
