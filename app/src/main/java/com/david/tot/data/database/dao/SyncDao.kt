@@ -16,6 +16,10 @@ interface SyncDao {
     @Query("SELECT * FROM SyncTable")
     suspend fun getAllSyncFromLocalDatabase():List<Sync>
 
+    @Query("DELETE FROM SyncTable WHERE objectId=:objectId")
+    suspend fun removeOneSyncFromLocalDatabase(objectId:Int)
+
+
     /*
     @Query("SELECT * FROM syncTable ORDER BY createdAt ASC")
     suspend fun getAll():List<Article>

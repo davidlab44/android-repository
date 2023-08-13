@@ -33,5 +33,8 @@ class SyncConsumibleRepository @Inject constructor(
         syncConsumibleDao.addManyArticleToLocalDatabase(recipes)
     }
 
+    suspend fun removeManySyncConsumiblesFromLocalDatabase(syncConsumibleId:Int){
+        syncConsumibleDao.removeManySyncConsumiblesFromLocalDatabase(syncConsumibleId)
+    }
 
 }

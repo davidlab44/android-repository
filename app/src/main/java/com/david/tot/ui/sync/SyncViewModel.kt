@@ -1,6 +1,5 @@
 package com.david.tot.ui.sync
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,6 +13,8 @@ import com.david.tot.domain.model.ConsumibleHeader
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
+import com.david.tot.domain.sync.RemoveOneSyncFromLocalDatabaseUseCase
+import com.david.tot.domain.sync.consumible.RemoveManySyncConsumiblesFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.consumible.GetAllConsumibleFromSyncConsumibleTableUseCase
 import com.david.tot.domain.sync.consumible.GetAllSyncConsumibleFromLocalDatabaseUseCase
 import com.google.gson.Gson
@@ -32,7 +33,9 @@ class SyncViewModel @Inject constructor(
     private val getAnyDrugsDeliveryConsumerViewHeaderUseCase: GetAnyDrugsDeliveryConsumerViewHeaderUseCase,
     private val postManyArticleUseCase: PostManyArticleUseCase,
     private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase,
-    private val getAllSyncConsumibleFromLocalDatabaseUseCase: GetAllSyncConsumibleFromLocalDatabaseUseCase
+    private val getAllSyncConsumibleFromLocalDatabaseUseCase: GetAllSyncConsumibleFromLocalDatabaseUseCase,
+    private val removeManySyncConsumiblesFromLocalDatabaseUseCase: RemoveManySyncConsumiblesFromLocalDatabaseUseCase,
+    private val removeOneSyncFromLocalDatabaseUseCase: RemoveOneSyncFromLocalDatabaseUseCase
 ) : ViewModel() {
 
     var syncList by mutableStateOf<List<Sync>>(emptyList())
@@ -75,12 +78,21 @@ class SyncViewModel @Inject constructor(
                 val postManyArticleUseCase = postManyArticleUseCase.invoke(jsonArray)
                 if(postManyArticleUseCase in 200..300){
 
+                    val list1 =getAllSyncConsumibleFromLocalDatabaseUseCase.invoke()
+                    val consumibleDeleted = removeManySyncConsumiblesFromLocalDatabaseUseCase.invoke(syncConsumibleToDeleteId)
+                    val list2 =getAllSyncConsumibleFromLocalDatabaseUseCase.invoke()
+                    Log.e("TAGGED",""+list1+list2)
+
+                    val allSync = getAllSyncFromLocalDatabaseUseCase()
+                    val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncConsumibleToDeleteId)
+                    val allSync2 = getAllSyncFromLocalDatabaseUseCase()
+
+                    Log.e("TAGGED2",""+allSync+allSync2)
+                    Log.e("TAGGED2",""+allSync+allSync2)
 
 
                     //TODO
                     // borrar los SyncConsumibles Syncronizados de la base de datos local
-
-
 
                     toastConsumiblesSynced=true
                 }

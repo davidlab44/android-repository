@@ -25,6 +25,9 @@ interface SyncConsumibleDao {
     @Query("SELECT consumptionDetailId AS consumptionDetailId, consumptionId as consumptionId, articleCode as articleCode, quantity as quantity, unitOfMeasure as unitOfMeasure, creationDate as creationDate,delivered AS delivered FROM SyncConsumibleTable")
     suspend fun getAllConsumibleFromLocalDatabaseUseCase():List<Consumible>
 
+    @Query("DELETE FROM SyncConsumibleTable WHERE objectId=:objectId")
+    suspend fun removeManySyncConsumiblesFromLocalDatabase(objectId:Int)
+
     /*
     @Query("SELECT * FROM syncTable ORDER BY createdAt ASC")
     suspend fun getAll():List<Article>

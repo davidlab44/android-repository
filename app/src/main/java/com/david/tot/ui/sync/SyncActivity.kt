@@ -87,7 +87,7 @@ class SyncActivity : ComponentActivity() {
                         bottomBar = { BottomNavigationBar(navController) },
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                NavigationBotomMenu(syncViewModel,navController = navController)
+                                NavigationBotomMenu(this@SyncActivity,syncViewModel,navController = navController)
                             }
                         },
                         drawerContent = {
@@ -219,11 +219,11 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 */
 
 @Composable
-fun NavigationBotomMenu(syncViewModel:SyncViewModel, navController: NavHostController) {
+fun NavigationBotomMenu(contextSyncActivity:SyncActivity, syncViewModel:SyncViewModel, navController: NavHostController) {
 
     NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
         composable(BotomNavigationItem.Home.route) {
-            HeaderAndBodyScreen(syncViewModel)
+            HeaderAndBodySyncScreen(contextSyncActivity,syncViewModel)
         }
         composable(BotomNavigationItem.Music.route) {
             MusicScreen()

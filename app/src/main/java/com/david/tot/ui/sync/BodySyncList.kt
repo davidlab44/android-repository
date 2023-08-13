@@ -1,5 +1,6 @@
 package com.david.tot.ui.sync
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -16,16 +17,23 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
-fun BodySyncList(syncViewModel: SyncViewModel) {
+fun BodySyncList(contextSyncActivity:SyncActivity,syncViewModel: SyncViewModel) {
     //val mContext = LocalContext.current
     //var dataList = mutableListOf<Consumible>()
     //val prefs = FastPrefs(LocalContext.current)
     //val lista = prefs.get("mila",dataList)
     //Log.e("Mila",""+lista)
-    syncViewModel.getAllSyncsFromLocalDatabase()
     val syncList =syncViewModel.syncList
+    if(syncViewModel.toastConsumiblesSynced){
+        Toast.makeText(LocalContext.current,"Consumible creado exitosamente!", Toast.LENGTH_LONG).show()
+        //contextSyncActivity.finish()
+        syncViewModel.getAllSyncsFromLocalDatabase()
+    }
+    syncViewModel.getAllSyncsFromLocalDatabase()
+
     Column(
         modifier = Modifier
             .fillMaxSize()

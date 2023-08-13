@@ -11,10 +11,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 
 @Composable
-fun HeaderAndBodyScreen(syncViewModel: SyncViewModel) {
+fun HeaderAndBodySyncScreen(contextSyncActivity:SyncActivity, syncViewModel: SyncViewModel) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         //horizontalAlignment = Alignment.CenterHorizontally
@@ -30,7 +29,7 @@ fun HeaderAndBodyScreen(syncViewModel: SyncViewModel) {
             modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            BodySyncList(syncViewModel)
+            BodySyncList(contextSyncActivity,syncViewModel)
         }
     }
 }

@@ -27,4 +27,9 @@ class SyncRepository @Inject constructor(
         return response.map { it.toDomain() }
     }
 
+    suspend fun removeOneSyncFromLocalDatabase(objectId:Int){
+        return syncDao.removeOneSyncFromLocalDatabase(objectId)
+    }
+
+
 }

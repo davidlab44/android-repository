@@ -38,12 +38,10 @@ fun BodyArticleList(contextActivity:ArticleActivity,articleViewModel: ArticleVie
         Toast.makeText(mContext,"Consumible creado exitosamente!", Toast.LENGTH_LONG).show()
         contextActivity.finish()
     }
-
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
     articleViewModel.getAllFromLocalDatabase()
     //var quantityToRestore by rememberSaveable {mutableStateOf("") }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
