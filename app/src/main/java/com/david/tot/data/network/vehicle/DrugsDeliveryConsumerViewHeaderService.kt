@@ -26,9 +26,6 @@ class DrugsDeliveryConsumerViewHeaderService @Inject constructor(private val api
 
     suspend fun postOne(jsonObject: String):Int{
         return withContext(Dispatchers.IO) {
-
-
-
             var gson = Gson()
             var yourModel = gson.fromJson(jsonObject, ConsumibleHeader::class.java)
             yourModel.consumptionId=0
@@ -47,7 +44,7 @@ class DrugsDeliveryConsumerViewHeaderService @Inject constructor(private val api
             val consumptionId = consumibleHeader.consumptionId
             Log.e("TAG3",""+consumptionId)
             val respuestaBody2 = respuesta.message()
-            respuesta.code()
+            consumptionId
         }
     }
 
