@@ -37,6 +37,7 @@ import com.david.tot.domain.article.GetAllFromApiUseCase
 import com.david.tot.domain.article.GetAllFromLocalDatabaseUseCase
 import com.david.tot.domain.article.GetArticleByIdUseCase
 import com.david.tot.domain.article.GetFilteredArticleListUseCase
+import com.david.tot.domain.article.ReAddAllConsumibleToLocalDatabaseUseCase
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
@@ -60,7 +61,8 @@ class ArticleViewModel @Inject constructor(
     private val addOneSyncToLocalDatabaseUseCase: AddOneSyncFromLocalDatabaseUseCase,
     //private val updateAllArticlesInLocalDatabaseUseCase: UpdateAllArticlesInLocalDatabaseUseCase,
     //private val addAllArticleToLocalDatabaseUseCase: AddAllArticleToLocalDatabaseUseCase,
-    private val addManySyncConsumibleToLocalDatabaseUseCase: AddManySyncConsumibleToLocalDatabaseUseCase
+    private val addManySyncConsumibleToLocalDatabaseUseCase: AddManySyncConsumibleToLocalDatabaseUseCase,
+    private val reAddAllConsumibleToLocalDatabaseUseCase: ReAddAllConsumibleToLocalDatabaseUseCase
 ) : ViewModel() {
     var articleList by mutableStateOf<List<Article>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
@@ -127,6 +129,7 @@ class ArticleViewModel @Inject constructor(
             if (consumibleList.isNotEmpty()) {
                 addOneSyncToLocalDatabaseUseCase.invoke(Sync(objectId=objectId, dataType = "Consumible",createdAt = "" + currentDate))
                 addManySyncConsumibleToLocalDatabaseUseCase.invoke(consumibleList)
+                articleList = reAddAllConsumibleToLocalDatabaseUseCase.invoke(articleList)
                 toastSuccess=true
 
             }

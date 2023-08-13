@@ -6,10 +6,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.article.PostManyArticleUseCase
+import com.david.tot.domain.drugs_delivery_consumer_view_header.GetAllDrugsDeliveryConsumerViewHeaderUseCase
 import com.david.tot.domain.drugs_delivery_consumer_view_header.GetAnyDrugsDeliveryConsumerViewHeaderUseCase
 import com.david.tot.domain.drugs_delivery_consumer_view_header.PostOneDrugsDeliveryConsumerViewHeaderUseCase
 import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.ConsumibleHeader
+import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
@@ -30,12 +32,13 @@ import javax.inject.Inject
 class SyncViewModel @Inject constructor(
     private val getAllConsumibleFromSyncConsumibleTableUseCase: GetAllConsumibleFromSyncConsumibleTableUseCase,
     private val postOneDrugsDeliveryConsumerViewHeaderUseCase: PostOneDrugsDeliveryConsumerViewHeaderUseCase,
-    private val getAnyDrugsDeliveryConsumerViewHeaderUseCase: GetAnyDrugsDeliveryConsumerViewHeaderUseCase,
+    private val getAllDrugsDeliveryConsumerViewHeaderUseCase: GetAllDrugsDeliveryConsumerViewHeaderUseCase,
     private val postManyArticleUseCase: PostManyArticleUseCase,
     private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase,
     private val getAllSyncConsumibleFromLocalDatabaseUseCase: GetAllSyncConsumibleFromLocalDatabaseUseCase,
     private val removeManySyncConsumiblesFromLocalDatabaseUseCase: RemoveManySyncConsumiblesFromLocalDatabaseUseCase,
-    private val removeOneSyncFromLocalDatabaseUseCase: RemoveOneSyncFromLocalDatabaseUseCase
+    private val removeOneSyncFromLocalDatabaseUseCase: RemoveOneSyncFromLocalDatabaseUseCase,
+    private val getAnyDrugsDeliveryConsumerViewHeaderUseCase:GetAnyDrugsDeliveryConsumerViewHeaderUseCase
 ) : ViewModel() {
 
     var syncList by mutableStateOf<List<Sync>>(emptyList())
@@ -53,11 +56,19 @@ class SyncViewModel @Inject constructor(
         }
     }
 
-    fun postManyConsumibleToApi() {
-        //viewModelScope.launch {
+    fun coordinateSync(){
+        CoroutineScope(Dispatchers.IO).launch {
+            var syncList=getAllSyncConsumibleFromLocalDatabaseUseCase.invoke()
+            syncList.forEach {sync->
+                //postManyConsumibleToApi()
+            }
+        }
+    }
+
+    private suspend fun postManyConsumibleToApi():Int {
         CoroutineScope(Dispatchers.IO).launch {
             //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
-            var consumibleHeader=getAnyDrugsDeliveryConsumerViewHeaderUseCase.invoke()
+            val consumibleHeader=getAnyDrugsDeliveryConsumerViewHeaderUseCase.invoke()
             var headerCons = ConsumibleHeader(0,consumibleHeader.consumer,consumibleHeader.vehicle,"Example2","2023-08-10T01:42:45.655Z",0)
             var gson = Gson()
             var headerConsumible = gson.toJson(headerCons)
@@ -66,7 +77,6 @@ class SyncViewModel @Inject constructor(
             syncConsumibleList = getAllSyncConsumibleFromLocalDatabaseUseCase.invoke()
             var consumibleList by mutableStateOf<List<Consumible>>(emptyList())
             var consumibleMutableList = consumibleList.toMutableList()
-
             var syncConsumibleToDeleteId=0
             if (!syncConsumibleList.isNullOrEmpty()&&consumibleHeaderId.toInt()>0) {
                 syncConsumibleList.forEach { syncConsumible->
@@ -77,27 +87,15 @@ class SyncViewModel @Inject constructor(
                 val jsonArray: JsonArray = Gson().toJsonTree(consumibleMutableList).asJsonArray
                 val postManyArticleUseCase = postManyArticleUseCase.invoke(jsonArray)
                 if(postManyArticleUseCase in 200..300){
-
-                    val list1 =getAllSyncConsumibleFromLocalDatabaseUseCase.invoke()
                     val consumibleDeleted = removeManySyncConsumiblesFromLocalDatabaseUseCase.invoke(syncConsumibleToDeleteId)
-                    val list2 =getAllSyncConsumibleFromLocalDatabaseUseCase.invoke()
-                    Log.e("TAGGED",""+list1+list2)
-
-                    val allSync = getAllSyncFromLocalDatabaseUseCase()
                     val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncConsumibleToDeleteId)
-                    val allSync2 = getAllSyncFromLocalDatabaseUseCase()
-
-                    Log.e("TAGGED2",""+allSync+allSync2)
-                    Log.e("TAGGED2",""+allSync+allSync2)
-
-
-                    //TODO
-                    // borrar los SyncConsumibles Syncronizados de la base de datos local
-
                     toastConsumiblesSynced=true
                 }
-
+                return 1
+            }else{
+                return 2
             }
+            return 3
         }
     }
 

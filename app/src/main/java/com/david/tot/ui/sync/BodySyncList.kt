@@ -21,14 +21,9 @@ import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun BodySyncList(contextSyncActivity:SyncActivity,syncViewModel: SyncViewModel) {
-    //val mContext = LocalContext.current
-    //var dataList = mutableListOf<Consumible>()
-    //val prefs = FastPrefs(LocalContext.current)
-    //val lista = prefs.get("mila",dataList)
-    //Log.e("Mila",""+lista)
     val syncList =syncViewModel.syncList
     if(syncViewModel.toastConsumiblesSynced){
-        Toast.makeText(LocalContext.current,"Consumible creado exitosamente!", Toast.LENGTH_LONG).show()
+        Toast.makeText(LocalContext.current,"Syncronizacion realizada exitosamente!", Toast.LENGTH_LONG).show()
         //contextSyncActivity.finish()
         syncViewModel.getAllSyncsFromLocalDatabase()
     }
