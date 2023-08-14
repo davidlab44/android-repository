@@ -32,6 +32,7 @@ class CameraViewModel : ViewModel() {
             // here we only do a dummy showcase implementation
             //updateCapturedPhotoState(bitmap)
             //saveMediaToStorage(bitmap)
+
             val convertidoABLob = Converter().fromBitmap(bitmap)
             val reportable = Reportable(0, photo = convertidoABLob, description = "bla bla bla..")
 
