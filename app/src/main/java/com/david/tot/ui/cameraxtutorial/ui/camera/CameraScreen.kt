@@ -51,18 +51,18 @@ fun CameraScreen(
 
     cameraState.capturedImage?.let { capturedImage: Bitmap ->
 
-/*
+
         CapturedImageBitmapDialog(
             capturedImage = capturedImage,
             onDismissRequest = viewModel::onCapturedPhotoConsumed
         )
-*/
 
+        /*
         BodyCameraList(
             capturedImage = capturedImage,
             onDismissRequest = viewModel::onCapturedPhotoConsumed
         )
-
+         */
 
     }
 }
