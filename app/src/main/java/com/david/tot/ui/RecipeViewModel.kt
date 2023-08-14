@@ -1,5 +1,6 @@
 package com.david.tot.ui
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.david.tot.domain.GetFromApiUseCase
 import com.david.tot.domain.UpdateProductUseCase
 import com.david.tot.domain.model.Article
+import com.david.tot.domain.reportable.GetAllReportablesFromLocalDatabaseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,9 +16,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipeViewModel @Inject constructor(private val getFromApiUseCase: GetFromApiUseCase, private val updateProductUseCase: UpdateProductUseCase) : ViewModel() {
+class RecipeViewModel @Inject constructor(
+    private val getFromApiUseCase: GetFromApiUseCase,
+    private val updateProductUseCase: UpdateProductUseCase,
+    private val getAllReportablesFromLocalDatabaseUseCase: GetAllReportablesFromLocalDatabaseUseCase
+    ) : ViewModel() {
 
     var recipeModel by mutableStateOf<List<Article>>(emptyList())
+
+
+    fun getPhotoList(){
+        //viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            val hayFotoList = getAllReportablesFromLocalDatabaseUseCase.invoke()
+            Log.e("",""+hayFotoList.size)
+            Log.e("",""+hayFotoList.size)
+        }
+    }
+
 
     /*
     fun onCreate() {

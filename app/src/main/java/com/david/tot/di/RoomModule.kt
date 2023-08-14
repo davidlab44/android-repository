@@ -40,5 +40,9 @@ object RoomModule {
     @Provides
     fun provideSynConsumibleDao(db: RecipeDatabase) = db.getSyncConsumibleDao()
 
+    @Singleton
+    @Provides
+    fun provideReportableDao(db: RecipeDatabase) = db.getReportableDao()
+
 }
 
