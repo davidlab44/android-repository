@@ -25,6 +25,7 @@ class RecipeViewModel @Inject constructor(
     var recipeModel by mutableStateOf<List<Article>>(emptyList())
 
 
+    /*
     fun getPhotoList(){
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
@@ -33,7 +34,7 @@ class RecipeViewModel @Inject constructor(
             Log.e("",""+hayFotoList.size)
         }
     }
-
+*/
 
     /*
     fun onCreate() {
