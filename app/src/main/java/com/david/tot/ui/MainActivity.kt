@@ -41,6 +41,7 @@ import kotlinx.coroutines.launch
 import com.david.tot.ui.article.*
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 import com.david.tot.ui.pre.PreActivity
+import com.david.tot.ui.requirable.RequirableActivity
 import com.david.tot.ui.sync.SyncActivity
 
 
@@ -414,7 +415,7 @@ fun DrawerContent(
                     ),
                     text = AnnotatedString("Reporte novedades") ,
                     onClick = {
-                        context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                        context.startActivity(Intent(context, RequirableActivity::class.java))
                     }
                 )
             }
