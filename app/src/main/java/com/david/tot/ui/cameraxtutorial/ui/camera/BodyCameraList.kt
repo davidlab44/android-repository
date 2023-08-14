@@ -1,4 +1,4 @@
-package com.david.tot.ui.requirable
+package com.david.tot.ui.cameraxtutorial.ui.camera
 
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
@@ -21,31 +21,53 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
+import androidx.compose.ui.window.Dialog
 
 @Composable
-fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: RequirableViewModel,
-                    //drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel
+fun BodyCameraList(
+    capturedImage: Bitmap,
+    onDismissRequest: () -> Unit
 ) {
+    /*
+    val capturedImageBitmap: ImageBitmap = remember { capturedImage.asImageBitmap() }
 
+    Dialog(
+        onDismissRequest = onDismissRequest
+    ) {
+        Image(
+            bitmap = capturedImageBitmap,
+            contentDescription = "Captured photo"
+        )
+    }
 
+     */
+   
+    Text(text = "akkakkakakaakkaaskdfjdsakjlf")
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(0.dp)
+            .background(Color(0xFF22475b)),
         //horizontalAlignment = Alignment.CenterHorizontally
     ) {
         //var text by rememberSaveable { mutableStateOf("") }
         Row(
-            modifier = Modifier.padding(all = 2.dp).height(100.dp),
+            modifier = Modifier
+                .padding(all = 2.dp)
+                .height(100.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
 
         }
 
         Row(
-            modifier = Modifier.padding(all = 2.dp).height(100.dp),
+            modifier = Modifier
+                .padding(all = 2.dp)
+                .height(100.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
 
@@ -77,33 +99,23 @@ fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: Req
                         ) {
                             Image(bitmap = btm.asImageBitmap(),
                                 contentDescription =null,
-                                modifier = Modifier.border(2.dp, Color.Green).size(80.dp).background(
-                                    Color(0xFF49fc03).copy(alpha = 0.6f))
+                                modifier = Modifier
+                                    .border(2.dp, Color.Green)
+                                    .size(80.dp)
+                                    .background(
+                                        Color(0xFF49fc03).copy(alpha = 0.6f)
+                                    )
                             )
                         }
                         Row(
                             modifier = Modifier.padding(all = 12.dp),horizontalArrangement = Arrangement.Center
                         ) {
-                            /*
-                            Button(enabled = enabledImage, modifier = Modifier.padding(1.dp),
-                                onClick = {
-                                    enabledImage = false
-                                    bitmap.value?.let {
-                                        //updateProductViewModel.updateProductImage(updateProductViewModel.productRemoteId.toInt(), it)
-                                        //updateProductViewModel.updateProductImage(1, it)
-                                } }) {
-                                Text(text = "ENVIAR IMAGEN")
-                            }
-
-                             */
                             Text(text = "ACTIVITY PARA ENVIAR NOVEDADES CON SU FOTO")
                         }
                     }
                 }
             }
         }
-
-
 
 
         Row(

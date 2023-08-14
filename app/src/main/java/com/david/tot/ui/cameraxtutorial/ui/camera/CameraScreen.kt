@@ -42,15 +42,28 @@ fun CameraScreen(
 
     val cameraState: CameraState by viewModel.state.collectAsStateWithLifecycle()
 
+
     CameraContent(
         onPhotoCaptured = viewModel::onPhotoCaptured
     )
 
+
+
     cameraState.capturedImage?.let { capturedImage: Bitmap ->
+
+/*
         CapturedImageBitmapDialog(
             capturedImage = capturedImage,
             onDismissRequest = viewModel::onCapturedPhotoConsumed
         )
+*/
+
+        BodyCameraList(
+            capturedImage = capturedImage,
+            onDismissRequest = viewModel::onCapturedPhotoConsumed
+        )
+
+
     }
 }
 
@@ -101,7 +114,7 @@ private fun CameraContent(
                             // In the meantime you can use the ImageCapture.OnImageSavedCallback overload of the takePicture method
                             val correctedBitmap: Bitmap = image
                                 .toBitmap()
-                                .rotateBitmap(image.imageInfo.rotationDegrees)
+                                //.rotateBitmap(image.imageInfo.rotationDegrees)
 
                             onPhotoCaptured(correctedBitmap)
 
