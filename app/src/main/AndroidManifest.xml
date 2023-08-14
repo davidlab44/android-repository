@@ -80,5 +80,9 @@
             android:name="com.david.tot.ui.requirable.RequirableActivity"
             android:noHistory="true">
         </activity>
+        <activity
+            android:name="com.david.tot.ui.cameraxtutorial.Main2Activity"
+            android:noHistory="true">
+        </activity>
     </application>
 </manifest>

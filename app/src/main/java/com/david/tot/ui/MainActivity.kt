@@ -39,6 +39,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.david.tot.ui.article.*
+import com.david.tot.ui.cameraxtutorial.Main2Activity
 import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
 import com.david.tot.ui.pre.PreActivity
 import com.david.tot.ui.requirable.RequirableActivity
@@ -527,7 +528,7 @@ fun DrawerContent(
                     ),
                     text = AnnotatedString("Salir") ,
                     onClick = {
-                        //context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                        context.startActivity(Intent(context, Main2Activity::class.java))
                     }
                 )
             }
