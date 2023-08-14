@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
+import com.david.tot.domain.model.Reportable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,10 +42,14 @@ class CameraViewModel : ViewModel() {
     fun updateProductImage(bitmap: Bitmap){
         CoroutineScope(Dispatchers.IO).launch {
             val time = System.currentTimeMillis()
-            val file = bitmapToFile(bitmap,"gato"+time+"gato.png")
+            val fileNameToSave = "APP_"+time+".png"
+            val file = bitmapToFile(bitmap,fileNameToSave)
             Log.e("TAGFILE",""+file)
             if (file != null) {
                 Log.e("TAG","file is not null")
+                //save reportable-photo into db
+                val photoUrl = "/storage/self/primary/Download" + File.separator + fileNameToSave
+                val reportable = Reportable(photo= photoUrl,description = "")
             }else{
                 Log.e("TAG","file is null")
             }
