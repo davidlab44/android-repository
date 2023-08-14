@@ -71,7 +71,7 @@ class RequirableActivity : ComponentActivity() {
                     val coroutineScope = rememberCoroutineScope()
                     val contextForToast = LocalContext.current.applicationContext
                     val requirableViewModel = viewModel<RequirableViewModel>()
-                    val drugsDeliveryConsumerViewHeaderViewModel = viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
+                    //val drugsDeliveryConsumerViewHeaderViewModel = viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
                     //val contextArticleActivity = this@ArticleActivity
 
                     //Bottom nav controller
@@ -93,7 +93,9 @@ class RequirableActivity : ComponentActivity() {
                         bottomBar = { BottomNavigationBar(navController) },
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                NavigationBotomMenu(this@RequirableActivity,requirableViewModel,drugsDeliveryConsumerViewHeaderViewModel,navController = navController)
+                                NavigationBotomMenu(this@RequirableActivity,requirableViewModel,
+                                    //drugsDeliveryConsumerViewHeaderViewModel,
+                                    navController = navController)
                             }
                         },
                         drawerContent = {
@@ -218,11 +220,15 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 */
 
 @Composable
-fun NavigationBotomMenu(contextActivity:RequirableActivity,requirableViewModel:RequirableViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel, navController: NavHostController) {
+fun NavigationBotomMenu(contextActivity:RequirableActivity,requirableViewModel:RequirableViewModel,
+                        //drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel,
+                        navController: NavHostController) {
 
     NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
         composable(BotomNavigationItem.Home.route) {
-            RequirableHeaderAndBodyScreen(contextActivity,requirableViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+            RequirableHeaderAndBodyScreen(contextActivity,requirableViewModel,
+                //drugsDeliveryConsumerViewHeaderViewModel
+            )
         }
         composable(BotomNavigationItem.Music.route) {
             MusicScreen()

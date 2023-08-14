@@ -65,7 +65,6 @@ fun BodyList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeader
 /*
     //
     //var lista by mutableStateOf<List<Asset>>(emptyList())
-
     //var lista by mutableStateOf<MutableListList<Asset>>(MutableE)
     //var lista by mutableStateOf<List<Asset>>(emptyList())
 
@@ -173,7 +172,7 @@ fun BodyList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeader
 */
 
 
-
+/*
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
 
@@ -353,5 +352,6 @@ fun BodyList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeader
             }
         }
     }
+    */
 }
 

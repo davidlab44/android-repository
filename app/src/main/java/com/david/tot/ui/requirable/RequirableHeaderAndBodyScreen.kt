@@ -15,8 +15,10 @@ import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsume
 import com.david.tot.ui.drugs_delivery_consumer_view_header.ScreenComponentHeader
 
 @Composable
-fun RequirableHeaderAndBodyScreen(contextActivity: RequirableActivity, requirableViewModel: RequirableViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
-    drugsDeliveryConsumerViewHeaderViewModel.getAlldrugsDeliveryConsumerViewHeader()
+fun RequirableHeaderAndBodyScreen(contextActivity: RequirableActivity, requirableViewModel: RequirableViewModel,
+                                  //drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel
+) {
+    //drugsDeliveryConsumerViewHeaderViewModel.getAlldrugsDeliveryConsumerViewHeader()
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         //horizontalAlignment = Alignment.CenterHorizontally
@@ -26,13 +28,20 @@ fun RequirableHeaderAndBodyScreen(contextActivity: RequirableActivity, requirabl
             modifier = Modifier.padding(all = 0.dp).height(165.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
+            /*
+            ScreenComponentHeader(
+                //drugsDeliveryConsumerViewHeaderViewModel
+            )
+
+             */
         }
         Row(
             modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            BodyArticleList(contextActivity,requirableViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+            BodyArticleList(contextActivity,requirableViewModel,
+                //drugsDeliveryConsumerViewHeaderViewModel
+            )
         }
     }
 }
