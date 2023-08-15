@@ -11,7 +11,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.david.tot.ui.authenticable.DrugsDeliveryConsumerViewHeaderViewModel
+import com.david.tot.ui.authenticable.AuthenticableViewModel
 
 @Composable
 fun PreHeaderAndBodyScreen() {
@@ -39,7 +39,7 @@ fun PreHeaderAndBodyScreen() {
 
 
 @Composable
-fun HomeScreenPreview(articleViewModel:PreViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+fun HomeScreenPreview(articleViewModel:PreViewModel, authenticableViewModel: AuthenticableViewModel) {
     //PreHeaderAndBodyScreen(articleViewModel, drugsDeliveryConsumerViewHeaderViewModel)
     PreHeaderAndBodyScreen()
 }

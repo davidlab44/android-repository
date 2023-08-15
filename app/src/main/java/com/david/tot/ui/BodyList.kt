@@ -6,11 +6,11 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 
 import com.david.tot.ui.article.ArticleViewModel
-import com.david.tot.ui.authenticable.DrugsDeliveryConsumerViewHeaderViewModel
+import com.david.tot.ui.authenticable.AuthenticableViewModel
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun BodyList(articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+fun BodyList(articleViewModel: ArticleViewModel, authenticableViewModel: AuthenticableViewModel) {
 /*
     //
     //var lista by mutableStateOf<List<Asset>>(emptyList())

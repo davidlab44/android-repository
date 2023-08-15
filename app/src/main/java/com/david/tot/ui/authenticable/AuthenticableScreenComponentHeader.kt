@@ -11,8 +11,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
-    val drugsDeliveryConsumerViewHeader = drugsDeliveryConsumerViewHeaderViewModel.authenticable
+fun AuthenticableScreenComponentHeader(authenticableViewModel: AuthenticableViewModel) {
+    val drugsDeliveryConsumerViewHeader = authenticableViewModel.authenticable
     Column(
         modifier = Modifier.fillMaxSize().padding(5.dp),
         //horizontalAlignment = Alignment.CenterHorizontally
@@ -32,9 +32,9 @@ fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliver
             //horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Licencia: "+drugsDeliveryConsumerViewHeaderViewModel.authenticable.license
-                        +" /Cat: "+drugsDeliveryConsumerViewHeaderViewModel.authenticable.licenseCategory
-                        +" /Vence: "+drugsDeliveryConsumerViewHeaderViewModel.authenticable.licenseExpiration,
+                text = "Licencia: "+authenticableViewModel.authenticable.license
+                        +" /Cat: "+authenticableViewModel.authenticable.licenseCategory
+                        +" /Vence: "+authenticableViewModel.authenticable.licenseExpiration,
                 color = Color.Black,
                 fontSize = 12.sp
             )
@@ -43,7 +43,7 @@ fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliver
             modifier = Modifier.padding(top = 5.dp), horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "VEHICULO: "+drugsDeliveryConsumerViewHeaderViewModel.authenticable.vehicle,
+                text = "VEHICULO: "+authenticableViewModel.authenticable.vehicle,
                 color = Color.Black,
                 fontSize = 20.sp
             )
@@ -52,8 +52,8 @@ fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliver
             modifier = Modifier.padding(all = 1.dp), horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = " SOAT: "+drugsDeliveryConsumerViewHeaderViewModel.authenticable.soat
-                        +" Vence: "+drugsDeliveryConsumerViewHeaderViewModel.authenticable.soatExpiration,
+                text = " SOAT: "+authenticableViewModel.authenticable.soat
+                        +" Vence: "+authenticableViewModel.authenticable.soatExpiration,
                 color = Color.Black,
                 fontSize = 12.sp
             )
@@ -62,8 +62,8 @@ fun ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliver
             modifier = Modifier.padding(all = 1.dp), horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = " CRTM: "+drugsDeliveryConsumerViewHeaderViewModel.authenticable.crtm
-                        +" Vence: "+drugsDeliveryConsumerViewHeaderViewModel.authenticable.crtmExpiration,
+                text = " CRTM: "+authenticableViewModel.authenticable.crtm
+                        +" Vence: "+authenticableViewModel.authenticable.crtmExpiration,
                 color = Color.Black,
                 fontSize = 12.sp
             )

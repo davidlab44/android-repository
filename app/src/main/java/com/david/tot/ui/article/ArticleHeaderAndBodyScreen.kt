@@ -11,12 +11,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.david.tot.ui.authenticable.DrugsDeliveryConsumerViewHeaderViewModel
-import com.david.tot.ui.authenticable.ScreenComponentHeader
+import com.david.tot.ui.authenticable.AuthenticableViewModel
+import com.david.tot.ui.authenticable.AuthenticableScreenComponentHeader
 
 @Composable
-fun ArticleHeaderAndBodyScreen(contextActivity:ArticleActivity,articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
-    drugsDeliveryConsumerViewHeaderViewModel.getAlldrugsDeliveryConsumerViewHeader()
+fun ArticleHeaderAndBodyScreen(contextActivity:ArticleActivity, articleViewModel: ArticleViewModel, authenticableViewModel: AuthenticableViewModel) {
+    authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         //horizontalAlignment = Alignment.CenterHorizontally
@@ -26,13 +26,13 @@ fun ArticleHeaderAndBodyScreen(contextActivity:ArticleActivity,articleViewModel:
             modifier = Modifier.padding(all = 0.dp).height(165.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
+            AuthenticableScreenComponentHeader(authenticableViewModel)
         }
         Row(
             modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            BodyArticleList(contextActivity,articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+            BodyArticleList(contextActivity,articleViewModel,authenticableViewModel)
         }
     }
 }

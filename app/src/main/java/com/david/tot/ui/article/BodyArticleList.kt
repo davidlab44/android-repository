@@ -28,10 +28,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 
 import androidx.compose.runtime.*
-import com.david.tot.ui.authenticable.DrugsDeliveryConsumerViewHeaderViewModel
+import com.david.tot.ui.authenticable.AuthenticableViewModel
 
 @Composable
-fun BodyArticleList(contextActivity:ArticleActivity,articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+fun BodyArticleList(contextActivity:ArticleActivity, articleViewModel: ArticleViewModel, authenticableViewModel: AuthenticableViewModel) {
 
     val mContext = LocalContext.current
     if(articleViewModel.toastSuccess){

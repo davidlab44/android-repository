@@ -30,14 +30,16 @@ class AuthenticableRepository @Inject constructor(
         return api.postOne(jsonObject)
     }
 
-    suspend fun insertDrugsDeliveryConsumerViewHeader(items:List<Authenticable>){
-        authenticableDao.insertAll(items)
+    suspend fun addAllAuthenticablesToLocalDb(authenticableList:List<Authenticable>){
+        authenticableDao.addAllAuthenticablesToLocalDb(authenticableList)
+    }
+
+    suspend fun addOneAuthenticableToLocalDb(authenticable:Authenticable){
+        authenticableDao.addOneAuthenticableToLocalDb2(authenticable)
     }
 
     suspend fun clearDrugsDeliveryConsumerViewHeader(){
         authenticableDao.deleteAll()
     }
-
-
 
 }

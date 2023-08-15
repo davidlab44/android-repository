@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -41,11 +40,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.david.tot.ui.article.*
 import com.david.tot.ui.cameraxtutorial.Main2Activity
-import com.david.tot.ui.authenticable.DrugsDeliveryConsumerViewHeaderViewModel
+import com.david.tot.ui.authenticable.AuthenticableViewModel
 import com.david.tot.ui.pre.PreActivity
 import com.david.tot.ui.requirable.RequirableActivity
 import com.david.tot.ui.sync.SyncActivity
-import com.yeslab.fastprefs.FastPrefs
 
 
 @AndroidEntryPoint
@@ -76,18 +74,19 @@ class MainActivity : ComponentActivity() {
                     //val recipeViewModel = viewModel<RecipeViewModel>()
                     //recipeViewModel.getPhotoList()
                     val articleViewModel = viewModel<ArticleViewModel>()
-                    val drugsDeliveryConsumerViewHeaderViewModel=viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
+                    val authenticableViewModel=viewModel<AuthenticableViewModel>()
                     //val recipeViewModel = viewModel<RecipeViewModel>()
 
                     //DUMMY CREDENTIALS
                     //SHARED PREFERENCES
+                    /*
                     val photoUrl = "/storage/self/primary/Download"
                     val prefs = FastPrefs(contextForToast)
-
                     prefs.setString("Reportable",photoUrl)
                     val value = prefs.getString("Reportable","defaultValue")
                     Log.e("TG",""+value)
-
+                    */
+                    authenticableViewModel.addOneHardcodedAuthenticableToLocalDb()
                     NavigationHost()
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
@@ -114,7 +113,7 @@ class MainActivity : ComponentActivity() {
                         */
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                BodyList(articleViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+                                BodyList(articleViewModel,authenticableViewModel)
                             }
                         },
                         drawerContent = {

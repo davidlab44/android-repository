@@ -5,7 +5,7 @@ import com.david.tot.domain.model.Authenticable
 import com.david.tot.domain.model.toDatabase
 import javax.inject.Inject
 
-class GetAllAuthenticablesUseCase @Inject constructor(private val repository: AuthenticableRepository) {
+class GetAllAuthenticablesFromApiUseCase @Inject constructor(private val repository: AuthenticableRepository) {
 
 
     // delete all DrugsDeliveryConsumerViewHeader from database and insert the new ones
@@ -14,7 +14,7 @@ class GetAllAuthenticablesUseCase @Inject constructor(private val repository: Au
         return if(recipes.isNotEmpty()){
             //TODO check internet connection before to clear database
             //repository.clearDrugsDeliveryConsumerViewHeader()
-            repository.insertDrugsDeliveryConsumerViewHeader(recipes.map { it.toDatabase() })
+            repository.addAllAuthenticablesToLocalDb(recipes.map { it.toDatabase() })
             //recipes
             //recipes = repository.getAllRecipesFromApi()
             recipes = repository.getAllDrugsDeliveryConsumerViewHeaderFromDatabase()

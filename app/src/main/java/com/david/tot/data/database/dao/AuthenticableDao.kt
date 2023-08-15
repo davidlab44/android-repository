@@ -16,7 +16,12 @@ interface AuthenticableDao {
     suspend fun getAny():Authenticable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(recipes:List<Authenticable>)
+    suspend fun addAllAuthenticablesToLocalDb(recipes:List<Authenticable>)
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addOneAuthenticableToLocalDb2(authenticable: Authenticable)
+
 
     @Query("DELETE FROM AuthenticableTable ")
     suspend fun deleteAll()
