@@ -68,6 +68,22 @@ class RequirableViewModel @Inject constructor(
      */
 ) : ViewModel() {
 
+    fun createReportable(descrition:String){
+        CoroutineScope(Dispatchers.IO).launch {
+            /*
+            val reportable = Reportable(generatedId = time, photo= photoUrl,description = "")
+            val reportableToSave = addOneReportableToLocalDatabaseUseCase.invoke(reportable)
+            val reportableList = getAllReportablesFromLocalDatabaseUseCase.invoke()
+            Log.e("TG",""+reportableList.size)
+            //val reportableToSave = ReportableSaver().addOneReportableToLocalDatabase(reportable)
+            val sync = Sync(objectId=Dates().dateAsInt(),dataType="Reportable", createdAt=Dates().geDateAsString())
+            //val syncToSave = SyncSaver().addOneSyncToLOcalDatabase(sync)
+            val syncToSave = addOneSyncFromLocalDatabaseUseCase.invoke(sync)
+            val syncList = getAllSyncFromLocalDatabaseUseCase.invoke()
+            Log.e("TG",""+syncList.size)
+            */
+        }
+    }
     /*
     var articleList by mutableStateOf<List<Article>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
