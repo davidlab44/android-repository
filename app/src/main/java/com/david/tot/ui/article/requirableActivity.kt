@@ -92,7 +92,7 @@ class ArticleActivity : ComponentActivity() {
                         bottomBar = { BottomNavigationBar(navController) },
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                NavigationBotomMenu(this@ArticleActivity,articleViewModel,authenticableViewModel,navController = navController)
+                                ReportableNavigationBotomMenu(this@ArticleActivity,articleViewModel,authenticableViewModel,navController = navController)
                             }
                         },
                         drawerContent = {
@@ -233,7 +233,7 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 */
 
 @Composable
-fun NavigationBotomMenu(contextActivity:ArticleActivity, articleViewModel:ArticleViewModel, authenticableViewModel: AuthenticableViewModel, navController: NavHostController) {
+fun ReportableNavigationBotomMenu(contextActivity:ArticleActivity, articleViewModel:ArticleViewModel, authenticableViewModel: AuthenticableViewModel, navController: NavHostController) {
 
     NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
         composable(BotomNavigationItem.Home.route) {

@@ -48,6 +48,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.david.tot.ui.DrawerContent
+import com.david.tot.ui.authenticable.AuthenticableViewModel
 //import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -67,7 +68,7 @@ class RequirableActivity : ComponentActivity() {
                     val coroutineScope = rememberCoroutineScope()
                     val contextForToast = LocalContext.current.applicationContext
                     val requirableViewModel = viewModel<RequirableViewModel>()
-                    //val drugsDeliveryConsumerViewHeaderViewModel = viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
+                    val authenticableViewModel = viewModel<AuthenticableViewModel>()
                     //val contextArticleActivity = this@ArticleActivity
 
                     //Bottom nav controller
@@ -89,8 +90,8 @@ class RequirableActivity : ComponentActivity() {
                         bottomBar = { BottomNavigationBar(navController) },
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                NavigationBotomMenu(this@RequirableActivity,requirableViewModel,
-                                    //drugsDeliveryConsumerViewHeaderViewModel,
+                                ReportableNavigationBotomMenu(this@RequirableActivity,requirableViewModel,
+                                    authenticableViewModel,
                                     navController = navController)
                             }
                         },
@@ -216,14 +217,14 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 */
 
 @Composable
-fun NavigationBotomMenu(contextActivity:RequirableActivity,requirableViewModel:RequirableViewModel,
-                        //drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel,
-                        navController: NavHostController) {
+fun ReportableNavigationBotomMenu(contextActivity:RequirableActivity, requirableViewModel:RequirableViewModel,
+                                  authenticableViewModel: AuthenticableViewModel,
+                                  navController: NavHostController) {
 
     NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
         composable(BotomNavigationItem.Home.route) {
             RequirableHeaderAndBodyScreen(contextActivity,requirableViewModel,
-                //drugsDeliveryConsumerViewHeaderViewModel
+                authenticableViewModel
             )
         }
         composable(BotomNavigationItem.Music.route) {

@@ -62,7 +62,8 @@ class AuthenticableViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             authenticableFromApiList = getAllAuthenticablesFromApiUseCase.invoke()
             if(authenticableFromApiList.isNotEmpty()){
-                authenticable = getAnyAuthenticableUseCase.invoke()
+                //authenticable = getAnyAuthenticableUseCase.invoke()
+                authenticable = authenticableFromApiList[0]
             }
 
         }

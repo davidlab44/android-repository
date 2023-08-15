@@ -11,13 +11,12 @@ import androidx.compose.foundation.border
 import androidx.compose.material.*
 
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 import androidx.compose.foundation.clickable
 
 @Composable
-fun ScreenComponentHeader(syncViewModel: SyncViewModel) {
+fun SyncScreenComponentHeader(syncViewModel: SyncViewModel) {
     //val mContext = LocalContext.current
     val syncList =syncViewModel.syncList
     val size = syncList.size

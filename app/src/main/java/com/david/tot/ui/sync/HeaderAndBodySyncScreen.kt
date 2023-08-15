@@ -23,7 +23,7 @@ fun HeaderAndBodySyncScreen(contextSyncActivity:SyncActivity, syncViewModel: Syn
             modifier = Modifier.padding(all = 0.dp).height(165.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            ScreenComponentHeader(syncViewModel)
+            SyncScreenComponentHeader(syncViewModel)
         }
         Row(
             modifier = Modifier.padding(all = 2.dp),

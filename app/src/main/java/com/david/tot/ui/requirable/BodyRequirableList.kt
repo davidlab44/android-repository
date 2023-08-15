@@ -39,20 +39,6 @@ fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: Req
     ) {
         //var text by rememberSaveable { mutableStateOf("") }
         Row(
-            modifier = Modifier.padding(all = 2.dp).height(100.dp),
-            //horizontalArrangement = Arrangement.Center
-        ) {
-
-        }
-
-        Row(
-            modifier = Modifier.padding(all = 2.dp).height(100.dp),
-            //horizontalArrangement = Arrangement.Center
-        ) {
-
-        }
-
-        Row(
             modifier = Modifier.padding(all = 2.dp),
             horizontalArrangement = Arrangement.Center
         ){
@@ -60,31 +46,13 @@ fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: Req
             var imageUri by remember {mutableStateOf<Uri?>(null)}
             val context = LocalContext.current
 
-
-
             //SHARED PREFERENCES
             val prefs = FastPrefs(context)
             //TODO todogl cambiar esto por una imagen por defecto
             //prefs.setString("Reportable","defaultValue")
             val value = prefs.getString("Reportable","defaultValue")
             Log.e("TG","value: "+value)
-
             imageUri=Uri.parse("file://"+value)
-
-            /*
-            if (Build.VERSION.SDK_INT < 28) {
-                bitmap.value = MediaStore.Images
-                    .Media.getBitmap(context.contentResolver,imageUri)
-            } else {
-                val source = ImageDecoder.createSource(context.contentResolver,imageUri as)
-                bitmap.value = ImageDecoder.decodeBitmap(source)
-            }
-            */
-
-
-
-
-
             imageUri?.let {
                 if (Build.VERSION.SDK_INT < 28) {
                     bitmap.value = MediaStore.Images
@@ -103,8 +71,7 @@ fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: Req
                         ) {
                             Image(bitmap = btm.asImageBitmap(),
                                 contentDescription =null,
-                                modifier = Modifier.border(2.dp, Color.Green).size(80.dp).background(
-                                    Color(0xFF49fc03).copy(alpha = 0.6f))
+                                modifier = Modifier.border(2.dp, Color.Green).size(80.dp)
                             )
                         }
                         Row(
@@ -131,6 +98,12 @@ fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: Req
 
 
 
+        Row(
+            modifier = Modifier.padding(all = 2.dp).height(100.dp),
+            //horizontalArrangement = Arrangement.Center
+        ) {
+
+        }
 
         Row(
             modifier = Modifier.padding(all = 2.dp),

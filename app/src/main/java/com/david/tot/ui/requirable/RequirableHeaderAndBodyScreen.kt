@@ -11,12 +11,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.david.tot.ui.authenticable.AuthenticableScreenComponentHeader
+import com.david.tot.ui.authenticable.AuthenticableViewModel
+import com.david.tot.ui.sync.SyncScreenComponentHeader
 
 @Composable
 fun RequirableHeaderAndBodyScreen(contextActivity: RequirableActivity, requirableViewModel: RequirableViewModel,
-                                  //drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel
+                                  authenticableViewModel: AuthenticableViewModel
 ) {
-    //drugsDeliveryConsumerViewHeaderViewModel.getAlldrugsDeliveryConsumerViewHeader()
+    //authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         //horizontalAlignment = Alignment.CenterHorizontally
@@ -26,12 +29,16 @@ fun RequirableHeaderAndBodyScreen(contextActivity: RequirableActivity, requirabl
             modifier = Modifier.padding(all = 0.dp).height(165.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
+
+            AuthenticableScreenComponentHeader(authenticableViewModel)
             /*
             ScreenComponentHeader(
-                //drugsDeliveryConsumerViewHeaderViewModel
+                authenticableViewModel
             )
 
              */
+
+
         }
         Row(
             modifier = Modifier.padding(all = 2.dp),
