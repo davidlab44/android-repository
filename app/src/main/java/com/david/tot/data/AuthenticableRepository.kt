@@ -1,18 +1,18 @@
 package com.david.tot.data
 
 import com.david.tot.data.database.dao.AuthenticableDao
-import com.david.tot.data.network.vehicle.DrugsDeliveryConsumerViewHeaderService
+import com.david.tot.data.network.authenticable.AuthenticableService
 import com.david.tot.domain.model.Authenticable
 import com.david.tot.domain.model.toDomain
 import javax.inject.Inject
 
 class AuthenticableRepository @Inject constructor(
-    private val api: DrugsDeliveryConsumerViewHeaderService,
+    private val api: AuthenticableService,
     private val authenticableDao: AuthenticableDao
 ) {
 
     suspend fun getAllDrugsDeliveryConsumerViewHeaderFromApi(): List<Authenticable> {
-        val response: List<Authenticable> = api.getAllDrugsDeliveryConsumerViewHeader()
+        val response: List<Authenticable> = api.getAllAuthenticableFromApi()
         return response.map { it.toDomain() }
     }
 

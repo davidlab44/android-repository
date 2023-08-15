@@ -25,21 +25,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.david.tot.util.ExpandingTextFinal
 import com.yeslab.fastprefs.FastPrefs
 
 @Composable
-fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: RequirableViewModel,
-                    //drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel
-) {
-
+fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: RequirableViewModel) {
 
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        //horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         //var text by rememberSaveable { mutableStateOf("") }
         Row(
-            modifier = Modifier.padding(all = 2.dp),
+            modifier = Modifier.padding(all = 2.dp).height(350.dp),
             horizontalArrangement = Arrangement.Center
         ){
             val bitmap =  remember {mutableStateOf<Bitmap?>(null)}
@@ -71,7 +69,7 @@ fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: Req
                         ) {
                             Image(bitmap = btm.asImageBitmap(),
                                 contentDescription =null,
-                                modifier = Modifier.border(2.dp, Color.Green).size(80.dp)
+                                modifier = Modifier.size(300.dp)
                             )
                         }
                         Row(
@@ -89,7 +87,7 @@ fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: Req
                             }
 
                              */
-                            Text(text = "ACTIVITY PARA ENVIAR NOVEDADES CON SU FOTO")
+                            //Text(text = "ACTIVITY PARA ENVIAR NOVEDADES CON SU FOTO")
                         }
                     }
                 }
@@ -99,16 +97,11 @@ fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: Req
 
 
         Row(
-            modifier = Modifier.padding(all = 2.dp).height(100.dp),
-            //horizontalArrangement = Arrangement.Center
+            modifier = Modifier.padding(all = 2.dp).height(200.dp),
+            horizontalArrangement = Arrangement.Center
         ) {
-
-        }
-
-        Row(
-            modifier = Modifier.padding(all = 2.dp),
-            //horizontalArrangement = Arrangement.Center
-        ) {
+            ExpandingTextFinal()
+            /*
             Button(
                 enabled = true,
                 modifier = Modifier.padding(1.dp),
@@ -117,6 +110,7 @@ fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: Req
                 }) {
                 Text(text = "Camara")
             }
+            */
         }
     }
 

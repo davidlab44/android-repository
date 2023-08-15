@@ -1,4 +1,4 @@
-package com.david.tot.data.network.vehicle
+package com.david.tot.data.network.authenticable
 
 
 import android.util.Log
@@ -11,8 +11,8 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
-class DrugsDeliveryConsumerViewHeaderService @Inject constructor(private val api: IDrugsDeliveryConsumerViewHeaderApiClient) {
-    suspend fun getAllDrugsDeliveryConsumerViewHeader(): List<Authenticable> {
+class AuthenticableService @Inject constructor(private val api: IAuthenticableApiClient) {
+    suspend fun getAllAuthenticableFromApi(): List<Authenticable> {
         //api.rawJSON()
         return withContext(Dispatchers.IO) {
             val response = api.getAllVehicles()

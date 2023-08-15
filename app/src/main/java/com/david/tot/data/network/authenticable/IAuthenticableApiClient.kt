@@ -1,4 +1,4 @@
-package com.david.tot.data.network.vehicle
+package com.david.tot.data.network.authenticable
 
 import com.david.tot.domain.model.Authenticable
 import okhttp3.RequestBody
@@ -8,7 +8,7 @@ import retrofit2.http.*
 
 //import retrofit2.Retrofit
 
-interface IDrugsDeliveryConsumerViewHeaderApiClient {
+interface IAuthenticableApiClient {
     
     @GET("api/APP_SP_DrugsDeliveryConsumerViewHeaderResult")
     suspend fun getAllVehicles(): Response<List<Authenticable>>

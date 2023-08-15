@@ -433,7 +433,9 @@ fun DrawerContent(
                     ),
                     text = AnnotatedString("Reporte novedades") ,
                     onClick = {
-                        context.startActivity(Intent(context, RequirableActivity::class.java))
+                        context.startActivity(Intent(context, Main2Activity::class.java))
+
+                        //context.startActivity(Intent(context, RequirableActivity::class.java))
                     }
                 )
             }
