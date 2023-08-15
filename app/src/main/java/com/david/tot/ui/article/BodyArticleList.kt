@@ -207,13 +207,14 @@ fun BodyArticleList(contextActivity:ArticleActivity, articleViewModel: ArticleVi
                                 )
 
                             }
+
                             Row(
                                 modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
                             ) {
                                 Box(
 
                                 ) {
-                                    Text(text = "Disponible en inventario: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
+                                    Text(text = "Inventario: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
                                 }
                             }
 
@@ -223,10 +224,9 @@ fun BodyArticleList(contextActivity:ArticleActivity, articleViewModel: ArticleVi
                                 Box(
 
                                 ) {
-                                    Text(text = "nueva cantidad: "+article.consumedQuantity.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
+                                    Text(text = "Disponible: "+article.quantityToStock.toInt().toString()+" "+article.unitOfMeasure.toLowerCase()+" / Reponer: "+article.quantityToRestore.toInt().toString(), fontSize = 13.sp)
                                 }
                             }
-
                         }
                     }
                 )
