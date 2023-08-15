@@ -15,6 +15,10 @@ interface ReportableDao {
     @Query("SELECT * FROM ReportableTable")
     suspend fun getAllReportableFromDatabase():List<Reportable>
 
+
+    @Query("SELECT * FROM ReportableTable")
+    suspend fun insertOneReportableToLocalDatabase():List<Reportable>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addOneReportableToLocalDatabase(reportable: Reportable)
 
