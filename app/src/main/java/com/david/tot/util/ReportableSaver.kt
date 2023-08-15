@@ -17,7 +17,6 @@ class ReportableSaver: ReportableDao {
         TODO("Not yet implemented")
     }
 
-
     override suspend fun addOneReportableToLocalDatabase(reportable: Reportable) {
         @Insert(onConflict = OnConflictStrategy.REPLACE){}
         val allthem= getAllReportableFromDatabase()

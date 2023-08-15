@@ -23,7 +23,7 @@ class Main2Activity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen()
+                    MainScreen(this@Main2Activity)
                 }
             }
         }

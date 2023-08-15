@@ -3,9 +3,11 @@ package com.david.tot.ui.cameraxtutorial.ui.camera
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Build
 import android.util.Log
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
+import androidx.annotation.RequiresApi
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
@@ -32,11 +34,15 @@ import androidx.compose.ui.window.Dialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.david.tot.ui.cameraxtutorial.core.utils.rotateBitmap
+import com.david.tot.ui.cameraxtutorial.Main2Activity
+import kotlin.reflect.KFunction1
+
 //import de.yanneckreiss.cameraxtutorial.core.utils.rotateBitmap
 
+@RequiresApi(Build.VERSION_CODES.R)
 @Composable
 fun CameraScreen(
+    mContext: Main2Activity,
     viewModel: CameraViewModel = viewModel()
 ) {
 
@@ -44,7 +50,9 @@ fun CameraScreen(
 
 
     CameraContent(
-        onPhotoCaptured = viewModel::onPhotoCaptured
+        m2Context =mContext,
+        onPhotoCaptured = viewModel::onPhotoCaptured,
+        onPhotoCaptured2 = viewModel::onPhotoCaptured2
     )
 
 
@@ -88,10 +96,14 @@ private fun CapturedImageBitmapDialog(
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 private fun CameraContent(
-    onPhotoCaptured: (Bitmap) -> Unit
+    m2Context:Main2Activity,
+    onPhotoCaptured: (Bitmap) -> Unit,
+    onPhotoCaptured2: KFunction1<Main2Activity, Unit>,
 ) {
 
+
     val context = LocalContext.current
+
     val lifecycleOwner = LocalLifecycleOwner.current
     val cameraController = remember { LifecycleCameraController(context) }
 
@@ -117,7 +129,7 @@ private fun CameraContent(
                                 //.rotateBitmap(image.imageInfo.rotationDegrees)
 
                             onPhotoCaptured(correctedBitmap)
-
+                            onPhotoCaptured2(m2Context)
                             image.close()
                         }
 
@@ -148,10 +160,13 @@ private fun CameraContent(
     }
 }
 
+/*
 @Preview
 @Composable
 private fun Preview_CameraContent() {
     CameraContent(
-        onPhotoCaptured = {}
+        onPhotoCaptured = {} ,
+        onPhotoCaptured2 = {}
     )
 }
+*/

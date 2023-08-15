@@ -19,7 +19,7 @@ class Dates {
     }
 
     fun dateAsLong():Long {
-        val sdf = SimpleDateFormat("hh:mm:ss")
+        val sdf = SimpleDateFormat("mm hh:mm:ss")
         val currentDate = sdf.format(Date())
         val dateAsLong = currentDate.filter {it in '0'..'9'}
         return dateAsLong.toLong()

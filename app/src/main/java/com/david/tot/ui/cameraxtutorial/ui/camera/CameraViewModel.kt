@@ -1,5 +1,6 @@
 package com.david.tot.ui.cameraxtutorial.ui.camera
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -10,9 +11,11 @@ import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.model.Reportable
 import com.david.tot.domain.model.Sync
+import com.david.tot.ui.cameraxtutorial.Main2Activity
 import com.david.tot.util.Dates
 import com.david.tot.util.ReportableSaver
 import com.david.tot.util.SyncSaver
+import com.yeslab.fastprefs.FastPrefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +28,18 @@ import java.io.FileOutputStream
 class CameraViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(CameraState())
+    lateinit var mContext:Main2Activity
     val state = _state.asStateFlow()
+
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    fun onPhotoCaptured2(context:Main2Activity) {
+        mContext=context
+        CoroutineScope(Dispatchers.IO).launch {
+
+        }
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.R)
     fun onPhotoCaptured(bitmap: Bitmap) {
@@ -53,11 +67,16 @@ class CameraViewModel : ViewModel() {
                 Log.e("TAG","file is not null")
                 //save reportable-photo into db
                 val photoUrl = "/storage/self/primary/Download" + File.separator + fileNameToSave
-                val reportable = Reportable(generatedId = time, photo= photoUrl,description = "")
-                val reportableToSave = ReportableSaver().addOneReportableToLocalDatabase(reportable)
-                val sync = Sync(objectId=Dates().dateAsInt(),dataType="Reportable", createdAt=Dates().geDateAsString())
-                val syncToSave = SyncSaver().addOneSyncToLOcalDatabase(sync)
-                Log.e("TG",""+reportableToSave+syncToSave)
+
+                val prefs = FastPrefs(mContext)
+                prefs.setString("Reportable",Dates().dateAsInt().toString())
+                val value = prefs.getString("Reportable","defaultValue")
+
+                //val reportable = Reportable(generatedId = time, photo= photoUrl,description = "")
+                //val reportableToSave = ReportableSaver().addOneReportableToLocalDatabase(reportable)
+                //val sync = Sync(objectId=Dates().dateAsInt(),dataType="Reportable", createdAt=Dates().geDateAsString())
+                //val syncToSave = SyncSaver().addOneSyncToLOcalDatabase(sync)
+                Log.e("TG",""+value)
             }else{
                 Log.e("TAG","file is null")
             }
