@@ -5,6 +5,7 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -24,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.yeslab.fastprefs.FastPrefs
 
 @Composable
 fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: RequirableViewModel,
@@ -57,6 +59,32 @@ fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: Req
             val bitmap =  remember {mutableStateOf<Bitmap?>(null)}
             var imageUri by remember {mutableStateOf<Uri?>(null)}
             val context = LocalContext.current
+
+
+
+            //SHARED PREFERENCES
+            val prefs = FastPrefs(context)
+            //TODO todogl cambiar esto por una imagen por defecto
+            //prefs.setString("Reportable","defaultValue")
+            val value = prefs.getString("Reportable","defaultValue")
+            Log.e("TG","value: "+value)
+
+
+            imageUri=Uri.parse(value)
+
+            /*
+            if (Build.VERSION.SDK_INT < 28) {
+                bitmap.value = MediaStore.Images
+                    .Media.getBitmap(context.contentResolver,imageUri)
+            } else {
+                val source = ImageDecoder.createSource(context.contentResolver,imageUri as)
+                bitmap.value = ImageDecoder.decodeBitmap(source)
+            }
+            */
+
+
+
+
 
             imageUri?.let {
                 if (Build.VERSION.SDK_INT < 28) {
