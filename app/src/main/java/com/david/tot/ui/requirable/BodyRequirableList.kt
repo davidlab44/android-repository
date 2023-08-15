@@ -69,8 +69,7 @@ fun BodyArticleList(contextActivity:RequirableActivity, requirableViewModel: Req
             val value = prefs.getString("Reportable","defaultValue")
             Log.e("TG","value: "+value)
 
-
-            imageUri=Uri.parse(value)
+            imageUri=Uri.parse("file://"+value)
 
             /*
             if (Build.VERSION.SDK_INT < 28) {
