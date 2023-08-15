@@ -286,7 +286,7 @@ fun DrawerContent(
                     modifier = Modifier
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.build_white_18dp),
+                    painter = painterResource(id = R.drawable.baseline_home_24),
                     contentDescription = "configuracion"
                 )
                 Spacer(modifier = Modifier.width(20.dp))

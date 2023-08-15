@@ -97,6 +97,18 @@ class ArticleViewModel @Inject constructor(
         }
     }
 
+
+    fun getAllRestocksFromApi() {
+        Log.e("TAG","TAG")
+        //viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            val result = getAllFromApiUseCase.invoke()
+            if (!result.isNullOrEmpty()) {
+                articleList =result
+            }
+        }
+    }
+
     fun getAllFromLocalDatabase() {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
@@ -121,7 +133,7 @@ class ArticleViewModel @Inject constructor(
             if (article.consumedQuantity> 0) {
                 if (quantityAvailable > 0) {
                     article.quantityAvailable = quantityAvailable.toDouble()
-                    consumibleList.add(SyncConsumible(objectId=objectId,consumptionId=0,articleCode=article.articleDescription,quantity=article.consumedQuantity,unitOfMeasure=article.unitOfMeasure,creationDate="2023-08-08T00:48:12.104Z",delivered=0))
+                    consumibleList.add(SyncConsumible(objectId=objectId,consumptionId=0,articleCode=article.articleCode,quantity=article.consumedQuantity,unitOfMeasure=article.unitOfMeasure,creationDate="2023-08-08T00:48:12.104Z",delivered=0))
                 }
             }
         }

@@ -40,8 +40,9 @@ fun BodyArticleList(contextActivity:ArticleActivity, articleViewModel: ArticleVi
     }
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
-    articleViewModel.getAllFromLocalDatabase()
+    //articleViewModel.getAllFromLocalDatabase()
     //var quantityToRestore by rememberSaveable {mutableStateOf("") }
+    articleViewModel.getAllRestocksFromApi()
     Column(
         modifier = Modifier
             .fillMaxSize()

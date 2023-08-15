@@ -60,7 +60,8 @@ class AuthenticableViewModel @Inject constructor(
 
     fun getAlldrugsDeliveryConsumerViewHeader(){
         CoroutineScope(Dispatchers.IO).launch {
-            authenticableFromApiList = retrieveAllAuthenticablesFromLocalDbUseCase.invoke()
+            //authenticableFromApiList = retrieveAllAuthenticablesFromLocalDbUseCase.invoke()
+            authenticableFromApiList = getAllAuthenticablesFromApiUseCase.invoke()
             if(authenticableFromApiList.isNotEmpty()){
                 //authenticable = getAnyAuthenticableUseCase.invoke()
                 authenticable = authenticableFromApiList[0]
