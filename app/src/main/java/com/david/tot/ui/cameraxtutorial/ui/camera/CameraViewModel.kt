@@ -11,11 +11,16 @@ import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.model.Reportable
 import com.david.tot.domain.model.Sync
+import com.david.tot.domain.reportable.AddOneReportableToLocalDatabaseUseCase
+import com.david.tot.domain.reportable.GetAllReportablesFromLocalDatabaseUseCase
+import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
+import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import com.david.tot.ui.cameraxtutorial.Main2Activity
 import com.david.tot.util.Dates
 import com.david.tot.util.ReportableSaver
 import com.david.tot.util.SyncSaver
 import com.yeslab.fastprefs.FastPrefs
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,8 +29,15 @@ import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import javax.inject.Inject
 
-class CameraViewModel : ViewModel() {
+@HiltViewModel
+class CameraViewModel @Inject constructor(
+    private val addOneSyncFromLocalDatabaseUseCase: AddOneSyncFromLocalDatabaseUseCase,
+    private val addOneReportableToLocalDatabaseUseCase: AddOneReportableToLocalDatabaseUseCase,
+    private val getAllReportablesFromLocalDatabaseUseCase: GetAllReportablesFromLocalDatabaseUseCase,
+    private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase
+) : ViewModel() {
 
     private val _state = MutableStateFlow(CameraState())
     lateinit var mContext:Main2Activity
@@ -68,15 +80,23 @@ class CameraViewModel : ViewModel() {
                 //save reportable-photo into db
                 val photoUrl = "/storage/self/primary/Download" + File.separator + fileNameToSave
 
-                val prefs = FastPrefs(mContext)
-                prefs.setString("Reportable",Dates().dateAsInt().toString())
-                val value = prefs.getString("Reportable","defaultValue")
+                //SHARED PREFERENCES
+                //val prefs = FastPrefs(mContext)
+                //prefs.setString("Reportable",Dates().dateAsInt().toString())
+                //val value = prefs.getString("Reportable","defaultValue")
+                //Log.e("TG",""+value)
 
-                //val reportable = Reportable(generatedId = time, photo= photoUrl,description = "")
+                val reportable = Reportable(generatedId = time, photo= photoUrl,description = "")
+                val reportableToSave = addOneReportableToLocalDatabaseUseCase.invoke(reportable)
+                val reportableList = getAllReportablesFromLocalDatabaseUseCase.invoke()
+                Log.e("TG",""+reportableList.size)
                 //val reportableToSave = ReportableSaver().addOneReportableToLocalDatabase(reportable)
-                //val sync = Sync(objectId=Dates().dateAsInt(),dataType="Reportable", createdAt=Dates().geDateAsString())
+                val sync = Sync(objectId=Dates().dateAsInt(),dataType="Reportable", createdAt=Dates().geDateAsString())
                 //val syncToSave = SyncSaver().addOneSyncToLOcalDatabase(sync)
-                Log.e("TG",""+value)
+                val syncToSave = addOneSyncFromLocalDatabaseUseCase.invoke(sync)
+                val syncList = getAllSyncFromLocalDatabaseUseCase.invoke()
+                Log.e("TG",""+syncList.size)
+                mContext.finish()
             }else{
                 Log.e("TAG","file is null")
             }

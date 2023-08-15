@@ -9,9 +9,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.david.tot.ui.cameraxtutorial.ui.MainScreen
 import com.david.tot.ui.cameraxtutorial.ui.theme.JetpackComposeCameraXTutorialTheme
+import dagger.hilt.android.AndroidEntryPoint
+
 //import de.yanneckreiss.cameraxtutorial.ui.MainScreen
 //import de.yanneckreiss.cameraxtutorial.ui.theme.JetpackComposeCameraXTutorialTheme
 
+@AndroidEntryPoint
 class Main2Activity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

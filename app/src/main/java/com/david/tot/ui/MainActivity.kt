@@ -68,8 +68,8 @@ class MainActivity : ComponentActivity() {
                     val contextForToast = LocalContext.current.applicationContext
                     //var ordeModalWindowCUrrentState by rememberSaveable { mutableStateOf(false) }
 
-                    val recipeViewModel = viewModel<RecipeViewModel>()
-                    recipeViewModel.getPhotoList()
+                    //val recipeViewModel = viewModel<RecipeViewModel>()
+                    //recipeViewModel.getPhotoList()
                     val articleViewModel = viewModel<ArticleViewModel>()
                     val drugsDeliveryConsumerViewHeaderViewModel=viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
                     //val recipeViewModel = viewModel<RecipeViewModel>()

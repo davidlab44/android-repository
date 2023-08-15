@@ -24,15 +24,6 @@ class RecipeViewModel @Inject constructor(
 
     var recipeModel by mutableStateOf<List<Article>>(emptyList())
 
-    fun getPhotoList(){
-        //viewModelScope.launch {
-        CoroutineScope(Dispatchers.IO).launch {
-            val hayFotoList = getAllReportablesFromLocalDatabaseUseCase.invoke()
-            Log.e("",""+hayFotoList.size)
-            Log.e("",""+hayFotoList.size)
-        }
-    }
-
 
     /*
     fun getPhotoList(){
