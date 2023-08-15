@@ -9,6 +9,10 @@ import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.model.Reportable
+import com.david.tot.domain.model.Sync
+import com.david.tot.util.Dates
+import com.david.tot.util.ReportableSaver
+import com.david.tot.util.SyncSaver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -49,7 +53,11 @@ class CameraViewModel : ViewModel() {
                 Log.e("TAG","file is not null")
                 //save reportable-photo into db
                 val photoUrl = "/storage/self/primary/Download" + File.separator + fileNameToSave
-                val reportable = Reportable(photo= photoUrl,description = "")
+                val reportable = Reportable(generatedId = time, photo= photoUrl,description = "")
+                val reportableToSave = ReportableSaver().addOneReportableToLocalDatabase(reportable)
+                val sync = Sync(objectId=Dates().dateAsInt(),dataType="Reportable", createdAt=Dates().geDateAsString())
+                val syncToSave = SyncSaver().addOneSyncToLOcalDatabase(sync)
+                Log.e("TG",""+reportableToSave+syncToSave)
             }else{
                 Log.e("TAG","file is null")
             }
