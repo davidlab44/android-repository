@@ -1,8 +1,6 @@
 package com.david.tot.data.network.vehicle
 
-import com.david.tot.domain.model.Article
-import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
-import kotlinx.serialization.json.JsonArray
+import com.david.tot.domain.model.Authenticable
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -13,7 +11,7 @@ import retrofit2.http.*
 interface IDrugsDeliveryConsumerViewHeaderApiClient {
     
     @GET("api/APP_SP_DrugsDeliveryConsumerViewHeaderResult")
-    suspend fun getAllVehicles(): Response<List<DrugsDeliveryConsumerViewHeader>>
+    suspend fun getAllVehicles(): Response<List<Authenticable>>
 
     /*
     @POST("example/api/order")

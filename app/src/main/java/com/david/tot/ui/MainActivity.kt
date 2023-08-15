@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -40,10 +41,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.david.tot.ui.article.*
 import com.david.tot.ui.cameraxtutorial.Main2Activity
-import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
+import com.david.tot.ui.authenticable.DrugsDeliveryConsumerViewHeaderViewModel
 import com.david.tot.ui.pre.PreActivity
 import com.david.tot.ui.requirable.RequirableActivity
 import com.david.tot.ui.sync.SyncActivity
+import com.yeslab.fastprefs.FastPrefs
 
 
 @AndroidEntryPoint
@@ -53,6 +55,9 @@ class MainActivity : ComponentActivity() {
     //TODO no permitir consultar en el API nada hasta que no se termine de sincronizar!!!!
     //OJO
     //desde que empiezas a trabajar offline no te trae nueva informacion hasta que no sincronize toda la cola
+
+
+
 
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +78,16 @@ class MainActivity : ComponentActivity() {
                     val articleViewModel = viewModel<ArticleViewModel>()
                     val drugsDeliveryConsumerViewHeaderViewModel=viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
                     //val recipeViewModel = viewModel<RecipeViewModel>()
+
+                    //DUMMY CREDENTIALS
+                    //SHARED PREFERENCES
+                    val photoUrl = "/storage/self/primary/Download"
+                    val prefs = FastPrefs(contextForToast)
+
+                    prefs.setString("Reportable",photoUrl)
+                    val value = prefs.getString("Reportable","defaultValue")
+                    Log.e("TG",""+value)
+
                     NavigationHost()
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),

@@ -1,4 +1,4 @@
-package com.david.tot.ui.drugs_delivery_consumer_view_header
+package com.david.tot.ui.authenticable
 
 /*
 import android.util.Log
@@ -33,34 +33,33 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.david.tot.domain.drugs_delivery_consumer_view_header.GetAllDrugsDeliveryConsumerViewHeaderUseCase
-import com.david.tot.domain.drugs_delivery_consumer_view_header.GetAnyDrugsDeliveryConsumerViewHeaderUseCase
-import com.david.tot.domain.drugs_delivery_consumer_view_header.PostOneDrugsDeliveryConsumerViewHeaderUseCase
-import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
+import com.david.tot.domain.authenticable.GetAllAuthenticablesUseCase
+import com.david.tot.domain.authenticable.GetAnyAuthenticableUseCase
+import com.david.tot.domain.authenticable.PostOneAuthenticableUseCase
+import com.david.tot.domain.model.Authenticable
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.JsonObject
 import javax.inject.Inject
 
 @HiltViewModel
 class DrugsDeliveryConsumerViewHeaderViewModel @Inject constructor(
-    private val getAllDrugsDeliveryConsumerViewHeaderUseCase: GetAllDrugsDeliveryConsumerViewHeaderUseCase,
-    private val getAnyDrugsDeliveryConsumerViewHeaderUseCase: GetAnyDrugsDeliveryConsumerViewHeaderUseCase,
-    private val postOneDrugsDeliveryConsumerViewHeaderUseCase:PostOneDrugsDeliveryConsumerViewHeaderUseCase
+    private val getAllAuthenticablesUseCase: GetAllAuthenticablesUseCase,
+    private val getAnyAuthenticableUseCase: GetAnyAuthenticableUseCase,
+    private val postOneAuthenticableUseCase:PostOneAuthenticableUseCase
 ) : ViewModel() {
 
-    var drugsDeliveryConsumerViewHeaderFromApiList by mutableStateOf<List<DrugsDeliveryConsumerViewHeader>>(emptyList())
+    var authenticableFromApiList by mutableStateOf<List<Authenticable>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
     var inventoryOutputResponseCode by mutableStateOf<Int>(0)
-    var drugsDeliveryConsumerViewHeader by mutableStateOf<DrugsDeliveryConsumerViewHeader>(DrugsDeliveryConsumerViewHeader(1,"","","","","","","","",""))
+    var authenticable by mutableStateOf<Authenticable>(Authenticable(1,"","","","","","","","",""))
 
     fun getAlldrugsDeliveryConsumerViewHeader(){
         CoroutineScope(Dispatchers.IO).launch {
-            drugsDeliveryConsumerViewHeaderFromApiList = getAllDrugsDeliveryConsumerViewHeaderUseCase.invoke()
-            if(drugsDeliveryConsumerViewHeaderFromApiList.isNotEmpty()){
-                drugsDeliveryConsumerViewHeader = getAnyDrugsDeliveryConsumerViewHeaderUseCase.invoke()
+            authenticableFromApiList = getAllAuthenticablesUseCase.invoke()
+            if(authenticableFromApiList.isNotEmpty()){
+                authenticable = getAnyAuthenticableUseCase.invoke()
             }
 
         }

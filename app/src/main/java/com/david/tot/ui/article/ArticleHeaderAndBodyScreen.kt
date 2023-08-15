@@ -11,8 +11,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.david.tot.ui.drugs_delivery_consumer_view_header.DrugsDeliveryConsumerViewHeaderViewModel
-import com.david.tot.ui.drugs_delivery_consumer_view_header.ScreenComponentHeader
+import com.david.tot.ui.authenticable.DrugsDeliveryConsumerViewHeaderViewModel
+import com.david.tot.ui.authenticable.ScreenComponentHeader
 
 @Composable
 fun ArticleHeaderAndBodyScreen(contextActivity:ArticleActivity,articleViewModel: ArticleViewModel, drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {

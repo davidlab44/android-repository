@@ -26,7 +26,7 @@ object RoomModule {
 
     @Singleton
     @Provides
-    fun provideDrugsDeliveryConsumerViewHeaderDao(db: RecipeDatabase) = db.getDrugsDeliveryConsumerViewHeaderDao()
+    fun provideDrugsDeliveryConsumerViewHeaderDao(db: RecipeDatabase) = db.getAuthenticableDao()
 
     @Singleton
     @Provides

@@ -1,23 +1,15 @@
-package com.david.tot.domain.drugs_delivery_consumer_view_header
+package com.david.tot.domain.authenticable
 
-import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import com.david.tot.data.DrugsDeliveryConsumerViewHeaderRepository
-import com.david.tot.domain.model.Article
-import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
+import com.david.tot.data.AuthenticableRepository
+import com.david.tot.domain.model.Authenticable
 import com.david.tot.domain.model.toDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class GetAllDrugsDeliveryConsumerViewHeaderUseCase @Inject constructor(private val repository: DrugsDeliveryConsumerViewHeaderRepository) {
+class GetAllAuthenticablesUseCase @Inject constructor(private val repository: AuthenticableRepository) {
 
 
     // delete all DrugsDeliveryConsumerViewHeader from database and insert the new ones
-    suspend operator fun invoke():List<DrugsDeliveryConsumerViewHeader>{
+    suspend operator fun invoke():List<Authenticable>{
         var recipes = repository.getAllDrugsDeliveryConsumerViewHeaderFromApi()
         return if(recipes.isNotEmpty()){
             //TODO check internet connection before to clear database

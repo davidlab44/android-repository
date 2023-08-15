@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Entity(tableName = "DrugsDeliveryConsumerViewHeaderTable")
-data class DrugsDeliveryConsumerViewHeader (
+@Entity(tableName = "AuthenticableTable")
+data class Authenticable (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "local_id") val local_id: Int = 0,
     //@ColumnInfo(name = "remote_id") val id: Int,
@@ -21,5 +21,5 @@ data class DrugsDeliveryConsumerViewHeader (
     @ColumnInfo(name = "crtm") val crtm: String,
     @ColumnInfo(name = "crtmExpiration") val crtmExpiration: String
     )
-fun DrugsDeliveryConsumerViewHeader.toDomain() = DrugsDeliveryConsumerViewHeader(local_id,consumer,license,licenseCategory,licenseExpiration,vehicle,soat,soatExpiration,crtm,crtmExpiration)
-fun DrugsDeliveryConsumerViewHeader.toDatabase() = DrugsDeliveryConsumerViewHeader(local_id=local_id, consumer=consumer, license=license,licenseCategory=licenseCategory,licenseExpiration=licenseExpiration,vehicle=vehicle,soat=soat,soatExpiration=soatExpiration,crtm=crtm,crtmExpiration=crtmExpiration)
+fun Authenticable.toDomain() = Authenticable(local_id,consumer,license,licenseCategory,licenseExpiration,vehicle,soat,soatExpiration,crtm,crtmExpiration)
+fun Authenticable.toDatabase() = Authenticable(local_id=local_id, consumer=consumer, license=license,licenseCategory=licenseCategory,licenseExpiration=licenseExpiration,vehicle=vehicle,soat=soat,soatExpiration=soatExpiration,crtm=crtm,crtmExpiration=crtmExpiration)

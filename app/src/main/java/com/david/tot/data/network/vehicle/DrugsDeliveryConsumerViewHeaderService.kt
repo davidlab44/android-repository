@@ -3,20 +3,16 @@ package com.david.tot.data.network.vehicle
 
 import android.util.Log
 import com.david.tot.domain.model.ConsumibleHeader
-import com.david.tot.domain.model.DrugsDeliveryConsumerViewHeader
+import com.david.tot.domain.model.Authenticable
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.text.SimpleDateFormat
-import java.util.Date
 import javax.inject.Inject
-import kotlin.reflect.full.memberProperties
-import kotlin.reflect.full.primaryConstructor
 
 class DrugsDeliveryConsumerViewHeaderService @Inject constructor(private val api: IDrugsDeliveryConsumerViewHeaderApiClient) {
-    suspend fun getAllDrugsDeliveryConsumerViewHeader(): List<DrugsDeliveryConsumerViewHeader> {
+    suspend fun getAllDrugsDeliveryConsumerViewHeader(): List<Authenticable> {
         //api.rawJSON()
         return withContext(Dispatchers.IO) {
             val response = api.getAllVehicles()

@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.article.PostManyArticleUseCase
-import com.david.tot.domain.drugs_delivery_consumer_view_header.GetAnyDrugsDeliveryConsumerViewHeaderUseCase
-import com.david.tot.domain.drugs_delivery_consumer_view_header.PostOneDrugsDeliveryConsumerViewHeaderUseCase
+import com.david.tot.domain.authenticable.GetAnyAuthenticableUseCase
+import com.david.tot.domain.authenticable.PostOneAuthenticableUseCase
 import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.ConsumibleHeader
 import com.david.tot.domain.model.Sync
@@ -25,13 +25,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SyncViewModel @Inject constructor(
-    private val postOneDrugsDeliveryConsumerViewHeaderUseCase: PostOneDrugsDeliveryConsumerViewHeaderUseCase,
+    private val postOneAuthenticableUseCase: PostOneAuthenticableUseCase,
     private val postManyArticleUseCase: PostManyArticleUseCase,
     private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase,
     private val getAllSyncConsumibleFromLocalDatabaseUseCase: GetAllSyncConsumibleFromLocalDatabaseUseCase,
     private val removeManySyncConsumiblesFromLocalDatabaseUseCase: RemoveManySyncConsumiblesFromLocalDatabaseUseCase,
     private val removeOneSyncFromLocalDatabaseUseCase: RemoveOneSyncFromLocalDatabaseUseCase,
-    private val getAnyDrugsDeliveryConsumerViewHeaderUseCase:GetAnyDrugsDeliveryConsumerViewHeaderUseCase
+    private val getAnyAuthenticableUseCase:GetAnyAuthenticableUseCase
 ) : ViewModel() {
 
     var syncList by mutableStateOf<List<Sync>>(emptyList())
@@ -52,11 +52,11 @@ class SyncViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             isSyncing=true
             //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
-            val consumibleHeader=getAnyDrugsDeliveryConsumerViewHeaderUseCase.invoke()
+            val consumibleHeader=getAnyAuthenticableUseCase.invoke()
             var headerCons = ConsumibleHeader(0,consumibleHeader.consumer,consumibleHeader.vehicle,"Example2","2023-08-10T01:42:45.655Z",0)
             var gson = Gson()
             var headerConsumible = gson.toJson(headerCons)
-            val consumibleHeaderId =postOneDrugsDeliveryConsumerViewHeaderUseCase.invoke(headerConsumible)
+            val consumibleHeaderId =postOneAuthenticableUseCase.invoke(headerConsumible)
             var syncConsumibleList by mutableStateOf<List<SyncConsumible>>(emptyList())
             syncConsumibleList = getAllSyncConsumibleFromLocalDatabaseUseCase.invoke()
             var consumibleList by mutableStateOf<List<Consumible>>(emptyList())
