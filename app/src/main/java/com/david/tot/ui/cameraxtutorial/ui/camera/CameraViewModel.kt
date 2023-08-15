@@ -1,12 +1,14 @@
 package com.david.tot.ui.cameraxtutorial.ui.camera
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.model.Reportable
@@ -16,6 +18,7 @@ import com.david.tot.domain.reportable.GetAllReportablesFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import com.david.tot.ui.cameraxtutorial.Main2Activity
+import com.david.tot.ui.requirable.RequirableActivity
 import com.david.tot.util.Dates
 import com.david.tot.util.ReportableSaver
 import com.david.tot.util.SyncSaver
@@ -81,11 +84,12 @@ class CameraViewModel @Inject constructor(
                 val photoUrl = "/storage/self/primary/Download" + File.separator + fileNameToSave
 
                 //SHARED PREFERENCES
-                //val prefs = FastPrefs(mContext)
-                //prefs.setString("Reportable",Dates().dateAsInt().toString())
-                //val value = prefs.getString("Reportable","defaultValue")
-                //Log.e("TG",""+value)
+                val prefs = FastPrefs(mContext)
+                prefs.setString("Reportable",Dates().dateAsInt().toString())
+                val value = prefs.getString("Reportable","defaultValue")
+                Log.e("TG",""+value)
 
+                /*
                 val reportable = Reportable(generatedId = time, photo= photoUrl,description = "")
                 val reportableToSave = addOneReportableToLocalDatabaseUseCase.invoke(reportable)
                 val reportableList = getAllReportablesFromLocalDatabaseUseCase.invoke()
@@ -96,6 +100,8 @@ class CameraViewModel @Inject constructor(
                 val syncToSave = addOneSyncFromLocalDatabaseUseCase.invoke(sync)
                 val syncList = getAllSyncFromLocalDatabaseUseCase.invoke()
                 Log.e("TG",""+syncList.size)
+                */
+                mContext.startActivity(Intent(mContext,RequirableActivity::class.java))
                 mContext.finish()
             }else{
                 Log.e("TAG","file is null")
