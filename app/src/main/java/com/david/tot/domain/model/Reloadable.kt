@@ -8,6 +8,35 @@ import androidx.room.PrimaryKey
 data class Reloadable (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "localId") val localId: Int = 0,
+    @ColumnInfo(name = "articleCode") val articleCode: String = "",
+    @ColumnInfo(name = "articleDescription") val articleDescription: String = "",
+    @ColumnInfo(name = "unitOfMeasure") val unitOfMeasure: String = "",
+    @ColumnInfo(name = "quantityAvailable") val quantityAvailable: String = "",
+    @ColumnInfo(name = "quantityToStock") val quantityToStock: String = "",
+    @ColumnInfo(name = "quantityConsumed") val quantityConsumed: String = ""
+)
+fun Reloadable.toDomain() = Reloadable(localId,articleCode,articleDescription,unitOfMeasure,quantityAvailable,quantityToStock,quantityConsumed)
+fun Reloadable.toDatabase() = Reloadable(
+    localId=localId,
+    articleCode=articleCode,
+    articleDescription=articleDescription,
+    unitOfMeasure=unitOfMeasure,
+    quantityAvailable=quantityAvailable,
+    quantityToStock=quantityToStock,
+    quantityConsumed=quantityConsumed
+)
+fun Reloadable.toApi() = Reloadable(
+    articleCode=articleCode,
+    articleDescription=articleDescription,
+    unitOfMeasure=unitOfMeasure,
+    quantityAvailable=quantityAvailable,
+    quantityToStock=quantityToStock,
+    quantityConsumed=quantityConsumed
+)
+/*
+data class Reloadable (
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "localId") val localId: Int = 0,
     //@ColumnInfo(name = "remote_id") val id: Int,
     @ColumnInfo(name = "restockId") val restockId: String,
     @ColumnInfo(name = "restockerUser") val restockerUser: String,
@@ -32,3 +61,4 @@ fun Reloadable.toDatabase() = Reloadable(
     consecutive=consecutive,
     consumedQuantity=consumedQuantity,
 )
+*/

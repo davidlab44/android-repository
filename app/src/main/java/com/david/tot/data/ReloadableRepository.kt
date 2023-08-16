@@ -1,5 +1,6 @@
 package com.david.tot.data
 
+import android.util.Log
 import com.david.tot.data.database.dao.ReloadableDao
 import com.david.tot.data.network.reloadable.ReloadableService
 import com.david.tot.domain.model.Article
@@ -21,6 +22,7 @@ class ReloadableRepository @Inject constructor(
 
     suspend fun getAllReloadablesFromApi(): List<Reloadable> {
         val response: List<Reloadable> = api.getReloadables()
+        Log.e("tag",""+response)
         return response.map { it.toDomain() }
     }
 
@@ -93,6 +95,7 @@ class ReloadableRepository @Inject constructor(
         return responseCode
     }
 
+    /*
     suspend fun updateConsumedQuantity(idReloadable:Int, reloadableNewQuantity:Int): Int {
         return reloadableDao.updateConsumedQuantity(idReloadable,reloadableNewQuantity)
         /*
@@ -103,4 +106,6 @@ class ReloadableRepository @Inject constructor(
         }
         */
     }
+
+     */
 }

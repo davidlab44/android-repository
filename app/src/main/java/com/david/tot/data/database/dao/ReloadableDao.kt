@@ -22,9 +22,12 @@ interface ReloadableDao {
     suspend fun getById(localId: Int): Reloadable
 
 
-    @Query("SELECT * FROM ReloadableTable WHERE restockerDisplayName LIKE :reloadableHash")
+    @Query("SELECT * FROM ReloadableTable WHERE articleDescription LIKE :reloadableHash")
     fun getFiltered(reloadableHash: String): List<Reloadable>
 
-    @Query("UPDATE ReloadableTable SET consumedQuantity = :reloadableNewQuantity WHERE localId = :reloadableLocalId")
+    /*
+    @Query("UPDATE ReloadableTable SET quantityConsumed = :reloadableNewQuantity WHERE localId = :reloadableLocalId")
     suspend fun updateConsumedQuantity(reloadableLocalId:Int, reloadableNewQuantity:Int):Int
+
+    */
 }

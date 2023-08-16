@@ -79,6 +79,7 @@ class ReloadableActivity : ComponentActivity() {
                     //NavigationHost(recipeViewModel = recipeViewModel)
                     //var ordeModalWindowCUrrentState by rememberSaveable { mutableStateOf(false) }
                     //val recipeViewModel = viewModel<RecipeViewModel>()
+
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
                         scaffoldState = scaffoldState,

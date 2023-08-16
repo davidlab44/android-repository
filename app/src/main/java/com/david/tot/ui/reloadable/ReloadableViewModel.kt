@@ -32,29 +32,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.david.tot.domain.UpdateConsumedQuantityUseCase
-import com.david.tot.domain.consumible.GetAllFromLocalDatabaseUseCase
-import com.david.tot.domain.consumible.GetFilteredArticleListUseCase
-import com.david.tot.domain.consumible.ReAddAllConsumibleToLocalDatabaseUseCase
-import com.david.tot.domain.model.Article
-import com.david.tot.domain.model.Sync
-import com.david.tot.domain.model.SyncConsumible
+import com.david.tot.domain.model.Reloadable
 import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
-import com.david.tot.domain.reloadable.GetReloadableByIdUseCase
-import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
-import com.david.tot.domain.sync.consumible.AddManySyncConsumibleToLocalDatabaseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
 class ReloadableViewModel @Inject constructor(
+
+    private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase
     /*
-    private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
     private val getReloadableByIdUseCase: GetReloadableByIdUseCase,
     private val updateConsumedQuantityUseCase: UpdateConsumedQuantityUseCase,
     private val getFilteredArticleListUseCase: GetFilteredArticleListUseCase,
@@ -66,10 +56,10 @@ class ReloadableViewModel @Inject constructor(
     private val reAddAllConsumibleToLocalDatabaseUseCase: ReAddAllConsumibleToLocalDatabaseUseCase
     */
 ) : ViewModel() {
-    /*
-    var articleList by mutableStateOf<List<Article>>(emptyList())
+
+    var reloadableList by mutableStateOf<List<Reloadable>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
-    var toastSuccess by mutableStateOf<Boolean>(false)
+    //var toastSuccess by mutableStateOf<Boolean>(false)
 
     //var invepastoList by mutableStateOf<List<Asset>>(emptyList())
 
@@ -87,7 +77,7 @@ class ReloadableViewModel @Inject constructor(
      */
 
 
-    fun getAllFromApi() {
+    fun getAllReloadablesFromApi() {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
@@ -95,7 +85,7 @@ class ReloadableViewModel @Inject constructor(
             val result = getAllReloadablesFromApiUseCase.invoke()
             //val result = getAllFromLocalDatabaseUseCase.invoke()
             if (!result.isNullOrEmpty()) {
-                articleList =result
+                reloadableList =result
             }
         }
     }
@@ -107,11 +97,12 @@ class ReloadableViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             val result = getAllReloadablesFromApiUseCase.invoke()
             if (!result.isNullOrEmpty()) {
-                articleList =result
+                reloadableList =result
             }
         }
     }
 
+    /*
     fun getAllFromLocalDatabase() {
         Log.e("TAG","TAG")
         //viewModelScope.launch {

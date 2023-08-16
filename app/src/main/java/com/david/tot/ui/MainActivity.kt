@@ -42,6 +42,7 @@ import com.david.tot.ui.consumible.*
 import com.david.tot.ui.cameraxtutorial.Main2Activity
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 import com.david.tot.ui.pre.PreActivity
+import com.david.tot.ui.reloadable.ReloadableActivity
 import com.david.tot.ui.sync.SyncActivity
 
 
@@ -478,7 +479,7 @@ fun DrawerContent(
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
                     painter = painterResource(id = R.drawable.build_white_18dp),
-                    contentDescription = "Solicitud de Reposicion"
+                    contentDescription = "Solicitud de Reposición"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 ClickableText(
@@ -486,9 +487,9 @@ fun DrawerContent(
                         color = Color.White,
                         fontSize = 26.sp
                     ),
-                    text = AnnotatedString("Anticipos") ,
+                    text = AnnotatedString("Solicitud de reposición") ,
                     onClick = {
-                        context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                        context.startActivity(Intent(context, ReloadableActivity::class.java))
                     }
                 )
             }
@@ -573,7 +574,7 @@ fun DrawerContent(
                     ),
                     text = AnnotatedString("Salir") ,
                     onClick = {
-                        context.startActivity(Intent(context, Main2Activity::class.java))
+                        //context.startActivity(Intent(context, Main2Activity::class.java))
                     }
                 )
             }

@@ -92,6 +92,7 @@ class ConsumibleRepository @Inject constructor(
         return responseCode
     }
 
+
     suspend fun updateConsumedQuantity(idArticle:Int, consumibleNewQuantity:Int): Int {
         return consumibleDao.updateConsumedQuantity(idArticle,consumibleNewQuantity)
         /*
@@ -102,4 +103,5 @@ class ConsumibleRepository @Inject constructor(
         }
         */
     }
+
 }
