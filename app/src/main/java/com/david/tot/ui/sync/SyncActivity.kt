@@ -19,7 +19,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.david.tot.ui.theme.TotTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import com.david.tot.ui.article.*
+import com.david.tot.ui.consumible.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding

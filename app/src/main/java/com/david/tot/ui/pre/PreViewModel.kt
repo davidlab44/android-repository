@@ -27,33 +27,20 @@ class ArticleViewModel @Inject constructor(
     ) : ViewModel() {
     */
 
-import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.david.tot.domain.UpdateConsumedQuantityUseCase
-import com.david.tot.domain.article.AddAllArticleToLocalDatabaseUseCase
-import com.david.tot.domain.article.GetAllFromApiUseCase
-import com.david.tot.domain.article.GetAllFromLocalDatabaseUseCase
-import com.david.tot.domain.article.GetArticleByIdUseCase
-import com.david.tot.domain.article.GetFilteredArticleListUseCase
-import com.david.tot.domain.article.UpdateAllArticlesInLocalDatabaseUseCase
 import com.david.tot.domain.model.Article
-import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.Pre
-import com.david.tot.domain.model.Sync
 import com.david.tot.domain.pre.AddOnePreFromLocalDatabaseUseCase
 import com.david.tot.domain.pre.GetAllDvFromLocalDatabaseUseCase
 import com.david.tot.domain.pre.GetAllPreFromLocalDatabaseUseCase
-import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel

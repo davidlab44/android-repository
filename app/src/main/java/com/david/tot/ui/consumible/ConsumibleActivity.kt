@@ -1,4 +1,4 @@
-package com.david.tot.ui.article
+package com.david.tot.ui.consumible
 
 
 
@@ -23,7 +23,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.david.tot.ui.theme.TotTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import com.david.tot.ui.article.*
+import com.david.tot.ui.consumible.*
 
 
 import androidx.compose.foundation.layout.Box
@@ -69,7 +69,7 @@ class ArticleActivity : ComponentActivity() {
                     val scaffoldState = rememberScaffoldState()
                     val coroutineScope = rememberCoroutineScope()
                     val contextForToast = LocalContext.current.applicationContext
-                    val articleViewModel = viewModel<ArticleViewModel>()
+                    val consumibleViewModel = viewModel<ConsumibleViewModel>()
                     val authenticableViewModel = viewModel<AuthenticableViewModel>()
                     //val contextArticleActivity = this@ArticleActivity
 
@@ -83,7 +83,7 @@ class ArticleActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         scaffoldState = scaffoldState,
                         topBar = {
-                            TopAppBarArticleAcivity(this@ArticleActivity,articleViewModel) {
+                            TopAppBarArticleAcivity(this@ArticleActivity,consumibleViewModel) {
                                 coroutineScope.launch {
                                     scaffoldState.drawerState.open()
                                 }
@@ -92,7 +92,7 @@ class ArticleActivity : ComponentActivity() {
                         bottomBar = { BottomNavigationBar(navController) },
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                ReportableNavigationBotomMenu(this@ArticleActivity,articleViewModel,authenticableViewModel,navController = navController)
+                                ReportableNavigationBotomMenu(this@ArticleActivity,consumibleViewModel,authenticableViewModel,navController = navController)
                             }
                         },
                         drawerContent = {
@@ -179,7 +179,7 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 
 
 @Composable
-fun TopAppBarArticleAcivity(nContext:ArticleActivity,articleViewModel: ArticleViewModel, onNavIconClick: () -> Unit) {
+fun TopAppBarArticleAcivity(nContext:ArticleActivity, consumibleViewModel: ConsumibleViewModel, onNavIconClick: () -> Unit) {
     val mContext = LocalContext.current.applicationContext
     TopAppBar(
         title = { Text(text = "GLAPP") },
@@ -198,7 +198,7 @@ fun TopAppBarArticleAcivity(nContext:ArticleActivity,articleViewModel: ArticleVi
         actions = {
             IconButton(onClick = { /* doSomething() */
 
-                articleViewModel.saveArticleListToSync()
+                consumibleViewModel.saveArticleListToSync()
                 /*
                 var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
 
@@ -233,11 +233,11 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 */
 
 @Composable
-fun ReportableNavigationBotomMenu(contextActivity:ArticleActivity, articleViewModel:ArticleViewModel, authenticableViewModel: AuthenticableViewModel, navController: NavHostController) {
+fun ReportableNavigationBotomMenu(contextActivity:ArticleActivity, consumibleViewModel:ConsumibleViewModel, authenticableViewModel: AuthenticableViewModel, navController: NavHostController) {
 
     NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
         composable(BotomNavigationItem.Home.route) {
-            ArticleHeaderAndBodyScreen(contextActivity,articleViewModel,authenticableViewModel)
+            ArticleHeaderAndBodyScreen(contextActivity,consumibleViewModel,authenticableViewModel)
         }
         composable(BotomNavigationItem.Music.route) {
             MusicScreen()

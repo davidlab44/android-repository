@@ -1,4 +1,4 @@
-package com.david.tot.ui.article
+package com.david.tot.ui.consumible
 
 /*
 import android.util.Log
@@ -33,11 +33,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.UpdateConsumedQuantityUseCase
-import com.david.tot.domain.article.GetAllFromApiUseCase
-import com.david.tot.domain.article.GetAllFromLocalDatabaseUseCase
-import com.david.tot.domain.article.GetArticleByIdUseCase
-import com.david.tot.domain.article.GetFilteredArticleListUseCase
-import com.david.tot.domain.article.ReAddAllConsumibleToLocalDatabaseUseCase
+import com.david.tot.domain.consumible.GetAllFromApiUseCase
+import com.david.tot.domain.consumible.GetAllFromLocalDatabaseUseCase
+import com.david.tot.domain.consumible.GetArticleByIdUseCase
+import com.david.tot.domain.consumible.GetFilteredArticleListUseCase
+import com.david.tot.domain.consumible.ReAddAllConsumibleToLocalDatabaseUseCase
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
@@ -52,7 +52,7 @@ import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
-class ArticleViewModel @Inject constructor(
+class ConsumibleViewModel @Inject constructor(
     private val getAllFromApiUseCase: GetAllFromApiUseCase,
     private val getArticleByIdUseCase: GetArticleByIdUseCase,
     private val updateConsumedQuantityUseCase: UpdateConsumedQuantityUseCase,

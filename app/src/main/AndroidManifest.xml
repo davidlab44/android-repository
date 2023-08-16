@@ -65,7 +65,7 @@
             android:parentActivityName=".ui.MainActivity">
         </activity>
         <activity
-            android:name="com.david.tot.ui.article.ArticleActivity"
+            android:name="com.david.tot.ui.consumible.ArticleActivity"
             android:noHistory="true">
         </activity>
         <activity

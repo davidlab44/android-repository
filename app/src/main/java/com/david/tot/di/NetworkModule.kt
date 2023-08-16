@@ -1,6 +1,6 @@
 package com.david.tot.di
 
-import com.david.tot.data.network.article.IArticleApiClient
+import com.david.tot.data.network.consumible.IArticleApiClient
 import com.david.tot.data.network.authenticable.IAuthenticableApiClient
 import com.david.tot.util.BASE_URL
 import dagger.Module

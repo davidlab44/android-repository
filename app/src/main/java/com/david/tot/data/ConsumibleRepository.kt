@@ -1,7 +1,7 @@
 package com.david.tot.data
 
-import com.david.tot.data.database.dao.ArticleDao
-import com.david.tot.data.network.article.ArticleService
+import com.david.tot.data.database.dao.ConsumibleDao
+import com.david.tot.data.network.consumible.ArticleService
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.toDomain
 import com.david.tot.util.IsImageFile
@@ -13,9 +13,9 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import javax.inject.Inject
 
-class ArticleRepository @Inject constructor(
+class ConsumibleRepository @Inject constructor(
     private val api: ArticleService,
-    private val articleDao: ArticleDao
+    private val consumibleDao: ConsumibleDao
 ) {
 
     suspend fun getAllRecipesFromApi(): List<Article> {
@@ -42,26 +42,26 @@ class ArticleRepository @Inject constructor(
     }
 
     suspend fun getAllRecipesFromDatabase():List<Article>{
-        val response: List<Article> = articleDao.getAll()
+        val response: List<Article> = consumibleDao.getAll()
         return response.map { it.toDomain() }
     }
 
     suspend fun getFiltered(hash: String): List<Article> {
-        val response: List<Article> = articleDao.getFiltered(hash)
+        val response: List<Article> = consumibleDao.getFiltered(hash)
         response.map { it.toDomain() }
-        return articleDao.getFiltered(hash)
+        return consumibleDao.getFiltered(hash)
     }
 
     suspend fun insertRecipes(recipes:List<Article>){
-        articleDao.insertAll(recipes)
+        consumibleDao.insertAll(recipes)
     }
 
     suspend fun clearRecipes(){
-        articleDao.deleteAll()
+        consumibleDao.deleteAll()
     }
 
     suspend fun getArticleById(local_id:Int): Article {
-        return articleDao.getById(local_id)
+        return consumibleDao.getById(local_id)
     }
 
     suspend fun updateImageProduct(idProduct:Int,file: File) :Int {
@@ -93,7 +93,7 @@ class ArticleRepository @Inject constructor(
     }
 
     suspend fun updateConsumedQuantity(idArticle:Int, consumibleNewQuantity:Int): Int {
-        return articleDao.updateConsumedQuantity(idArticle,consumibleNewQuantity)
+        return consumibleDao.updateConsumedQuantity(idArticle,consumibleNewQuantity)
         /*
         return if(updated==1){
             Log.e("TAG","TAGTrue")

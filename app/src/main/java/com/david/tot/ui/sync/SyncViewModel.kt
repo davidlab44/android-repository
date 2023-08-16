@@ -4,7 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.david.tot.domain.article.PostManyArticleUseCase
+import com.david.tot.domain.consumible.PostManyArticleUseCase
 import com.david.tot.domain.authenticable.GetAnyAuthenticableUseCase
 import com.david.tot.domain.authenticable.PostOneAuthenticableUseCase
 import com.david.tot.domain.model.Consumible

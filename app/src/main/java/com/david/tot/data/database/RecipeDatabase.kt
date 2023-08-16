@@ -3,7 +3,7 @@ package com.david.tot.data.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.david.tot.data.database.dao.AuthenticableDao
-import com.david.tot.data.database.dao.ArticleDao
+import com.david.tot.data.database.dao.ConsumibleDao
 import com.david.tot.data.database.dao.PreDao
 import com.david.tot.data.database.dao.ReportableDao
 import com.david.tot.data.database.dao.SyncConsumibleDao
@@ -17,7 +17,7 @@ import com.david.tot.domain.model.SyncConsumible
 
 @Database(entities = [Article::class, Authenticable::class, Sync::class, Pre::class, SyncConsumible::class, Reportable::class], version = 32)
 abstract class RecipeDatabase: RoomDatabase() {
-    abstract fun getRecipeDao(): ArticleDao
+    abstract fun getRecipeDao(): ConsumibleDao
 
     abstract fun getAuthenticableDao(): AuthenticableDao
 

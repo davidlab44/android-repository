@@ -1,4 +1,4 @@
-package com.david.tot.ui.article
+package com.david.tot.ui.consumible
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -15,7 +15,7 @@ import com.david.tot.ui.authenticable.AuthenticableViewModel
 import com.david.tot.ui.authenticable.AuthenticableScreenComponentHeader
 
 @Composable
-fun ArticleHeaderAndBodyScreen(contextActivity:ArticleActivity, articleViewModel: ArticleViewModel, authenticableViewModel: AuthenticableViewModel) {
+fun ArticleHeaderAndBodyScreen(contextActivity:ArticleActivity, consumibleViewModel: ConsumibleViewModel, authenticableViewModel: AuthenticableViewModel) {
     authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
@@ -32,7 +32,7 @@ fun ArticleHeaderAndBodyScreen(contextActivity:ArticleActivity, articleViewModel
             modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            BodyArticleList(contextActivity,articleViewModel,authenticableViewModel)
+            BodyArticleList(contextActivity,consumibleViewModel,authenticableViewModel)
         }
     }
 }

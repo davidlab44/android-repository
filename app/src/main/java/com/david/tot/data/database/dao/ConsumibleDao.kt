@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.david.tot.domain.model.Article
 
 @Dao
-interface ArticleDao {
+interface ConsumibleDao {
     @Query("SELECT * FROM Article ORDER BY articleDescription ASC")
     suspend fun getAll():List<Article>
 

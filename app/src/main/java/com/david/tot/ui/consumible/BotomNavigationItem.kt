@@ -1,4 +1,4 @@
-package com.david.tot.ui.article
+package com.david.tot.ui.consumible
 
 import com.david.tot.R
 

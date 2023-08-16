@@ -1,4 +1,4 @@
-package com.david.tot.data.network.article
+package com.david.tot.data.network.consumible
 
 import com.david.tot.domain.model.Article
 import com.google.gson.JsonArray

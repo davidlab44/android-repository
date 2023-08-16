@@ -1,11 +1,11 @@
 package com.david.tot.domain
 
-import com.david.tot.data.ArticleRepository
+import com.david.tot.data.ConsumibleRepository
 
 import java.io.File
 import javax.inject.Inject
 
-class UpdateImageProductUseCase @Inject constructor(private val repository: ArticleRepository) {
+class UpdateImageProductUseCase @Inject constructor(private val repository: ConsumibleRepository) {
 
     suspend operator fun invoke(idProduct:Int,file:File):Int{
         return repository.updateImageProduct(idProduct,file)

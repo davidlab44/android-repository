@@ -38,11 +38,10 @@ import com.david.tot.ui.theme.TotTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import com.david.tot.ui.article.*
+import com.david.tot.ui.consumible.*
 import com.david.tot.ui.cameraxtutorial.Main2Activity
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 import com.david.tot.ui.pre.PreActivity
-import com.david.tot.ui.requirable.RequirableActivity
 import com.david.tot.ui.sync.SyncActivity
 
 
@@ -73,7 +72,7 @@ class MainActivity : ComponentActivity() {
 
                     //val recipeViewModel = viewModel<RecipeViewModel>()
                     //recipeViewModel.getPhotoList()
-                    val articleViewModel = viewModel<ArticleViewModel>()
+                    val consumibleViewModel = viewModel<ConsumibleViewModel>()
                     val authenticableViewModel=viewModel<AuthenticableViewModel>()
                     //val recipeViewModel = viewModel<RecipeViewModel>()
 
@@ -113,7 +112,7 @@ class MainActivity : ComponentActivity() {
                         */
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                BodyList(articleViewModel,authenticableViewModel)
+                                BodyList(consumibleViewModel,authenticableViewModel)
                             }
                         },
                         drawerContent = {

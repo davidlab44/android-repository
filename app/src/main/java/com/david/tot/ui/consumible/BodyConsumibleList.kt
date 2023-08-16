@@ -1,4 +1,4 @@
-package com.david.tot.ui.article
+package com.david.tot.ui.consumible
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -31,10 +31,10 @@ import androidx.compose.runtime.*
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 
 @Composable
-fun BodyArticleList(contextActivity:ArticleActivity, articleViewModel: ArticleViewModel, authenticableViewModel: AuthenticableViewModel) {
+fun BodyArticleList(contextActivity:ArticleActivity, consumibleViewModel: ConsumibleViewModel, authenticableViewModel: AuthenticableViewModel) {
 
     val mContext = LocalContext.current
-    if(articleViewModel.toastSuccess){
+    if(consumibleViewModel.toastSuccess){
         Toast.makeText(mContext,"Consumible creado exitosamente!", Toast.LENGTH_LONG).show()
         contextActivity.finish()
     }
@@ -42,7 +42,7 @@ fun BodyArticleList(contextActivity:ArticleActivity, articleViewModel: ArticleVi
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
     //articleViewModel.getAllFromLocalDatabase()
     //var quantityToRestore by rememberSaveable {mutableStateOf("") }
-    articleViewModel.getAllRestocksFromApi()
+    consumibleViewModel.getAllRestocksFromApi()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -81,7 +81,7 @@ fun BodyArticleList(contextActivity:ArticleActivity, articleViewModel: ArticleVi
             placeholder = { Text(text = "") }
         )
 
-        articleViewModel.updateFilteredArticleList(text)
+        consumibleViewModel.updateFilteredArticleList(text)
         //Text(text="Aqui"+text)
 
 
@@ -91,7 +91,7 @@ fun BodyArticleList(contextActivity:ArticleActivity, articleViewModel: ArticleVi
             .padding(top= 15.dp)
             .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
-            val recipeList2 =articleViewModel.articleList
+            val recipeList2 =consumibleViewModel.articleList
             //val recipeList =CheckList
             //var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
             /*
@@ -108,7 +108,7 @@ fun BodyArticleList(contextActivity:ArticleActivity, articleViewModel: ArticleVi
             */
 
             //LIST
-            val articleList =articleViewModel.articleList
+            val articleList =consumibleViewModel.articleList
             items(articleList) { article ->
                 Card(
                     modifier = Modifier

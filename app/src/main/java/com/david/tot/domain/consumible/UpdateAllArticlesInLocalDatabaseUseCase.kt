@@ -1,11 +1,11 @@
-package com.david.tot.domain.article
+package com.david.tot.domain.consumible
 
-import com.david.tot.data.ArticleRepository
+import com.david.tot.data.ConsumibleRepository
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.toDatabase
 import javax.inject.Inject
 
-class UpdateAllArticlesInLocalDatabaseUseCase @Inject constructor(private val repository: ArticleRepository) {
+class UpdateAllArticlesInLocalDatabaseUseCase @Inject constructor(private val repository: ConsumibleRepository) {
     suspend operator fun invoke(articleList:List<Article>):List<Article>{
         
         return if(articleList.isNotEmpty()){
