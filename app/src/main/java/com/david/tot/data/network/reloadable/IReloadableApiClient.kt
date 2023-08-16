@@ -25,7 +25,7 @@ interface IReloadableApiClient {
     suspend fun postMany(@Body jsonArray: RequestBody): Response<ResponseBody>
 
     @PUT("products/{id}")
-    suspend fun updateOne(@Path("id") id:String, @Body product:Article): Response<ResponseBody>
+    suspend fun updateOne(@Path("id") id:String, @Body product:Reloadable): Response<ResponseBody>
 
     @DELETE("products/{id}")
     suspend fun deleteOne(@Path("id") id:Int): Response<ResponseBody>

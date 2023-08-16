@@ -84,5 +84,9 @@
             android:name="com.david.tot.ui.cameraxtutorial.Main2Activity"
             android:noHistory="true">
         </activity>
+        <activity
+            android:name="com.david.tot.ui.reloadable.ReloadableActivity"
+            android:noHistory="true">
+        </activity>
     </application>
 </manifest>

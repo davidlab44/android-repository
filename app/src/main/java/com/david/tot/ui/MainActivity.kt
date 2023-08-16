@@ -466,6 +466,33 @@ fun DrawerContent(
                 )
             }
         }
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(modifier = Modifier
+                .fillMaxSize(),
+                //.border(width = 1.dp, color = Color.Magenta),
+                horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(20.dp))
+                Image(
+                    modifier = Modifier
+                        .size(size = 25.dp)
+                        .clip(shape = CircleShape),
+                    painter = painterResource(id = R.drawable.build_white_18dp),
+                    contentDescription = "Solicitud de Reposicion"
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                ClickableText(
+                    style = TextStyle(
+                        color = Color.White,
+                        fontSize = 26.sp
+                    ),
+                    text = AnnotatedString("Anticipos") ,
+                    onClick = {
+                        context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                    }
+                )
+            }
+        }
 
         item {
             Spacer(modifier = Modifier.height(20.dp))

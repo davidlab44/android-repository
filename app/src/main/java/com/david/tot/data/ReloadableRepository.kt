@@ -53,7 +53,7 @@ class ReloadableRepository @Inject constructor(
         return reloadableDao.getFiltered(hash)
     }
 
-    suspend fun insertReloadable(reloadables:List<Reloadable>){
+    suspend fun insertReloadables(reloadables:List<Reloadable>){
         reloadableDao.insertAll(reloadables)
     }
 

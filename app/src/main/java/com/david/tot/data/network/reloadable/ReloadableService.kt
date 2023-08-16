@@ -44,7 +44,7 @@ class ReloadableService @Inject constructor(private val api: IReloadableApiClien
         }
     }
 
-    suspend fun addReloadable(product:Article):Int{
+    suspend fun addReloadable(product:Reloadable):Int{
         return withContext(Dispatchers.IO) {
             val respuesta = api.addOne(product)
             val respuestaBody =respuesta.body().toString()
@@ -66,9 +66,9 @@ class ReloadableService @Inject constructor(private val api: IReloadableApiClien
         }
     }
 
-    suspend fun updateReloadable(article:Article):Int{
+    suspend fun updateReloadable(reloadable:Reloadable):Int{
         return withContext(Dispatchers.IO) {
-            val response = api.updateOne(article.local_id.toString(),article)
+            val response = api.updateOne(reloadable.localId.toString(),reloadable)
             val res = response
             response.code()
         }
