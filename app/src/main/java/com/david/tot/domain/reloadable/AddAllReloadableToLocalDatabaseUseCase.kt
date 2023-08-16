@@ -9,7 +9,7 @@ class AddAllReloadableToLocalDatabaseUseCase @Inject constructor(private val rep
     suspend operator fun invoke(reloadableList:List<Reloadable>):List<Reloadable>{
         return if(reloadableList.isNotEmpty()){
             repository.clearReloadables()
-            repository.insertReloadables(reloadableList.map { it.toDatabase() })
+            repository.addAllReloadablesToLocalDb(reloadableList.map { it.toDatabase() })
             //recipes
             //recipes = repository.getAllRecipesFromApi()
             val articleListRetrieved = repository.getAllReloadablesFromDatabase()

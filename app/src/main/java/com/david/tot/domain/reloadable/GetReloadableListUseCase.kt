@@ -11,7 +11,7 @@ class GetReloadableListUseCase @Inject constructor(private val repository: Reloa
         return if(reloadableList.isNotEmpty()){
             //TODO check internet connection before to clear database
             repository.clearReloadables()
-            repository.insertReloadables(reloadableList.map { it.toDatabase() })
+            repository.addAllReloadablesToLocalDb(reloadableList.map { it.toDatabase() })
             //recipes
             //recipes = repository.getAllRecipesFromApi()
             reloadableList = repository.getAllReloadablesFromDatabase()

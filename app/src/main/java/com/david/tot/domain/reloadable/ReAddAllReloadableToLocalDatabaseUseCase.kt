@@ -11,7 +11,7 @@ class ReAddAllReloadableToLocalDatabaseUseCase @Inject constructor(private val r
         repository.clearReloadables()
         val consumibleListEmpty = repository.getAllReloadablesFromDatabase()
         if(consumibleListEmpty.isEmpty()){
-            repository.insertReloadables(reloadableList.map { it.toDatabase() })
+            repository.addAllReloadablesToLocalDb(reloadableList.map { it.toDatabase() })
             reloadableList = repository.getAllReloadablesFromDatabase()
         }
         return reloadableList

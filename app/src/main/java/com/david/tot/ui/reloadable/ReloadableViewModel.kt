@@ -34,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.model.Reloadable
 import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
+import com.david.tot.domain.reloadable.GetFilteredReloadableListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -43,7 +44,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ReloadableViewModel @Inject constructor(
 
-    private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase
+    private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
+    private val getFilteredReloadableListUseCase: GetFilteredReloadableListUseCase
     /*
     private val getReloadableByIdUseCase: GetReloadableByIdUseCase,
     private val updateConsumedQuantityUseCase: UpdateConsumedQuantityUseCase,
@@ -59,7 +61,7 @@ class ReloadableViewModel @Inject constructor(
 
     var reloadableList by mutableStateOf<List<Reloadable>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
-    //var toastSuccess by mutableStateOf<Boolean>(false)
+    var toastSuccess by mutableStateOf<Boolean>(false)
 
     //var invepastoList by mutableStateOf<List<Asset>>(emptyList())
 
@@ -89,7 +91,6 @@ class ReloadableViewModel @Inject constructor(
             }
         }
     }
-
 
     fun getAllRestocksFromApi() {
         Log.e("TAG","TAG")
@@ -214,16 +215,16 @@ class ReloadableViewModel @Inject constructor(
             val df2 = df+" fffff"
         }
     }
-
+*/
     fun updateFilteredArticleList(hash:String){
         CoroutineScope(Dispatchers.IO).launch {
-            val result = getFilteredArticleListUseCase.invoke("%$hash%")
+            val result = getFilteredReloadableListUseCase.invoke("%$hash%")
             if (!result.isNullOrEmpty()) {
-                articleList =result
+                reloadableList =result
             }
         }
     }
     //var productDescription by mutableStateOf<String>("")
 
-     */
+
 }

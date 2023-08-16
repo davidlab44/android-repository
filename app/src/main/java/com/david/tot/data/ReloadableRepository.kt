@@ -3,7 +3,6 @@ package com.david.tot.data
 import android.util.Log
 import com.david.tot.data.database.dao.ReloadableDao
 import com.david.tot.data.network.reloadable.ReloadableService
-import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Reloadable
 import com.david.tot.domain.model.toDomain
 import com.david.tot.util.IsImageFile
@@ -55,7 +54,7 @@ class ReloadableRepository @Inject constructor(
         return reloadableDao.getFiltered(hash)
     }
 
-    suspend fun insertReloadables(reloadables:List<Reloadable>){
+    suspend fun addAllReloadablesToLocalDb(reloadables:List<Reloadable>){
         reloadableDao.insertAll(reloadables)
     }
 

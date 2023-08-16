@@ -3,7 +3,9 @@ package com.david.tot.domain.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "ReloadableTable")
 data class Reloadable (
     @PrimaryKey(autoGenerate = true)
@@ -13,7 +15,7 @@ data class Reloadable (
     @ColumnInfo(name = "unitOfMeasure") val unitOfMeasure: String = "",
     @ColumnInfo(name = "quantityAvailable") val quantityAvailable: String = "",
     @ColumnInfo(name = "quantityToStock") val quantityToStock: String = "",
-    @ColumnInfo(name = "quantityConsumed") val quantityConsumed: String = ""
+    @ColumnInfo(name = "quantityConsumed") var quantityConsumed: String? = ""
 )
 fun Reloadable.toDomain() = Reloadable(localId,articleCode,articleDescription,unitOfMeasure,quantityAvailable,quantityToStock,quantityConsumed)
 fun Reloadable.toDatabase() = Reloadable(
@@ -23,7 +25,7 @@ fun Reloadable.toDatabase() = Reloadable(
     unitOfMeasure=unitOfMeasure,
     quantityAvailable=quantityAvailable,
     quantityToStock=quantityToStock,
-    quantityConsumed=quantityConsumed
+    quantityConsumed=quantityConsumed,
 )
 fun Reloadable.toApi() = Reloadable(
     articleCode=articleCode,

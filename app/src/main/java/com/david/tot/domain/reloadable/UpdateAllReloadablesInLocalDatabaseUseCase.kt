@@ -11,7 +11,7 @@ class UpdateAllReloadablesInLocalDatabaseUseCase @Inject constructor(private val
         return if(articleList.isNotEmpty()){
             //TODO check internet connection before to clear database
             repository.clearReloadables()
-            repository.insertReloadables(articleList.map { it.toDatabase() })
+            repository.addAllReloadablesToLocalDb(articleList.map { it.toDatabase() })
             val articleListRetrieved = repository.getAllReloadablesFromDatabase()
             articleListRetrieved
         }else{

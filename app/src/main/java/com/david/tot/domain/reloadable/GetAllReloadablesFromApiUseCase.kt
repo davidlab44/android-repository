@@ -19,7 +19,7 @@ class GetAllReloadablesFromApiUseCase @Inject constructor(private val repository
         return if(recipes.isNotEmpty()){
             //TODO check internet connection before to clear database
             repository.clearReloadables()
-            repository.insertReloadables(recipes.map { it.toDatabase() })
+            repository.addAllReloadablesToLocalDb(recipes.map { it.toDatabase() })
             //recipes
             //recipes = repository.getAllRecipesFromApi()
             recipes = repository.getAllReloadablesFromDatabase()
