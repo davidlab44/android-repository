@@ -1,4 +1,4 @@
-package com.david.tot.ui.consumible
+package com.david.tot.ui.settings
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -25,27 +25,39 @@ import androidx.compose.foundation.layout.width
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 
 import androidx.compose.runtime.*
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 
 @Composable
-fun BodyArticleList(contextActivity:ArticleActivity, consumibleViewModel: ConsumibleViewModel, authenticableViewModel: AuthenticableViewModel) {
+fun BodySettingsList(contextActivity:SettingsActivity, settingsViewModel: SettingsViewModel, authenticableViewModel: AuthenticableViewModel) {
 
+    androidx.compose.material3.Button(
+        onClick = {
+            settingsViewModel.getAllAppDataFromApi()
+        },
+        modifier = Modifier
+            .padding(bottom = 10.dp)
+            .height(60.dp)
+    ) {
+        Text("Sync")
+    }
+
+    /*
     val mContext = LocalContext.current
-    if(consumibleViewModel.toastSuccess){
-        Toast.makeText(mContext,"Consumible creado exitosamente!", Toast.LENGTH_LONG).show()
+    if(settingsViewModel.toastSuccess){
+        Toast.makeText(mContext,"Setting creado exitosamente!", Toast.LENGTH_LONG).show()
         contextActivity.finish()
     }
+    */
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
     //articleViewModel.getAllFromLocalDatabase()
     //var quantityToRestore by rememberSaveable {mutableStateOf("") }
-    consumibleViewModel.getAllConsumiblesFromLocalDatabase()
+    //consumibleViewModel.getAllConsumiblesFromLocalDatabase()
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize().background(Color(0xFFf4bca4))
             .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var text by rememberSaveable { mutableStateOf("") }
@@ -67,6 +79,25 @@ fun BodyArticleList(contextActivity:ArticleActivity, consumibleViewModel: Consum
         )
         */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
         OutlinedTextField(
             value = text,
             modifier = Modifier
@@ -232,6 +263,7 @@ fun BodyArticleList(contextActivity:ArticleActivity, consumibleViewModel: Consum
                 )
             }
         }
+        */
     }
 }
 

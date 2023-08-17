@@ -1,7 +1,10 @@
-package com.david.tot.ui.sync
+package com.david.tot.ui.settings
+
+
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,23 +23,24 @@ import com.david.tot.ui.theme.TotTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.david.tot.ui.consumible.*
+
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.filled.Stop
 /*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-*/
 
-import androidx.compose.material.icons.filled.Sync
+ */
+
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -45,11 +49,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.david.tot.ui.DrawerContent
+import com.david.tot.ui.authenticable.AuthenticableViewModel
+//import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
-class SyncActivity : ComponentActivity() {
+class SettingsActivity : ComponentActivity() {
 
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,14 +68,10 @@ class SyncActivity : ComponentActivity() {
                     val scaffoldState = rememberScaffoldState()
                     val coroutineScope = rememberCoroutineScope()
                     val contextForToast = LocalContext.current.applicationContext
-                    val syncViewModel = viewModel<SyncViewModel>()
-                    //syncViewModel.onCreate()
-                    //val drugsDeliveryConsumerViewHeaderViewModel = viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
+                    val settingsViewModel = viewModel<SettingsViewModel>()
+                    val authenticableViewModel = viewModel<AuthenticableViewModel>()
                     //val contextArticleActivity = this@ArticleActivity
-                    if(syncViewModel.toastTheresNotConsumiblesToSync)
-                        Toast.makeText(contextForToast, "No se encontraron elementos", Toast.LENGTH_SHORT).show()
-                    if(syncViewModel.toastInsertedSuccessfully)
-                        Toast.makeText(contextForToast, "Registro Exitoso", Toast.LENGTH_SHORT).show()
+
                     //Bottom nav controller
                     val navController = rememberNavController()
                     //val recipeViewModel = viewModel<RecipeViewModel>()
@@ -81,7 +82,7 @@ class SyncActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         scaffoldState = scaffoldState,
                         topBar = {
-                            TopAppBarSyncAcivity(syncViewModel) {
+                            TopAppBarSettingsAcivity(this@SettingsActivity,settingsViewModel) {
                                 coroutineScope.launch {
                                     scaffoldState.drawerState.open()
                                 }
@@ -90,11 +91,11 @@ class SyncActivity : ComponentActivity() {
                         bottomBar = { BottomNavigationBar(navController) },
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                SyncNavigationBotomMenu(this@SyncActivity,syncViewModel,navController = navController)
+                                SettingsNavigationBotomMenu(this@SettingsActivity,settingsViewModel,authenticableViewModel,navController = navController)
                             }
                         },
                         drawerContent = {
-                            DrawerContent(context=this@SyncActivity) { itemLabel ->
+                            DrawerContent(context=this@SettingsActivity) { itemLabel ->
                                 Toast
                                     .makeText(contextForToast, itemLabel, Toast.LENGTH_SHORT)
                                     .show()
@@ -177,9 +178,8 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 
 
 @Composable
-fun TopAppBarSyncAcivity(syncViewModel: SyncViewModel, onNavIconClick: () -> Unit) {
+fun TopAppBarSettingsAcivity(nContext:SettingsActivity, settingsViewModel: SettingsViewModel, onNavIconClick: () -> Unit) {
     val mContext = LocalContext.current.applicationContext
-    var icono by rememberSaveable {mutableStateOf("Sync") }
     TopAppBar(
         title = { Text(text = "GLAPP") },
         navigationIcon = {
@@ -195,28 +195,29 @@ fun TopAppBarSyncAcivity(syncViewModel: SyncViewModel, onNavIconClick: () -> Uni
             }
         },
         actions = {
-            if(syncViewModel.isSyncing){
-                IconButton(onClick = {
-                /* doSomething() */
-                }) {
-                    Icon(
-                        imageVector = Icons.Filled.Stop,
-                        contentDescription = "Localized description"
-                    )
-                }
-            }else{
-                IconButton(onClick = { /* doSomething() */
-                    runBlocking {
-                        syncViewModel.postManyConsumibleToApi()
-                    }
-                }) {
-                    Icon(
-                        imageVector = Icons.Filled.Sync,
-                        contentDescription = "Localized description"
-                    )
-                }
-            }
+            IconButton(onClick = { /* doSomething() */
 
+                //settingsViewModel.saveSettingsListToSync()
+                /*
+                var dataList = mutableListOf(Consumible(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
+
+                val prefs = FastPrefs(mContext)
+                val consumibleGuardado = prefs.get(articleViewModel.key.toString(),dataList)
+                if(articleViewModel.saveArticleListToSync(mContext)==1){
+                    Toast.makeText(mContext,"Consumible creado exitosamente"+consumibleGuardado!!.size, Toast.LENGTH_SHORT).show()
+                    nContext.startActivity(Intent(nContext,ArticleActivity::class.java))
+                }else{
+                    Toast.makeText(mContext,"No hay suficiente cantidad en inventario de algunos productos seleccionados" +consumibleGuardado!!.size, Toast.LENGTH_SHORT).show()
+                }
+
+                 */
+                Log.e("TAG","TAGTAG")
+            }) {
+                Icon(
+                    imageVector = Icons.Filled.Save,
+                    contentDescription = "Localized description"
+                )
+            }
         },
         backgroundColor = Color(0xFF22475b),
         contentColor = Color.White
@@ -231,24 +232,23 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 */
 
 @Composable
-fun SyncNavigationBotomMenu(contextSyncActivity:SyncActivity, syncViewModel:SyncViewModel, navController: NavHostController) {
+fun SettingsNavigationBotomMenu(contextActivity:SettingsActivity, settingsViewModel:SettingsViewModel, authenticableViewModel: AuthenticableViewModel, navController: NavHostController) {
 
-    NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
-        composable(BotomNavigationItem.Home.route) {
-            HeaderAndBodySyncScreen(contextSyncActivity,syncViewModel)
+    NavHost(navController, startDestination = SettingsBotomNavigationItem.Home.route) {
+        composable(SettingsBotomNavigationItem.Home.route) {
+            ArticleHeaderAndBodyScreen(contextActivity,settingsViewModel,authenticableViewModel)
         }
-        composable(BotomNavigationItem.Music.route) {
+        composable(SettingsBotomNavigationItem.Music.route) {
             MusicScreen()
         }
-        composable(BotomNavigationItem.Movies.route) {
+        composable(SettingsBotomNavigationItem.Movies.route) {
             MoviesScreen()
         }
-        composable(BotomNavigationItem.Books.route) {
+        composable(SettingsBotomNavigationItem.Books.route) {
             BooksScreen()
         }
-        composable(BotomNavigationItem.Profile.route) {
+        composable(SettingsBotomNavigationItem.Profile.route) {
             ProfileScreen()
-            //syncViewModel.getAllAppDataFromApi()
         }
     }
 }
@@ -276,11 +276,11 @@ fun BottomNavigationBar(navController: NavController) {
     val Purple200 = Color(0xFF7baf4a)
 
     val items = listOf(
-        BotomNavigationItem.Home,
-        BotomNavigationItem.Music,
-        BotomNavigationItem.Movies,
-        BotomNavigationItem.Books,
-        BotomNavigationItem.Profile
+        SettingsBotomNavigationItem.Home,
+        SettingsBotomNavigationItem.Music,
+        SettingsBotomNavigationItem.Movies,
+        SettingsBotomNavigationItem.Books,
+        SettingsBotomNavigationItem.Profile
     )
     BottomNavigation(
         //backgroundColor = Color.Gray,

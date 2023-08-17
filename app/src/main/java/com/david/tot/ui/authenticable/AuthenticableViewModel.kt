@@ -27,7 +27,6 @@ class ArticleViewModel @Inject constructor(
     ) : ViewModel() {
     */
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -53,25 +52,25 @@ class AuthenticableViewModel @Inject constructor(
     private val retrieveAllAuthenticablesFromLocalDbUseCase: RetrieveAllAuthenticablesFromLocalDbUseCase
 ) : ViewModel() {
 
-    var authenticableFromApiList by mutableStateOf<List<Authenticable>>(emptyList())
+    var authenticableList by mutableStateOf<List<Authenticable>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
     var inventoryOutputResponseCode by mutableStateOf<Int>(0)
     var authenticable by mutableStateOf<Authenticable>(Authenticable(1,"","","","","","","","",""))
 
-    /*
-    fun getAlldrugsDeliveryConsumerViewHeader(){
+
+    fun getAllAutenticables(){
         CoroutineScope(Dispatchers.IO).launch {
-            //authenticableFromApiList = retrieveAllAuthenticablesFromLocalDbUseCase.invoke()
-            authenticableFromApiList = getAllAuthenticablesFromApiUseCase.invoke()
-            if(authenticableFromApiList.isNotEmpty()){
+            authenticableList = retrieveAllAuthenticablesFromLocalDbUseCase.invoke()
+            //authenticableFromApiList = getAllAuthenticablesFromApiUseCase.invoke()
+            if(authenticableList.isNotEmpty()){
                 //authenticable = getAnyAuthenticableUseCase.invoke()
-                authenticable = authenticableFromApiList[0]
+                authenticable = authenticableList[0]
             }
 
         }
     }
 
-     */
+
 
 
 

@@ -88,5 +88,9 @@
             android:name="com.david.tot.ui.reloadable.ReloadableActivity"
             android:noHistory="true">
         </activity>
+        <activity
+            android:name="com.david.tot.ui.settings.SettingsActivity"
+            android:noHistory="true">
+        </activity>
     </application>
 </manifest>

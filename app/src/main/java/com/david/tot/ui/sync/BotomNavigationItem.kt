@@ -9,5 +9,5 @@ sealed class BotomNavigationItem(var route: String, var icon: Int, var title: St
     object Music : BotomNavigationItem("music", R.drawable.ic_profile, "")
     object Movies : BotomNavigationItem("movies", R.drawable.ic_movie, "")
     object Books : BotomNavigationItem("books", R.drawable.ic_book, "")
-    object Profile : BotomNavigationItem("profile", R.drawable.ic_profile, "")
+    object Profile : BotomNavigationItem("Sync", R.drawable.backup_white_18dp, "")
 }

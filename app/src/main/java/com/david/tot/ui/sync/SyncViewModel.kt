@@ -87,9 +87,7 @@ class SyncViewModel @Inject constructor(
                     }else{
                         toastConsumiblesSynced=true
                         isSyncing=false
-                        //actualiza whole data en la base de datos local
-                        getAllFromApiUseCase.invoke()
-                        addOneHardcodedAuthenticableToLocalDb()
+                        getAllAppDataFromApi()
                     }
                 }
             }
@@ -102,6 +100,14 @@ class SyncViewModel @Inject constructor(
             addOneAuthenticableToLocalDbUseCase.invoke(Authenticable(0,"CARLOS ORTEGA","1041545874","B","01/01/1900","HFQ753","","31/12/2018","","31/12/2018"))
             val authenticableList = retrieveAllAuthenticablesFromLocalDbUseCase.invoke()
             Log.e("TH",""+authenticableList)
+        }
+    }
+
+    fun getAllAppDataFromApi(){
+        CoroutineScope(Dispatchers.IO).launch {
+            //actualiza whole data en la base de datos local
+            getAllFromApiUseCase.invoke()
+            addOneHardcodedAuthenticableToLocalDb()
         }
     }
 }

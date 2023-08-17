@@ -43,6 +43,7 @@ import com.david.tot.ui.cameraxtutorial.Main2Activity
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 import com.david.tot.ui.pre.PreActivity
 import com.david.tot.ui.reloadable.ReloadableActivity
+import com.david.tot.ui.settings.SettingsActivity
 import com.david.tot.ui.sync.SyncActivity
 
 
@@ -422,7 +423,7 @@ fun DrawerContent(
                     modifier = Modifier
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.build_white_18dp),
+                    painter = painterResource(id = R.drawable.photo_camera_fill),
                     contentDescription = "Configuracion"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
@@ -451,7 +452,7 @@ fun DrawerContent(
                     modifier = Modifier
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.build_white_18dp),
+                    painter = painterResource(id = R.drawable.photo_camera_fill),
                     contentDescription = "Configuración"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
@@ -478,7 +479,7 @@ fun DrawerContent(
                     modifier = Modifier
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.build_white_18dp),
+                    painter = painterResource(id = R.drawable.receipt_long_white_18dp),
                     contentDescription = "Solicitud de Reposición"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
@@ -545,7 +546,7 @@ fun DrawerContent(
                     ),
                     text = AnnotatedString("Configuración") ,
                     onClick = {
-                        //context.startActivity(Intent(context, ArticleActivity::class.java))
+                        context.startActivity(Intent(context, SettingsActivity::class.java))
                     }
                 )
             }

@@ -14,9 +14,10 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun AuthenticableScreenComponentHeader(authenticableViewModel: AuthenticableViewModel) {
     //authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
+    authenticableViewModel.getAllAutenticables()
     val drugsDeliveryConsumerViewHeader = authenticableViewModel.authenticable
     Column(
-        modifier = Modifier.fillMaxSize().padding(5.dp).background(Color(0xFFf4bca4)),
+        modifier = Modifier.fillMaxSize().padding(5.dp),
         //horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(

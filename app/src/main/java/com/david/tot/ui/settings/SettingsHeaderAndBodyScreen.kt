@@ -1,4 +1,4 @@
-package com.david.tot.ui.sync
+package com.david.tot.ui.settings
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -11,9 +11,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.david.tot.ui.authenticable.AuthenticableViewModel
+import com.david.tot.ui.authenticable.AuthenticableScreenComponentHeader
 
 @Composable
-fun HeaderAndBodySyncScreen(contextSyncActivity:SyncActivity, syncViewModel: SyncViewModel) {
+fun ArticleHeaderAndBodyScreen(contextActivity:SettingsActivity, settingsViewModel: SettingsViewModel, authenticableViewModel: AuthenticableViewModel) {
+    //authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         //horizontalAlignment = Alignment.CenterHorizontally
@@ -23,23 +26,23 @@ fun HeaderAndBodySyncScreen(contextSyncActivity:SyncActivity, syncViewModel: Syn
             modifier = Modifier.padding(all = 0.dp).height(165.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            SyncScreenComponentHeader(syncViewModel)
+            AuthenticableScreenComponentHeader(authenticableViewModel)
         }
         Row(
             modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            BodySyncList(contextSyncActivity,syncViewModel)
+            BodySettingsList(contextActivity,settingsViewModel,authenticableViewModel)
         }
     }
 }
 
 /*
 @Composable
-fun HomeScreenPreview(syncViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
-    HeaderAndBodyScreen(syncViewModel, drugsDeliveryConsumerViewHeaderViewModel)
+fun HomeScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeaderViewModel: DrugsDeliveryConsumerViewHeaderViewModel) {
+    ArticleHeaderAndBodyScreen(articleViewModel, drugsDeliveryConsumerViewHeaderViewModel)
 }
-*/
+ */
 
 @Composable
 fun MusicScreen() {
@@ -125,8 +128,6 @@ fun ProfileScreen() {
             //.background(colorResource(id = R.color.colorPrimaryDark))
             .wrapContentSize(Alignment.Center)
     ) {
-
-
         Text(
             text = "Profile View",
             fontWeight = FontWeight.Bold,
