@@ -86,7 +86,7 @@ class MainActivity : ComponentActivity() {
                     val value = prefs.getString("Reportable","defaultValue")
                     Log.e("TG",""+value)
                     */
-                    authenticableViewModel.addOneHardcodedAuthenticableToLocalDb()
+                    //authenticableViewModel.addOneHardcodedAuthenticableToLocalDb()
                     NavigationHost()
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),

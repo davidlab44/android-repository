@@ -1,5 +1,6 @@
 package com.david.tot.ui.authenticable
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -12,10 +13,10 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun AuthenticableScreenComponentHeader(authenticableViewModel: AuthenticableViewModel) {
-    authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
+    //authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
     val drugsDeliveryConsumerViewHeader = authenticableViewModel.authenticable
     Column(
-        modifier = Modifier.fillMaxSize().padding(5.dp),
+        modifier = Modifier.fillMaxSize().padding(5.dp).background(Color(0xFFf4bca4)),
         //horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(

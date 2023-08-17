@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -63,7 +64,7 @@ class ReloadableActivity : ComponentActivity() {
         setContent {
             TotTheme(darkTheme = false) {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize().background(Color(0xFFedf3a4)),
                     color = MaterialTheme.colors.background
                 ) {
                     val scaffoldState = rememberScaffoldState()

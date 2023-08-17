@@ -16,7 +16,7 @@ import com.david.tot.ui.authenticable.AuthenticableScreenComponentHeader
 
 @Composable
 fun ReloadableHeaderAndBodyScreen(contextActivity:ReloadableActivity, reloadableViewModel: ReloadableViewModel, authenticableViewModel: AuthenticableViewModel) {
-    authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
+    //authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         //horizontalAlignment = Alignment.CenterHorizontally

@@ -58,6 +58,7 @@ class AuthenticableViewModel @Inject constructor(
     var inventoryOutputResponseCode by mutableStateOf<Int>(0)
     var authenticable by mutableStateOf<Authenticable>(Authenticable(1,"","","","","","","","",""))
 
+    /*
     fun getAlldrugsDeliveryConsumerViewHeader(){
         CoroutineScope(Dispatchers.IO).launch {
             //authenticableFromApiList = retrieveAllAuthenticablesFromLocalDbUseCase.invoke()
@@ -70,13 +71,9 @@ class AuthenticableViewModel @Inject constructor(
         }
     }
 
-    fun addOneHardcodedAuthenticableToLocalDb(){
-        CoroutineScope(Dispatchers.IO).launch {
-            addOneAuthenticableToLocalDbUseCase.invoke(Authenticable(0,"CARLOS ORTEGA","1041545874","B","01/01/1900","HFQ753","","31/12/2018","","31/12/2018"))
-            val authenticableList = retrieveAllAuthenticablesFromLocalDbUseCase.invoke()
-            Log.e("TH",""+authenticableList)
-        }
-    }
+     */
+
+
 
     /*
     fun saveInventoryOutputInremoteServer(inventoryOutput: JsonObject){

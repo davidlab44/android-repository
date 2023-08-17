@@ -1,12 +1,17 @@
 package com.david.tot.ui.sync
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.david.tot.domain.authenticable.AddOneAuthenticableToLocalDbUseCase
 import com.david.tot.domain.consumible.PostManyArticleUseCase
 import com.david.tot.domain.authenticable.GetAnyAuthenticableUseCase
 import com.david.tot.domain.authenticable.PostOneAuthenticableUseCase
+import com.david.tot.domain.authenticable.RetrieveAllAuthenticablesFromLocalDbUseCase
+import com.david.tot.domain.consumible.GetAllFromApiUseCase
+import com.david.tot.domain.model.Authenticable
 import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.ConsumibleHeader
 import com.david.tot.domain.model.Sync
@@ -33,7 +38,9 @@ class SyncViewModel @Inject constructor(
     private val removeManySyncConsumiblesFromLocalDatabaseUseCase: RemoveManySyncConsumiblesFromLocalDatabaseUseCase,
     private val removeOneSyncFromLocalDatabaseUseCase: RemoveOneSyncFromLocalDatabaseUseCase,
     private val getAnyAuthenticableUseCase:GetAnyAuthenticableUseCase,
-    private val consumibleViewModel: ConsumibleViewModel
+    private val getAllFromApiUseCase: GetAllFromApiUseCase,
+    private val addOneAuthenticableToLocalDbUseCase: AddOneAuthenticableToLocalDbUseCase,
+    private val retrieveAllAuthenticablesFromLocalDbUseCase: RetrieveAllAuthenticablesFromLocalDbUseCase
 ) : ViewModel() {
 
     var syncList by mutableStateOf<List<Sync>>(emptyList())
@@ -80,11 +87,21 @@ class SyncViewModel @Inject constructor(
                     }else{
                         toastConsumiblesSynced=true
                         isSyncing=false
-                        consumibleViewModel.getAllConsumiblesFromApi()
+                        //actualiza whole data en la base de datos local
+                        getAllFromApiUseCase.invoke()
+                        addOneHardcodedAuthenticableToLocalDb()
                     }
                 }
             }
         }
     }
 
+
+    fun addOneHardcodedAuthenticableToLocalDb(){
+        CoroutineScope(Dispatchers.IO).launch {
+            addOneAuthenticableToLocalDbUseCase.invoke(Authenticable(0,"CARLOS ORTEGA","1041545874","B","01/01/1900","HFQ753","","31/12/2018","","31/12/2018"))
+            val authenticableList = retrieveAllAuthenticablesFromLocalDbUseCase.invoke()
+            Log.e("TH",""+authenticableList)
+        }
+    }
 }

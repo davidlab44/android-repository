@@ -45,7 +45,7 @@ fun BodyArticleList(contextActivity:ArticleActivity, consumibleViewModel: Consum
     consumibleViewModel.getAllConsumiblesFromLocalDatabase()
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize().background(Color(0xFFf4bca4))
             .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var text by rememberSaveable { mutableStateOf("") }
