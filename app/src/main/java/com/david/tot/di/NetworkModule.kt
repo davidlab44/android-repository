@@ -1,6 +1,6 @@
 package com.david.tot.di
 
-import com.david.tot.data.network.consumible.IArticleApiClient
+import com.david.tot.data.network.consumible.IConsumibleApiClient
 import com.david.tot.data.network.authenticable.IAuthenticableApiClient
 import com.david.tot.data.network.reloadable.IReloadableApiClient
 import com.david.tot.util.BASE_URL
@@ -27,8 +27,8 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRecipeApiClient(retrofit: Retrofit): IArticleApiClient {
-        return retrofit.create(IArticleApiClient::class.java)
+    fun provideRecipeApiClient(retrofit: Retrofit): IConsumibleApiClient {
+        return retrofit.create(IConsumibleApiClient::class.java)
     }
 
     @Singleton

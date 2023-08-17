@@ -10,7 +10,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
-class ArticleService @Inject constructor(private val api: IArticleApiClient) {
+class ConsumibleService @Inject constructor(private val api: IConsumibleApiClient) {
     suspend fun getRecipes(): List<Article> {
         //api.rawJSON()
         return withContext(Dispatchers.IO) {
@@ -23,7 +23,7 @@ class ArticleService @Inject constructor(private val api: IArticleApiClient) {
         return withContext(Dispatchers.IO) {
             val mediaType = "application/json".toMediaType()
             val body = jsonArray.toString().toRequestBody(mediaType)
-            val respuesta = api.postMany(body)
+            val respuesta = api.postManyConsumibes(body)
             val respuestaBody =respuesta.body().toString()
             val respuestaBody2 = respuesta.message()
             val respuestaBody3 =respuesta

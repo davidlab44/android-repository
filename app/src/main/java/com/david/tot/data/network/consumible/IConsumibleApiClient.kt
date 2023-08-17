@@ -8,7 +8,7 @@ import retrofit2.Response
 import retrofit2.http.*
 //import retrofit2.Retrofit
 
-interface IArticleApiClient {
+interface IConsumibleApiClient {
     /*@GET("products")
     suspend fun getAllRecipes(): Response<List<Article>>
     //api/Article
@@ -21,7 +21,7 @@ interface IArticleApiClient {
     suspend fun addOne(@Body product: Article): Response<ResponseBody>
 
     @POST("api/GlappDrugsDeliveryConsumptionDets")
-    suspend fun postMany(@Body jsonArray: RequestBody): Response<ResponseBody>
+    suspend fun postManyConsumibes(@Body jsonArray: RequestBody): Response<ResponseBody>
 
 
     @PUT("products/{id}")

@@ -1,7 +1,7 @@
 package com.david.tot.data
 
 import com.david.tot.data.database.dao.ConsumibleDao
-import com.david.tot.data.network.consumible.ArticleService
+import com.david.tot.data.network.consumible.ConsumibleService
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.toDomain
 import com.david.tot.util.IsImageFile
@@ -14,7 +14,7 @@ import java.io.File
 import javax.inject.Inject
 
 class ConsumibleRepository @Inject constructor(
-    private val api: ArticleService,
+    private val api: ConsumibleService,
     private val consumibleDao: ConsumibleDao
 ) {
 
