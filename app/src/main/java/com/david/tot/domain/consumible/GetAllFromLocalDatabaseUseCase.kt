@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class GetAllFromLocalDatabaseUseCase @Inject constructor(private val repository: ConsumibleRepository) {
     suspend operator fun invoke():List<Article>{
-        return repository.getAllRecipesFromDatabase()
+        return repository.getAllConsumiblesFromDatabase()
     }
 }

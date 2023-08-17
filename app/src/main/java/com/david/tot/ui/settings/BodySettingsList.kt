@@ -32,16 +32,7 @@ import com.david.tot.ui.authenticable.AuthenticableViewModel
 @Composable
 fun BodySettingsList(contextActivity:SettingsActivity, settingsViewModel: SettingsViewModel, authenticableViewModel: AuthenticableViewModel) {
 
-    androidx.compose.material3.Button(
-        onClick = {
-            settingsViewModel.getAllAppDataFromApi()
-        },
-        modifier = Modifier
-            .padding(bottom = 10.dp)
-            .height(60.dp)
-    ) {
-        Text("Sync")
-    }
+
 
     /*
     val mContext = LocalContext.current
@@ -57,12 +48,23 @@ fun BodySettingsList(contextActivity:SettingsActivity, settingsViewModel: Settin
     //consumibleViewModel.getAllConsumiblesFromLocalDatabase()
     Column(
         modifier = Modifier
-            .fillMaxSize().background(Color(0xFFf4bca4))
+            .fillMaxSize()
             .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var text by rememberSaveable { mutableStateOf("") }
         val pattern = remember { Regex("^\\d+\$") }
 
+
+        androidx.compose.material3.Button(
+            onClick = {
+                settingsViewModel.getAllAppDataFromApi()
+            },
+            modifier = Modifier
+                .padding(bottom = 10.dp)
+                .height(60.dp)
+        ) {
+            Text("Sync")
+        }
         /*
         TextField(
             value = text,

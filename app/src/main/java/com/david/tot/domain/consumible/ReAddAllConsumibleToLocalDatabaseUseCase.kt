@@ -9,10 +9,10 @@ class ReAddAllConsumibleToLocalDatabaseUseCase @Inject constructor(private val r
     suspend operator fun invoke(consumibleListUpdated:List<Article>):List<Article>{
         var recipes = consumibleListUpdated
         repository.clearRecipes()
-        val consumibleListEmpty = repository.getAllRecipesFromDatabase()
+        val consumibleListEmpty = repository.getAllConsumiblesFromDatabase()
         if(consumibleListEmpty.isEmpty()){
             repository.insertRecipes(recipes.map { it.toDatabase() })
-            recipes = repository.getAllRecipesFromDatabase()
+            recipes = repository.getAllConsumiblesFromDatabase()
         }
         return recipes
     }

@@ -27,16 +27,14 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 
 @Composable
 fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: ReloadableViewModel, authenticableViewModel: AuthenticableViewModel) {
 
 
-    reloadableViewModel.getAllReloadablesFromApi()
+    reloadableViewModel.getAllFromLocalDatabase()
 
 
     val mContext = LocalContext.current
@@ -44,11 +42,11 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
         Toast.makeText(mContext,"Requisicion creado exitosamente!", Toast.LENGTH_LONG).show()
         contextActivity.finish()
     }
-    //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
+
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
     //articleViewModel.getAllFromLocalDatabase()
     //var quantityToRestore by rememberSaveable {mutableStateOf("") }
-    reloadableViewModel.getAllRestocksFromApi()
+
     Column(
         modifier = Modifier
             .fillMaxSize()

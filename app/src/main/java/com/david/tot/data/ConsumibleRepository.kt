@@ -18,7 +18,7 @@ class ConsumibleRepository @Inject constructor(
     private val consumibleDao: ConsumibleDao
 ) {
 
-    suspend fun getAllRecipesFromApi(): List<Article> {
+    suspend fun getAllConsumiblesFromApi(): List<Article> {
         val response: List<Article> = api.getRecipes()
         return response.map { it.toDomain() }
     }
@@ -41,7 +41,7 @@ class ConsumibleRepository @Inject constructor(
         return responseCode
     }
 
-    suspend fun getAllRecipesFromDatabase():List<Article>{
+    suspend fun getAllConsumiblesFromDatabase():List<Article>{
         val response: List<Article> = consumibleDao.getAll()
         return response.map { it.toDomain() }
     }

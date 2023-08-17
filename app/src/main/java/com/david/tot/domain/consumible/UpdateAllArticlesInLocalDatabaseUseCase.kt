@@ -12,10 +12,10 @@ class UpdateAllArticlesInLocalDatabaseUseCase @Inject constructor(private val re
             //TODO check internet connection before to clear database
             repository.clearRecipes()
             repository.insertRecipes(articleList.map { it.toDatabase() })
-            val articleListRetrieved = repository.getAllRecipesFromDatabase()
+            val articleListRetrieved = repository.getAllConsumiblesFromDatabase()
             articleListRetrieved
         }else{
-            repository.getAllRecipesFromDatabase()
+            repository.getAllConsumiblesFromDatabase()
         }
     }
 }

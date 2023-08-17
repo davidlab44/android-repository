@@ -31,8 +31,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.authenticable.AddOneAuthenticableToLocalDbUseCase
 import com.david.tot.domain.authenticable.RetrieveAllAuthenticablesFromLocalDbUseCase
-import com.david.tot.domain.consumible.GetAllFromApiUseCase
+import com.david.tot.domain.consumible.GetAllConsumiblesFromApiUseCase
 import com.david.tot.domain.model.Authenticable
+import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -55,7 +56,8 @@ class SettingsViewModel @Inject constructor(
      */
     private val addOneAuthenticableToLocalDbUseCase: AddOneAuthenticableToLocalDbUseCase,
     private val retrieveAllAuthenticablesFromLocalDbUseCase: RetrieveAllAuthenticablesFromLocalDbUseCase,
-    private val getAllFromApiUseCase: GetAllFromApiUseCase,
+    private val getAllConsumiblesFromApiUseCase: GetAllConsumiblesFromApiUseCase,
+    private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
 ) : ViewModel() {
 
 
@@ -71,7 +73,8 @@ class SettingsViewModel @Inject constructor(
     fun getAllAppDataFromApi(){
         CoroutineScope(Dispatchers.IO).launch {
             //actualiza whole data en la base de datos local
-            getAllFromApiUseCase.invoke()
+            getAllConsumiblesFromApiUseCase.invoke()
+            getAllReloadablesFromApiUseCase.invoke()
             addOneHardcodedAuthenticableToLocalDb()
         }
     }

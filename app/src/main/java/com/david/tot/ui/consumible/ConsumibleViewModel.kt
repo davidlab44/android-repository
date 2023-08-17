@@ -33,7 +33,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.UpdateConsumedQuantityUseCase
-import com.david.tot.domain.consumible.GetAllFromApiUseCase
+import com.david.tot.domain.consumible.GetAllConsumiblesFromApiUseCase
 import com.david.tot.domain.consumible.GetAllFromLocalDatabaseUseCase
 import com.david.tot.domain.consumible.GetArticleByIdUseCase
 import com.david.tot.domain.consumible.GetFilteredArticleListUseCase
@@ -53,7 +53,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ConsumibleViewModel @Inject constructor(
-    private val getAllFromApiUseCase: GetAllFromApiUseCase,
+    private val getAllConsumiblesFromApiUseCase: GetAllConsumiblesFromApiUseCase,
     private val getArticleByIdUseCase: GetArticleByIdUseCase,
     private val updateConsumedQuantityUseCase: UpdateConsumedQuantityUseCase,
     private val getFilteredArticleListUseCase: GetFilteredArticleListUseCase,
@@ -89,7 +89,7 @@ class ConsumibleViewModel @Inject constructor(
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
             //val id = Calendar.getInstance().time
-            val result = getAllFromApiUseCase.invoke()
+            val result = getAllConsumiblesFromApiUseCase.invoke()
             //val result = getAllFromLocalDatabaseUseCase.invoke()
             if (!result.isNullOrEmpty()) {
                 articleList =result
@@ -102,7 +102,7 @@ class ConsumibleViewModel @Inject constructor(
         Log.e("TAG","TAG")
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
-            val result = getAllFromApiUseCase.invoke()
+            val result = getAllConsumiblesFromApiUseCase.invoke()
             if (!result.isNullOrEmpty()) {
                 articleList =result
             }

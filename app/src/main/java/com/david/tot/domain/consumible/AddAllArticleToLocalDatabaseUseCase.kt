@@ -12,10 +12,10 @@ class AddAllArticleToLocalDatabaseUseCase @Inject constructor(private val reposi
             repository.insertRecipes(articleList.map { it.toDatabase() })
             //recipes
             //recipes = repository.getAllRecipesFromApi()
-            val articleListRetrieved = repository.getAllRecipesFromDatabase()
+            val articleListRetrieved = repository.getAllConsumiblesFromDatabase()
             articleListRetrieved
         }else{
-            repository.getAllRecipesFromDatabase()
+            repository.getAllConsumiblesFromDatabase()
         }
     }
 }

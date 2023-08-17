@@ -10,17 +10,17 @@ import com.david.tot.domain.consumible.PostManyArticleUseCase
 import com.david.tot.domain.authenticable.GetAnyAuthenticableUseCase
 import com.david.tot.domain.authenticable.PostOneAuthenticableUseCase
 import com.david.tot.domain.authenticable.RetrieveAllAuthenticablesFromLocalDbUseCase
-import com.david.tot.domain.consumible.GetAllFromApiUseCase
+import com.david.tot.domain.consumible.GetAllConsumiblesFromApiUseCase
 import com.david.tot.domain.model.Authenticable
 import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.ConsumibleHeader
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
+import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.RemoveOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.consumible.RemoveManySyncConsumiblesFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.consumible.GetAllSyncConsumibleFromLocalDatabaseUseCase
-import com.david.tot.ui.consumible.ConsumibleViewModel
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,9 +38,10 @@ class SyncViewModel @Inject constructor(
     private val removeManySyncConsumiblesFromLocalDatabaseUseCase: RemoveManySyncConsumiblesFromLocalDatabaseUseCase,
     private val removeOneSyncFromLocalDatabaseUseCase: RemoveOneSyncFromLocalDatabaseUseCase,
     private val getAnyAuthenticableUseCase:GetAnyAuthenticableUseCase,
-    private val getAllFromApiUseCase: GetAllFromApiUseCase,
+    private val getAllConsumiblesFromApiUseCase: GetAllConsumiblesFromApiUseCase,
     private val addOneAuthenticableToLocalDbUseCase: AddOneAuthenticableToLocalDbUseCase,
-    private val retrieveAllAuthenticablesFromLocalDbUseCase: RetrieveAllAuthenticablesFromLocalDbUseCase
+    private val retrieveAllAuthenticablesFromLocalDbUseCase: RetrieveAllAuthenticablesFromLocalDbUseCase,
+    private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase
 ) : ViewModel() {
 
     var syncList by mutableStateOf<List<Sync>>(emptyList())
@@ -105,8 +106,9 @@ class SyncViewModel @Inject constructor(
 
     fun getAllAppDataFromApi(){
         CoroutineScope(Dispatchers.IO).launch {
-            //actualiza whole data en la base de datos local
-            getAllFromApiUseCase.invoke()
+            //Actualiza whole data en la base de datos local
+            getAllConsumiblesFromApiUseCase.invoke()
+            getAllReloadablesFromApiUseCase.invoke()
             addOneHardcodedAuthenticableToLocalDb()
         }
     }
