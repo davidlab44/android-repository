@@ -23,7 +23,7 @@ fun ReloadableHeaderAndBodyScreen(contextActivity:ReloadableActivity, reloadable
     ) {
         //var text by rememberSaveable { mutableStateOf("") }
         Row(
-            modifier = Modifier.padding(all = 0.dp).height(165.dp),
+            modifier = Modifier.padding(all = 0.dp).height(140.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
             AuthenticableScreenComponentHeader(authenticableViewModel)

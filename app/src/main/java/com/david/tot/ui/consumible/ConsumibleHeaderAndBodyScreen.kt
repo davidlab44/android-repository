@@ -23,7 +23,7 @@ fun ArticleHeaderAndBodyScreen(contextActivity:ArticleActivity, consumibleViewMo
     ) {
         //var text by rememberSaveable { mutableStateOf("") }
         Row(
-            modifier = Modifier.padding(all = 0.dp).height(150.dp),
+            modifier = Modifier.padding(all = 0.dp).height(140.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
             AuthenticableScreenComponentHeader(authenticableViewModel)
