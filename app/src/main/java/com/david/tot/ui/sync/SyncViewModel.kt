@@ -19,14 +19,13 @@ import com.david.tot.domain.model.ReloadableClean
 import com.david.tot.domain.model.ReloadableHeader
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
-import com.david.tot.domain.model.SyncReloadable
 import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
 import com.david.tot.domain.reloadable.PostManyReloadableUseCase
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.RemoveOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.consumible.RemoveManySyncConsumiblesFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.consumible.GetAllSyncConsumibleFromLocalDatabaseUseCase
-import com.david.tot.domain.sync.reloadable.GetAllSyncReloadableFromLocalDatabaseUseCase
+import com.david.tot.domain.sync.GetAllSyncByDatatypeFromLocaDatabaseUseCase
 import com.david.tot.domain.sync.reloadable.RemoveManySyncReloadablesFromLocalDatabaseUseCase
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -43,7 +42,7 @@ class SyncViewModel @Inject constructor(
     private val postManyReloadableUseCase: PostManyReloadableUseCase,
     private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase,
     private val getAllSyncConsumibleFromLocalDatabaseUseCase: GetAllSyncConsumibleFromLocalDatabaseUseCase,
-    private val getAllSyncReloadableFromLocalDatabaseUseCase: GetAllSyncReloadableFromLocalDatabaseUseCase,
+    private val getAllSyncByDatatypeFromLocaDatabaseUseCase: GetAllSyncByDatatypeFromLocaDatabaseUseCase,
     private val removeManySyncConsumiblesFromLocalDatabaseUseCase: RemoveManySyncConsumiblesFromLocalDatabaseUseCase,
     private val removeManySyncReloadablesFromLocalDatabaseUseCase: RemoveManySyncReloadablesFromLocalDatabaseUseCase,
     private val removeOneSyncFromLocalDatabaseUseCase: RemoveOneSyncFromLocalDatabaseUseCase,
@@ -117,8 +116,9 @@ class SyncViewModel @Inject constructor(
             var gson = Gson()
             var reloadableHeaderJsonObject = gson.toJson(headerCons)
             val reloadableHeaderId =postOneReloadableHeaderUseCase.invoke(reloadableHeaderJsonObject)
-            var reloadableCleanList by mutableStateOf<List<SyncReloadable>>(emptyList())
-            reloadableCleanList = getAllSyncReloadableFromLocalDatabaseUseCase.invoke("Reloadable")
+            //Verificar si todavia queda algun objeto Reloadable pendiente por sincronizar
+            var reloadableCleanList by mutableStateOf<List<Sync>>(emptyList())
+            reloadableCleanList = getAllSyncByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable")
             var reloadableList by mutableStateOf<List<ReloadableClean>>(emptyList())
             var reloadableCleanMutableList = reloadableList.toMutableList()
             var syncReloadableToDeleteId=0

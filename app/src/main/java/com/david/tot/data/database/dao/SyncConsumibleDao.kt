@@ -15,8 +15,10 @@ interface SyncConsumibleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addOneSyncConsumibleToLocaDatabase(syncConsumible: SyncConsumible)
 
+    /*
     @Query("SELECT * FROM SyncTable WHERE dataType=:syncType")
-    suspend fun getAllSyncConsumibleFromLocaDatabase(syncType:String):List<SyncConsumible>
+    suspend fun getAllSyncConsumibleFromLocaDatabase(syncType:String):List<Sync>
+     */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addManyArticleToLocalDatabase(recipes:List<SyncConsumible>)

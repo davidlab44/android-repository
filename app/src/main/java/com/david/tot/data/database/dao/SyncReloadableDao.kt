@@ -4,8 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.david.tot.domain.model.Reloadable
 import com.david.tot.domain.model.ReloadableClean
+import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncReloadable
 
 @Dao
@@ -14,7 +14,12 @@ interface SyncReloadableDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addOneSyncReloadableToLocaDatabase(syncReloadable: SyncReloadable)
 
+    /*
     @Query("SELECT * FROM SyncTable WHERE dataType=:syncType")
+    suspend fun getAllSyncReloadableFromLocaDatabase(syncType:String):List<SyncReloadable>
+    */
+    @Query("SELECT SyncReloadableTable.articleCode AS articleCode," +
+            "SyncReloadableTable.quantity AS quantity, FROM SyncTable INNER JOIN SyncReloadableTable WHERE SyncTable.dataType=:syncType")
     suspend fun getAllSyncReloadableFromLocaDatabase(syncType:String):List<SyncReloadable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

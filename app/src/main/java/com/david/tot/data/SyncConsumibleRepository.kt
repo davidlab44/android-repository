@@ -14,20 +14,17 @@ class SyncConsumibleRepository @Inject constructor(
         return syncConsumibleDao.addOneSyncConsumibleToLocaDatabase (syncConsumible)
     }
 
-    suspend fun getAllSyncConsumibleFromLocalDatabase(syncType:String):List<SyncConsumible>{
-        val response: List<SyncConsumible> = syncConsumibleDao.getAllSyncConsumibleFromLocaDatabase(syncType)
-        return response.map { it.toDomain() }
-    }
-
     suspend fun getAllConsumibleFromLocalDatabaseUseCase():List<Consumible>{
         val response: List<Consumible> = syncConsumibleDao.getAllConsumibleFromLocalDatabaseUseCase()
         return response.map { it.toDomain() }
     }
 
+    /*
     suspend fun getAll():List<SyncConsumible>{
         val response: List<SyncConsumible> = syncConsumibleDao.getAllSyncConsumibleFromLocaDatabase()
         return response.map { it.toDomain() }
     }
+    */
 
     suspend fun addManyArticleToLocalDatabase(recipes:List<SyncConsumible>){
         syncConsumibleDao.addManyArticleToLocalDatabase(recipes)

@@ -15,11 +15,16 @@ interface SyncDao {
     @Query("SELECT * FROM SyncTable")
     suspend fun getAllSyncConsumibleFromLocalDatabase():List<Sync>
 
-/*
+    /*
+    @Query("SELECT * FROM SyncTable WHERE dataType=:syncType")
+    suspend fun getAllSyncByDatatypeFromLocaDatabase(syncType:String):List<Sync>
+
+     */
+
+    /*
     @Query("SELECT * FROM SyncTable WHERE dataType='Consumible'")
     suspend fun getAllSyncConsumibleFromLocalDatabase():List<Sync>
-
- */
+    */
 
     @Query("SELECT * FROM SyncTable WHERE dataType='Reportable'")
     suspend fun getAllSyncReportableFromLocalDatabase():List<Sync>
