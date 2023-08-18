@@ -48,5 +48,10 @@ object RoomModule {
     @Provides
     fun provideReloadableDao(db: RecipeDatabase) = db.getReloadableDao()
 
+    @Singleton
+    @Provides
+    fun provideSyncReloadableDao(db: RecipeDatabase) = db.getSyncReloadableDao()
+
+
 }
 

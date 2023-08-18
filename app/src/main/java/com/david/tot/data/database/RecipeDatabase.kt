@@ -9,6 +9,7 @@ import com.david.tot.data.database.dao.ReloadableDao
 import com.david.tot.data.database.dao.ReportableDao
 import com.david.tot.data.database.dao.SyncConsumibleDao
 import com.david.tot.data.database.dao.SyncDao
+import com.david.tot.data.database.dao.SyncReloadableDao
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Authenticable
 import com.david.tot.domain.model.Pre
@@ -16,8 +17,9 @@ import com.david.tot.domain.model.Reloadable
 import com.david.tot.domain.model.Reportable
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
+import com.david.tot.domain.model.SyncReloadable
 
-@Database(entities = [Article::class, Authenticable::class, Sync::class, Pre::class, SyncConsumible::class, Reportable::class, Reloadable::class], version = 37)
+@Database(entities = [Article::class, Authenticable::class, Sync::class, Pre::class, SyncConsumible::class, Reportable::class, Reloadable::class, SyncReloadable::class], version = 40)
 abstract class RecipeDatabase: RoomDatabase() {
     abstract fun getRecipeDao(): ConsumibleDao
 
@@ -32,6 +34,8 @@ abstract class RecipeDatabase: RoomDatabase() {
     abstract fun getReportableDao(): ReportableDao
 
     abstract fun getReloadableDao(): ReloadableDao
+
+    abstract fun getSyncReloadableDao(): SyncReloadableDao
 }
 
 

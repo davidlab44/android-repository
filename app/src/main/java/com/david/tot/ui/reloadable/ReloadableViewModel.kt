@@ -1,45 +1,24 @@
 package com.david.tot.ui.reloadable
 
-/*
-import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
-
-import com.david.tot.domain.UpdateProductUseCase
-import com.david.tot.domain.UpdateQuantityUseCase
-import com.david.tot.domain.article.GetArticleByIdUseCase
-import com.david.tot.domain.article.GetArticleListUseCase
-import com.david.tot.domain.model.Article
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import javax.inject.Inject
-
-@HiltViewModel
-class ArticleViewModel @Inject constructor(
-    private val getArticleListUseCase: GetArticleListUseCase,
-    private val updateProductUseCase: UpdateProductUseCase,
-    private val updateQuantityUseCase: UpdateQuantityUseCase,
-    private val getArticleByIdUseCase: GetArticleByIdUseCase,
-    ) : ViewModel() {
-    */
-
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.model.Reloadable
-import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
+import com.david.tot.domain.model.Sync
+import com.david.tot.domain.model.SyncReloadable
 import com.david.tot.domain.reloadable.GetAllReloadablesFromLocalDatabaseUseCase
 import com.david.tot.domain.reloadable.GetFilteredReloadableListUseCase
+import com.david.tot.domain.reloadable.ReAddAllReloadableToLocalDatabaseUseCase
+import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
+import com.david.tot.domain.sync.reloadable.AddManySyncReloadableToLocalDatabaseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -48,15 +27,16 @@ class ReloadableViewModel @Inject constructor(
     //private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
     private val getFilteredReloadableListUseCase: GetFilteredReloadableListUseCase,
     private val getAllReloadablesFromLocalDatabaseUseCase: GetAllReloadablesFromLocalDatabaseUseCase,
+    private val addOneSyncToLocalDatabaseUseCase: AddOneSyncFromLocalDatabaseUseCase,
+    private val addManySyncReloadableToLocalDatabaseUseCase: AddManySyncReloadableToLocalDatabaseUseCase,
+    private val reAddAllReloadableToLocalDatabaseUseCase: ReAddAllReloadableToLocalDatabaseUseCase
     /*
     private val getReloadableByIdUseCase: GetReloadableByIdUseCase,
     private val updateConsumedQuantityUseCase: UpdateConsumedQuantityUseCase,
     private val getFilteredArticleListUseCase: GetFilteredArticleListUseCase,
     private val getAllFromLocalDatabaseUseCase: GetAllFromLocalDatabaseUseCase,
-    private val addOneSyncToLocalDatabaseUseCase: AddOneSyncFromLocalDatabaseUseCase,
     //private val updateAllArticlesInLocalDatabaseUseCase: UpdateAllArticlesInLocalDatabaseUseCase,
     //private val addAllArticleToLocalDatabaseUseCase: AddAllArticleToLocalDatabaseUseCase,
-    private val addManySyncConsumibleToLocalDatabaseUseCase: AddManySyncConsumibleToLocalDatabaseUseCase,
     private val reAddAllConsumibleToLocalDatabaseUseCase: ReAddAllConsumibleToLocalDatabaseUseCase
     */
 ) : ViewModel() {
@@ -78,11 +58,10 @@ class ReloadableViewModel @Inject constructor(
         }
         invepastoList= list.toList()
     }
-     */
+    */
 
 
     /*
-
     fun getAllReloadablesFromApi() {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
@@ -106,7 +85,7 @@ class ReloadableViewModel @Inject constructor(
             }
         }
     }
-*/
+    */
 
     fun getAllFromLocalDatabase() {
         Log.e("TAG","TAG")
@@ -118,36 +97,38 @@ class ReloadableViewModel @Inject constructor(
             }
         }
     }
+
+    fun saveArticleListToSync(){
+        var syncReloadableList = mutableListOf<SyncReloadable>()
+        //TODO take another approach to create this pkey
+        val sdf = SimpleDateFormat("MMdd hh:mm:ss")
+        val currentDate = sdf.format(Date())
+        val date = currentDate.filter {it in '0'..'9'}
+        val objectId = date.toInt()
+        var quantityAvailable = 0
+        reloadableList.forEach { reloadable ->
+            quantityAvailable = reloadable.quantityAvailable.toInt() - reloadable.quantityConsumed!!.toInt()
+            if (reloadable.quantityConsumed!!.toInt()> 0) {
+                if (quantityAvailable > 0) {
+                    reloadable.quantityAvailable = quantityAvailable.toDouble()
+                    syncReloadableList.add(SyncReloadable(objectId=objectId,consumptionId=0,articleCode=reloadable.articleCode,quantity= reloadable.quantityConsumed!!.toInt() ,unitOfMeasure=reloadable.unitOfMeasure,creationDate="2023-08-08T00:48:12.104Z",delivered=0))
+                }
+            }
+        }
+        CoroutineScope(Dispatchers.IO).launch {
+            if (syncReloadableList.isNotEmpty()) {
+                addOneSyncToLocalDatabaseUseCase.invoke(Sync(objectId=objectId, dataType = "Reloadable",createdAt = "" + currentDate))
+                addManySyncReloadableToLocalDatabaseUseCase.invoke(syncReloadableList)
+                reloadableList = reAddAllReloadableToLocalDatabaseUseCase.invoke(reloadableList)
+                toastSuccess=true
+            }
+        }
+    }
+
     /*
-       fun saveArticleListToSync(){
-           var consumibleList = mutableListOf<SyncConsumible>()
-           //TODO take another approach to create this pkey
-           val sdf = SimpleDateFormat("MMdd hh:mm:ss")
-           val currentDate = sdf.format(Date())
-           val date = currentDate.filter {it in '0'..'9'}
-           val objectId = date.toInt()
-           var quantityAvailable = 0
-           articleList.forEach { article ->
-               quantityAvailable = article.quantityAvailable.toInt() - article.consumedQuantity.toInt()
-               if (article.consumedQuantity> 0) {
-                   if (quantityAvailable > 0) {
-                       article.quantityAvailable = quantityAvailable.toDouble()
-                       consumibleList.add(SyncConsumible(objectId=objectId,consumptionId=0,articleCode=article.articleCode,quantity=article.consumedQuantity,unitOfMeasure=article.unitOfMeasure,creationDate="2023-08-08T00:48:12.104Z",delivered=0))
-                   }
-               }
-           }
-           CoroutineScope(Dispatchers.IO).launch {
-               if (consumibleList.isNotEmpty()) {
-                   addOneSyncToLocalDatabaseUseCase.invoke(Sync(objectId=objectId, dataType = "Consumible",createdAt = "" + currentDate))
-                   addManySyncConsumibleToLocalDatabaseUseCase.invoke(consumibleList)
-                   articleList = reAddAllConsumibleToLocalDatabaseUseCase.invoke(articleList)
-                   toastSuccess=true
 
-               }
-           }
-       }
 
-       /*
+     /*
        fun saveArticleListToSync(context: Context):Int {
            var dataList = mutableListOf<Consumible>()
            //val prefs = FastPrefs(context)
@@ -219,7 +200,8 @@ class ReloadableViewModel @Inject constructor(
                val df2 = df+" fffff"
            }
        }
-   */
+    */
+
     fun updateFilteredArticleList(hash:String){
         CoroutineScope(Dispatchers.IO).launch {
             val result = getFilteredReloadableListUseCase.invoke("%$hash%")
@@ -229,6 +211,5 @@ class ReloadableViewModel @Inject constructor(
         }
     }
     //var productDescription by mutableStateOf<String>("")
-
 
 }

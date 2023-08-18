@@ -13,8 +13,8 @@ data class Reloadable (
     @ColumnInfo(name = "articleCode") val articleCode: String = "",
     @ColumnInfo(name = "articleDescription") val articleDescription: String = "",
     @ColumnInfo(name = "unitOfMeasure") val unitOfMeasure: String = "",
-    @ColumnInfo(name = "quantityAvailable") val quantityAvailable: String = "",
-    @ColumnInfo(name = "quantityToStock") val quantityToStock: String = "",
+    @ColumnInfo(name = "quantityAvailable") var quantityAvailable: Double = 0.0,
+    @ColumnInfo(name = "quantityToStock") val quantityToStock: Double = 0.0,
     @ColumnInfo(name = "quantityConsumed") var quantityConsumed: String? = ""
 )
 fun Reloadable.toDomain() = Reloadable(localId,articleCode,articleDescription,unitOfMeasure,quantityAvailable,quantityToStock,quantityConsumed)

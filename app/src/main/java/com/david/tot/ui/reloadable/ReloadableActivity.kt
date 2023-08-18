@@ -198,7 +198,7 @@ fun TopAppBarReloadableAcivity(nContext:ReloadableActivity, reloadableViewModel:
         actions = {
             IconButton(onClick = { /* doSomething() */
 
-                //reloadableViewModel.saveArticleListToSync()
+                reloadableViewModel.saveArticleListToSync()
 
                 Log.e("TAG","TAGTAG")
             }) {

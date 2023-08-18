@@ -9,6 +9,7 @@ import com.david.tot.domain.authenticable.AddOneAuthenticableToLocalDbUseCase
 import com.david.tot.domain.consumible.PostManyArticleUseCase
 import com.david.tot.domain.authenticable.GetAnyAuthenticableUseCase
 import com.david.tot.domain.authenticable.PostOneAuthenticableUseCase
+import com.david.tot.domain.authenticable.PostOneReloadableHeaderUseCase
 import com.david.tot.domain.authenticable.RetrieveAllAuthenticablesFromLocalDbUseCase
 import com.david.tot.domain.consumible.GetAllConsumiblesFromApiUseCase
 import com.david.tot.domain.model.Authenticable
@@ -41,7 +42,8 @@ class SyncViewModel @Inject constructor(
     private val getAllConsumiblesFromApiUseCase: GetAllConsumiblesFromApiUseCase,
     private val addOneAuthenticableToLocalDbUseCase: AddOneAuthenticableToLocalDbUseCase,
     private val retrieveAllAuthenticablesFromLocalDbUseCase: RetrieveAllAuthenticablesFromLocalDbUseCase,
-    private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase
+    private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
+    private val postOneReloadableHeaderUseCase: PostOneReloadableHeaderUseCase,
 ) : ViewModel() {
 
     var syncList by mutableStateOf<List<Sync>>(emptyList())
@@ -89,6 +91,46 @@ class SyncViewModel @Inject constructor(
                         toastConsumiblesSynced=true
                         isSyncing=false
                         getAllAppDataFromApi()
+                    }
+                }
+            }
+        }
+    }
+
+
+    suspend fun postAllPendingReloadablesToApi() {
+        CoroutineScope(Dispatchers.IO).launch {
+            //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
+            val consumibleHeader=getAnyAuthenticableUseCase.invoke()
+            var headerCons = ConsumibleHeader(0,consumibleHeader.consumer,consumibleHeader.vehicle,"PENDING","2023-08-10T01:42:45.655Z",0)
+            var gson = Gson()
+            var headerConsumible = gson.toJson(headerCons)
+
+
+            //postear authenticable en la tabla restocks RESTOCKS GlappDrugsDeliveryRestocks
+            // obtener el id
+
+            val reloadableHeaderId =postOneReloadableHeaderUseCase.invoke(headerConsumible)
+            var syncConsumibleList by mutableStateOf<List<SyncConsumible>>(emptyList())
+            syncConsumibleList = getAllSyncConsumibleFromLocalDatabaseUseCase.invoke()
+            var consumibleList by mutableStateOf<List<Consumible>>(emptyList())
+            var consumibleMutableList = consumibleList.toMutableList()
+            var syncConsumibleToDeleteId=0
+            if (!syncConsumibleList.isNullOrEmpty()&&reloadableHeaderId.toInt()>0) {
+                syncConsumibleList.forEach { syncConsumible->
+                    val consumible = Consumible(0,reloadableHeaderId,syncConsumible.articleCode,syncConsumible.quantity,"UND","2023-08-10T01:42:45.655Z",0)
+                    consumibleMutableList.add(consumible)
+                    syncConsumibleToDeleteId=syncConsumible.objectId
+                }
+                val jsonArray: JsonArray = Gson().toJsonTree(consumibleMutableList).asJsonArray
+                val postManyArticleUseCase = postManyArticleUseCase.invoke(jsonArray)
+                if(postManyArticleUseCase in 200..300){
+                    val consumibleDeleted = removeManySyncConsumiblesFromLocalDatabaseUseCase.invoke(syncConsumibleToDeleteId)
+                    val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncConsumibleToDeleteId)
+                    if(getAllSyncConsumibleFromLocalDatabaseUseCase.invoke().isNotEmpty()){
+                        postManyConsumibleToApi()
+                    }else{
+                        //getAllAppDataFromApi()
                     }
                 }
             }

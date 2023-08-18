@@ -22,6 +22,9 @@ interface IAuthenticableApiClient {
     @POST("api/GlappDrugsDeliveryConsumptions")
     suspend fun sendJson(@Body jsonArray: RequestBody): Response<ResponseBody>
 
+    @POST("api/GlappDrugsDeliveryRestocks")
+    suspend fun sendReloadableHeaderJson(@Body jsonArray: RequestBody): Response<ResponseBody>
+
     //suspend fun sendJson(@Query("jsonArray") jsonObject: JsonArray): Response<ResponseBody>
     //Response{protocol=http/1.1, code=400, message=Bad Request, url=http://192.168.1.93:53033/api/APP_SP_DrugsDeliveryConsumerViewArticlesResult}
     //suspend fun sendJson(@Body jsonObject:String): Response<ResponseBody>

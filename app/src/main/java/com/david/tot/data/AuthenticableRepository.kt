@@ -30,6 +30,10 @@ class AuthenticableRepository @Inject constructor(
         return api.postOne(jsonObject)
     }
 
+    suspend fun postOneReloadableHeader(jsonObject: String):Int{
+        return api.postOneReloadableHeader(jsonObject)
+    }
+
     suspend fun addAllAuthenticablesToLocalDb(authenticableList:List<Authenticable>){
         authenticableDao.addAllAuthenticablesToLocalDb(authenticableList)
     }

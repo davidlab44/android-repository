@@ -12,9 +12,14 @@ interface SyncDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addOneSyncToLOcalDatabase(sync: Sync)
 
+    @Query("SELECT * FROM SyncTable")
+    suspend fun getAllSyncConsumibleFromLocalDatabase():List<Sync>
+
+/*
     @Query("SELECT * FROM SyncTable WHERE dataType='Consumible'")
     suspend fun getAllSyncConsumibleFromLocalDatabase():List<Sync>
 
+ */
 
     @Query("SELECT * FROM SyncTable WHERE dataType='Reportable'")
     suspend fun getAllSyncReportableFromLocalDatabase():List<Sync>
