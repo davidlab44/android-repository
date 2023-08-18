@@ -208,6 +208,7 @@ fun TopAppBarSyncAcivity(syncViewModel: SyncViewModel, onNavIconClick: () -> Uni
                 IconButton(onClick = { /* doSomething() */
                     runBlocking {
                         syncViewModel.postManyConsumibleToApi()
+                        syncViewModel.postAllPendingReloadablesToApi()
                     }
                 }) {
                     Icon(

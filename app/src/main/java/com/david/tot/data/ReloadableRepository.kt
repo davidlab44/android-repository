@@ -30,7 +30,7 @@ class ReloadableRepository @Inject constructor(
     }
 
     suspend fun postMany(jsonArray: JsonArray):Int{
-        return api.postManyConsumible(jsonArray)
+        return api.postManyReloadables(jsonArray)
     }
 
     suspend fun updateReloadable(reloadable:Reloadable):Int{

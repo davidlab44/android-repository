@@ -98,7 +98,7 @@ class ReloadableViewModel @Inject constructor(
         }
     }
 
-    fun saveArticleListToSync(){
+    fun saveReloadableListToSync(){
         var syncReloadableList = mutableListOf<SyncReloadable>()
         //TODO take another approach to create this pkey
         val sdf = SimpleDateFormat("MMdd hh:mm:ss")
