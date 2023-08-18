@@ -14,8 +14,8 @@ class SyncConsumibleRepository @Inject constructor(
         return syncConsumibleDao.addOneSyncConsumibleToLocaDatabase (syncConsumible)
     }
 
-    suspend fun getAllSyncConsumibleFromLocalDatabase():List<SyncConsumible>{
-        val response: List<SyncConsumible> = syncConsumibleDao.getAllSyncConsumibleFromLocaDatabase()
+    suspend fun getAllSyncConsumibleFromLocalDatabase(syncType:String):List<SyncConsumible>{
+        val response: List<SyncConsumible> = syncConsumibleDao.getAllSyncConsumibleFromLocaDatabase(syncType)
         return response.map { it.toDomain() }
     }
 

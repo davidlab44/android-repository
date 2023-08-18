@@ -5,7 +5,7 @@ import com.david.tot.domain.model.SyncConsumible
 import javax.inject.Inject
 
 class GetAllSyncConsumibleFromLocalDatabaseUseCase @Inject constructor(private val repository: SyncConsumibleRepository) {
-    suspend operator fun invoke():List<SyncConsumible> {
-        return repository.getAllSyncConsumibleFromLocalDatabase()
+    suspend operator fun invoke(syncType:String):List<SyncConsumible> {
+        return repository.getAllSyncConsumibleFromLocalDatabase(syncType)
     }
 }

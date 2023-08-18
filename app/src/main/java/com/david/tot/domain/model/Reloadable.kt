@@ -15,7 +15,7 @@ data class Reloadable (
     @ColumnInfo(name = "unitOfMeasure") val unitOfMeasure: String = "",
     @ColumnInfo(name = "quantityAvailable") var quantityAvailable: Double = 0.0,
     @ColumnInfo(name = "quantityToStock") val quantityToStock: Double = 0.0,
-    @ColumnInfo(name = "quantityConsumed") var quantityConsumed: String? = ""
+    @ColumnInfo(name = "quantityConsumed") var quantityConsumed: Double = 0.0
 )
 fun Reloadable.toDomain() = Reloadable(localId,articleCode,articleDescription,unitOfMeasure,quantityAvailable,quantityToStock,quantityConsumed)
 fun Reloadable.toDatabase() = Reloadable(

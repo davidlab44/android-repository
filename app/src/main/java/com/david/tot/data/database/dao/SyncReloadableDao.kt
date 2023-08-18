@@ -14,8 +14,8 @@ interface SyncReloadableDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addOneSyncReloadableToLocaDatabase(syncReloadable: SyncReloadable)
 
-    @Query("SELECT * FROM SyncReloadableTable")
-    suspend fun getAllSyncReloadableFromLocaDatabase():List<SyncReloadable>
+    @Query("SELECT * FROM SyncTable WHERE dataType=:syncType")
+    suspend fun getAllSyncReloadableFromLocaDatabase(syncType:String):List<SyncReloadable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addManyReloadableToLocalDatabase(recipes:List<SyncReloadable>)

@@ -105,13 +105,13 @@ class ReloadableViewModel @Inject constructor(
         val currentDate = sdf.format(Date())
         val date = currentDate.filter {it in '0'..'9'}
         val objectId = date.toInt()
-        var quantityAvailable = 0
+        var quantityAvailable = 0.0
         reloadableList.forEach { reloadable ->
-            quantityAvailable = reloadable.quantityAvailable.toInt() - reloadable.quantityConsumed!!.toInt()
-            if (reloadable.quantityConsumed!!.toInt()> 0) {
+            quantityAvailable = reloadable.quantityAvailable - reloadable.quantityConsumed
+            if (reloadable.quantityConsumed> 0.0) {
                 if (quantityAvailable > 0) {
-                    reloadable.quantityAvailable = quantityAvailable.toDouble()
-                    syncReloadableList.add(SyncReloadable(objectId=objectId,consumptionId=0,articleCode=reloadable.articleCode,quantity= reloadable.quantityConsumed!!.toInt() ,unitOfMeasure=reloadable.unitOfMeasure,creationDate="2023-08-08T00:48:12.104Z",delivered=0))
+                    reloadable.quantityAvailable = quantityAvailable
+                    syncReloadableList.add(SyncReloadable(objectId=objectId,consumptionId=0,articleCode=reloadable.articleCode,quantity= reloadable.quantityConsumed ,unitOfMeasure=reloadable.unitOfMeasure,creationDate="2023-08-08T00:48:12.104Z",delivered=0))
                 }
             }
         }

@@ -15,8 +15,8 @@ class SyncReloadableRepository @Inject constructor(
         return syncReloadableDao.addOneSyncReloadableToLocaDatabase (syncReloadable)
     }
 
-    suspend fun getAllSyncReloadableFromLocalDatabase():List<SyncReloadable>{
-        val response: List<SyncReloadable> = syncReloadableDao.getAllSyncReloadableFromLocaDatabase()
+    suspend fun getAllSyncReloadableFromLocalDatabase(syncType:String):List<SyncReloadable>{
+        val response: List<SyncReloadable> = syncReloadableDao.getAllSyncReloadableFromLocaDatabase(syncType)
         return response.map { it.toDomain() }
     }
 

@@ -14,7 +14,7 @@ data class SyncReloadable (
     @ColumnInfo(name = "consumptionDetailId") val consumptionDetailId: Int=0,
     @ColumnInfo(name = "consumptionId") val consumptionId: Int=0,
     @ColumnInfo(name = "articleCode") val articleCode: String="",
-    @ColumnInfo(name = "quantity") val quantity: Int=0,
+    @ColumnInfo(name = "quantity") val quantity: Double=0.0,
     @ColumnInfo(name = "unitOfMeasure") val unitOfMeasure: String="",
     @ColumnInfo(name = "creationDate") val creationDate: String="2023-01-14T09:15:07.76",
     @ColumnInfo(name = "delivered") val delivered: Int=0

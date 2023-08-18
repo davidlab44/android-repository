@@ -198,7 +198,7 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
                                     onValueChange = {cant->
                                         newQuantity=cant
                                         val cantCasted = cant.filter {it in '0'..'9'}
-                                        article.quantityConsumed =cantCasted.toInt().toString()
+                                        article.quantityConsumed =cantCasted.toDouble()
                                     },
                                     //keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     keyboardOptions = KeyboardOptions.Default.copy(
