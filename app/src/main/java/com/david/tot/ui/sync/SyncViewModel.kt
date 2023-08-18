@@ -94,7 +94,7 @@ class SyncViewModel @Inject constructor(
                     val jsonArray: JsonArray = Gson().toJsonTree(tempConsumibleMutableList).asJsonArray
                     val postManyArticleUseCase = postManyArticleUseCase.invoke(jsonArray)
                     if(postManyArticleUseCase in 200..300){
-                        val numberofDeletedRows= removeManySyncConsumiblesFromLocalDatabaseUseCase.invoke(syncReloadableToDeleteId)
+                        val numberofDeletedRows= removeManySyncConsumiblesFromLocalDatabaseUseCase.invoke(syncConsumibleToDeleteObjectId)
                         //Comprobar que elimino el elemento de la tabla sync antes de eliminar las filas del reloadable detalle
                         if(numberofDeletedRows>0){
                             val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncConsumibleToDeleteObjectId)
@@ -132,21 +132,21 @@ class SyncViewModel @Inject constructor(
                 //si esta vacio fue porque no consiguio nada en bd => no hace nada y sale
                 var reloadableList by mutableStateOf<List<ReloadableClean>>(emptyList())
                 var reloadableCleanMutableList = reloadableList.toMutableList()
-                var syncReloadableToDeleteId=0
+                var syncReloadableToDeleteObjectId=0
                 if (!syncReloadableList.isNullOrEmpty()&&reloadableHeaderId.toInt()>0) {
                     syncReloadableList.forEach { syncReloadable->
                         val reloadableClean = ReloadableClean(0,reloadableHeaderId,syncReloadable.articleCode,syncReloadable.quantity,"UND","2023-08-10T01:42:45.655Z",0)
                         reloadableCleanMutableList.add(reloadableClean)
-                        syncReloadableToDeleteId=syncReloadable.objectId
+                        syncReloadableToDeleteObjectId=syncReloadable.objectId
                     }
                     val jsonArray: JsonArray = Gson().toJsonTree(reloadableCleanMutableList).asJsonArray
                     //REEMPLAZAR POR CONSUMIBLE
                     val postManyReloadableDetail = postManyReloadableDetailUseCase.invoke(jsonArray)
                     if(postManyReloadableDetail in 200..300){
-                        val numberofDeletedRows= removeManySyncReloadablesByObjectIdFromLocalDatabaseUseCase.invoke(syncReloadableToDeleteId)
+                        val numberofDeletedRows= removeManySyncReloadablesByObjectIdFromLocalDatabaseUseCase.invoke(syncReloadableToDeleteObjectId)
                         //Comprobar que elimino el elemento de la tabla sync antes de eliminar las filas del reloadable detalle
                         if(numberofDeletedRows>0){
-                            val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncReloadableToDeleteId)
+                            val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncReloadableToDeleteObjectId)
                             //if(getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable").isNotEmpty()){
                             postAllPendingReloadablesToApi()
                         }else{
@@ -161,7 +161,6 @@ class SyncViewModel @Inject constructor(
         }
     }
 
-
     fun addOneHardcodedAuthenticableToLocalDb(){
         CoroutineScope(Dispatchers.IO).launch {
             addOneAuthenticableToLocalDbUseCase.invoke(Authenticable(0,"CARLOS ORTEGA","1041545874","B","01/01/1900","HFQ753","","31/12/2018","","31/12/2018"))
@@ -173,8 +172,6 @@ class SyncViewModel @Inject constructor(
     fun getAllAppDataFromApi(){
         CoroutineScope(Dispatchers.IO).launch {
             //Actualiza whole data en la base de datos local
-
-
             addOneHardcodedAuthenticableToLocalDb()
         }
     }

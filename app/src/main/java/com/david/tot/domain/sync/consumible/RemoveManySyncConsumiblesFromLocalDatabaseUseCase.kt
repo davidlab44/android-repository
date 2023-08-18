@@ -4,7 +4,7 @@ import com.david.tot.data.SyncConsumibleRepository
 import javax.inject.Inject
 
 class RemoveManySyncConsumiblesFromLocalDatabaseUseCase @Inject constructor(private val repository: SyncConsumibleRepository) {
-    suspend operator fun invoke(syncConsumibleId:Int){
-        repository.removeManySyncConsumiblesFromLocalDatabase(syncConsumibleId)
+    suspend operator fun invoke(syncConsumibleId:Int):Int{
+        return repository.removeManySyncConsumiblesFromLocalDatabase(syncConsumibleId)
     }
 }
