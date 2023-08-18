@@ -24,11 +24,13 @@ class SyncConsumibleRepository @Inject constructor(
 
 
     /*
-    suspend fun getAll():List<SyncConsumible>{
-        val response: List<SyncConsumible> = syncConsumibleDao.getAllSyncConsumibleFromLocaDatabase()
+    suspend fun retrieveAllSyncConsumiblesFromLocalDatabase():List<SyncConsumible>{
+        val response: List<SyncConsumible> = syncConsumibleDao.retrieveAllSyncConsumiblesFromLocalDatabase()
         return response.map { it.toDomain() }
     }
-    */
+
+     */
+
 
     suspend fun addManyArticleToLocalDatabase(recipes:List<SyncConsumible>){
         syncConsumibleDao.addManyArticleToLocalDatabase(recipes)
