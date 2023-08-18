@@ -19,14 +19,15 @@ import com.david.tot.domain.model.ReloadableClean
 import com.david.tot.domain.model.ReloadableHeader
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
+import com.david.tot.domain.model.SyncReloadable
 import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
 import com.david.tot.domain.reloadable.PostManyReloadableUseCase
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.RemoveOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.consumible.RemoveManySyncConsumiblesFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.consumible.GetAllSyncConsumibleFromLocalDatabaseUseCase
-import com.david.tot.domain.sync.GetAllSyncByDatatypeFromLocaDatabaseUseCase
-import com.david.tot.domain.sync.reloadable.RemoveManySyncReloadablesFromLocalDatabaseUseCase
+import com.david.tot.domain.sync.reloadable.GetAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase
+import com.david.tot.domain.sync.reloadable.RemoveManySyncReloadablesByObjectIdFromLocalDatabaseUseCase
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -42,9 +43,9 @@ class SyncViewModel @Inject constructor(
     private val postManyReloadableUseCase: PostManyReloadableUseCase,
     private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase,
     private val getAllSyncConsumibleFromLocalDatabaseUseCase: GetAllSyncConsumibleFromLocalDatabaseUseCase,
-    private val getAllSyncByDatatypeFromLocaDatabaseUseCase: GetAllSyncByDatatypeFromLocaDatabaseUseCase,
+    private val getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase: GetAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase,
     private val removeManySyncConsumiblesFromLocalDatabaseUseCase: RemoveManySyncConsumiblesFromLocalDatabaseUseCase,
-    private val removeManySyncReloadablesFromLocalDatabaseUseCase: RemoveManySyncReloadablesFromLocalDatabaseUseCase,
+    private val removeManySyncReloadablesByObjectIdFromLocalDatabaseUseCase: RemoveManySyncReloadablesByObjectIdFromLocalDatabaseUseCase,
     private val removeOneSyncFromLocalDatabaseUseCase: RemoveOneSyncFromLocalDatabaseUseCase,
     private val getAnyAuthenticableUseCase:GetAnyAuthenticableUseCase,
     private val getAllConsumiblesFromApiUseCase: GetAllConsumiblesFromApiUseCase,
@@ -116,31 +117,42 @@ class SyncViewModel @Inject constructor(
             var gson = Gson()
             var reloadableHeaderJsonObject = gson.toJson(headerCons)
             val reloadableHeaderId =postOneReloadableHeaderUseCase.invoke(reloadableHeaderJsonObject)
+            /*
             //Verificar si todavia queda algun objeto Reloadable pendiente por sincronizar
-            var reloadableCleanList by mutableStateOf<List<Sync>>(emptyList())
-            reloadableCleanList = getAllSyncByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable")
+            traer todos LOS ELEMENTOS DE LA TABLA SyncReloadable en esta lista
+            recuerda que todos los Sync reloadables tienen un syncID que los identifica en la tabla SYncTable y los agrupa en este listado
+                    cuales corresponden a que objeto
+            */
+            //si esta vacio fue porque no consiguio nada en bd => no hace nada y sale
+            var syncReloadableList by mutableStateOf<List<SyncReloadable>>(emptyList())
+            syncReloadableList = getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable")
             var reloadableList by mutableStateOf<List<ReloadableClean>>(emptyList())
             var reloadableCleanMutableList = reloadableList.toMutableList()
             var syncReloadableToDeleteId=0
-            if (!reloadableCleanList.isNullOrEmpty()&&reloadableHeaderId.toInt()>0) {
-                reloadableCleanList.forEach { syncReloadable->
+            if (!syncReloadableList.isNullOrEmpty()&&reloadableHeaderId.toInt()>0) {
+                syncReloadableList.forEach { syncReloadable->
                     val reloadableClean = ReloadableClean(0,reloadableHeaderId,syncReloadable.articleCode,syncReloadable.quantity,"UND","2023-08-10T01:42:45.655Z",0)
                     reloadableCleanMutableList.add(reloadableClean)
                     syncReloadableToDeleteId=syncReloadable.objectId
                 }
                 val jsonArray: JsonArray = Gson().toJsonTree(reloadableCleanMutableList).asJsonArray
                 //REEMPLAZAR POR CONSUMIBLE
-                val postManyReloadableClean = postManyReloadableUseCase.invoke(jsonArray)
-                if(postManyReloadableClean in 200..300){
-                    val reloadableDeleted = removeManySyncReloadablesFromLocalDatabaseUseCase.invoke(syncReloadableToDeleteId)
-                    val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncReloadableToDeleteId)
-                    if(getAllSyncReloadableFromLocalDatabaseUseCase.invoke("Reloadable").isNotEmpty()){
+                val postManyReloadableDetail = postManyReloadableUseCase.invoke(jsonArray)
+                if(postManyReloadableDetail in 200..300){
+                    val numberofDeletedRows= removeManySyncReloadablesByObjectIdFromLocalDatabaseUseCase.invoke(syncReloadableToDeleteId)
+                    //COmprobar que elimino el elemento de la tabla sync antes de eliminar las filas del reloadable detalle
+                    if(numberofDeletedRows>0){
+                        val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncReloadableToDeleteId)
+                        //if(getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable").isNotEmpty()){
                         postAllPendingReloadablesToApi()
-                    }else{
-                        getAllAppDataFromApi()
                     }
+                }else{
+                    getAllAppDataFromApi()
                 }
+            }else{
+                Log.e("TAG","Sync de Reloadables  finalizada")
             }
+
         }
     }
 

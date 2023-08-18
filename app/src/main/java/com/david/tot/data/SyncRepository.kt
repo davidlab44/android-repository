@@ -17,11 +17,12 @@ class SyncRepository @Inject constructor(
         return response.map { it.toDomain() }
     }
 
-
+    /*
     suspend fun getAllSyncByDatatypeFromLocaDatabase(syncType:String):List<Sync>{
         val response: List<Sync> = syncDao.getAllSyncByDatatypeFromLocaDatabase(syncType)
         return response.map { it.toDomain() }
     }
+    */
 
     suspend fun removeOneSyncFromLocalDatabase(objectId:Int){
         return syncDao.removeOneSyncFromLocalDatabase(objectId)

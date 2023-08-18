@@ -4,8 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.david.tot.domain.model.ReloadableClean
-import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncReloadable
 
 @Dao
@@ -18,19 +16,31 @@ interface SyncReloadableDao {
     @Query("SELECT * FROM SyncTable WHERE dataType=:syncType")
     suspend fun getAllSyncReloadableFromLocaDatabase(syncType:String):List<SyncReloadable>
     */
-    @Query("SELECT SyncReloadableTable.articleCode AS articleCode," +
-            "SyncReloadableTable.quantity AS quantity, FROM SyncTable INNER JOIN SyncReloadableTable WHERE SyncTable.dataType=:syncType")
-    suspend fun getAllSyncReloadableFromLocaDatabase(syncType:String):List<SyncReloadable>
+    @Query("SELECT SyncReloadableTable.localId AS localId," +
+            "SyncReloadableTable.objectId AS objectId," +
+            "SyncReloadableTable.consumptionDetailId AS consumptionDetailId," +
+            "SyncReloadableTable.consumptionId AS consumptionId," +
+            "SyncReloadableTable.articleCode AS articleCode," +
+            "SyncReloadableTable.quantity AS quantity," +
+            "SyncReloadableTable.unitOfMeasure AS unitOfMeasure," +
+            "SyncReloadableTable.creationDate AS creationDate," +
+            "SyncReloadableTable.delivered AS delivered " +
+            "FROM SyncTable " +
+            "INNER JOIN SyncReloadableTable " +
+            "WHERE SyncReloadableTable.objectId=SyncTable.objectId AND SyncTable.dataType=:syncType")
+    suspend fun getAllSyncReloadablesByDatatypeFromLocaDatabase(syncType:String):List<SyncReloadable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addManyReloadableToLocalDatabase(recipes:List<SyncReloadable>)
 
+    /*
     // TODO virtualassembler poner el WHERE filtrar por el id del header
     @Query("SELECT consumptionDetailId AS consumptionDetailId, consumptionId as consumptionId, articleCode as articleCode, quantity as quantity, unitOfMeasure as unitOfMeasure, creationDate as creationDate,delivered AS delivered FROM SyncReloadableTable")
     suspend fun getAllReloadablesFromLocalDatabase():List<ReloadableClean>
+    */
 
     @Query("DELETE FROM SyncReloadableTable WHERE objectId=:objectId")
-    suspend fun removeManySyncReloadablesFromLocalDatabase(objectId:Int)
+    suspend fun removeManySyncReloadablesByObjectIdFromLocalDatabase(objectId:Int):Int
 
     /*
     @Query("SELECT * FROM syncTable ORDER BY createdAt ASC")

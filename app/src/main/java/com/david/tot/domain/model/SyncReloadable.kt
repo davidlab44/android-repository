@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 data class SyncReloadable (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "localId") val localId: Int = 0,
-    @ColumnInfo(name = "syncId") val syncId: Int,
+    @ColumnInfo(name = "objectId") val objectId: Int,
     @ColumnInfo(name = "consumptionDetailId") val consumptionDetailId: Int=0,
     @ColumnInfo(name = "consumptionId") val consumptionId: Int=0,
     @ColumnInfo(name = "articleCode") val articleCode: String="",
@@ -19,6 +19,6 @@ data class SyncReloadable (
     @ColumnInfo(name = "creationDate") val creationDate: String="2023-01-14T09:15:07.76",
     @ColumnInfo(name = "delivered") val delivered: Int=0
 )
-fun SyncReloadable.toDomain() = SyncReloadable(localId,syncId,consumptionDetailId,consumptionId,articleCode,quantity,unitOfMeasure,creationDate,delivered)
-fun SyncReloadable.toDatabase() = SyncReloadable(localId=localId,syncId=syncId,consumptionDetailId=consumptionDetailId,consumptionId=consumptionId,articleCode=articleCode,quantity=quantity,unitOfMeasure=unitOfMeasure,creationDate=creationDate,delivered=delivered)
+fun SyncReloadable.toDomain() = SyncReloadable(localId,objectId,consumptionDetailId,consumptionId,articleCode,quantity,unitOfMeasure,creationDate,delivered)
+fun SyncReloadable.toDatabase() = SyncReloadable(localId=localId,objectId=objectId,consumptionDetailId=consumptionDetailId,consumptionId=consumptionId,articleCode=articleCode,quantity=quantity,unitOfMeasure=unitOfMeasure,creationDate=creationDate,delivered=delivered)
 //fun SyncReloadable.toSyncReloadable() = SyncReloadable(consumptionDetailId=consumptionDetailId,consumptionId=consumptionId,articleCode=articleCode,quantity=quantity,unitOfMeasure=unitOfMeasure,creationDate=creationDate,delivered=delivered)

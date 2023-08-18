@@ -1,8 +1,6 @@
 package com.david.tot.data
 
 import com.david.tot.data.database.dao.SyncReloadableDao
-import com.david.tot.domain.model.ReloadableClean
-import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncReloadable
 import com.david.tot.domain.model.toDomain
 import javax.inject.Inject
@@ -15,10 +13,8 @@ class SyncReloadableRepository @Inject constructor(
         return syncReloadableDao.addOneSyncReloadableToLocaDatabase (syncReloadable)
     }
 
-
-
-    suspend fun getAllReloadableCleanFromLocalDatabaseUseCase():List<ReloadableClean>{
-        val response: List<ReloadableClean> = syncReloadableDao.getAllReloadablesFromLocalDatabase()
+    suspend fun getAllSyncReloadablesByDatatypeFromLocaDatabase(dataType:String):List<SyncReloadable>{
+        val response: List<SyncReloadable> = syncReloadableDao.getAllSyncReloadablesByDatatypeFromLocaDatabase(dataType)
         return response.map { it.toDomain() }
     }
 
@@ -27,15 +23,20 @@ class SyncReloadableRepository @Inject constructor(
         val response: List<SyncReloadable> = syncReloadableDao.getAllSyncReloadableFromLocaDatabase()
         return response.map { it.toDomain() }
     }
-
-     */
+    */
 
     suspend fun addManyReloadablesToLocalDatabase(recipes:List<SyncReloadable>){
         syncReloadableDao.addManyReloadableToLocalDatabase(recipes)
     }
 
-    suspend fun removeManySyncConsumiblesFromLocalDatabase(syncReloadableId:Int){
+    /*
+    suspend fun removeManySyncReloadablesFromLocalDatabase(syncReloadableId:Int){
         syncReloadableDao.removeManySyncReloadablesFromLocalDatabase(syncReloadableId)
+    }
+    */
+
+    suspend fun removeManySyncReloadablesByObjectIdFromLocalDatabase(objectId:Int):Int{
+        return syncReloadableDao.removeManySyncReloadablesByObjectIdFromLocalDatabase(objectId)
     }
 
 }
