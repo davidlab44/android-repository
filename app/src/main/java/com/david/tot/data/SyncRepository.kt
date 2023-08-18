@@ -28,5 +28,4 @@ class SyncRepository @Inject constructor(
         return syncDao.removeOneSyncFromLocalDatabase(objectId)
     }
 
-
 }

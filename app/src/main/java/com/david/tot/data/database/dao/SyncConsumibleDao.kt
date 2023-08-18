@@ -8,6 +8,7 @@ import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
+import com.david.tot.domain.model.SyncReloadable
 
 @Dao
 interface SyncConsumibleDao {
@@ -22,13 +23,28 @@ interface SyncConsumibleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addManyArticleToLocalDatabase(recipes:List<SyncConsumible>)
-
+/*
     // TODO virtualassembler poner el WHERE filtrar por el id del header
     @Query("SELECT consumptionDetailId AS consumptionDetailId, consumptionId as consumptionId, articleCode as articleCode, quantity as quantity, unitOfMeasure as unitOfMeasure, creationDate as creationDate,delivered AS delivered FROM SyncConsumibleTable")
     suspend fun getAllConsumibleFromLocalDatabaseUseCase():List<Consumible>
-
+*/
     @Query("DELETE FROM SyncConsumibleTable WHERE objectId=:objectId")
     suspend fun removeManySyncConsumiblesFromLocalDatabase(objectId:Int)
+
+    @Query("SELECT SyncConsumibleTable.localId AS localId," +
+            "SyncConsumibleTable.objectId AS objectId," +
+            "SyncConsumibleTable.consumptionDetailId AS consumptionDetailId," +
+            "SyncConsumibleTable.consumptionId AS consumptionId," +
+            "SyncConsumibleTable.articleCode AS articleCode," +
+            "SyncConsumibleTable.quantity AS quantity," +
+            "SyncConsumibleTable.unitOfMeasure AS unitOfMeasure," +
+            "SyncConsumibleTable.creationDate AS creationDate," +
+            "SyncConsumibleTable.delivered AS delivered " +
+            "FROM SyncTable " +
+            "INNER JOIN SyncConsumibleTable " +
+            "WHERE SyncConsumibleTable.objectId=SyncTable.objectId AND SyncTable.dataType=:syncType")
+    suspend fun getAllSyncConsumiblesByDatatypeFromLocaDatabase(syncType:String):List<SyncConsumible>
+
 
     /*
     @Query("SELECT * FROM syncTable ORDER BY createdAt ASC")

@@ -38,9 +38,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SyncViewModel @Inject constructor(
-    private val postOneAuthenticableUseCase: PostOneAuthenticableUseCase,
+    private val postOneConsumibleHeaderUseCase: PostOneAuthenticableUseCase,
     private val postManyArticleUseCase: PostManyArticleUseCase,
-    private val postManyReloadableUseCase: PostManyReloadableUseCase,
+    private val postManyReloadableDetailUseCase: PostManyReloadableUseCase,
     private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase,
     private val getAllSyncConsumibleFromLocalDatabaseUseCase: GetAllSyncConsumibleFromLocalDatabaseUseCase,
     private val getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase: GetAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase,
@@ -73,36 +73,39 @@ class SyncViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             var syncConsumibleList by mutableStateOf<List<SyncConsumible>>(emptyList())
             syncConsumibleList = getAllSyncConsumibleFromLocalDatabaseUseCase.invoke("Consumible")
-
-            isSyncing=true
-            //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
-            val consumibleHeader=getAnyAuthenticableUseCase.invoke()
-            var headerCons = ConsumibleHeader(0,consumibleHeader.consumer,consumibleHeader.vehicle,"PENDING","2023-08-10T01:42:45.655Z",0)
-            var gson = Gson()
-            var headerConsumible = gson.toJson(headerCons)
-            val consumibleHeaderId =postOneAuthenticableUseCase.invoke(headerConsumible)
-
-            var consumibleList by mutableStateOf<List<Consumible>>(emptyList())
-            var consumibleMutableList = consumibleList.toMutableList()
-            var syncConsumibleToDeleteId=0
-            if (!syncConsumibleList.isNullOrEmpty()&&consumibleHeaderId.toInt()>0) {
-                syncConsumibleList.forEach { syncConsumible->
-                    val consumible = Consumible(0,consumibleHeaderId,syncConsumible.articleCode,syncConsumible.quantity,"UND","2023-08-10T01:42:45.655Z",0)
-                    consumibleMutableList.add(consumible)
-                    syncConsumibleToDeleteId=syncConsumible.objectId
-                }
-                val jsonArray: JsonArray = Gson().toJsonTree(consumibleMutableList).asJsonArray
-                val postManyArticleUseCase = postManyArticleUseCase.invoke(jsonArray)
-                if(postManyArticleUseCase in 200..300){
-                    val consumibleDeleted = removeManySyncConsumiblesFromLocalDatabaseUseCase.invoke(syncConsumibleToDeleteId)
-                    val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncConsumibleToDeleteId)
-                    if(getAllSyncConsumibleFromLocalDatabaseUseCase.invoke("Consumible").isNotEmpty()){
-                        postManyConsumibleToApi()
-                    }else{
-                        toastConsumiblesSynced=true
-                        isSyncing=false
-                        getAllAppDataFromApi()
+            if(syncConsumibleList.isNotEmpty()){
+                isSyncing=true
+                //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
+                val consumibleHeader=getAnyAuthenticableUseCase.invoke()
+                var headerCons = ConsumibleHeader(0,consumibleHeader.consumer,consumibleHeader.vehicle,"PENDING","2023-08-10T01:42:45.655Z",0)
+                var gson = Gson()
+                var headerConsumible = gson.toJson(headerCons)
+                val consumibleHeaderId =postOneConsumibleHeaderUseCase.invoke(headerConsumible)
+                //La lista para el foreach
+                var temp2ConsumibleList by mutableStateOf<List<Consumible>>(emptyList())
+                var tempConsumibleMutableList =temp2ConsumibleList.toMutableList()
+                var syncConsumibleToDeleteObjectId=0
+                if (!syncConsumibleList.isNullOrEmpty()&&consumibleHeaderId.toInt()>0) {
+                    syncConsumibleList.forEach { syncConsumible->
+                        val consumible = Consumible(0,consumibleHeaderId,syncConsumible.articleCode,syncConsumible.quantity,"UND","2023-08-10T01:42:45.655Z",0)
+                        tempConsumibleMutableList.add(consumible)
+                        syncConsumibleToDeleteObjectId=syncConsumible.objectId
                     }
+                    val jsonArray: JsonArray = Gson().toJsonTree(tempConsumibleMutableList).asJsonArray
+                    val postManyArticleUseCase = postManyArticleUseCase.invoke(jsonArray)
+                    if(postManyArticleUseCase in 200..300){
+                        val numberofDeletedRows= removeManySyncConsumiblesFromLocalDatabaseUseCase.invoke(syncReloadableToDeleteId)
+                        //Comprobar que elimino el elemento de la tabla sync antes de eliminar las filas del reloadable detalle
+                        if(numberofDeletedRows>0){
+                            val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncConsumibleToDeleteObjectId)
+                            postManyConsumibleToApi()
+                        }else{
+                            //Aqui Termino de syncronizar
+                            getAllConsumiblesFromApiUseCase.invoke()
+                        }
+                    }
+                }else{
+                    Log.e("TAG","Sync de Consumibles  finalizada")
                 }
             }
         }
@@ -110,49 +113,51 @@ class SyncViewModel @Inject constructor(
 
     suspend fun postAllPendingReloadablesToApi() {
         CoroutineScope(Dispatchers.IO).launch {
-            //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
-            //Aqui en reloadable se puede usar el mismo header de manifiesto que el de los consumibles
-            val reloadableHeader=getAnyAuthenticableUseCase.invoke()
-            var headerCons = ReloadableHeader(0,reloadableHeader.consumer,reloadableHeader.vehicle,"PENDING","2023-08-10T01:42:45.655Z",0)
-            var gson = Gson()
-            var reloadableHeaderJsonObject = gson.toJson(headerCons)
-            val reloadableHeaderId =postOneReloadableHeaderUseCase.invoke(reloadableHeaderJsonObject)
-            /*
-            //Verificar si todavia queda algun objeto Reloadable pendiente por sincronizar
-            traer todos LOS ELEMENTOS DE LA TABLA SyncReloadable en esta lista
-            recuerda que todos los Sync reloadables tienen un syncID que los identifica en la tabla SYncTable y los agrupa en este listado
-                    cuales corresponden a que objeto
-            */
-            //si esta vacio fue porque no consiguio nada en bd => no hace nada y sale
             var syncReloadableList by mutableStateOf<List<SyncReloadable>>(emptyList())
             syncReloadableList = getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable")
-            var reloadableList by mutableStateOf<List<ReloadableClean>>(emptyList())
-            var reloadableCleanMutableList = reloadableList.toMutableList()
-            var syncReloadableToDeleteId=0
-            if (!syncReloadableList.isNullOrEmpty()&&reloadableHeaderId.toInt()>0) {
-                syncReloadableList.forEach { syncReloadable->
-                    val reloadableClean = ReloadableClean(0,reloadableHeaderId,syncReloadable.articleCode,syncReloadable.quantity,"UND","2023-08-10T01:42:45.655Z",0)
-                    reloadableCleanMutableList.add(reloadableClean)
-                    syncReloadableToDeleteId=syncReloadable.objectId
-                }
-                val jsonArray: JsonArray = Gson().toJsonTree(reloadableCleanMutableList).asJsonArray
-                //REEMPLAZAR POR CONSUMIBLE
-                val postManyReloadableDetail = postManyReloadableUseCase.invoke(jsonArray)
-                if(postManyReloadableDetail in 200..300){
-                    val numberofDeletedRows= removeManySyncReloadablesByObjectIdFromLocalDatabaseUseCase.invoke(syncReloadableToDeleteId)
-                    //COmprobar que elimino el elemento de la tabla sync antes de eliminar las filas del reloadable detalle
-                    if(numberofDeletedRows>0){
-                        val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncReloadableToDeleteId)
-                        //if(getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable").isNotEmpty()){
-                        postAllPendingReloadablesToApi()
+            if(syncReloadableList.isNotEmpty()){
+                //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
+                //Aqui en reloadable se puede usar el mismo header de manifiesto que el de los consumibles
+                val reloadableHeader=getAnyAuthenticableUseCase.invoke()
+                var headerCons = ReloadableHeader(0,reloadableHeader.consumer,reloadableHeader.vehicle,"PENDING","2023-08-10T01:42:45.655Z",0)
+                var gson = Gson()
+                var reloadableHeaderJsonObject = gson.toJson(headerCons)
+                val reloadableHeaderId =postOneReloadableHeaderUseCase.invoke(reloadableHeaderJsonObject)
+                /*
+                //Verificar si todavia queda algun objeto Reloadable pendiente por sincronizar
+                traer todos LOS ELEMENTOS DE LA TABLA SyncReloadable en esta lista
+                recuerda que todos los Sync reloadables tienen un syncID que los identifica en la tabla SYncTable y los agrupa en este listado
+                cuales corresponden a que objeto
+                */
+                //si esta vacio fue porque no consiguio nada en bd => no hace nada y sale
+                var reloadableList by mutableStateOf<List<ReloadableClean>>(emptyList())
+                var reloadableCleanMutableList = reloadableList.toMutableList()
+                var syncReloadableToDeleteId=0
+                if (!syncReloadableList.isNullOrEmpty()&&reloadableHeaderId.toInt()>0) {
+                    syncReloadableList.forEach { syncReloadable->
+                        val reloadableClean = ReloadableClean(0,reloadableHeaderId,syncReloadable.articleCode,syncReloadable.quantity,"UND","2023-08-10T01:42:45.655Z",0)
+                        reloadableCleanMutableList.add(reloadableClean)
+                        syncReloadableToDeleteId=syncReloadable.objectId
+                    }
+                    val jsonArray: JsonArray = Gson().toJsonTree(reloadableCleanMutableList).asJsonArray
+                    //REEMPLAZAR POR CONSUMIBLE
+                    val postManyReloadableDetail = postManyReloadableDetailUseCase.invoke(jsonArray)
+                    if(postManyReloadableDetail in 200..300){
+                        val numberofDeletedRows= removeManySyncReloadablesByObjectIdFromLocalDatabaseUseCase.invoke(syncReloadableToDeleteId)
+                        //Comprobar que elimino el elemento de la tabla sync antes de eliminar las filas del reloadable detalle
+                        if(numberofDeletedRows>0){
+                            val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncReloadableToDeleteId)
+                            //if(getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable").isNotEmpty()){
+                            postAllPendingReloadablesToApi()
+                        }else{
+                            //Aqui Termino de syncronizar
+                            getAllReloadablesFromApiUseCase.invoke()
+                        }
                     }
                 }else{
-                    getAllAppDataFromApi()
+                    Log.e("TAG","Sync de Reloadables  finalizada")
                 }
-            }else{
-                Log.e("TAG","Sync de Reloadables  finalizada")
             }
-
         }
     }
 
@@ -168,8 +173,8 @@ class SyncViewModel @Inject constructor(
     fun getAllAppDataFromApi(){
         CoroutineScope(Dispatchers.IO).launch {
             //Actualiza whole data en la base de datos local
-            getAllConsumiblesFromApiUseCase.invoke()
-            getAllReloadablesFromApiUseCase.invoke()
+
+
             addOneHardcodedAuthenticableToLocalDb()
         }
     }

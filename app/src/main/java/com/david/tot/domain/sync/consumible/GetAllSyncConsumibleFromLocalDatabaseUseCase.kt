@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class GetAllSyncConsumibleFromLocalDatabaseUseCase @Inject constructor(private val repository: SyncConsumibleRepository) {
     suspend operator fun invoke(syncType:String):List<SyncConsumible> {
-        return repository.getAllSyncConsumibleFromLocalDatabase(syncType)
+        return repository.getAllSyncConsumiblesByDatatypeFromLocaDatabase(syncType)
     }
 }
