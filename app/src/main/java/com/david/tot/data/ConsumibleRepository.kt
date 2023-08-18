@@ -23,9 +23,11 @@ class ConsumibleRepository @Inject constructor(
         return response.map { it.toDomain() }
     }
 
+    /*
     suspend fun addProduct(product:Article):Int{
         return api.addProduct(product)
     }
+     */
 
     suspend fun postMany(jsonArray: JsonArray):Int{
         return api.postManyConsumible(jsonArray)
