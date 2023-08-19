@@ -1,5 +1,6 @@
 package com.david.tot.domain.model
 
+import com.david.tot.util.Dates
 import kotlinx.serialization.*
 
 @Serializable
@@ -8,8 +9,8 @@ data class ReloadableHeader(
     var restockerUser  : String = "someString",
     var vehicle       : String = "Vehicle",
     var status        : String = "PENDING",
-    var creationDate  : String = "2023-08-10T01:42:45.655Z",
-    var modifiedDate  : String = "2023-08-10T01:42:45.655Z",
+    var creationDate  : String = ""+ Dates().date(),
+    var modifiedDate  : String = ""+Dates().date(),
     var deliveryConfirmationImageUrl  : String = "someUrl",
     var deliveryConfirmationComments  : String = "someComments",
     var confirmerUser  : String = "confirmerUser",

@@ -21,6 +21,7 @@ class ConsumibleService @Inject constructor(private val api: IConsumibleApiClien
 
     suspend fun postManyConsumible(jsonArray: JsonArray):Int{
         return withContext(Dispatchers.IO) {
+            //val davidArray:String =
             val mediaType = "application/json".toMediaType()
             val body = jsonArray.toString().toRequestBody(mediaType)
             val respuesta = api.postManyConsumibes(body)

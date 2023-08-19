@@ -28,6 +28,7 @@ import com.david.tot.domain.sync.consumible.RemoveManySyncConsumiblesFromLocalDa
 import com.david.tot.domain.sync.consumible.GetAllSyncConsumibleFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.reloadable.GetAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase
 import com.david.tot.domain.sync.reloadable.RemoveManySyncReloadablesByObjectIdFromLocalDatabaseUseCase
+import com.david.tot.util.Dates
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -88,7 +89,8 @@ class SyncViewModel @Inject constructor(
                 var syncConsumibleToDeleteObjectId=0
                 if (!syncConsumibleList.isNullOrEmpty()&&consumibleHeaderId.toInt()>0) {
                     syncConsumibleList.forEach { syncConsumible->
-                        val consumible = Consumible(0,consumibleHeaderId,syncConsumible.articleCode,syncConsumible.quantity,"UND","2023-08-10T01:42:45.655Z",0)
+                        //2023-08-10T01:42:45.655Z
+                        val consumible = Consumible(0,consumibleHeaderId,syncConsumible.articleCode,syncConsumible.quantity,"UND",""+Dates().date(),0)
                         tempConsumibleMutableList.add(consumible)
                         syncConsumibleToDeleteObjectId=syncConsumible.objectId
                     }
@@ -136,7 +138,7 @@ class SyncViewModel @Inject constructor(
                 var syncReloadableToDeleteObjectId=0
                 if (!syncReloadableList.isNullOrEmpty()&&reloadableHeaderId.toInt()>0) {
                     syncReloadableList.forEach { syncReloadable->
-                        val reloadableClean = ReloadableClean(0,reloadableHeaderId,syncReloadable.articleCode,syncReloadable.quantity,"UND","2023-08-10T01:42:45.655Z",0)
+                        val reloadableClean = ReloadableClean(0,reloadableHeaderId,syncReloadable.articleCode,syncReloadable.quantity,"UND",""+Dates().date(),0)
                         reloadableCleanMutableList.add(reloadableClean)
                         syncReloadableToDeleteObjectId=syncReloadable.objectId
                     }

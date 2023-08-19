@@ -1,6 +1,7 @@
 package com.david.tot.util
 
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.Date
 
 //can be used as method to get ordered identifiers from current date
@@ -30,5 +31,13 @@ class Dates {
         val currentDate = sdf.format(Date())
         val dateAsInt = currentDate.filter {it in '0'..'9'}
         return dateAsInt.toInt()
+    }
+
+    fun date():String {
+        //val sdf = SimpleDateFormat("yyyy-MM-ddThh:mm:ss.655Z")
+        //return  sdf.format(Date())
+        return LocalDateTime.now().toString()
+        //val dateAsInt = currentDate.filter {it in '0'..'9'}
+        //return Date().toString()
     }
 }
