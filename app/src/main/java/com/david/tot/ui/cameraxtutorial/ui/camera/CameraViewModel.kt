@@ -1,27 +1,17 @@
 package com.david.tot.ui.cameraxtutorial.ui.camera
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
-import com.david.tot.domain.model.Reportable
-import com.david.tot.domain.model.Sync
 import com.david.tot.domain.reportable.AddOneReportableToLocalDatabaseUseCase
 import com.david.tot.domain.reportable.GetAllReportablesFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import com.david.tot.ui.cameraxtutorial.Main2Activity
 import com.david.tot.ui.requirable.RequirableActivity
-import com.david.tot.util.Dates
-import com.david.tot.util.ReportableSaver
-import com.david.tot.util.SyncSaver
 import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope

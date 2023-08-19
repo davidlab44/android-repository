@@ -27,7 +27,7 @@ interface IReloadableApiClient {
     @POST("products")
     suspend fun addOne(@Body product: Reloadable): Response<ResponseBody>
 
-    @POST("api/GlappDrugsDeliveryConsumptionDets")
+    @POST("api/GlappDrugsDeliveryRestocksDets")
     suspend fun postMany(@Body jsonArray: RequestBody): Response<ResponseBody>
 
     @PUT("products/{id}")

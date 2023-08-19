@@ -2,13 +2,19 @@ package com.david.tot.domain.model
 
 import kotlinx.serialization.*
 
-//Borrar no se va a usar a la final
 @Serializable
 data class ReloadableHeader(
-    var consumptionId : Int    = 0,
-    var consumerUser  : String = "someString",
-    var vehicle       : String = "VKG028",
+    var restockId : Int    = 0,
+    var restockerUser  : String = "someString",
+    var vehicle       : String = "Vehicle",
     var status        : String = "PENDING",
     var creationDate  : String = "2023-08-10T01:42:45.655Z",
-    var restockId     : Int    = 0
+    var modifiedDate  : String = "2023-08-10T01:42:45.655Z",
+    var deliveryConfirmationImageUrl  : String = "someUrl",
+    var deliveryConfirmationComments  : String = "someComments",
+    var confirmerUser  : String = "confirmerUser",
+    var deliveryConfirmationDate  : String = "2023-08-10T01:42:45.655Z",
+    var consecutive  : String = "0",
+    var sourceId  : String = "0",
+    var aproved     : Int    = 0
 )

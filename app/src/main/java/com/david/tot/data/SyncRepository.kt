@@ -24,7 +24,7 @@ class SyncRepository @Inject constructor(
     }
     */
 
-    suspend fun removeOneSyncFromLocalDatabase(objectId:Int){
+    suspend fun removeOneSyncFromLocalDatabase(objectId:Int):Int{
         return syncDao.removeOneSyncFromLocalDatabase(objectId)
     }
 

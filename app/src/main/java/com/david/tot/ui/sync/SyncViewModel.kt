@@ -60,6 +60,7 @@ class SyncViewModel @Inject constructor(
     var isSyncing by mutableStateOf<Boolean>(false)
     var toastTheresNotConsumiblesToSync by mutableStateOf<Boolean>(false)
     var toastConsumiblesSynced by mutableStateOf<Boolean>(false)
+    var toastReloadablesSynced by mutableStateOf<Boolean>(false)
     var toastInsertedSuccessfully by mutableStateOf<Boolean>(false)
 
     fun getAllSyncsFromLocalDatabase() {
@@ -94,19 +95,22 @@ class SyncViewModel @Inject constructor(
                     val jsonArray: JsonArray = Gson().toJsonTree(tempConsumibleMutableList).asJsonArray
                     val postManyArticleUseCase = postManyArticleUseCase.invoke(jsonArray)
                     if(postManyArticleUseCase in 200..300){
-                        val numberofDeletedRows= removeManySyncConsumiblesFromLocalDatabaseUseCase.invoke(syncConsumibleToDeleteObjectId)
-                        //Comprobar que elimino el elemento de la tabla sync antes de eliminar las filas del reloadable detalle
-                        if(numberofDeletedRows>0){
-                            val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncConsumibleToDeleteObjectId)
-                            postManyConsumibleToApi()
-                        }else{
-                            //Aqui Termino de syncronizar
-                            getAllConsumiblesFromApiUseCase.invoke()
+                        val numberOfDeletedSync = removeOneSyncFromLocalDatabaseUseCase(syncConsumibleToDeleteObjectId)
+                        //Si lo elimino devuelve 1 row affected
+                        if(numberOfDeletedSync>0){
+                            val numberofDeletedSyncConsumibles= removeManySyncConsumiblesFromLocalDatabaseUseCase.invoke(syncConsumibleToDeleteObjectId)
+                            if(numberofDeletedSyncConsumibles>0){
+                                //val isReloadableEmpty =getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable")
+                                postManyConsumibleToApi()
+                            }
                         }
                     }
-                }else{
-                    Log.e("TAG","Sync de Consumibles  finalizada")
                 }
+            }else{
+                getAllConsumiblesFromApiUseCase.invoke()
+                Log.e("TAG","Sync de Consumibles  finalizada")
+                isSyncing=false
+                toastConsumiblesSynced=true
             }
         }
     }
@@ -115,21 +119,17 @@ class SyncViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             var syncReloadableList by mutableStateOf<List<SyncReloadable>>(emptyList())
             syncReloadableList = getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable")
+            Log.e("TAGTAGTAG",""+syncReloadableList)
             if(syncReloadableList.isNotEmpty()){
                 //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
                 //Aqui en reloadable se puede usar el mismo header de manifiesto que el de los consumibles
+                isSyncing=true
                 val reloadableHeader=getAnyAuthenticableUseCase.invoke()
-                var headerCons = ReloadableHeader(0,reloadableHeader.consumer,reloadableHeader.vehicle,"PENDING","2023-08-10T01:42:45.655Z",0)
+                var headerCons = ReloadableHeader(restockerUser=reloadableHeader.consumer,vehicle=reloadableHeader.vehicle,status="PENDING")
                 var gson = Gson()
                 var reloadableHeaderJsonObject = gson.toJson(headerCons)
                 val reloadableHeaderId =postOneReloadableHeaderUseCase.invoke(reloadableHeaderJsonObject)
-                /*
-                //Verificar si todavia queda algun objeto Reloadable pendiente por sincronizar
-                traer todos LOS ELEMENTOS DE LA TABLA SyncReloadable en esta lista
-                recuerda que todos los Sync reloadables tienen un syncID que los identifica en la tabla SYncTable y los agrupa en este listado
-                cuales corresponden a que objeto
-                */
-                //si esta vacio fue porque no consiguio nada en bd => no hace nada y sale
+                Log.e("TAGreloadableHeaderId",""+reloadableHeaderId)
                 var reloadableList by mutableStateOf<List<ReloadableClean>>(emptyList())
                 var reloadableCleanMutableList = reloadableList.toMutableList()
                 var syncReloadableToDeleteObjectId=0
@@ -140,23 +140,26 @@ class SyncViewModel @Inject constructor(
                         syncReloadableToDeleteObjectId=syncReloadable.objectId
                     }
                     val jsonArray: JsonArray = Gson().toJsonTree(reloadableCleanMutableList).asJsonArray
-                    //REEMPLAZAR POR CONSUMIBLE
-                    val postManyReloadableDetail = postManyReloadableDetailUseCase.invoke(jsonArray)
-                    if(postManyReloadableDetail in 200..300){
-                        val numberofDeletedRows= removeManySyncReloadablesByObjectIdFromLocalDatabaseUseCase.invoke(syncReloadableToDeleteObjectId)
-                        //Comprobar que elimino el elemento de la tabla sync antes de eliminar las filas del reloadable detalle
-                        if(numberofDeletedRows>0){
-                            val syncToRemove = removeOneSyncFromLocalDatabaseUseCase(syncReloadableToDeleteObjectId)
-                            //if(getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable").isNotEmpty()){
-                            postAllPendingReloadablesToApi()
-                        }else{
-                            //Aqui Termino de syncronizar
-                            getAllReloadablesFromApiUseCase.invoke()
+                    val postManyReloadableDetailResponseCode = postManyReloadableDetailUseCase.invoke(jsonArray)
+                    if(postManyReloadableDetailResponseCode in 200..300){
+                        val numberOfDeletedSync = removeOneSyncFromLocalDatabaseUseCase(syncReloadableToDeleteObjectId)
+                        //Si lo elimino devuelve 1 row affected
+                        if(numberOfDeletedSync>0){
+                            val numberofDeletedSyncReloadables= removeManySyncReloadablesByObjectIdFromLocalDatabaseUseCase.invoke(syncReloadableToDeleteObjectId)
+                            if(numberofDeletedSyncReloadables>0){
+                                //val isReloadableEmpty =getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable")
+                                postAllPendingReloadablesToApi()
+                            }
                         }
                     }
-                }else{
-                    Log.e("TAG","Sync de Reloadables  finalizada")
                 }
+            }else{
+
+                //Trae la informacion de la API
+                getAllReloadablesFromApiUseCase.invoke()
+                isSyncing=false
+                toastReloadablesSynced=true
+                Log.e("TAG","Sync de Reloadables  finalizada")
             }
         }
     }

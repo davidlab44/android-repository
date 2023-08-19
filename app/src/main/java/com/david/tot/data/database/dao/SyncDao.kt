@@ -31,7 +31,7 @@ interface SyncDao {
 
 
     @Query("DELETE FROM SyncTable WHERE objectId=:objectId")
-    suspend fun removeOneSyncFromLocalDatabase(objectId:Int)
+    suspend fun removeOneSyncFromLocalDatabase(objectId:Int):Int
 
     /*
     @Query("SELECT * FROM syncTable ORDER BY createdAt ASC")
