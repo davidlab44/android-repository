@@ -13,5 +13,4 @@ data class Spendable (
 /*
 fun Article.toDomain() = Article(local_id,articleCode,articleDescription,unitOfMeasure,quantityAvailable,quantityToStock,quantityToRestore)
 fun Article.toDatabase() = Article(local_id=local_id, articleCode=articleCode, articleDescription=articleDescription,unitOfMeasure=unitOfMeasure,quantityAvailable=quantityAvailable,quantityToStock=quantityToStock,quantityToRestore=quantityToRestore)
-
  */

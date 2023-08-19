@@ -77,7 +77,7 @@
             android:noHistory="true">
         </activity>
         <activity
-            android:name="com.david.tot.ui.requirable.RequirableActivity"
+            android:name="com.david.tot.ui.reportable.ReportableActivity"
             android:noHistory="true">
         </activity>
         <activity

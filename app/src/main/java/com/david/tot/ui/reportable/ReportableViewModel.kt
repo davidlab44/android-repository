@@ -1,4 +1,4 @@
-package com.david.tot.ui.requirable
+package com.david.tot.ui.reportable
 
 /*
 import android.util.Log
@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RequirableViewModel @Inject constructor(
+class ReportableViewModel @Inject constructor(
     /*
     private val getAllFromApiUseCase: GetAllFromApiUseCase,
     private val getArticleByIdUseCase: GetArticleByIdUseCase,

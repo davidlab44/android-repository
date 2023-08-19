@@ -1,4 +1,4 @@
-package com.david.tot.ui.requirable
+package com.david.tot.ui.reportable
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -13,10 +13,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.david.tot.ui.authenticable.AuthenticableScreenComponentHeader
 import com.david.tot.ui.authenticable.AuthenticableViewModel
-import com.david.tot.ui.sync.SyncScreenComponentHeader
 
 @Composable
-fun RequirableHeaderAndBodyScreen(contextActivity: RequirableActivity, requirableViewModel: RequirableViewModel,
+fun RequirableHeaderAndBodyScreen(contextActivity: ReportableActivity, reportableViewModel: ReportableViewModel,
                                   authenticableViewModel: AuthenticableViewModel
 ) {
     //authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
@@ -44,7 +43,7 @@ fun RequirableHeaderAndBodyScreen(contextActivity: RequirableActivity, requirabl
             modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            BodyArticleList(contextActivity,requirableViewModel,
+            BodyReportableList(contextActivity,reportableViewModel,
                 //drugsDeliveryConsumerViewHeaderViewModel
             )
         }

@@ -1,4 +1,4 @@
-package com.david.tot.ui.requirable
+package com.david.tot.ui.reportable
 
 import com.david.tot.R
 

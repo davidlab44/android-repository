@@ -1,4 +1,4 @@
-package com.david.tot.ui.requirable
+package com.david.tot.ui.reportable
 
 
 
@@ -53,7 +53,7 @@ import com.david.tot.ui.authenticable.AuthenticableViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RequirableActivity : ComponentActivity() {
+class ReportableActivity : ComponentActivity() {
 
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +67,7 @@ class RequirableActivity : ComponentActivity() {
                     val scaffoldState = rememberScaffoldState()
                     val coroutineScope = rememberCoroutineScope()
                     val contextForToast = LocalContext.current.applicationContext
-                    val requirableViewModel = viewModel<RequirableViewModel>()
+                    val reportableViewModel = viewModel<ReportableViewModel>()
                     val authenticableViewModel = viewModel<AuthenticableViewModel>()
                     //val contextArticleActivity = this@ArticleActivity
 
@@ -81,7 +81,7 @@ class RequirableActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         scaffoldState = scaffoldState,
                         topBar = {
-                            TopAppBarArticleAcivity(this@RequirableActivity,requirableViewModel) {
+                            TopAppBarArticleAcivity(this@ReportableActivity,reportableViewModel) {
                                 coroutineScope.launch {
                                     scaffoldState.drawerState.open()
                                 }
@@ -90,13 +90,13 @@ class RequirableActivity : ComponentActivity() {
                         bottomBar = { BottomNavigationBar(navController) },
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                ReportableNavigationBotomMenu(this@RequirableActivity,requirableViewModel,
+                                ReportableNavigationBotomMenu(this@ReportableActivity,reportableViewModel,
                                     authenticableViewModel,
                                     navController = navController)
                             }
                         },
                         drawerContent = {
-                            DrawerContent(context=this@RequirableActivity) { itemLabel ->
+                            DrawerContent(context=this@ReportableActivity) { itemLabel ->
                                 Toast
                                     .makeText(contextForToast, itemLabel, Toast.LENGTH_SHORT)
                                     .show()
@@ -179,7 +179,7 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 
 
 @Composable
-fun TopAppBarArticleAcivity(nContext:RequirableActivity, requirableViewModel: RequirableViewModel, onNavIconClick: () -> Unit) {
+fun TopAppBarArticleAcivity(nContext:ReportableActivity, reportableViewModel: ReportableViewModel, onNavIconClick: () -> Unit) {
     val mContext = LocalContext.current.applicationContext
     TopAppBar(
         title = { Text(text = "GLAPP") },
@@ -217,13 +217,13 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 */
 
 @Composable
-fun ReportableNavigationBotomMenu(contextActivity:RequirableActivity, requirableViewModel:RequirableViewModel,
+fun ReportableNavigationBotomMenu(contextActivity:ReportableActivity, reportableViewModel:ReportableViewModel,
                                   authenticableViewModel: AuthenticableViewModel,
                                   navController: NavHostController) {
 
     NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
         composable(BotomNavigationItem.Home.route) {
-            RequirableHeaderAndBodyScreen(contextActivity,requirableViewModel,
+            RequirableHeaderAndBodyScreen(contextActivity,reportableViewModel,
                 authenticableViewModel
             )
         }
