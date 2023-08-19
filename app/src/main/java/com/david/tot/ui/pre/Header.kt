@@ -29,11 +29,12 @@ fun Header() {
             content = {
                 Column( horizontalAlignment = Alignment.Start,
                     modifier = Modifier.border(0.dp, Color.Gray, RectangleShape).fillMaxWidth().padding(5.dp)) {
+                    /*
                     Row(
                         modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Start
                     ){
                         androidx.compose.material3.Text(
-                            text = "Preoperativo No. "+key,
+                            text = "No. Consecutivo "+key,
                             color = Color.Black, fontSize = 15.sp
                         )
                     }
@@ -41,10 +42,11 @@ fun Header() {
                         modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Start
                     ){
                         androidx.compose.material3.Text(
-                            text = "Ejecutado por: Anibal Martinez",
+                            text = "Ejecutado por: Rucutundu Herrera",
                             color = Color.Black, fontSize = 15.sp
                         )
                     }
+
                     Row(
                         modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Start
                     ){
@@ -53,11 +55,14 @@ fun Header() {
                             color = Color.Black, fontSize = 15.sp
                         )
                     }
+
+                     */
                     Row(
                         modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Start
                     ){
                         androidx.compose.material3.Text(
-                            text = "VEHICULO:[AF-HKT3055] Camión D-Series 240 DXI",
+                            //text = "VEHICULO:[AF-HKT3055] Camión D-Series 240 DXI",
+                            text = "VEHICULO:[AF-HKT3055] Ambulancia ER",
                             color = Color.Black, fontSize = 15.sp
                         )
                     }

@@ -407,6 +407,7 @@ fun DrawerContent(
                     ),
                     text = AnnotatedString("Post operativo") ,
                     onClick = {
+                        context.startActivity(Intent(context, PreActivity::class.java))
                         //context.startActivity(Intent(context,UpdateProductActivity::class.java))
                     }
                 )
@@ -423,7 +424,7 @@ fun DrawerContent(
                     modifier = Modifier
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.photo_camera_fill),
+                    painter = painterResource(id = R.drawable.build_white_18dp),
                     contentDescription = "Configuracion"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
@@ -432,10 +433,9 @@ fun DrawerContent(
                         color = Color.White,
                         fontSize = 26.sp
                     ),
-                    text = AnnotatedString("Reporte novedades") ,
+                    text = AnnotatedString("Reporte de novedades"),
                     onClick = {
                         context.startActivity(Intent(context, Main2Activity::class.java))
-
                         //context.startActivity(Intent(context, RequirableActivity::class.java))
                     }
                 )
@@ -452,7 +452,7 @@ fun DrawerContent(
                     modifier = Modifier
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.photo_camera_fill),
+                    painter = painterResource(id = R.drawable.photo_camera_filled),
                     contentDescription = "Configuración"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
@@ -461,7 +461,7 @@ fun DrawerContent(
                         color = Color.White,
                         fontSize = 26.sp
                     ),
-                    text = AnnotatedString("Anticipos") ,
+                    text = AnnotatedString("Reporte de Gastos") ,
                     onClick = {
                         context.startActivity(Intent(context,UpdateProductActivity::class.java))
                     }
@@ -479,7 +479,7 @@ fun DrawerContent(
                     modifier = Modifier
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.receipt_long_white_18dp),
+                    painter = painterResource(id = R.drawable.home_repair_service_filled),
                     contentDescription = "Solicitud de Reposición"
                 )
                 Spacer(modifier = Modifier.width(20.dp))

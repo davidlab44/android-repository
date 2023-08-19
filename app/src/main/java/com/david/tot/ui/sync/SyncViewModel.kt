@@ -111,6 +111,7 @@ class SyncViewModel @Inject constructor(
                 Log.e("TAG","Sync de Consumibles  finalizada")
                 isSyncing=false
                 toastConsumiblesSynced=true
+                getAllSyncsFromLocalDatabase()
             }
         }
     }
@@ -142,24 +143,27 @@ class SyncViewModel @Inject constructor(
                     val jsonArray: JsonArray = Gson().toJsonTree(reloadableCleanMutableList).asJsonArray
                     val postManyReloadableDetailResponseCode = postManyReloadableDetailUseCase.invoke(jsonArray)
                     if(postManyReloadableDetailResponseCode in 200..300){
+                        //Elimina el sync de este objeto
                         val numberOfDeletedSync = removeOneSyncFromLocalDatabaseUseCase(syncReloadableToDeleteObjectId)
                         //Si lo elimino devuelve 1 row affected
                         if(numberOfDeletedSync>0){
+                            //Elimina los sync reloadables de este objeto
                             val numberofDeletedSyncReloadables= removeManySyncReloadablesByObjectIdFromLocalDatabaseUseCase.invoke(syncReloadableToDeleteObjectId)
                             if(numberofDeletedSyncReloadables>0){
-                                //val isReloadableEmpty =getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable")
+                                val isReloadableEmpty =getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable")
+
                                 postAllPendingReloadablesToApi()
                             }
                         }
                     }
                 }
             }else{
-
                 //Trae la informacion de la API
                 getAllReloadablesFromApiUseCase.invoke()
                 isSyncing=false
                 toastReloadablesSynced=true
                 Log.e("TAG","Sync de Reloadables  finalizada")
+                getAllSyncsFromLocalDatabase()
             }
         }
     }
