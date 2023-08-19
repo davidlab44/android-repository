@@ -39,7 +39,7 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
 
     val mContext = LocalContext.current
     if(reloadableViewModel.toastSuccess){
-        Toast.makeText(mContext,"Requisicion creado exitosamente!", Toast.LENGTH_LONG).show()
+        Toast.makeText(mContext,"Requisicion creada exitosamente!", Toast.LENGTH_LONG).show()
         contextActivity.finish()
     }
 

@@ -24,18 +24,6 @@ public class ImageFile {
         ByteArrayInputStream bs = new ByteArrayInputStream(bitmapdata);
         return bs;
     }
-/*
-    public BufferedWriter getImage() {
-        File file = new File();
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
-        BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
-        bufferedWriter.write(file);
-        return bufferedWriter;
-    }
-
- */
-
 
     public byte[] encodeToBase64(Bitmap image)
     {

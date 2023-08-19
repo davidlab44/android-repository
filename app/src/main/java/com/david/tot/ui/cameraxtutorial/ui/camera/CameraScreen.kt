@@ -111,7 +111,7 @@ private fun CameraContent(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                text = { Text(text = "Take photo") },
+                text = { Text(text = "Tomar Foto") },
                 onClick = {
                     val mainExecutor = ContextCompat.getMainExecutor(context)
 
