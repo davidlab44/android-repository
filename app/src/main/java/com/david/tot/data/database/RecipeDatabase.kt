@@ -3,6 +3,7 @@ package com.david.tot.data.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.david.tot.data.database.dao.AuthenticableDao
+import com.david.tot.data.database.dao.ConfirmableDao
 import com.david.tot.data.database.dao.ConsumibleDao
 import com.david.tot.data.database.dao.PreDao
 import com.david.tot.data.database.dao.ReloadableDao
@@ -12,6 +13,7 @@ import com.david.tot.data.database.dao.SyncDao
 import com.david.tot.data.database.dao.SyncReloadableDao
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Authenticable
+import com.david.tot.domain.model.Confirmable
 import com.david.tot.domain.model.Pre
 import com.david.tot.domain.model.Reloadable
 import com.david.tot.domain.model.Reportable
@@ -19,7 +21,7 @@ import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
 import com.david.tot.domain.model.SyncReloadable
 
-@Database(entities = [Article::class, Authenticable::class, Sync::class, Pre::class, SyncConsumible::class, Reportable::class, Reloadable::class, SyncReloadable::class], version = 42)
+@Database(entities = [Article::class, Authenticable::class, Sync::class, Pre::class, SyncConsumible::class, Reportable::class, Reloadable::class, SyncReloadable::class, Confirmable::class], version = 43)
 abstract class RecipeDatabase: RoomDatabase() {
     abstract fun getRecipeDao(): ConsumibleDao
 
@@ -36,6 +38,8 @@ abstract class RecipeDatabase: RoomDatabase() {
     abstract fun getReloadableDao(): ReloadableDao
 
     abstract fun getSyncReloadableDao(): SyncReloadableDao
+
+    abstract fun getConfirmableDao(): ConfirmableDao
 }
 
 

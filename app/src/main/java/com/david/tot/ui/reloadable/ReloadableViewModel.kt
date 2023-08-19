@@ -13,6 +13,7 @@ import com.david.tot.domain.reloadable.GetFilteredReloadableListUseCase
 import com.david.tot.domain.reloadable.ReAddAllReloadableToLocalDatabaseUseCase
 import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.reloadable.AddManySyncReloadableToLocalDatabaseUseCase
+import com.david.tot.util.Dates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -111,7 +112,7 @@ class ReloadableViewModel @Inject constructor(
             if (reloadable.quantityConsumed> 0.0) {
                 if (quantityAvailable > 0) {
                     reloadable.quantityAvailable = quantityAvailable
-                    syncReloadableList.add(SyncReloadable(objectId=objectId,consumptionId=0,articleCode=reloadable.articleCode,quantity= reloadable.quantityConsumed ,unitOfMeasure=reloadable.unitOfMeasure,creationDate="2023-08-08T00:48:12.104Z",delivered=0))
+                    syncReloadableList.add(SyncReloadable(objectId=objectId,consumptionId=0,articleCode=reloadable.articleCode,quantity= reloadable.quantityConsumed ,unitOfMeasure=reloadable.unitOfMeasure,creationDate=""+ Dates().date(),delivered=0))
                 }
             }
         }

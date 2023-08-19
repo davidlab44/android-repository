@@ -128,7 +128,7 @@ class SyncViewModel @Inject constructor(
                 //Aqui en reloadable se puede usar el mismo header de manifiesto que el de los consumibles
                 isSyncing=true
                 val reloadableHeader=getAnyAuthenticableUseCase.invoke()
-                var headerCons = ReloadableHeader(restockerUser=reloadableHeader.consumer,vehicle=reloadableHeader.vehicle,status="PENDING")
+                var headerCons = ReloadableHeader(restockerUser=reloadableHeader.consumer,vehicle=reloadableHeader.vehicle,status="TO_DELIVER")
                 var gson = Gson()
                 var reloadableHeaderJsonObject = gson.toJson(headerCons)
                 val reloadableHeaderId =postOneReloadableHeaderUseCase.invoke(reloadableHeaderJsonObject)
@@ -153,7 +153,6 @@ class SyncViewModel @Inject constructor(
                             val numberofDeletedSyncReloadables= removeManySyncReloadablesByObjectIdFromLocalDatabaseUseCase.invoke(syncReloadableToDeleteObjectId)
                             if(numberofDeletedSyncReloadables>0){
                                 val isReloadableEmpty =getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable")
-
                                 postAllPendingReloadablesToApi()
                             }
                         }

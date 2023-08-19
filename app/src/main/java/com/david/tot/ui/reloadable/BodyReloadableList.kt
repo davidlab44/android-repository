@@ -33,13 +33,11 @@ import com.david.tot.ui.authenticable.AuthenticableViewModel
 @Composable
 fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: ReloadableViewModel, authenticableViewModel: AuthenticableViewModel) {
 
-
     reloadableViewModel.getAllFromLocalDatabase()
-
 
     val mContext = LocalContext.current
     if(reloadableViewModel.toastSuccess){
-        Toast.makeText(mContext,"Requisicion creada exitosamente!", Toast.LENGTH_LONG).show()
+        Toast.makeText(mContext,"Requisición creada exitosamente!", Toast.LENGTH_LONG).show()
         contextActivity.finish()
     }
 
