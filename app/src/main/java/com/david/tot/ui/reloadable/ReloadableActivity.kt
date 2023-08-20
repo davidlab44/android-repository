@@ -228,7 +228,7 @@ fun ReloadableNavigationBotomMenu(contextActivity:ReloadableActivity, reloadable
             ReloadableHeaderAndBodyScreen(contextActivity,reloadableViewModel,authenticableViewModel)
         }
         composable(BotomNavigationItem.Music.route) {
-            MusicScreen()
+            MusicScreen(contextActivity)
         }
         composable(BotomNavigationItem.Movies.route) {
             MoviesScreen()

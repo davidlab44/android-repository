@@ -288,7 +288,7 @@ fun DrawerContent(
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
                     painter = painterResource(id = R.drawable.baseline_home_24),
-                    contentDescription = "configuracion"
+                    contentDescription = "Inicio"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 ClickableText(
@@ -397,7 +397,7 @@ fun DrawerContent(
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
                     painter = painterResource(id = R.drawable.fact_check_white_18dp),
-                    contentDescription = "Post operativo"
+                    contentDescription = "Pos operativo"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 ClickableText(
@@ -405,7 +405,7 @@ fun DrawerContent(
                         color = Color.White,
                         fontSize = 26.sp
                     ),
-                    text = AnnotatedString("Post operativo") ,
+                    text = AnnotatedString("Pos operativo") ,
                     onClick = {
                         context.startActivity(Intent(context, PreActivity::class.java))
                         //context.startActivity(Intent(context,UpdateProductActivity::class.java))
@@ -425,7 +425,7 @@ fun DrawerContent(
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
                     painter = painterResource(id = R.drawable.build_white_18dp),
-                    contentDescription = "Configuracion"
+                    contentDescription = "Reporte de novedades"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 ClickableText(
@@ -453,7 +453,7 @@ fun DrawerContent(
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
                     painter = painterResource(id = R.drawable.photo_camera_filled),
-                    contentDescription = "Configuración"
+                    contentDescription = "Reporte de Gastos"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 ClickableText(
@@ -508,7 +508,7 @@ fun DrawerContent(
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
                     painter = painterResource(id = R.drawable.receipt_long_white_18dp),
-                    contentDescription = "Consumibles"
+                    contentDescription = "Salida consumibles"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 ClickableText(

@@ -27,6 +27,7 @@ class ArticleViewModel @Inject constructor(
     ) : ViewModel() {
     */
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.UpdateConsumedQuantityUseCase
 import com.david.tot.domain.confirmable.GetAllConfirmablesFromLocalDatabaseUseCase
+import com.david.tot.util.*
 import com.david.tot.domain.consumible.GetAllConsumiblesFromApiUseCase
 import com.david.tot.domain.consumible.GetAllFromLocalDatabaseUseCase
 import com.david.tot.domain.consumible.GetArticleByIdUseCase
@@ -61,24 +63,28 @@ class ConfirmableViewModel @Inject constructor(
 ) : ViewModel() {
 
     var articleList by mutableStateOf<List<Confirmable>>(emptyList())
-    fun getAllConfirmablesFromLocalDatabase() {
+    fun getAllConfirmablesFromLocalDatabase(context:Context) {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
             //val id = Calendar.getInstance().time
-            val result = getAllConfirmablesFromLocalDatabaseUseCase.invoke()
-            //val result = getAllFromLocalDatabaseUseCase.invoke()
-            if (!result.isNullOrEmpty()) {
-                articleList =result
+            if(hasConnection(context)){
+                val result = getAllConfirmablesFromLocalDatabaseUseCase.invoke()
+                //val result = getAllFromLocalDatabaseUseCase.invoke()
+                if (!result.isNullOrEmpty()) {
+                    articleList =result
+                }
+            }else{
+                Log.e("TAG","Theres not internet connection")
             }
         }
     }
+
 
     /*
     var articleList by mutableStateOf<List<Article>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
     var toastSuccess by mutableStateOf<Boolean>(false)
-
 
 
     //var invepastoList by mutableStateOf<List<Asset>>(emptyList())

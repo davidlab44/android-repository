@@ -207,7 +207,6 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
                                         //.padding(start = 16.dp, end = 16.dp, top = 20.dp)
                                         .width(170.dp)
                                 )
-
                             }
 
                             Row(
@@ -219,7 +218,6 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
                                     Text(text = "Inventario: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
                                 }
                             }
-
                             Row(
                                 modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
                             ) {

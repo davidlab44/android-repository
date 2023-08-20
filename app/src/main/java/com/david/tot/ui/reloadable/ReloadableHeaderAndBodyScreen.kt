@@ -1,5 +1,6 @@
 package com.david.tot.ui.reloadable
 
+import android.content.Intent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -11,8 +12,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.david.tot.ui.MainActivity
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 import com.david.tot.ui.authenticable.AuthenticableScreenComponentHeader
+import com.david.tot.ui.confirmable.ConfirmableActivity
 
 @Composable
 fun ReloadableHeaderAndBodyScreen(contextActivity:ReloadableActivity, reloadableViewModel: ReloadableViewModel, authenticableViewModel: AuthenticableViewModel) {
@@ -45,30 +48,34 @@ fun HomeScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
  */
 
 @Composable
-fun MusicScreen() {
+fun MusicScreen(contextActivity:ReloadableActivity) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             //.background(colorResource(id = R.color.colorPrimaryDark))
             .wrapContentSize(Alignment.Center)
     ) {
+        contextActivity.startActivity(Intent(contextActivity, ConfirmableActivity::class.java))
+        /*
         Text(
             text = "Music View",
             fontWeight = FontWeight.Bold,
-            color = Color.White,
+            color = Color.Black,
             modifier = Modifier.align(Alignment.CenterHorizontally),
             textAlign = TextAlign.Center,
             fontSize = 25.sp
         )
+        */
     }
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun MusicScreenPreview() {
     MusicScreen()
 }
-
+*/
 @Composable
 fun MoviesScreen() {
     Column(
@@ -80,7 +87,7 @@ fun MoviesScreen() {
         Text(
             text = "Movies View",
             fontWeight = FontWeight.Bold,
-            color = Color.White,
+            color = Color.Black,
             modifier = Modifier.align(Alignment.CenterHorizontally),
             textAlign = TextAlign.Center,
             fontSize = 25.sp
@@ -106,7 +113,7 @@ fun BooksScreen() {
         Text(
             text = "Books View",
             fontWeight = FontWeight.Bold,
-            color = Color.White,
+            color = Color.Black,
             modifier = Modifier.align(Alignment.CenterHorizontally),
             textAlign = TextAlign.Center,
             fontSize = 25.sp
@@ -122,6 +129,7 @@ fun BooksScreenPreview() {
 
 @Composable
 fun ProfileScreen() {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -131,7 +139,7 @@ fun ProfileScreen() {
         Text(
             text = "Profile View",
             fontWeight = FontWeight.Bold,
-            color = Color.White,
+            color = Color.Black,
             modifier = Modifier.align(Alignment.CenterHorizontally),
             textAlign = TextAlign.Center,
             fontSize = 25.sp

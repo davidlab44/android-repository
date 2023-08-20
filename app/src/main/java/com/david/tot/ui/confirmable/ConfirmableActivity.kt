@@ -4,6 +4,7 @@ package com.david.tot.ui.confirmable
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -51,6 +52,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.david.tot.ui.DrawerContent
 import com.david.tot.ui.authenticable.AuthenticableViewModel
+import com.david.tot.ui.reloadable.ReloadableActivity
 //import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -92,7 +94,7 @@ class ConfirmableActivity : ComponentActivity() {
                         bottomBar = { BottomNavigationBar(navController) },
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                ReportableNavigationBotomMenu(this@ConfirmableActivity,confirmableViewModel,authenticableViewModel,navController = navController)
+                                ConfirmableNavigationBotomMenu(this@ConfirmableActivity,confirmableViewModel,authenticableViewModel,navController = navController)
                             }
                         },
                         drawerContent = {
@@ -233,14 +235,17 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 */
 
 @Composable
-fun ReportableNavigationBotomMenu(contextActivity:ConfirmableActivity, confirmableViewModel:ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel, navController: NavHostController) {
+fun ConfirmableNavigationBotomMenu(contextActivity:ConfirmableActivity, confirmableViewModel:ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel, navController: NavHostController) {
 
-    NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
+    NavHost(navController, startDestination = BotomNavigationItem.Music.route) {
         composable(BotomNavigationItem.Home.route) {
-            ConfirmableHeaderAndBodyScreen(contextActivity,confirmableViewModel,authenticableViewModel)
+            contextActivity.startActivity(Intent(contextActivity, ReloadableActivity::class.java))
+            //ConfirmableHeaderAndBodyScreen(contextActivity,confirmableViewModel,authenticableViewModel)
         }
         composable(BotomNavigationItem.Music.route) {
-            MusicScreen()
+            //contextActivity.startActivity(Intent(contextActivity, ConfirmableActivity::class.java))
+            //MusicScreen()
+            ConfirmableHeaderAndBodyScreen(contextActivity,confirmableViewModel,authenticableViewModel)
         }
         composable(BotomNavigationItem.Movies.route) {
             MoviesScreen()

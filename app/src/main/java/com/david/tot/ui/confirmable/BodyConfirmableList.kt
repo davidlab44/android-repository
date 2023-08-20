@@ -4,11 +4,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 
 @Composable
 fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewModel: ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel) {
-    confirmableViewModel.getAllConfirmablesFromLocalDatabase()
+    val mContext = LocalContext.current
+    confirmableViewModel.getAllConfirmablesFromLocalDatabase(mContext)
     /*
     val mContext = LocalContext.current
     if(confirmableViewModel.toastSuccess){
