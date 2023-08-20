@@ -15,7 +15,7 @@ import com.david.tot.ui.authenticable.AuthenticableViewModel
 import com.david.tot.ui.authenticable.AuthenticableScreenComponentHeader
 
 @Composable
-fun ConfirmableHeaderAndBodyScreen(contextActivity:ArticleActivity, confirmableViewModel: ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel) {
+fun ConfirmableHeaderAndBodyScreen(contextActivity:ConfirmableActivity, confirmableViewModel: ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel) {
     //authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
