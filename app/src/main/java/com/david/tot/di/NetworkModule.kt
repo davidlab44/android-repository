@@ -2,6 +2,7 @@ package com.david.tot.di
 
 import com.david.tot.data.network.consumible.IConsumibleApiClient
 import com.david.tot.data.network.authenticable.IAuthenticableApiClient
+import com.david.tot.data.network.confirmable.IConfirmableApiClient
 import com.david.tot.data.network.reloadable.IReloadableApiClient
 import com.david.tot.util.BASE_URL
 import dagger.Module
@@ -41,5 +42,12 @@ object NetworkModule {
     @Provides
     fun provideReloadableApiClient(retrofit: Retrofit): IReloadableApiClient {
         return retrofit.create(IReloadableApiClient::class.java)
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideConfirmableApiClient(retrofit: Retrofit): IConfirmableApiClient {
+        return retrofit.create(IConfirmableApiClient::class.java)
     }
 }

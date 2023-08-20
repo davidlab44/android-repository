@@ -8,7 +8,7 @@ import com.david.tot.ui.authenticable.AuthenticableViewModel
 
 @Composable
 fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewModel: ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel) {
-
+    confirmableViewModel.getAllConfirmablesFromLocalDatabase()
     /*
     val mContext = LocalContext.current
     if(confirmableViewModel.toastSuccess){

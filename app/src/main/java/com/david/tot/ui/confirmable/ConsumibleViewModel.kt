@@ -33,12 +33,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.UpdateConsumedQuantityUseCase
+import com.david.tot.domain.confirmable.GetAllConfirmablesFromLocalDatabaseUseCase
 import com.david.tot.domain.consumible.GetAllConsumiblesFromApiUseCase
 import com.david.tot.domain.consumible.GetAllFromLocalDatabaseUseCase
 import com.david.tot.domain.consumible.GetArticleByIdUseCase
 import com.david.tot.domain.consumible.GetFilteredArticleListUseCase
 import com.david.tot.domain.consumible.ReAddAllConsumibleToLocalDatabaseUseCase
 import com.david.tot.domain.model.Article
+import com.david.tot.domain.model.Confirmable
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
 import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
@@ -54,12 +56,23 @@ import javax.inject.Inject
 @HiltViewModel
 class ConfirmableViewModel @Inject constructor(
 
-
+    private val getAllConfirmablesFromLocalDatabaseUseCase: GetAllConfirmablesFromLocalDatabaseUseCase
 
 ) : ViewModel() {
 
-
-
+    var articleList by mutableStateOf<List<Confirmable>>(emptyList())
+    fun getAllConfirmablesFromLocalDatabase() {
+        Log.e("TAG","TAG")
+        //viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            //val id = Calendar.getInstance().time
+            val result = getAllConfirmablesFromLocalDatabaseUseCase.invoke()
+            //val result = getAllFromLocalDatabaseUseCase.invoke()
+            if (!result.isNullOrEmpty()) {
+                articleList =result
+            }
+        }
+    }
 
     /*
     var articleList by mutableStateOf<List<Article>>(emptyList())
