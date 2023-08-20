@@ -22,6 +22,7 @@ fun ConfirmableHeaderAndBodyScreen(contextActivity:ConfirmableActivity, confirma
         //horizontalAlignment = Alignment.CenterHorizontally
     ) {
         //var text by rememberSaveable { mutableStateOf("") }
+        //var text by rememberSaveable { mutableStateOf("") }
         Row(
             modifier = Modifier.padding(all = 0.dp).height(140.dp),
             //horizontalArrangement = Arrangement.Center
