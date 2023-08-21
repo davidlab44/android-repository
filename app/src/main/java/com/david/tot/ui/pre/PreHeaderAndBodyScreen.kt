@@ -52,6 +52,7 @@ fun MusicScreen() {
             //.background(colorResource(id = R.color.colorPrimaryDark))
             .wrapContentSize(Alignment.Center)
     ) {
+        /*
         Text(
             text = "Music View",
             fontWeight = FontWeight.Bold,
@@ -60,6 +61,8 @@ fun MusicScreen() {
             textAlign = TextAlign.Center,
             fontSize = 25.sp
         )
+
+         */
     }
 }
 
@@ -77,6 +80,7 @@ fun MoviesScreen() {
             //.background(colorResource(id = R.color.colorPrimaryDark))
             .wrapContentSize(Alignment.Center)
     ) {
+        /*
         Text(
             text = "Movies View",
             fontWeight = FontWeight.Bold,
@@ -85,6 +89,8 @@ fun MoviesScreen() {
             textAlign = TextAlign.Center,
             fontSize = 25.sp
         )
+
+         */
     }
 }
 
@@ -103,6 +109,7 @@ fun BooksScreen() {
             //.background(colorResource(id = R.color.colorPrimaryDark))
             .wrapContentSize(Alignment.Center)
     ) {
+        /*
         Text(
             text = "Books View",
             fontWeight = FontWeight.Bold,
@@ -111,6 +118,8 @@ fun BooksScreen() {
             textAlign = TextAlign.Center,
             fontSize = 25.sp
         )
+
+         */
     }
 }
 
@@ -128,6 +137,7 @@ fun ProfileScreen() {
             //.background(colorResource(id = R.color.colorPrimaryDark))
             .wrapContentSize(Alignment.Center)
     ) {
+        /*
         Text(
             text = "Profile View",
             fontWeight = FontWeight.Bold,
@@ -136,6 +146,8 @@ fun ProfileScreen() {
             textAlign = TextAlign.Center,
             fontSize = 25.sp
         )
+
+         */
     }
 }
 
