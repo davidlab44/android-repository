@@ -197,23 +197,9 @@ fun TopAppBarArticleAcivity(nContext:ConfirmableActivity, confirmableViewModel: 
                 )
             }
         },
+        /*
         actions = {
             IconButton(onClick = { /* doSomething() */
-
-                //confirmableViewModel.saveArticleListToSync()
-                /*
-                var dataList = mutableListOf(Confirmable(0, 1,"",1,"UND","2023-08-08T00:48:12.104Z",0))
-
-                val prefs = FastPrefs(mContext)
-                val confirmableGuardado = prefs.get(articleViewModel.key.toString(),dataList)
-                if(articleViewModel.saveArticleListToSync(mContext)==1){
-                    Toast.makeText(mContext,"Confirmable creado exitosamente"+confirmableGuardado!!.size, Toast.LENGTH_SHORT).show()
-                    nContext.startActivity(Intent(nContext,ConfirmableActivity::class.java))
-                }else{
-                    Toast.makeText(mContext,"No hay suficiente cantidad en inventario de algunos productos seleccionados" +confirmableGuardado!!.size, Toast.LENGTH_SHORT).show()
-                }
-
-                 */
                 Log.e("TAG","TAGTAG")
             }) {
                 Icon(
@@ -222,6 +208,7 @@ fun TopAppBarArticleAcivity(nContext:ConfirmableActivity, confirmableViewModel: 
                 )
             }
         },
+        */
         backgroundColor = Color(0xFF22475b),
         contentColor = Color.White
     )

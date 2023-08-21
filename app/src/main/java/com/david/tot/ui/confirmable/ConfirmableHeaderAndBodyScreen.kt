@@ -18,7 +18,7 @@ import com.david.tot.ui.authenticable.AuthenticableScreenComponentHeader
 fun ConfirmableHeaderAndBodyScreen(contextActivity:ConfirmableActivity, confirmableViewModel: ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel) {
     //authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier.fillMaxSize().padding(10.dp),
         //horizontalAlignment = Alignment.CenterHorizontally
     ) {
         //var text by rememberSaveable { mutableStateOf("") }

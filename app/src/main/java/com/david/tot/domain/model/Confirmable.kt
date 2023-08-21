@@ -3,6 +3,7 @@ package com.david.tot.domain.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.david.tot.util.Dates
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -10,23 +11,28 @@ import kotlinx.serialization.Serializable
 data class Confirmable (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "localId") val localId: Int = 0,
-    @ColumnInfo(name = "articleCode") val articleCode: String = "",
-    @ColumnInfo(name = "articleDescription") val articleDescription: String = "",
-    @ColumnInfo(name = "unitOfMeasure") val unitOfMeasure: String = "",
-    @ColumnInfo(name = "quantityAvailable") var quantityAvailable: Double = 0.0,
-    @ColumnInfo(name = "quantityToStock") val quantityToStock: Double = 0.0,
-    @ColumnInfo(name = "quantityConsumed") var quantityConsumed: Double = 0.0
+    @ColumnInfo(name = "restockID") val restockID: Int = 0,
+    @ColumnInfo(name = "restockerUser") val restockerUser: String = "",
+    @ColumnInfo(name = "restockerDisplayName") val restockerDisplayName: String = "",
+    @ColumnInfo(name = "vehicle") val vehicle: String = "",
+    @ColumnInfo(name = "status") val status: String = "",
+    @ColumnInfo(name = "creationDate") val creationDate: String = "",
+    @ColumnInfo(name = "modifiedDate") val modifiedDate: String = ""+ Dates().date(),
+    @ColumnInfo(name = "consecutive") val consecutive: String = ""
 )
-fun Confirmable.toDomain() = Confirmable(localId,articleCode,articleDescription,unitOfMeasure,quantityAvailable,quantityToStock,quantityConsumed)
+fun Confirmable.toDomain() = Confirmable(localId,restockID,restockerUser,restockerDisplayName,vehicle,status,creationDate,modifiedDate,consecutive)
 fun Confirmable.toDatabase() = Confirmable(
     localId=localId,
-    articleCode=articleCode,
-    articleDescription=articleDescription,
-    unitOfMeasure=unitOfMeasure,
-    quantityAvailable=quantityAvailable,
-    quantityToStock=quantityToStock,
-    quantityConsumed=quantityConsumed,
+    restockID=restockID,
+    restockerUser=restockerUser,
+    restockerDisplayName=restockerDisplayName,
+    vehicle=vehicle,
+    status=status,
+    creationDate=creationDate,
+    modifiedDate=modifiedDate,
+    consecutive=consecutive,
 )
+/*
 fun Confirmable.toApi() = Confirmable(
     articleCode=articleCode,
     articleDescription=articleDescription,
@@ -35,6 +41,7 @@ fun Confirmable.toApi() = Confirmable(
     quantityToStock=quantityToStock,
     quantityConsumed=quantityConsumed
 )
+*/
 /*
 data class Reloadable (
     @PrimaryKey(autoGenerate = true)

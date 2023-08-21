@@ -33,26 +33,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.david.tot.domain.UpdateConsumedQuantityUseCase
 import com.david.tot.domain.confirmable.GetAllConfirmablesFromLocalDatabaseUseCase
 import com.david.tot.util.*
-import com.david.tot.domain.consumible.GetAllConsumiblesFromApiUseCase
-import com.david.tot.domain.consumible.GetAllFromLocalDatabaseUseCase
-import com.david.tot.domain.consumible.GetArticleByIdUseCase
-import com.david.tot.domain.consumible.GetFilteredArticleListUseCase
-import com.david.tot.domain.consumible.ReAddAllConsumibleToLocalDatabaseUseCase
-import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Confirmable
-import com.david.tot.domain.model.Sync
-import com.david.tot.domain.model.SyncConsumible
-import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
-import com.david.tot.domain.sync.consumible.AddManySyncConsumibleToLocalDatabaseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -62,7 +49,9 @@ class ConfirmableViewModel @Inject constructor(
 
 ) : ViewModel() {
 
-    var articleList by mutableStateOf<List<Confirmable>>(emptyList())
+    var confirmableList by mutableStateOf<List<Confirmable>>(emptyList())
+    var toastSuccess by mutableStateOf<Boolean>(false)
+    var toastNotInternetConnection by mutableStateOf<Boolean>(false)
     fun getAllConfirmablesFromLocalDatabase(context:Context) {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
@@ -72,10 +61,11 @@ class ConfirmableViewModel @Inject constructor(
                 val result = getAllConfirmablesFromLocalDatabaseUseCase.invoke()
                 //val result = getAllFromLocalDatabaseUseCase.invoke()
                 if (!result.isNullOrEmpty()) {
-                    articleList =result
+                    confirmableList =result
                 }
             }else{
                 Log.e("TAG","Theres not internet connection")
+                toastNotInternetConnection=true
             }
         }
     }

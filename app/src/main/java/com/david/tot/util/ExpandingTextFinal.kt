@@ -20,7 +20,7 @@ fun ExpandingTextFinal() {
         onValueChange = {
             value = it
         },
-        label = { Text("Descripcion de la novedad") },
+        label = { Text("Descripción de la novedad") },
         modifier = Modifier.padding(20.dp).height(200.dp),
         singleLine= false,
         maxLines = 10

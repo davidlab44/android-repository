@@ -26,14 +26,11 @@ class ConfirmableRepository @Inject constructor(
         return response.map { it.toDomain() }
     }
 
-
     /*
     suspend fun getAllConsumiblesFromApi(): List<Article> {
         val response: List<Article> = api.getRecipes()
         return response.map { it.toDomain() }
     }
-
-
 
     suspend fun postMany(jsonArray: JsonArray):Int{
         return api.postManyConsumible(jsonArray)
@@ -110,7 +107,6 @@ class ConfirmableRepository @Inject constructor(
         }
         */
     }
-
-     */
+    */
 
 }

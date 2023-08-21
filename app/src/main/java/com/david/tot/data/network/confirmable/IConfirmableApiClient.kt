@@ -10,7 +10,7 @@ import retrofit2.http.*
 
 interface IConfirmableApiClient {
 
-    @GET("api/Glapp_SP_DrugsDeliveryRestocksArticlesResult")
+    @GET("api/Glapp_SP_DrugsDeliveryRestocksResult")
     suspend fun getAll(): Response<List<Confirmable>>
 
     @POST("products")

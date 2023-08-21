@@ -21,7 +21,7 @@ import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
 import com.david.tot.domain.model.SyncReloadable
 
-@Database(entities = [Article::class, Authenticable::class, Sync::class, Pre::class, SyncConsumible::class, Reportable::class, Reloadable::class, SyncReloadable::class, Confirmable::class], version = 43)
+@Database(entities = [Article::class, Authenticable::class, Sync::class, Pre::class, SyncConsumible::class, Reportable::class, Reloadable::class, SyncReloadable::class, Confirmable::class], version = 45)
 abstract class RecipeDatabase: RoomDatabase() {
     abstract fun getRecipeDao(): ConsumibleDao
 
