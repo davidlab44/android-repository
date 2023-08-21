@@ -23,7 +23,6 @@ interface IReloadableApiClient {
     @GET("api/Glapp_SP_DrugsDeliveryRestocksArticlesResult")
     suspend fun getAll(): Response<List<Reloadable>>
 
-
     @POST("products")
     suspend fun addOne(@Body product: Reloadable): Response<ResponseBody>
 

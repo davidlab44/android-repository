@@ -214,9 +214,10 @@ fun BodyArticleList(contextActivity:ArticleActivity, consumibleViewModel: Consum
                                 Box(
 
                                 ) {
-                                    Text(text = "Inventario: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
+                                    Text(text = "Disponible: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
                                 }
                             }
+
 
                             Row(
                                 modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
@@ -224,9 +225,11 @@ fun BodyArticleList(contextActivity:ArticleActivity, consumibleViewModel: Consum
                                 Box(
 
                                 ) {
-                                    Text(text = "Disponible: "+article.quantityToStock.toInt().toString()+" "+article.unitOfMeasure.toLowerCase()+" / Reponer: "+article.quantityToRestore.toInt().toString(), fontSize = 13.sp)
+                                    Text(text = "Reponer: "+article.quantityToStock.toInt().toString(), fontSize = 13.sp)
                                 }
                             }
+
+
                         }
                     }
                 )
