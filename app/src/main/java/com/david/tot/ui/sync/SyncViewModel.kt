@@ -79,7 +79,7 @@ class SyncViewModel @Inject constructor(
                 isSyncing=true
                 //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
                 val consumibleHeader=getAnyAuthenticableUseCase.invoke()
-                var headerCons = ConsumibleHeader(0,consumibleHeader.consumer,consumibleHeader.vehicle,"PENDING","2023-08-10T01:42:45.655Z",0)
+                var headerCons = ConsumibleHeader(0,consumibleHeader.consumer,consumibleHeader.vehicle,"PENDING",""+Dates().date(),0)
                 var gson = Gson()
                 var headerConsumible = gson.toJson(headerCons)
                 val consumibleHeaderId =postOneConsumibleHeaderUseCase.invoke(headerConsumible)

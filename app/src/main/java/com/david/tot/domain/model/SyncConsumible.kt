@@ -3,6 +3,7 @@ package com.david.tot.domain.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.david.tot.util.Dates
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,7 +17,7 @@ data class SyncConsumible (
     @ColumnInfo(name = "articleCode") val articleCode: String="",
     @ColumnInfo(name = "quantity") val quantity: Int=0,
     @ColumnInfo(name = "unitOfMeasure") val unitOfMeasure: String="",
-    @ColumnInfo(name = "creationDate") val creationDate: String="2023-01-14T09:15:07.76",
+    @ColumnInfo(name = "creationDate") val creationDate: String=""+Dates().date(),
     @ColumnInfo(name = "delivered") val delivered: Int=0
 )
 fun SyncConsumible.toDomain() = SyncConsumible(localId,objectId,consumptionDetailId,consumptionId,articleCode,quantity,unitOfMeasure,creationDate,delivered)

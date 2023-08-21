@@ -9,10 +9,6 @@ import retrofit2.http.*
 //import retrofit2.Retrofit
 
 interface IConsumibleApiClient {
-    /*@GET("products")
-    suspend fun getAllRecipes(): Response<List<Article>>
-    //api/Article
-    */
 
     @GET("api/APP_SP_DrugsDeliveryConsumerViewArticlesResult")
     suspend fun getAll(): Response<List<Article>>
@@ -23,7 +19,6 @@ interface IConsumibleApiClient {
     @POST("api/GlappDrugsDeliveryConsumptionDets")
     suspend fun postManyConsumibes(@Body jsonArray: RequestBody): Response<ResponseBody>
 
-
     @PUT("products/{id}")
     suspend fun updateOne(@Path("id") id:String, @Body product:Article): Response<ResponseBody>
 
@@ -31,14 +26,9 @@ interface IConsumibleApiClient {
     suspend fun deleteOne(@Path("id") id:Int): Response<ResponseBody>
 
     @Multipart
-    //@POST("pictures")
     @POST("api/FileManager")
     @JvmSuppressWildcards
-    //suspend fun uploadPicture(@Part part: MultipartBody.part): Response<ResponseBody>
     suspend fun uploadPicture(@Part part: MultipartBody.Part,@PartMap params: Map<String,RequestBody>): Response<ResponseBody>
 
-    //suspend fun uploadPicture(@Part part: MultipartBody.Part,@Field("AltText") AltText:String?,@Field("Description") Description:String?): Response<ResponseBody>
-    //suspend fun uploadPicture(@Part part: MultipartBody.Part,@Part("AltText") AltText:String,@Part("Description") Description:String): Response<ResponseBody>
-    //suspend fun uploadPicture(@Part part: MultipartBody.Part): Response<ResponseBody>
 }
 
