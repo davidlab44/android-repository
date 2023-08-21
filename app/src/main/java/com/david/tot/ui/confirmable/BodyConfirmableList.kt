@@ -1,6 +1,5 @@
 package com.david.tot.ui.confirmable
 
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -75,8 +74,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 
-
-
 @Composable
 fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewModel: ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel) {
     val mContext = LocalContext.current
@@ -88,7 +85,10 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
         contextActivity.finish()
     }
     if(confirmableViewModel.toastNotInternetConnection)
-        Toast.makeText(mContext,"No hay conexion a internet", Toast.LENGTH_LONG).show()
+        Toast.makeText(mContext,"No hay conexión a internet", Toast.LENGTH_LONG).show()
+
+    if(confirmableViewModel.toastConfirmationSuccess)
+        Toast.makeText(mContext,"Confirmación exitosa", Toast.LENGTH_LONG).show()
 
     Column(
         modifier = Modifier
@@ -145,7 +145,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                             ) {
                                 Box(
                                 ) {
-                                    Text(text = "Fecha de Creación de la solicitud: "+confirmable.creationDate)
+                                    Text(text = "Fecha de creación de la solicitud: "+confirmable.creationDate)
                                 }
                             }
 
@@ -204,7 +204,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                                 ) {
                                     androidx.compose.material3.Button(
                                         onClick = {
-
+                                            confirmableViewModel.postOneConfirmable(confirmable,mContext)
                                         },
                                         modifier = Modifier
                                             .padding(bottom = 10.dp)

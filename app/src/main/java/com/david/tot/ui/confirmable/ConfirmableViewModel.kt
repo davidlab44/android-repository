@@ -34,8 +34,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.confirmable.GetAllConfirmablesFromLocalDatabaseUseCase
+import com.david.tot.domain.confirmable.PostOneConfirmableUseCase
 import com.david.tot.util.*
 import com.david.tot.domain.model.Confirmable
+import com.david.tot.domain.model.ConfirmableClean
+import com.david.tot.domain.model.toApi
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -44,14 +48,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ConfirmableViewModel @Inject constructor(
-
-    private val getAllConfirmablesFromLocalDatabaseUseCase: GetAllConfirmablesFromLocalDatabaseUseCase
-
+    private val getAllConfirmablesFromLocalDatabaseUseCase: GetAllConfirmablesFromLocalDatabaseUseCase,
+    private val postOneConfirmableUseCase: PostOneConfirmableUseCase
 ) : ViewModel() {
-
     var confirmableList by mutableStateOf<List<Confirmable>>(emptyList())
     var toastSuccess by mutableStateOf<Boolean>(false)
     var toastNotInternetConnection by mutableStateOf<Boolean>(false)
+    var toastConfirmationSuccess by mutableStateOf<Boolean>(false)
     fun getAllConfirmablesFromLocalDatabase(context:Context) {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
@@ -70,6 +73,29 @@ class ConfirmableViewModel @Inject constructor(
         }
     }
 
+    fun postOneConfirmable(confirmable: Confirmable,mContext:Context) {
+        if(!hasConnection(mContext)){
+            toastNotInternetConnection
+            return
+        }
+        //viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            val confirmableClean = ConfirmableClean(
+                confirmable.restockID,confirmable.restockerUser,confirmable.restockerDisplayName,
+                confirmable.vehicle,confirmable.status,confirmable.creationDate,confirmable.modifiedDate,
+                confirmable.consecutive
+            )
+            var gson = Gson()
+            var confirmableHeaderJsonObject = gson.toJson(confirmableClean)
+            val responseCode = postOneConfirmableUseCase.invoke(confirmableHeaderJsonObject)
+            if(responseCode in 200..300){
+                toastConfirmationSuccess
+            }
+        }
+    }
+
+
+    //https://glerp.net.co/wp-content/uploads/2022/06/image-23-devices-GENERALLEDGER.png
 
     /*
     var articleList by mutableStateOf<List<Article>>(emptyList())

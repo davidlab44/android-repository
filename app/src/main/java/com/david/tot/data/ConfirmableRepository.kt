@@ -26,6 +26,10 @@ class ConfirmableRepository @Inject constructor(
         return response.map { it.toDomain() }
     }
 
+    suspend fun postOneConfirmable(jsonObject: String):Int{
+        return api.postOneConfirmable(jsonObject)
+    }
+
     /*
     suspend fun getAllConsumiblesFromApi(): List<Article> {
         val response: List<Article> = api.getRecipes()

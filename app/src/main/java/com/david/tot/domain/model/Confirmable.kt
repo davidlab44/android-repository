@@ -32,6 +32,16 @@ fun Confirmable.toDatabase() = Confirmable(
     modifiedDate=modifiedDate,
     consecutive=consecutive,
 )
+fun Confirmable.toApi() = Confirmable(
+    restockID=restockID,
+    restockerUser=restockerUser,
+    restockerDisplayName=restockerDisplayName,
+    vehicle=vehicle,
+    status=status,
+    creationDate=creationDate,
+    modifiedDate=modifiedDate,
+    consecutive=consecutive
+)
 /*
 fun Confirmable.toApi() = Confirmable(
     articleCode=articleCode,
