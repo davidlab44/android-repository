@@ -16,8 +16,14 @@ interface IConsumibleApiClient {
     @POST("products")
     suspend fun addOne(@Body product: Article): Response<ResponseBody>
 
+
+    @POST("api/APP_SP_DrugsDeliveryConsumerViewSaveResult")
+    suspend fun postManyConsumibes(@Body jsonArray: RequestBody,@Query("P_ConsumerUser") P_ConsumerUser:String,@Query("P_Vehicle")P_Vehicle:String): Response<ResponseBody>
+
+    /*
     @POST("api/GlappDrugsDeliveryConsumptionDets")
     suspend fun postManyConsumibes(@Body jsonArray: RequestBody): Response<ResponseBody>
+    */
 
     @PUT("products/{id}")
     suspend fun updateOne(@Path("id") id:String, @Body product:Article): Response<ResponseBody>

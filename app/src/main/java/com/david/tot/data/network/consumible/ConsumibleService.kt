@@ -24,7 +24,7 @@ class ConsumibleService @Inject constructor(private val api: IConsumibleApiClien
             //val davidArray:String =
             val mediaType = "application/json".toMediaType()
             val body = jsonArray.toString().toRequestBody(mediaType)
-            val respuesta = api.postManyConsumibes(body)
+            val respuesta = api.postManyConsumibes(body,"ADMIN","HFQ753")
             val respuestaBody =respuesta.body().toString()
             val respuestaBody2 = respuesta.message()
             val respuestaBody3 =respuesta
