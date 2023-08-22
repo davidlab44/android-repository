@@ -106,6 +106,34 @@ class ReloadableViewModel @Inject constructor(
         val currentDate = sdf.format(Date())
         val date = currentDate.filter {it in '0'..'9'}
         val objectId = date.toInt()
+        //var quantityAvailable = 0.0
+        reloadableList.forEach { reloadable ->
+            //quantityAvailable = reloadable.quantityAvailable - reloadable.quantityConsumed
+            //if (reloadable.quantityConsumed> 0.0) {
+                //if (quantityAvailable > 0) {
+                    //reloadable.quantityAvailable = quantityAvailable
+                    syncReloadableList.add(SyncReloadable(objectId=objectId,consumptionId=0,articleCode=reloadable.articleCode,quantity= reloadable.quantityToStock.toInt() ,unitOfMeasure=reloadable.unitOfMeasure,creationDate=""+ Dates().date(),delivered=0))
+                //}
+            //}
+        }
+        CoroutineScope(Dispatchers.IO).launch {
+            if (syncReloadableList.isNotEmpty()) {
+                addOneSyncToLocalDatabaseUseCase.invoke(Sync(objectId=objectId, dataType = "Reloadable",createdAt = "" + currentDate))
+                addManySyncReloadableToLocalDatabaseUseCase.invoke(syncReloadableList)
+                reloadableList = reAddAllReloadableToLocalDatabaseUseCase.invoke(reloadableList)
+                toastSuccess=true
+            }
+        }
+    }
+
+    /*
+    fun saveReloadableListToSync(){
+        var syncReloadableList = mutableListOf<SyncReloadable>()
+        //TODO take another approach to create this pkey
+        val sdf = SimpleDateFormat("MMdd hh:mm:ss")
+        val currentDate = sdf.format(Date())
+        val date = currentDate.filter {it in '0'..'9'}
+        val objectId = date.toInt()
         var quantityAvailable = 0.0
         reloadableList.forEach { reloadable ->
             quantityAvailable = reloadable.quantityAvailable - reloadable.quantityConsumed
@@ -125,6 +153,9 @@ class ReloadableViewModel @Inject constructor(
             }
         }
     }
+*/
+
+
 
     /*
 

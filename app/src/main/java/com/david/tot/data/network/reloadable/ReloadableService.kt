@@ -24,7 +24,7 @@ class ReloadableService @Inject constructor(private val api: IReloadableApiClien
         return withContext(Dispatchers.IO) {
             val mediaType = "application/json".toMediaType()
             val body = jsonArray.toString().toRequestBody(mediaType)
-            val respuesta = api.postMany(body)
+            val respuesta = api.postMany(body,-1,"ADMIN","HFQ753")
             val respuestaBody =respuesta.body().toString()
             val respuestaBody2 = respuesta.message()
             val respuestaBody3 =respuesta

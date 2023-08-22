@@ -133,18 +133,19 @@ class SyncViewModel @Inject constructor(
                 //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
                 //Aqui en reloadable se puede usar el mismo header de manifiesto que el de los consumibles
                 isSyncing=true
-                val reloadableHeader=getAnyAuthenticableUseCase.invoke()
-                var headerCons = ReloadableHeader(restockerUser=reloadableHeader.consumer,vehicle=reloadableHeader.vehicle,status="TO_DELIVER")
-                var gson = Gson()
-                var reloadableHeaderJsonObject = gson.toJson(headerCons)
-                val reloadableHeaderId =postOneReloadableHeaderUseCase.invoke(reloadableHeaderJsonObject)
-                Log.e("TAGreloadableHeaderId",""+reloadableHeaderId)
+                //val reloadableHeader=getAnyAuthenticableUseCase.invoke()
+                //var headerCons = ReloadableHeader(restockerUser=reloadableHeader.consumer,vehicle=reloadableHeader.vehicle,status="TO_DELIVER")
+                //var gson = Gson()
+                //var reloadableHeaderJsonObject = gson.toJson(headerCons)
+                //val reloadableHeaderId =postOneReloadableHeaderUseCase.invoke(reloadableHeaderJsonObject)
+                //Log.e("TAGreloadableHeaderId",""+reloadableHeaderId)
                 var reloadableList by mutableStateOf<List<ReloadableClean>>(emptyList())
                 var reloadableCleanMutableList = reloadableList.toMutableList()
                 var syncReloadableToDeleteObjectId=0
-                if (!syncReloadableList.isNullOrEmpty()&&reloadableHeaderId.toInt()>0) {
+                //if (!syncReloadableList.isNullOrEmpty()&&reloadableHeaderId.toInt()>0) {
+                if (!syncReloadableList.isNullOrEmpty()) {
                     syncReloadableList.forEach { syncReloadable->
-                        val reloadableClean = ReloadableClean(0,reloadableHeaderId,syncReloadable.articleCode,syncReloadable.quantity,"UND",""+Dates().date(),0)
+                        val reloadableClean = ReloadableClean(0,0,syncReloadable.articleCode,syncReloadable.quantity,"UND",""+Dates().date(),0)
                         reloadableCleanMutableList.add(reloadableClean)
                         syncReloadableToDeleteObjectId=syncReloadable.objectId
                     }
