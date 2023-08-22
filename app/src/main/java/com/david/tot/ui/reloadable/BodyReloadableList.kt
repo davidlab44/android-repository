@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 
 @Composable
@@ -147,49 +148,9 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
                                 }
                             }
 
+                            /*
                             Row(
                             ) {
-
-                                /*
-                                Text("Cantidad")
-
-                                var txt =""
-                                val pattern = remember { Regex("^\\d+\$") }
-
-                                TextField(
-                                    value = txt,
-                                    onValueChange = {
-                                        if (it.isEmpty() || it.matches(pattern)) {
-                                            txt = it
-                                        }
-                                    },
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                                )
-
-                                 */
-
-                                /*
-                                //val pattern = remember { Regex("^\\d+\$") }
-                                val pattern = remember { Regex("0-9") }
-
-                                var requiredQuantity =0
-                                TextField(
-                                    value = ""+requiredQuantity,
-                                    onValueChange = { text ->
-                                        requiredQuantity = text.toInt()
-
-                                        if(text.matches(Regex("^[0-9]*\$"))){
-                                            Toast.makeText(mContext,"match!", Toast.LENGTH_LONG).show()
-                                        }else{
-                                            Toast.makeText(mContext,"no", Toast.LENGTH_LONG).show()
-                                        }
-                                    },
-                                    keyboardOptions = KeyboardOptions.Default.copy(
-                                        keyboardType = KeyboardType.NumberPassword
-                                    ),
-                                    visualTransformation = VisualTransformation.None
-                                )
-                                */
                                 var newQuantity by rememberSaveable { mutableStateOf("") }
                                 OutlinedTextField(
                                     value = newQuantity,
@@ -208,6 +169,7 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
                                         .width(170.dp)
                                 )
                             }
+                            */
 
                             Row(
                                 modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
@@ -215,7 +177,7 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
                                 Box(
 
                                 ) {
-                                    Text(text = "Inventario: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
+                                    Text(text = "Cantidad a Reponer: "+article.quantityToStock.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 17.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
                             Row(
@@ -224,7 +186,7 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
                                 Box(
 
                                 ) {
-                                    Text(text = "Disponible: "+article.quantityToStock.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
+                                    Text(text = "Disponible: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
                                 }
                             }
                         }
