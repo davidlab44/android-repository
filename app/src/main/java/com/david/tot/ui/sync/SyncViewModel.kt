@@ -1,5 +1,6 @@
 package com.david.tot.ui.sync
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +30,7 @@ import com.david.tot.domain.sync.consumible.GetAllSyncConsumibleFromLocalDatabas
 import com.david.tot.domain.sync.reloadable.GetAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase
 import com.david.tot.domain.sync.reloadable.RemoveManySyncReloadablesByObjectIdFromLocalDatabaseUseCase
 import com.david.tot.util.Dates
+import com.david.tot.util.hasConnection
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -63,6 +65,7 @@ class SyncViewModel @Inject constructor(
     var toastConsumiblesSynced by mutableStateOf<Boolean>(false)
     var toastReloadablesSynced by mutableStateOf<Boolean>(false)
     var toastInsertedSuccessfully by mutableStateOf<Boolean>(false)
+    var toastNotInternetConnection by mutableStateOf<Boolean>(false)
 
     fun getAllSyncsFromLocalDatabase() {
         //viewModelScope.launch {
@@ -71,40 +74,43 @@ class SyncViewModel @Inject constructor(
         }
     }
 
-    suspend fun postManyConsumibleToApi() {
+    suspend fun postManyConsumibleToApi(mContext: Context) {
+        if(!hasConnection(mContext)){
+            toastNotInternetConnection
+            return
+        }
         CoroutineScope(Dispatchers.IO).launch {
             var syncConsumibleList by mutableStateOf<List<SyncConsumible>>(emptyList())
             syncConsumibleList = getAllSyncConsumibleFromLocalDatabaseUseCase.invoke("Consumible")
             if(syncConsumibleList.isNotEmpty()){
                 isSyncing=true
                 //No confundir, este es header de la UI pero el tipo de dato ConsumibleHeader es el header del manifiesto
-                val consumibleHeader=getAnyAuthenticableUseCase.invoke()
-                var headerCons = ConsumibleHeader(0,consumibleHeader.consumer,consumibleHeader.vehicle,"PENDING",""+Dates().date(),0)
-                var gson = Gson()
-                var headerConsumible = gson.toJson(headerCons)
-                val consumibleHeaderId =postOneConsumibleHeaderUseCase.invoke(headerConsumible)
+                //val consumibleHeader=getAnyAuthenticableUseCase.invoke()
+                //var headerCons = ConsumibleHeader(0,consumibleHeader.consumer,consumibleHeader.vehicle,"PENDING",""+Dates().date(),0)
+                //var gson = Gson()
+                //var headerConsumible = gson.toJson(headerCons)
+                //val consumibleHeaderId =postOneConsumibleHeaderUseCase.invoke(headerConsumible)
                 //La lista para el foreach
                 var temp2ConsumibleList by mutableStateOf<List<Consumible>>(emptyList())
                 var tempConsumibleMutableList =temp2ConsumibleList.toMutableList()
                 var syncConsumibleToDeleteObjectId=0
-                if (!syncConsumibleList.isNullOrEmpty()&&consumibleHeaderId.toInt()>0) {
-                    syncConsumibleList.forEach { syncConsumible->
-                        //2023-08-10T01:42:45.655Z
-                        val consumible = Consumible(0,consumibleHeaderId,syncConsumible.articleCode,syncConsumible.quantity,"UND",""+Dates().date(),0)
-                        tempConsumibleMutableList.add(consumible)
-                        syncConsumibleToDeleteObjectId=syncConsumible.objectId
-                    }
-                    val jsonArray: JsonArray = Gson().toJsonTree(tempConsumibleMutableList).asJsonArray
-                    val postManyArticleUseCase = postManyArticleUseCase.invoke(jsonArray)
-                    if(postManyArticleUseCase in 200..300){
-                        val numberOfDeletedSync = removeOneSyncFromLocalDatabaseUseCase(syncConsumibleToDeleteObjectId)
-                        //Si lo elimino devuelve 1 row affected
-                        if(numberOfDeletedSync>0){
-                            val numberofDeletedSyncConsumibles= removeManySyncConsumiblesFromLocalDatabaseUseCase.invoke(syncConsumibleToDeleteObjectId)
-                            if(numberofDeletedSyncConsumibles>0){
-                                //val isReloadableEmpty =getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable")
-                                postManyConsumibleToApi()
-                            }
+                //if (!syncConsumibleList.isNullOrEmpty()&&consumibleHeaderId.toInt()>0) {
+                syncConsumibleList.forEach { syncConsumible->
+                    //2023-08-10T01:42:45.655Z
+                    val consumible = Consumible(0,0,syncConsumible.articleCode,syncConsumible.quantity,"UND",""+Dates().date(),0)
+                    tempConsumibleMutableList.add(consumible)
+                    syncConsumibleToDeleteObjectId=syncConsumible.objectId
+                }
+                val jsonArray: JsonArray = Gson().toJsonTree(tempConsumibleMutableList).asJsonArray
+                val postManyArticleUseCase = postManyArticleUseCase.invoke(jsonArray)
+                if(postManyArticleUseCase in 200..300){
+                    val numberOfDeletedSync = removeOneSyncFromLocalDatabaseUseCase(syncConsumibleToDeleteObjectId)
+                    //Si lo elimino devuelve 1 row affected
+                    if(numberOfDeletedSync>0){
+                        val numberofDeletedSyncConsumibles= removeManySyncConsumiblesFromLocalDatabaseUseCase.invoke(syncConsumibleToDeleteObjectId)
+                        if(numberofDeletedSyncConsumibles>0){
+                            //val isReloadableEmpty =getAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase.invoke("Reloadable")
+                            postManyConsumibleToApi(mContext)
                         }
                     }
                 }
