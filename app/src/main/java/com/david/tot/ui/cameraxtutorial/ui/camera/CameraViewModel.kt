@@ -77,8 +77,18 @@ class CameraViewModel @Inject constructor(
                 prefs.setString("Reportable",photoUrl)
                 val value = prefs.getString("Reportable","defaultValue")
                 Log.e("TG",""+value)
+               /*
+                if(){
+
+                }else{
+                    mContext.startActivity(Intent(mContext,ReportableActivity::class.java))
+                    mContext.finish()
+                }
+
+                */
                 mContext.startActivity(Intent(mContext,ReportableActivity::class.java))
                 mContext.finish()
+
             }else{
                 Log.e("TAG","file is null")
             }

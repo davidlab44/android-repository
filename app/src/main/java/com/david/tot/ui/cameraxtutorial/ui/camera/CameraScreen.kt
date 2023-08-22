@@ -59,7 +59,6 @@ fun CameraScreen(
 
     cameraState.capturedImage?.let { capturedImage: Bitmap ->
 
-
         CapturedImageBitmapDialog(
             capturedImage = capturedImage,
             onDismissRequest = viewModel::onCapturedPhotoConsumed

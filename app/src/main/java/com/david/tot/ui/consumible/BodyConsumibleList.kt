@@ -38,6 +38,9 @@ fun BodyArticleList(contextActivity:ArticleActivity, consumibleViewModel: Consum
         Toast.makeText(mContext,"Consumible creado exitosamente!", Toast.LENGTH_LONG).show()
         contextActivity.finish()
     }
+    if(consumibleViewModel.toastNotEnoughtConsumibles)
+        Toast.makeText(mContext,"No hay suficiente cantidad de inventario "+consumibleViewModel.notEnoughtConsumibleName, Toast.LENGTH_LONG).show()
+
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
     //articleViewModel.getAllFromLocalDatabase()

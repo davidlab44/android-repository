@@ -68,6 +68,9 @@ class ConsumibleViewModel @Inject constructor(
     var articleList by mutableStateOf<List<Article>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
     var toastSuccess by mutableStateOf<Boolean>(false)
+    var toastNotEnoughtConsumibles by mutableStateOf<Boolean>(false)
+    var notEnoughtConsumibleName by mutableStateOf<String>("")
+
 
     //var invepastoList by mutableStateOf<List<Asset>>(emptyList())
 
@@ -129,11 +132,14 @@ class ConsumibleViewModel @Inject constructor(
         //var quantityAvailable = 0
         articleList.forEach { article ->
             //quantityAvailable = article.quantityAvailable.toInt() - article.consumedQuantity.toInt()
-            if (article.consumedQuantity> 0) {
+            if ((article.quantityAvailable - article.consumedQuantity) > 0 && article.consumedQuantity>0) {
                 //if (quantityAvailable > 0) {
                     //article.quantityAvailable = quantityAvailable.toDouble()
                     consumibleList.add(SyncConsumible(objectId=objectId,consumptionId=0,articleCode=article.articleCode,quantity=article.consumedQuantity,unitOfMeasure=article.unitOfMeasure,creationDate=""+ Dates().date(),delivered=0))
                 //}
+            }else{
+                toastNotEnoughtConsumibles=true
+                notEnoughtConsumibleName=article.articleDescription
             }
         }
         CoroutineScope(Dispatchers.IO).launch {
