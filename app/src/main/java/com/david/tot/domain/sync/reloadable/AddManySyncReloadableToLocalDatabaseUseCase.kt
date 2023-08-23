@@ -1,8 +1,6 @@
 package com.david.tot.domain.sync.reloadable
 
-import com.david.tot.data.SyncConsumibleRepository
 import com.david.tot.data.SyncReloadableRepository
-import com.david.tot.domain.model.SyncConsumible
 import com.david.tot.domain.model.SyncReloadable
 import javax.inject.Inject
 

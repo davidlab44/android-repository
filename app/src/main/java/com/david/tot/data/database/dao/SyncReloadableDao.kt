@@ -12,6 +12,9 @@ interface SyncReloadableDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addOneSyncReloadableToLocaDatabase(syncReloadable: SyncReloadable)
 
+    @Query("SELECT * FROM SyncReloadableTable")
+    suspend fun retrieveAllSyncReloadablesFromLocalDatabase():List<SyncReloadable>
+
     /*
     @Query("SELECT * FROM SyncTable WHERE dataType=:syncType")
     suspend fun getAllSyncReloadableFromLocaDatabase(syncType:String):List<SyncReloadable>
@@ -41,6 +44,10 @@ interface SyncReloadableDao {
 
     @Query("DELETE FROM SyncReloadableTable WHERE objectId=:objectId")
     suspend fun removeManySyncReloadablesByObjectIdFromLocalDatabase(objectId:Int):Int
+
+    @Query("DELETE FROM SyncReloadableTable")
+    suspend fun removeAllSyncReloadablesFromLocalDatabaseUseCase():Int
+
 
     /*
     @Query("SELECT * FROM syncTable ORDER BY createdAt ASC")

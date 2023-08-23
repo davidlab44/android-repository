@@ -18,6 +18,9 @@ interface ReloadableDao {
     @Query("DELETE FROM ReloadableTable")
     suspend fun deleteAll()
 
+    @Query("DELETE FROM ReloadableTable")
+    suspend fun removeAllReloadablesFromLocalDatabase():Int
+
     @Query("SELECT * FROM ReloadableTable WHERE localId = :localId")
     suspend fun getById(localId: Int): Reloadable
 

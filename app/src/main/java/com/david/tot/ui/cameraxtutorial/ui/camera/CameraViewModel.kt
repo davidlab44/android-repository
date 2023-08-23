@@ -11,6 +11,7 @@ import com.david.tot.domain.reportable.GetAllReportablesFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import com.david.tot.ui.cameraxtutorial.Main2Activity
+import com.david.tot.ui.confirmable.ConfirmableActivity
 import com.david.tot.ui.reportable.ReportableActivity
 import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -77,18 +78,13 @@ class CameraViewModel @Inject constructor(
                 prefs.setString("Reportable",photoUrl)
                 val value = prefs.getString("Reportable","defaultValue")
                 Log.e("TG",""+value)
-               /*
-                if(){
-
+                if(prefs.getString("Reportable","defaultValue")=="ConfirmableActivity"){
+                    mContext.startActivity(Intent(mContext,ConfirmableActivity::class.java))
+                    mContext.finish()
                 }else{
                     mContext.startActivity(Intent(mContext,ReportableActivity::class.java))
                     mContext.finish()
                 }
-
-                */
-                mContext.startActivity(Intent(mContext,ReportableActivity::class.java))
-                mContext.finish()
-
             }else{
                 Log.e("TAG","file is null")
             }

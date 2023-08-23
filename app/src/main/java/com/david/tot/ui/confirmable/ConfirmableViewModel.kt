@@ -55,6 +55,7 @@ class ConfirmableViewModel @Inject constructor(
     var toastSuccess by mutableStateOf<Boolean>(false)
     var toastNotInternetConnection by mutableStateOf<Boolean>(false)
     var toastConfirmationSuccess by mutableStateOf<Boolean>(false)
+    var confirmable by mutableStateOf<Confirmable?>(null)
     fun getAllConfirmablesFromLocalDatabase(context:Context) {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
@@ -73,17 +74,18 @@ class ConfirmableViewModel @Inject constructor(
         }
     }
 
-    fun postOneConfirmable(confirmable: Confirmable,mContext:Context) {
+    fun postOneConfirmable(mContext:Context) {
         if(!hasConnection(mContext)){
             toastNotInternetConnection
+            return
+        }
+        if(confirmable==null){
             return
         }
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
             val confirmableClean = ConfirmableClean(
-                confirmable.restockID,confirmable.restockerUser,confirmable.restockerDisplayName,
-                confirmable.vehicle,confirmable.status,confirmable.creationDate,confirmable.modifiedDate,
-                confirmable.consecutive
+                -1,"ADMIN","HFQ753","someUrl","someComment"
             )
             var gson = Gson()
             var confirmableHeaderJsonObject = gson.toJson(confirmableClean)

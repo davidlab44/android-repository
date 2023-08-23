@@ -122,6 +122,7 @@ class ConsumibleViewModel @Inject constructor(
         }
     }
 
+
     fun saveArticleListToSync(){
         var consumibleList = mutableListOf<SyncConsumible>()
         //TODO take another approach to create this pkey
@@ -132,14 +133,16 @@ class ConsumibleViewModel @Inject constructor(
         //var quantityAvailable = 0
         articleList.forEach { article ->
             //quantityAvailable = article.quantityAvailable.toInt() - article.consumedQuantity.toInt()
-            if ((article.quantityAvailable - article.consumedQuantity) > 0 && article.consumedQuantity>0) {
-                //if (quantityAvailable > 0) {
+            if(article.consumedQuantity>0){
+                if ((article.quantityAvailable - article.consumedQuantity) > 0) {
+                    //if (quantityAvailable > 0) {
                     //article.quantityAvailable = quantityAvailable.toDouble()
                     consumibleList.add(SyncConsumible(objectId=objectId,consumptionId=0,articleCode=article.articleCode,quantity=article.consumedQuantity,unitOfMeasure=article.unitOfMeasure,creationDate=""+ Dates().date(),delivered=0))
-                //}
-            }else{
-                toastNotEnoughtConsumibles=true
-                notEnoughtConsumibleName=article.articleDescription
+                    //}
+                }else{
+                    toastNotEnoughtConsumibles=true
+                    notEnoughtConsumibleName=article.articleDescription
+                }
             }
         }
         CoroutineScope(Dispatchers.IO).launch {

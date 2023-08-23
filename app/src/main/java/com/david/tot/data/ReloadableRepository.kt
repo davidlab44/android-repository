@@ -94,6 +94,11 @@ class ReloadableRepository @Inject constructor(
         return responseCode
     }
 
+
+    suspend fun removeAllReloadablesFromLocalDatabase():Int{
+        return reloadableDao.removeAllReloadablesFromLocalDatabase()
+    }
+
     /*
     suspend fun updateConsumedQuantity(idReloadable:Int, reloadableNewQuantity:Int): Int {
         return reloadableDao.updateConsumedQuantity(idReloadable,reloadableNewQuantity)

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -73,6 +74,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.filled.Save
+import com.david.tot.domain.model.Confirmable
+import com.david.tot.util.Dates
 
 @Composable
 fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewModel: ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel) {
@@ -202,16 +206,34 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                                 Box(
 
                                 ) {
+
+
+                                    IconButton(onClick = {
+                                        //confirmableViewModel.postOneConfirmable(mContext)
+                                        /* doSomething() */
+                                        Log.e("TAG","TAGTAG")
+                                    }) {
+                                        Icon(
+                                            imageVector = Icons.Filled.Save,
+                                            contentDescription = "Localized description"
+                                        )
+                                    }
+
+                                    /*
                                     androidx.compose.material3.Button(
                                         onClick = {
-                                            confirmableViewModel.postOneConfirmable(confirmable,mContext)
+                                            confirmableViewModel.confirmable= Confirmable(0,0,"ADMIN","ADMINISTRADOR","HFQ753",
+                                            "TO_DELIVER",""+ Dates().date(),""+Dates().date(),"000001"
+                                            )
                                         },
                                         modifier = Modifier
                                             .padding(bottom = 10.dp)
                                             .height(60.dp)
                                     ) {
-                                        androidx.compose.material3.Text("CONFIRMAR")
+                                        androidx.compose.material3.Text("Camera")
                                     }
+
+                                     */
                                 }
                             }
                         }

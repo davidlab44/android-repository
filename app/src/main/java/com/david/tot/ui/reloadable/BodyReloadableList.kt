@@ -41,6 +41,8 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
         Toast.makeText(mContext,"Requisición creada exitosamente!", Toast.LENGTH_LONG).show()
         contextActivity.finish()
     }
+if(reloadableViewModel.toastFaliledToSaveInLocalDatabase)
+    Toast.makeText(mContext,"Falló al guardar en local", Toast.LENGTH_LONG).show()
 
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
     //articleViewModel.getAllFromLocalDatabase()

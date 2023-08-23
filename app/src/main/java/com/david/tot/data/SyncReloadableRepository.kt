@@ -13,6 +13,11 @@ class SyncReloadableRepository @Inject constructor(
         return syncReloadableDao.addOneSyncReloadableToLocaDatabase (syncReloadable)
     }
 
+    suspend fun retrieveAllSyncReloadablesFromLocalDatabase():List<SyncReloadable>{
+        val response: List<SyncReloadable> = syncReloadableDao.retrieveAllSyncReloadablesFromLocalDatabase()
+        return response.map { it.toDomain() }
+    }
+
     suspend fun getAllSyncReloadablesByDatatypeFromLocaDatabase(dataType:String):List<SyncReloadable>{
         val response: List<SyncReloadable> = syncReloadableDao.getAllSyncReloadablesByDatatypeFromLocaDatabase(dataType)
         return response.map { it.toDomain() }
@@ -38,5 +43,10 @@ class SyncReloadableRepository @Inject constructor(
     suspend fun removeManySyncReloadablesByObjectIdFromLocalDatabase(objectId:Int):Int{
         return syncReloadableDao.removeManySyncReloadablesByObjectIdFromLocalDatabase(objectId)
     }
+
+    suspend fun removeAllSyncReloadablesFromLocalDatabaseUseCase():Int{
+        return syncReloadableDao.removeAllSyncReloadablesFromLocalDatabaseUseCase()
+    }
+
 
 }

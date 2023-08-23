@@ -197,9 +197,10 @@ fun TopAppBarArticleAcivity(nContext:ConfirmableActivity, confirmableViewModel: 
                 )
             }
         },
-        /*
         actions = {
-            IconButton(onClick = { /* doSomething() */
+            IconButton(onClick = {
+                confirmableViewModel.postOneConfirmable(mContext)
+                /* doSomething() */
                 Log.e("TAG","TAGTAG")
             }) {
                 Icon(
@@ -208,7 +209,6 @@ fun TopAppBarArticleAcivity(nContext:ConfirmableActivity, confirmableViewModel: 
                 )
             }
         },
-        */
         backgroundColor = Color(0xFF22475b),
         contentColor = Color.White
     )
