@@ -69,7 +69,7 @@ fun BodyReportableList(contextActivity:ReportableActivity, reportableViewModel: 
             val prefs = FastPrefs(context)
             //TODO todogl cambiar esto por una imagen por defecto
             //prefs.setString("Reportable","defaultValue")
-            val value = prefs.getString("Reportable","defaultValue")
+            val value = prefs.getString("photoUrl","defaultValue")
             Log.e("TG","value: "+value)
             imageUri=Uri.parse("file://"+value)
             imageUri?.let {

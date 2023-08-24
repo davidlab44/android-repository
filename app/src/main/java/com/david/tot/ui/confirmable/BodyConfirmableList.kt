@@ -3,8 +3,14 @@ package com.david.tot.ui.confirmable
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.graphics.Paint.Align
 import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -70,13 +76,16 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.Absolute.Center
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.filled.Save
+import androidx.compose.ui.graphics.asImageBitmap
+import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.david.tot.domain.model.Confirmable
+import com.david.tot.util.ConfirmableList
 import com.david.tot.util.Dates
+import com.yeslab.fastprefs.FastPrefs
 
 @Composable
 fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewModel: ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel) {
@@ -110,7 +119,8 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
         LazyColumn(modifier = listModifier) {
 
             //LIST
-            val confirmableList =confirmableViewModel.confirmableList
+            //val confirmableList =confirmableViewModel.confirmableList
+            val confirmableList = ConfirmableList
             items(confirmableList) { confirmable ->
                 Card(
                     modifier = Modifier
@@ -192,7 +202,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                                         onValueChange = {
                                             value = it
                                         },
-                                        label = { androidx.compose.material.Text("Comentarios: ") },
+                                        label = { androidx.compose.material.Text("Comentariosx: ") },
                                         modifier = Modifier.padding(20.dp).height(200.dp),
                                         singleLine= false,
                                         maxLines = 10
@@ -201,24 +211,27 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                             }
 
                             Row(
-                                modifier = Modifier.padding(start = 18.dp),horizontalArrangement = Center
+                                modifier = Modifier.padding(start = 18.dp),horizontalArrangement = Arrangement.End
                             ) {
                                 Box(
-
+                                    contentAlignment = Alignment.CenterEnd
                                 ) {
-
-
                                     IconButton(onClick = {
-                                        //confirmableViewModel.postOneConfirmable(mContext)
                                         /* doSomething() */
+                                        val prefs = FastPrefs(mContext)
+                                        prefs.setString("caller","ConfirmableActivity")
+                                        contextActivity.startActivity(Intent(contextActivity, Main2Activity::class.java))
+                                        //Modifier.background(Color.Red).align(Alignment.CenterEnd)
                                         Log.e("TAG","TAGTAG")
                                     }) {
+                                        //R.drawable.photo_camera_fill1_wght700_grad_25_opsz48
                                         Icon(
-                                            imageVector = Icons.Filled.Save,
+                                            //imageVector = Icons.Filled.Save,
+                                            painter=painterResource(R.drawable.photo_camera_fill1_wght700_grad_25_opsz48),
+                                            //imageVector = R.drawable.photo_camera_fill1_wght700_grad_25_opsz48,
                                             contentDescription = "Localized description"
                                         )
                                     }
-
                                     /*
                                     androidx.compose.material3.Button(
                                         onClick = {
@@ -234,6 +247,63 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                                     }
 
                                      */
+                                }
+                            }
+                            Row(
+                                modifier = Modifier.padding(all = 1.dp).height(350.dp),
+                                horizontalArrangement = Arrangement.Center
+                            ){
+                                val bitmap =  remember {mutableStateOf<Bitmap?>(null)}
+                                var imageUri by remember {mutableStateOf<Uri?>(null)}
+                                val context = LocalContext.current
+
+                                //SHARED PREFERENCES
+                                val prefs = FastPrefs(context)
+                                //TODO todogl cambiar esto por una imagen por defecto
+                                //prefs.setString("Reportable","defaultValue")
+                                val value = prefs.getString("photoUrl","defaultValue")
+                                Log.e("TG","value: "+value)
+                                imageUri= Uri.parse("file://"+value)
+                                imageUri?.let {
+                                    if (Build.VERSION.SDK_INT < 28) {
+                                        bitmap.value = MediaStore.Images
+                                            .Media.getBitmap(context.contentResolver,it)
+                                    } else {
+                                        val source = ImageDecoder
+                                            .createSource(context.contentResolver,it)
+                                        bitmap.value = ImageDecoder.decodeBitmap(source)
+                                    }
+
+                                    bitmap.value?.let {  btm ->
+                                        Column( horizontalAlignment = Alignment.CenterHorizontally,
+                                            modifier = Modifier.padding(2.dp)) {
+                                            Row(
+                                                modifier = Modifier.padding(all = 2.dp),horizontalArrangement = Arrangement.Center
+                                            ) {
+                                                Image(bitmap = btm.asImageBitmap(),
+                                                    contentDescription =null,
+                                                    modifier = Modifier.size(300.dp)
+                                                )
+                                            }
+                                            Row(
+                                                modifier = Modifier.padding(all = 12.dp),horizontalArrangement = Arrangement.Center
+                                            ) {
+                                                /*
+                                                Button(enabled = enabledImage, modifier = Modifier.padding(1.dp),
+                                                    onClick = {
+                                                        enabledImage = false
+                                                        bitmap.value?.let {
+                                                            //updateProductViewModel.updateProductImage(updateProductViewModel.productRemoteId.toInt(), it)
+                                                            //updateProductViewModel.updateProductImage(1, it)
+                                                    } }) {
+                                                    Text(text = "ENVIAR IMAGEN")
+                                                }
+
+                                                 */
+                                                //Text(text = "ACTIVITY PARA ENVIAR NOVEDADES CON SU FOTO")
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }

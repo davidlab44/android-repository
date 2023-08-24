@@ -1,5 +1,6 @@
 package com.david.tot.ui.reloadable
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -31,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: ReloadableViewModel, authenticableViewModel: AuthenticableViewModel) {
 
@@ -42,7 +44,7 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
         contextActivity.finish()
     }
     if(reloadableViewModel.toastFaliledToSaveInLocalDatabase)
-    Toast.makeText(mContext,"Falló al guardar en local", Toast.LENGTH_LONG).show()
+        Toast.makeText(mContext,"Falló al guardar en local", Toast.LENGTH_LONG).show()
 
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
     //articleViewModel.getAllFromLocalDatabase()

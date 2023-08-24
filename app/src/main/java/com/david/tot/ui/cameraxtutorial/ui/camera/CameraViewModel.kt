@@ -75,15 +75,26 @@ class CameraViewModel @Inject constructor(
                 val photoUrl = "/storage/self/primary/Download" + File.separator + fileNameToSave
                 //SHARED PREFERENCES
                 val prefs = FastPrefs(mContext)
-                prefs.setString("Reportable",photoUrl)
-                val value = prefs.getString("Reportable","defaultValue")
-                Log.e("TG",""+value)
-                if(prefs.getString("Reportable","defaultValue")=="ConfirmableActivity"){
+                prefs.setString("photoUrl",photoUrl)
+                //val value = prefs.getString("caller","defaultValue")
+                //Log.e("TG",""+value)
+                if(prefs.getString("caller","defaultValue")=="ConfirmableActivity"){
                     mContext.startActivity(Intent(mContext,ConfirmableActivity::class.java))
                     mContext.finish()
-                }else{
+                /*
+                }else if(prefs.getString("caller","defaultValue")=="ConfirmableActivity"){
+                    mContext.startActivity(Intent(mContext,ConfirmableActivity::class.java))
+                    mContext.finish()
+                */
+                }
+                if(prefs.getString("caller","defaultValue")=="ReportableActivity"){
                     mContext.startActivity(Intent(mContext,ReportableActivity::class.java))
                     mContext.finish()
+                    /*
+                    }else if(prefs.getString("caller","defaultValue")=="ConfirmableActivity"){
+                        mContext.startActivity(Intent(mContext,ConfirmableActivity::class.java))
+                        mContext.finish()
+                    */
                 }
             }else{
                 Log.e("TAG","file is null")

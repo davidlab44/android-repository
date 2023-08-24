@@ -166,7 +166,6 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
                     scaffoldState.drawerState.close()
                 }
             }
-
         },
         bottomBar = { BottomNavigationBar(navController) },
         content = { padding ->

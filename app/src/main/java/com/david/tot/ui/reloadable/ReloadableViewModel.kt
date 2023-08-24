@@ -111,12 +111,13 @@ class ReloadableViewModel @Inject constructor(
         val currentDate = sdf.format(Date())
         val date = currentDate.filter {it in '0'..'9'}
         val objectId = date.toInt()
-        reloadableList.forEach { reloadable ->
-            syncReloadableList.add(SyncReloadable(objectId=objectId,consumptionId=0,articleCode=reloadable.articleCode,quantity= reloadable.quantityToStock.toInt() ,unitOfMeasure=reloadable.unitOfMeasure,creationDate=""+ Dates().date(),delivered=0))
-        }
+
         CoroutineScope(Dispatchers.IO).launch {
-            if (syncReloadableList.isNotEmpty()) {
+            if (reloadableList.isNotEmpty()) {
                 addOneSyncToLocalDatabaseUseCase.invoke(Sync(objectId=objectId, dataType = "Reloadable",createdAt = "" + Dates().date()))
+                reloadableList.forEach { reloadable ->
+                    syncReloadableList.add(SyncReloadable(objectId=objectId,consumptionId=0,articleCode=reloadable.articleCode,quantity= reloadable.quantityToStock.toInt() ,unitOfMeasure=reloadable.unitOfMeasure,creationDate=""+ Dates().date(),delivered=0))
+                }
                 addManySyncReloadableToLocalDatabaseUseCase.invoke(syncReloadableList)
                 val syncReloadablesCant = retrieveAllSyncReloadablesFromLocalDatabaseUseCase.invoke()
                 if(syncReloadablesCant.size==reloadableList.size){

@@ -39,11 +39,11 @@ import com.david.tot.util.assetList
 @Composable
 fun BodyList(consumibleViewModel: ConsumibleViewModel, authenticableViewModel: AuthenticableViewModel) {
 
+/*
     //
     //var lista by mutableStateOf<List<Asset>>(emptyList())
     //var lista by mutableStateOf<MutableListList<Asset>>(MutableE)
     //var lista by mutableStateOf<List<Asset>>(emptyList())
-
 
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
@@ -145,7 +145,7 @@ fun BodyList(consumibleViewModel: ConsumibleViewModel, authenticableViewModel: A
             }
         }
     }
-
+*/
 
 
 /*
