@@ -21,9 +21,9 @@ fun ExpandingTextFinal() {
             value = it
         },
         label = { Text("Descripción de la novedad") },
-        modifier = Modifier.padding(20.dp).height(200.dp),
+        modifier = Modifier.padding(5.dp).height(250.dp),
         singleLine= false,
-        maxLines = 10
+        maxLines = 15
     )
 
     /*

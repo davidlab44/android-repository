@@ -21,7 +21,7 @@ fun PreHeaderAndBodyScreen() {
     ) {
         //var text by rememberSaveable { mutableStateOf("") }
         Row(
-            modifier = Modifier.padding(all = 0.dp).height(120.dp),
+            modifier = Modifier.padding(all = 0.dp).height(180.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
             //ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)

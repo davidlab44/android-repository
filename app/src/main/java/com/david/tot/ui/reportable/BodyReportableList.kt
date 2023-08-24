@@ -14,12 +14,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.david.tot.util.Dates
 import com.david.tot.util.ExpandingTextFinal
 import com.yeslab.fastprefs.FastPrefs
 
@@ -27,12 +32,33 @@ import com.yeslab.fastprefs.FastPrefs
 fun BodyReportableList(contextActivity:ReportableActivity, reportableViewModel: ReportableViewModel) {
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier.fillMaxSize().padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         //var text by rememberSaveable { mutableStateOf("") }
+/*
         Row(
-            modifier = Modifier.padding(all = 2.dp).height(350.dp),
+            modifier = Modifier.padding(all = 1.dp).height(250.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            //ExpandingTextFinal()
+            /*
+            Button(
+                enabled = true,
+                modifier = Modifier.padding(1.dp),
+                onClick = {
+                    /*Do something*/
+                }) {
+                Text(text = "Camara")
+            }
+            */
+
+        }
+
+ */
+
+        Row(
+            modifier = Modifier.padding(all = 1.dp).height(350.dp),
             horizontalArrangement = Arrangement.Center
         ){
             val bitmap =  remember {mutableStateOf<Bitmap?>(null)}
@@ -90,9 +116,39 @@ fun BodyReportableList(contextActivity:ReportableActivity, reportableViewModel: 
         }
 
 
+        Row(
+            modifier = Modifier.padding(all = 1.dp).height(70.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+
+
+            var value2 by remember { mutableStateOf("") }
+            OutlinedTextField(
+                value = value2,
+                onValueChange = {
+                    value2 = it
+                },
+                label = { Text("Asunto") },
+                modifier = Modifier.padding(5.dp).height(60.dp),
+                singleLine= false,
+                maxLines = 1
+            )
+
+
+            /*
+            Button(
+                enabled = true,
+                modifier = Modifier.padding(1.dp),
+                onClick = {
+                    /*Do something*/
+                }) {
+                Text(text = "Camara")
+            }
+            */
+        }
 
         Row(
-            modifier = Modifier.padding(all = 2.dp).height(200.dp),
+            modifier = Modifier.padding(all = 1.dp).height(250.dp),
             horizontalArrangement = Arrangement.Center
         ) {
             ExpandingTextFinal()

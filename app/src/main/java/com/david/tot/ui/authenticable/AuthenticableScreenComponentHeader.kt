@@ -25,7 +25,7 @@ fun AuthenticableScreenComponentHeader(authenticableViewModel: AuthenticableView
             //horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Tripulante: " + drugsDeliveryConsumerViewHeader.consumer,
+                text = "Usuario: " + drugsDeliveryConsumerViewHeader.consumer,
                 color = Color.Black,
                 fontSize = 20.sp
             )

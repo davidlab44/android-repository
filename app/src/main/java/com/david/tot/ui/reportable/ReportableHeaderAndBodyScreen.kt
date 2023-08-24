@@ -24,8 +24,9 @@ fun RequirableHeaderAndBodyScreen(contextActivity: ReportableActivity, reportabl
         //horizontalAlignment = Alignment.CenterHorizontally
     ) {
         //var text by rememberSaveable { mutableStateOf("") }
+
         Row(
-            modifier = Modifier.padding(all = 0.dp).height(165.dp),
+            modifier = Modifier.padding(all = 0.dp).height(150.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
 
@@ -39,6 +40,7 @@ fun RequirableHeaderAndBodyScreen(contextActivity: ReportableActivity, reportabl
 
 
         }
+
         Row(
             modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center

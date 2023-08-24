@@ -4,6 +4,7 @@ package com.david.tot.ui.reportable
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -48,7 +49,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.david.tot.ui.DrawerContent
+import com.david.tot.ui.MainActivity
 import com.david.tot.ui.authenticable.AuthenticableViewModel
+import com.david.tot.ui.pre.PreActivity
 //import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -179,7 +182,7 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 
 
 @Composable
-fun TopAppBarArticleAcivity(nContext:ReportableActivity, reportableViewModel: ReportableViewModel, onNavIconClick: () -> Unit) {
+fun TopAppBarArticleAcivity(contextActivity:ReportableActivity, reportableViewModel: ReportableViewModel, onNavIconClick: () -> Unit) {
     val mContext = LocalContext.current.applicationContext
     TopAppBar(
         title = { Text(text = "GLAPP") },
@@ -196,7 +199,12 @@ fun TopAppBarArticleAcivity(nContext:ReportableActivity, reportableViewModel: Re
             }
         },
         actions = {
-            IconButton(onClick = { /* doSomething() */
+            IconButton(onClick = {
+                //contextActivity.startActivity(Intent(contextActivity, MainActivity::class.java))
+                Toast.makeText(mContext,"Novedad registrada exitosamente!", Toast.LENGTH_LONG).show()
+                //Thread.sleep(500)
+                contextActivity.finish()
+                /* doSomething() */
             }) {
                 Icon(
                     imageVector = Icons.Filled.Save,

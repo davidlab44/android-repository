@@ -29,7 +29,7 @@ fun Header() {
             content = {
                 Column( horizontalAlignment = Alignment.Start,
                     modifier = Modifier.border(0.dp, Color.Gray, RectangleShape).fillMaxWidth().padding(5.dp)) {
-                    /*
+
                     Row(
                         modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Start
                     ){
@@ -42,7 +42,7 @@ fun Header() {
                         modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Start
                     ){
                         androidx.compose.material3.Text(
-                            text = "Ejecutado por: Rucutundu Herrera",
+                            text = "Ejecutado por: Usuario Administrador",
                             color = Color.Black, fontSize = 15.sp
                         )
                     }
@@ -56,13 +56,13 @@ fun Header() {
                         )
                     }
 
-                     */
+
                     Row(
                         modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Start
                     ){
                         androidx.compose.material3.Text(
                             //text = "VEHICULO:[AF-HKT3055] Camión D-Series 240 DXI",
-                            text = "VEHICULO:[AF-HKT3055] Ambulancia ER",
+                            text = "VEHICULO:[AF-HKT3055] CISTERNA MAGYAR",
                             color = Color.Black, fontSize = 15.sp
                         )
                     }

@@ -330,6 +330,8 @@ fun DrawerContent(
             }
         }
         */
+
+        /*
         item {
             Spacer(modifier = Modifier.height(20.dp))
             Row(modifier = Modifier
@@ -358,6 +360,7 @@ fun DrawerContent(
                 )
             }
         }
+        */
         item {
             Spacer(modifier = Modifier.height(20.dp))
             Row(modifier = Modifier
@@ -452,7 +455,7 @@ fun DrawerContent(
                     modifier = Modifier
                         .size(size = 25.dp)
                         .clip(shape = CircleShape),
-                    painter = painterResource(id = R.drawable.photo_camera_filled),
+                    painter = painterResource(id = R.drawable.payments_fill1_wght400_grad0_opsz24),
                     contentDescription = "Reporte de Gastos"
                 )
                 Spacer(modifier = Modifier.width(20.dp))
@@ -463,11 +466,12 @@ fun DrawerContent(
                     ),
                     text = AnnotatedString("Reporte de Gastos") ,
                     onClick = {
-                        context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                        //context.startActivity(Intent(context,UpdateProductActivity::class.java))
                     }
                 )
             }
         }
+        /*
         item {
             Spacer(modifier = Modifier.height(20.dp))
             Row(modifier = Modifier
@@ -523,6 +527,7 @@ fun DrawerContent(
                 )
             }
         }
+        */
 
         item {
             Spacer(modifier = Modifier.height(20.dp))
