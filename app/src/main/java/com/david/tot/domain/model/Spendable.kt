@@ -4,13 +4,15 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-//@Entity(tableName = "Article")
+@Entity(tableName = "SpendableTable")
 data class Spendable (
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "local_id") val local_id: Int = 0,
-    @ColumnInfo(name = "name") val name: String
-    )
-/*
-fun Article.toDomain() = Article(local_id,articleCode,articleDescription,unitOfMeasure,quantityAvailable,quantityToStock,quantityToRestore)
-fun Article.toDatabase() = Article(local_id=local_id, articleCode=articleCode, articleDescription=articleDescription,unitOfMeasure=unitOfMeasure,quantityAvailable=quantityAvailable,quantityToStock=quantityToStock,quantityToRestore=quantityToRestore)
- */
+    @ColumnInfo(name = "localId") val localId: Int = 0,
+    @ColumnInfo(name = "generatedId") val generatedId: Long = 0,
+    @ColumnInfo(name = "photo") val photo: String ="",
+    @ColumnInfo(name = "description") val description: String = "",
+)
+
+fun Spendable.toDomain() = Spendable(localId,generatedId,photo,description)
+
+fun Spendable.toDatabase() = Spendable(localId=localId,generatedId-generatedId, photo=photo, description=description)
