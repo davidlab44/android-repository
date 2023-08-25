@@ -1,5 +1,6 @@
 package com.david.tot.ui.confirmable
 
+import android.content.Intent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,6 +14,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 import com.david.tot.ui.authenticable.AuthenticableScreenComponentHeader
+import com.david.tot.ui.cameraxtutorial.Main2Activity
+import com.yeslab.fastprefs.FastPrefs
 
 @Composable
 fun ConfirmableHeaderAndBodyScreen(contextActivity:ConfirmableActivity, confirmableViewModel: ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel) {
@@ -71,13 +74,16 @@ fun MusicScreenPreview() {
 }
 
 @Composable
-fun MoviesScreen() {
+fun MoviesScreen(contextActivity:ConfirmableActivity) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             //.background(colorResource(id = R.color.colorPrimaryDark))
             .wrapContentSize(Alignment.Center)
     ) {
+        val prefs = FastPrefs(contextActivity)
+        prefs.setString("caller","ConfirmableActivity")
+        contextActivity.startActivity(Intent(contextActivity, Main2Activity::class.java))
         /*
         Text(
             text = "Movies View",
@@ -87,17 +93,17 @@ fun MoviesScreen() {
             textAlign = TextAlign.Center,
             fontSize = 25.sp
         )
-
-         */
+        */
     }
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun MoviesScreenPreview() {
     MoviesScreen()
 }
-
+*/
 
 @Composable
 fun BooksScreen() {

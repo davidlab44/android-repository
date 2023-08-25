@@ -81,10 +81,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.text.style.TextAlign
 import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.david.tot.domain.model.Confirmable
 import com.david.tot.util.ConfirmableList
 import com.david.tot.util.Dates
+import com.david.tot.util.DisplayLastPhoto
 import com.yeslab.fastprefs.FastPrefs
 
 @Composable
@@ -114,7 +116,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
         val listModifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(top= 15.dp)
+            .padding(top = 15.dp)
             .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
 
@@ -192,18 +194,23 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                             }
 
                             Row(
-                                modifier = Modifier.padding(all = 0.dp),horizontalArrangement = Arrangement.Center
+                                //modifier = Modifier.padding(all = 0.dp),
+                                horizontalArrangement = Arrangement.Center,
+                                modifier = Modifier.fillMaxSize().padding(top=10.dp),
                             ) {
                                 Box(
-
+                                    contentAlignment = Alignment.Center,
+                                    modifier = Modifier.fillMaxSize(),
                                 ) {
                                     OutlinedTextField(
                                         value = value,
                                         onValueChange = {
                                             value = it
                                         },
-                                        label = { androidx.compose.material.Text("Comentariosx: ") },
-                                        modifier = Modifier.padding(20.dp).height(200.dp),
+                                        label = { androidx.compose.material.Text("Comentarios: ") },
+                                        modifier = Modifier
+                                            //.padding(1.dp)
+                                            .height(200.dp).align(Alignment.Center),
                                         singleLine= false,
                                         maxLines = 10
                                     )
@@ -211,52 +218,20 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                             }
 
                             Row(
-                                modifier = Modifier.padding(start = 18.dp),horizontalArrangement = Arrangement.End
-                            ) {
-                                Box(
-                                    contentAlignment = Alignment.CenterEnd
-                                ) {
-                                    IconButton(onClick = {
-                                        /* doSomething() */
-                                        val prefs = FastPrefs(mContext)
+                                modifier = Modifier
+                                    //.padding(all = 1.dp)
+                                    .height(330.dp).clickable(onClick = {
+                                        val prefs = FastPrefs(contextActivity)
                                         prefs.setString("caller","ConfirmableActivity")
                                         contextActivity.startActivity(Intent(contextActivity, Main2Activity::class.java))
-                                        //Modifier.background(Color.Red).align(Alignment.CenterEnd)
-                                        Log.e("TAG","TAGTAG")
-                                    }) {
-                                        //R.drawable.photo_camera_fill1_wght700_grad_25_opsz48
-                                        Icon(
-                                            //imageVector = Icons.Filled.Save,
-                                            painter=painterResource(R.drawable.photo_camera_fill1_wght700_grad_25_opsz48),
-                                            //imageVector = R.drawable.photo_camera_fill1_wght700_grad_25_opsz48,
-                                            contentDescription = "Localized description"
-                                        )
-                                    }
-                                    /*
-                                    androidx.compose.material3.Button(
-                                        onClick = {
-                                            confirmableViewModel.confirmable= Confirmable(0,0,"ADMIN","ADMINISTRADOR","HFQ753",
-                                            "TO_DELIVER",""+ Dates().date(),""+Dates().date(),"000001"
-                                            )
-                                        },
-                                        modifier = Modifier
-                                            .padding(bottom = 10.dp)
-                                            .height(60.dp)
-                                    ) {
-                                        androidx.compose.material3.Text("Camera")
-                                    }
-
-                                     */
-                                }
-                            }
-                            Row(
-                                modifier = Modifier.padding(all = 1.dp).height(350.dp),
-                                horizontalArrangement = Arrangement.Center
+                                    }),
+                                //horizontalArrangement = Arrangement.Center
                             ){
+                                DisplayLastPhoto()
+                                /*
                                 val bitmap =  remember {mutableStateOf<Bitmap?>(null)}
                                 var imageUri by remember {mutableStateOf<Uri?>(null)}
                                 val context = LocalContext.current
-
                                 //SHARED PREFERENCES
                                 val prefs = FastPrefs(context)
                                 //TODO todogl cambiar esto por una imagen por defecto
@@ -285,26 +260,10 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                                                     modifier = Modifier.size(300.dp)
                                                 )
                                             }
-                                            Row(
-                                                modifier = Modifier.padding(all = 12.dp),horizontalArrangement = Arrangement.Center
-                                            ) {
-                                                /*
-                                                Button(enabled = enabledImage, modifier = Modifier.padding(1.dp),
-                                                    onClick = {
-                                                        enabledImage = false
-                                                        bitmap.value?.let {
-                                                            //updateProductViewModel.updateProductImage(updateProductViewModel.productRemoteId.toInt(), it)
-                                                            //updateProductViewModel.updateProductImage(1, it)
-                                                    } }) {
-                                                    Text(text = "ENVIAR IMAGEN")
-                                                }
-
-                                                 */
-                                                //Text(text = "ACTIVITY PARA ENVIAR NOVEDADES CON SU FOTO")
-                                            }
                                         }
                                     }
                                 }
+                                */
                             }
                         }
                     }

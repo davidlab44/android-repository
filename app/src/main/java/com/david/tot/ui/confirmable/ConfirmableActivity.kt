@@ -235,14 +235,16 @@ fun ConfirmableNavigationBotomMenu(contextActivity:ConfirmableActivity, confirma
             ConfirmableHeaderAndBodyScreen(contextActivity,confirmableViewModel,authenticableViewModel)
         }
         composable(BotomNavigationItem.Movies.route) {
-            MoviesScreen()
+            MoviesScreen(contextActivity)
         }
         composable(BotomNavigationItem.Books.route) {
             BooksScreen()
         }
+        /*
         composable(BotomNavigationItem.Profile.route) {
             ProfileScreen()
         }
+        */
     }
 }
 
@@ -273,7 +275,7 @@ fun BottomNavigationBar(navController: NavController) {
         BotomNavigationItem.Music,
         BotomNavigationItem.Movies,
         BotomNavigationItem.Books,
-        BotomNavigationItem.Profile
+        //BotomNavigationItem.Profile
     )
     BottomNavigation(
         //backgroundColor = Color.Gray,
