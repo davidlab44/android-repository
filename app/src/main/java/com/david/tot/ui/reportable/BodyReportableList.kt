@@ -1,5 +1,6 @@
 package com.david.tot.ui.reportable
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -7,6 +8,7 @@ import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,7 +26,9 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.david.tot.ui.cameraxtutorial.Main2Activity
 import com.david.tot.util.Dates
+import com.david.tot.util.DisplayLastPhoto
 import com.david.tot.util.ExpandingTextFinal
 import com.yeslab.fastprefs.FastPrefs
 
@@ -56,7 +60,7 @@ fun BodyReportableList(contextActivity:ReportableActivity, reportableViewModel: 
         }
 
  */
-
+        /*
         Row(
             modifier = Modifier.padding(all = 1.dp).height(350.dp),
             horizontalArrangement = Arrangement.Center
@@ -69,7 +73,7 @@ fun BodyReportableList(contextActivity:ReportableActivity, reportableViewModel: 
             val prefs = FastPrefs(context)
             //TODO todogl cambiar esto por una imagen por defecto
             //prefs.setString("Reportable","defaultValue")
-            val value = prefs.getString("photoUrl","defaultValue")
+            val value = prefs.getString("Reportable","defaultValue")
             Log.e("TG","value: "+value)
             imageUri=Uri.parse("file://"+value)
             imageUri?.let {
@@ -114,13 +118,25 @@ fun BodyReportableList(contextActivity:ReportableActivity, reportableViewModel: 
                 }
             }
         }
+        */
 
+        Row(
+            modifier = Modifier
+                //.padding(all = 1.dp)
+                .height(330.dp).clickable(onClick = {
+                    val prefs = FastPrefs(contextActivity)
+                    prefs.setString("caller","ReportableActivity")
+                    contextActivity.startActivity(Intent(contextActivity, Main2Activity::class.java))
+                }),
+            //horizontalArrangement = Arrangement.Center
+        ){
+            DisplayLastPhoto()
+        }
 
         Row(
             modifier = Modifier.padding(all = 1.dp).height(70.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-
 
             var value2 by remember { mutableStateOf("") }
             OutlinedTextField(
@@ -133,18 +149,6 @@ fun BodyReportableList(contextActivity:ReportableActivity, reportableViewModel: 
                 singleLine= false,
                 maxLines = 1
             )
-
-
-            /*
-            Button(
-                enabled = true,
-                modifier = Modifier.padding(1.dp),
-                onClick = {
-                    /*Do something*/
-                }) {
-                Text(text = "Camara")
-            }
-            */
         }
 
         Row(
@@ -152,16 +156,6 @@ fun BodyReportableList(contextActivity:ReportableActivity, reportableViewModel: 
             horizontalArrangement = Arrangement.Center
         ) {
             ExpandingTextFinal()
-            /*
-            Button(
-                enabled = true,
-                modifier = Modifier.padding(1.dp),
-                onClick = {
-                    /*Do something*/
-                }) {
-                Text(text = "Camara")
-            }
-            */
         }
     }
 
