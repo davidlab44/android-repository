@@ -133,6 +133,7 @@ fun BodyReportableList(contextActivity:ReportableActivity, reportableViewModel: 
             DisplayLastPhoto()
         }
 
+        /*
         Row(
             modifier = Modifier.padding(all = 1.dp).height(70.dp),
             horizontalArrangement = Arrangement.Center
@@ -150,6 +151,8 @@ fun BodyReportableList(contextActivity:ReportableActivity, reportableViewModel: 
                 maxLines = 1
             )
         }
+
+         */
 
         Row(
             modifier = Modifier.padding(all = 1.dp).height(250.dp),

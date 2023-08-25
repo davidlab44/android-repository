@@ -73,8 +73,12 @@ class SyncViewModel @Inject constructor(
             return
         }
         CoroutineScope(Dispatchers.IO).launch {
+            addOneHardcodedAuthenticableToLocalDb()
             postManyConsumibleToApi(mContext)
             postAllPendingReloadablesToApi()
+            // Este espacio es para la syncronizacion rapida, por ejemplo de consumibles y demas cosas que requieran ser actualizadas rapidamente
+            // Buscar un lugar diferente para la syncronizacion de los Sports y demas cosas no importantes
+            // Este lugar es para la syncronizacion rapida
         }
     }
 
@@ -181,7 +185,7 @@ class SyncViewModel @Inject constructor(
                 getAllReloadablesFromApiUseCase.invoke()
                 isSyncing=false
                 toastReloadablesSynced=true
-                Log.e("TAG","Sync de Reloadables  finalizada")
+                Log.e("TAG","Sync de Restocks finalizada")
                 getAllSyncsFromLocalDatabase()
             }
         }
@@ -195,10 +199,12 @@ class SyncViewModel @Inject constructor(
         }
     }
 
+    /*
     fun getAllAppDataFromApi(){
         CoroutineScope(Dispatchers.IO).launch {
             //Actualiza whole data en la base de datos local
             addOneHardcodedAuthenticableToLocalDb()
         }
     }
+    */
 }

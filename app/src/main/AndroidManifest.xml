@@ -98,5 +98,9 @@
             android:name="com.david.tot.ui.confirmable.ConfirmableActivity"
             android:noHistory="true">
         </activity>
+        <activity
+            android:name="com.david.tot.ui.spendable.SpendableActivity"
+            android:noHistory="true">
+        </activity>
     </application>
 </manifest>

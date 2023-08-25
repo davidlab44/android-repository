@@ -1,4 +1,4 @@
-package com.david.tot.ui.settings
+package com.david.tot.ui.spendable
 
 /*
 import android.util.Log
@@ -27,13 +27,10 @@ class ArticleViewModel @Inject constructor(
     ) : ViewModel() {
     */
 
-import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.david.tot.domain.authenticable.AddOneAuthenticableToLocalDbUseCase
-import com.david.tot.domain.authenticable.RetrieveAllAuthenticablesFromLocalDbUseCase
-import com.david.tot.domain.consumible.GetAllConsumiblesFromApiUseCase
-import com.david.tot.domain.model.Authenticable
-import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -41,7 +38,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsViewModel @Inject constructor(
+class SpendableViewModel @Inject constructor(
     /*
     private val getAllFromApiUseCase: GetAllFromApiUseCase,
     private val getArticleByIdUseCase: GetArticleByIdUseCase,
@@ -53,47 +50,34 @@ class SettingsViewModel @Inject constructor(
     //private val addAllArticleToLocalDatabaseUseCase: AddAllArticleToLocalDatabaseUseCase,
     private val addManySyncConsumibleToLocalDatabaseUseCase: AddManySyncConsumibleToLocalDatabaseUseCase,
     private val reAddAllConsumibleToLocalDatabaseUseCase: ReAddAllConsumibleToLocalDatabaseUseCase
+
      */
-    private val addOneAuthenticableToLocalDbUseCase: AddOneAuthenticableToLocalDbUseCase,
-    private val retrieveAllAuthenticablesFromLocalDbUseCase: RetrieveAllAuthenticablesFromLocalDbUseCase,
-    private val getAllConsumiblesFromApiUseCase: GetAllConsumiblesFromApiUseCase,
-    private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
 ) : ViewModel() {
 
+    //var toastNot by mutableStateOf<Boolean>(false)
 
-    /*
-    fun getAllAppDataFromApi(){
+    fun createSpendable(descrition:String){
         CoroutineScope(Dispatchers.IO).launch {
-            //actualiza whole data en la base de datos local
-            getAllConsumiblesFromApiUseCase.invoke()
-            getAllReloadablesFromApiUseCase.invoke()
-            addOneHardcodedAuthenticableToLocalDb()
+            /*
+            val spendable = Spendable(generatedId = time, photo= photoUrl,description = "")
+            val spendableToSave = addOneSpendableToLocalDatabaseUseCase.invoke(spendable)
+            val spendableList = getAllSpendablesFromLocalDatabaseUseCase.invoke()
+            Log.e("TG",""+spendableList.size)
+            //val spendableToSave = SpendableSaver().addOneSpendableToLocalDatabase(spendable)
+            val sync = Sync(objectId=Dates().dateAsInt(),dataType="Spendable", createdAt=Dates().geDateAsString())
+            //val syncToSave = SyncSaver().addOneSyncToLOcalDatabase(sync)
+            val syncToSave = addOneSyncFromLocalDatabaseUseCase.invoke(sync)
+            val syncList = getAllSyncFromLocalDatabaseUseCase.invoke()
+            Log.e("TG",""+syncList.size)
+            */
         }
     }
-
-     */
     /*
     var articleList by mutableStateOf<List<Article>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
     var toastSuccess by mutableStateOf<Boolean>(false)
 
-    //var invepastoList by mutableStateOf<List<Asset>>(emptyList())
-
-    /*
-    fun actualizarLista(hash:String) {
-        val list: MutableList<Asset> = mutableListOf()        // or, use `arrayListOf`
-        assetList.forEach {
-            if (it.name.contains(hash)
-            ) {
-                list.add(it)
-            }
-        }
-        invepastoList= list.toList()
-    }
-     */
-
-
-    fun getAllConsumiblesFromApi() {
+    fun getAllFromApi() {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
@@ -106,19 +90,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-
-    fun getAllRestocksFromApi() {
-        Log.e("TAG","TAG")
-        //viewModelScope.launch {
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = getAllFromApiUseCase.invoke()
-            if (!result.isNullOrEmpty()) {
-                articleList =result
-            }
-        }
-    }
-
-    fun getAllConsumiblesFromLocalDatabase() {
+    fun getAllFromLocalDatabase() {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
@@ -142,7 +114,7 @@ class SettingsViewModel @Inject constructor(
             if (article.consumedQuantity> 0) {
                 if (quantityAvailable > 0) {
                     article.quantityAvailable = quantityAvailable.toDouble()
-                    consumibleList.add(SyncConsumible(objectId=objectId,consumptionId=0,articleCode=article.articleCode,quantity=article.consumedQuantity,unitOfMeasure=article.unitOfMeasure,creationDate="2023-08-08T00:48:12.104Z",delivered=0))
+                    consumibleList.add(SyncConsumible(objectId=objectId,consumptionId=0,articleCode=article.articleDescription,quantity=article.consumedQuantity,unitOfMeasure=article.unitOfMeasure,creationDate="2023-08-08T00:48:12.104Z",delivered=0))
                 }
             }
         }
@@ -156,64 +128,6 @@ class SettingsViewModel @Inject constructor(
             }
         }
     }
-
-    /*
-    fun saveArticleListToSync(context: Context):Int {
-        var dataList = mutableListOf<Consumible>()
-        //val prefs = FastPrefs(context)
-        //val pattern = remember { Regex("^\\d+\$") }
-        //var pattern by mutableStateOf<Regex>(Regex("^\\d+\$"))
-        val failedList = mutableListOf<Int>()
-        var quantityAvailable = 0
-        articleList.forEach { article ->
-            quantityAvailable = article.quantityAvailable.toInt() - article.consumedQuantity.toInt()
-
-            if (article.consumedQuantity> 0) {
-                if (quantityAvailable > 0) {
-                    article.quantityAvailable = quantityAvailable.toDouble()
-                    dataList.add(
-                        Consumible(0, 1,
-                            article.articleDescription,
-                            article.consumedQuantity,
-                            article.unitOfMeasure,
-                            "2023-08-08T00:48:12.104Z",
-                            0
-                        )
-                    )
-                } else {
-                    failedList.add(article.local_id)
-                }
-            }
-        }
-        if (failedList.isEmpty()) {
-            //TODO virtualassembler
-            /*
-            prefs.set("mula", dataList)
-            val gette = prefs.get("mula", dataList)
-            Log.e("gette",""+gette)
-            Log.e("gette",""+gette)
-            */
-
-
-
-            CoroutineScope(Dispatchers.IO).launch {
-                addOneSyncFromLocalDatabaseUseCase.invoke(
-                    Sync(1,1,"david", "Consumible",currentDate)
-                )
-                val syncPendingList = getAllSyncFromLocalDatabaseUseCase.invoke()
-                val syncListToString = syncPendingList.toString()
-                val result = addAllArticleToLocalDatabaseUseCase.invoke(articleList)
-                if (!result.isNullOrEmpty()) {
-                    articleList =result
-                }
-            }
-            return 1
-        } else {
-            return 2
-        }
-    }
-
-     */
 
     fun updateConsumedQuantity(idArticle:Int, consumibleNewQuantity:Int){
         CoroutineScope(Dispatchers.IO).launch {
@@ -239,6 +153,5 @@ class SettingsViewModel @Inject constructor(
         }
     }
     //var productDescription by mutableStateOf<String>("")
-
-     */
+    */
 }

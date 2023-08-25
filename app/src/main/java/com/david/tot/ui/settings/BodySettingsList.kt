@@ -54,10 +54,10 @@ fun BodySettingsList(contextActivity:SettingsActivity, settingsViewModel: Settin
         var text by rememberSaveable { mutableStateOf("") }
         val pattern = remember { Regex("^\\d+\$") }
 
-
+        /*
         androidx.compose.material3.Button(
             onClick = {
-                settingsViewModel.getAllAppDataFromApi()
+                //settingsViewModel.getAllAppDataFromApi()
             },
             modifier = Modifier
                 .padding(bottom = 10.dp)
@@ -65,6 +65,7 @@ fun BodySettingsList(contextActivity:SettingsActivity, settingsViewModel: Settin
         ) {
             Text("Sync")
         }
+        */
         /*
         TextField(
             value = text,

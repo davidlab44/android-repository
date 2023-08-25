@@ -4,6 +4,7 @@ import com.david.tot.data.network.consumible.IConsumibleApiClient
 import com.david.tot.data.network.authenticable.IAuthenticableApiClient
 import com.david.tot.data.network.confirmable.IConfirmableApiClient
 import com.david.tot.data.network.reloadable.IReloadableApiClient
+import com.david.tot.data.network.spendable.ISpendableApiClient
 import com.david.tot.util.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -49,5 +50,11 @@ object NetworkModule {
     @Provides
     fun provideConfirmableApiClient(retrofit: Retrofit): IConfirmableApiClient {
         return retrofit.create(IConfirmableApiClient::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSpendableApiClient(retrofit: Retrofit): ISpendableApiClient {
+        return retrofit.create(ISpendableApiClient::class.java)
     }
 }

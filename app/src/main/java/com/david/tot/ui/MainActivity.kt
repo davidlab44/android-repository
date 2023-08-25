@@ -45,6 +45,7 @@ import com.david.tot.ui.authenticable.AuthenticableViewModel
 import com.david.tot.ui.pre.PreActivity
 import com.david.tot.ui.reloadable.ReloadableActivity
 import com.david.tot.ui.settings.SettingsActivity
+import com.david.tot.ui.spendable.SpendableActivity
 import com.david.tot.ui.sync.SyncActivity
 import com.david.tot.ui.sync.SyncViewModel
 
@@ -58,6 +59,8 @@ class MainActivity : ComponentActivity() {
     //desde que empiezas a trabajar offline no te trae nueva informacion hasta que no sincronize toda la cola
 
     //
+
+
 
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -467,7 +470,7 @@ fun DrawerContent(
                     ),
                     text = AnnotatedString("Reporte de Gastos") ,
                     onClick = {
-                        //context.startActivity(Intent(context,UpdateProductActivity::class.java))
+                        context.startActivity(Intent(context, SpendableActivity::class.java))
                     }
                 )
             }

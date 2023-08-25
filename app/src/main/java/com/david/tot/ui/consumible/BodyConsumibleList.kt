@@ -150,47 +150,6 @@ fun BodyArticleList(contextActivity:ArticleActivity, consumibleViewModel: Consum
 
                             Row(
                             ) {
-
-                                /*
-                                Text("Cantidad")
-
-                                var txt =""
-                                val pattern = remember { Regex("^\\d+\$") }
-
-                                TextField(
-                                    value = txt,
-                                    onValueChange = {
-                                        if (it.isEmpty() || it.matches(pattern)) {
-                                            txt = it
-                                        }
-                                    },
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                                )
-
-                                 */
-
-                                /*
-                                //val pattern = remember { Regex("^\\d+\$") }
-                                val pattern = remember { Regex("0-9") }
-
-                                var requiredQuantity =0
-                                TextField(
-                                    value = ""+requiredQuantity,
-                                    onValueChange = { text ->
-                                        requiredQuantity = text.toInt()
-
-                                        if(text.matches(Regex("^[0-9]*\$"))){
-                                            Toast.makeText(mContext,"match!", Toast.LENGTH_LONG).show()
-                                        }else{
-                                            Toast.makeText(mContext,"no", Toast.LENGTH_LONG).show()
-                                        }
-                                    },
-                                    keyboardOptions = KeyboardOptions.Default.copy(
-                                        keyboardType = KeyboardType.NumberPassword
-                                    ),
-                                    visualTransformation = VisualTransformation.None
-                                )
-                                */
                                 var newQuantity by rememberSaveable { mutableStateOf("") }
                                 OutlinedTextField(
                                     value = newQuantity,
