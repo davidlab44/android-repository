@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -51,6 +52,7 @@ import kotlinx.coroutines.runBlocking
 @AndroidEntryPoint
 class SyncActivity : ComponentActivity() {
 
+    private val syncViewModelHigh: SyncViewModel by viewModels()
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +65,8 @@ class SyncActivity : ComponentActivity() {
                     val scaffoldState = rememberScaffoldState()
                     val coroutineScope = rememberCoroutineScope()
                     val contextForToast = LocalContext.current.applicationContext
-                    val syncViewModel = viewModel<SyncViewModel>()
+                    var syncViewModel = viewModel<SyncViewModel>()
+                    syncViewModel = syncViewModelHigh
                     //syncViewModel.onCreate()
                     //val drugsDeliveryConsumerViewHeaderViewModel = viewModel<DrugsDeliveryConsumerViewHeaderViewModel>()
                     //val contextArticleActivity = this@ArticleActivity
@@ -132,8 +135,16 @@ class SyncActivity : ComponentActivity() {
         }
     }
     */
+    override fun onResume() {
+        super.onResume()
+        //super.onResume()
+        syncViewModelHigh.sync(this)
+        if(syncViewModelHigh.toastNotInternetConnection){
+            Toast.makeText(this,"No hay conexión a internet", Toast.LENGTH_LONG).show()
+            syncViewModelHigh.toastNotInternetConnection=false
+        }
+    }
 }
-
 
 /*
 @Composable
@@ -178,6 +189,7 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 
 @Composable
 fun TopAppBarSyncAcivity(syncViewModel: SyncViewModel, onNavIconClick: () -> Unit) {
+    //applicationContext? after .current check this out
     val mContext = LocalContext.current.applicationContext
     var icono by rememberSaveable {mutableStateOf("Sync") }
     TopAppBar(
@@ -207,8 +219,7 @@ fun TopAppBarSyncAcivity(syncViewModel: SyncViewModel, onNavIconClick: () -> Uni
             }else{
                 IconButton(onClick = { /* doSomething() */
                     runBlocking {
-                        syncViewModel.postManyConsumibleToApi(mContext)
-                        syncViewModel.postAllPendingReloadablesToApi()
+                        syncViewModel.sync(mContext)
                     }
                 }) {
                     Icon(

@@ -24,13 +24,15 @@ fun BodySyncList(contextSyncActivity:SyncActivity,syncViewModel: SyncViewModel) 
     val mContext = LocalContext.current
     val syncList =syncViewModel.syncList
     if(syncViewModel.toastConsumiblesSynced){
-        Toast.makeText(LocalContext.current,"Syncronizacion realizada exitosamente!", Toast.LENGTH_LONG).show()
+        Toast.makeText(LocalContext.current,"Syncronización realizada exitosamente!", Toast.LENGTH_LONG).show()
         //contextSyncActivity.finish()
         syncViewModel.getAllSyncsFromLocalDatabase()
     }
 
-    if(syncViewModel.toastNotInternetConnection)
+    if(syncViewModel.toastNotInternetConnection){
         Toast.makeText(mContext,"No hay conexión a internet", Toast.LENGTH_LONG).show()
+        syncViewModel.toastNotInternetConnection=false
+    }
 
     syncViewModel.getAllSyncsFromLocalDatabase()
 

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -45,6 +46,7 @@ import com.david.tot.ui.pre.PreActivity
 import com.david.tot.ui.reloadable.ReloadableActivity
 import com.david.tot.ui.settings.SettingsActivity
 import com.david.tot.ui.sync.SyncActivity
+import com.david.tot.ui.sync.SyncViewModel
 
 
 @AndroidEntryPoint
@@ -55,8 +57,7 @@ class MainActivity : ComponentActivity() {
     //OJO
     //desde que empiezas a trabajar offline no te trae nueva informacion hasta que no sincronize toda la cola
 
-
-
+    //
 
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -162,6 +163,7 @@ class MainActivity : ComponentActivity() {
         }
     }
     */
+
 }
 
 

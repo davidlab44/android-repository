@@ -67,6 +67,17 @@ class SyncViewModel @Inject constructor(
     var toastInsertedSuccessfully by mutableStateOf<Boolean>(false)
     var toastNotInternetConnection by mutableStateOf<Boolean>(false)
 
+    fun sync(mContext:Context){
+        if(!hasConnection(mContext)){
+            toastNotInternetConnection=true
+            return
+        }
+        CoroutineScope(Dispatchers.IO).launch {
+            postManyConsumibleToApi(mContext)
+            postAllPendingReloadablesToApi()
+        }
+    }
+
     fun getAllSyncsFromLocalDatabase() {
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
