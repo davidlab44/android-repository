@@ -1,4 +1,4 @@
-package com.david.tot.ui.spendable
+package com.david.tot.ui.spotable
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -15,7 +15,7 @@ import com.david.tot.ui.authenticable.AuthenticableScreenComponentHeader
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 
 @Composable
-fun RequirableHeaderAndBodyScreen(contextActivity: SpendableActivity, spendableViewModel: SpendableViewModel,
+fun RequirableHeaderAndBodyScreen(contextActivity: SpotableActivity, spotableViewModel: SpotableViewModel,
                                   authenticableViewModel: AuthenticableViewModel
 ) {
     //authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
@@ -45,7 +45,7 @@ fun RequirableHeaderAndBodyScreen(contextActivity: SpendableActivity, spendableV
             modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            BodySpendableList(contextActivity,spendableViewModel,
+            BodySpotableList(contextActivity,spotableViewModel,
                 //drugsDeliveryConsumerViewHeaderViewModel
             )
         }

@@ -1,10 +1,9 @@
-package com.david.tot.ui.spendable
+package com.david.tot.ui.spotable
 
 
 
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -49,14 +48,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.david.tot.ui.DrawerContent
-import com.david.tot.ui.MainActivity
 import com.david.tot.ui.authenticable.AuthenticableViewModel
-import com.david.tot.ui.pre.PreActivity
 //import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SpendableActivity : ComponentActivity() {
+class SpotableActivity : ComponentActivity() {
 
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +67,7 @@ class SpendableActivity : ComponentActivity() {
                     val scaffoldState = rememberScaffoldState()
                     val coroutineScope = rememberCoroutineScope()
                     val contextForToast = LocalContext.current.applicationContext
-                    val spendableViewModel = viewModel<SpendableViewModel>()
+                    val spotableViewModel = viewModel<SpotableViewModel>()
                     val authenticableViewModel = viewModel<AuthenticableViewModel>()
                     //val contextArticleActivity = this@ArticleActivity
 
@@ -84,7 +81,7 @@ class SpendableActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         scaffoldState = scaffoldState,
                         topBar = {
-                            TopAppBarArticleAcivity(this@SpendableActivity,spendableViewModel) {
+                            TopAppBarArticleAcivity(this@SpotableActivity,spotableViewModel) {
                                 coroutineScope.launch {
                                     scaffoldState.drawerState.open()
                                 }
@@ -93,13 +90,13 @@ class SpendableActivity : ComponentActivity() {
                         bottomBar = { BottomNavigationBar(navController) },
                         content = { padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                SpendableNavigationBotomMenu(this@SpendableActivity,spendableViewModel,
+                                SpotableNavigationBotomMenu(this@SpotableActivity,spotableViewModel,
                                     authenticableViewModel,
                                     navController = navController)
                             }
                         },
                         drawerContent = {
-                            DrawerContent(context=this@SpendableActivity) { itemLabel ->
+                            DrawerContent(context=this@SpotableActivity) { itemLabel ->
                                 Toast
                                     .makeText(contextForToast, itemLabel, Toast.LENGTH_SHORT)
                                     .show()
@@ -181,7 +178,7 @@ fun MainScreen(articleViewModel:ArticleViewModel,drugsDeliveryConsumerViewHeader
 
 
 @Composable
-fun TopAppBarArticleAcivity(contextActivity:SpendableActivity, spendableViewModel: SpendableViewModel, onNavIconClick: () -> Unit) {
+fun TopAppBarArticleAcivity(contextActivity:SpotableActivity, spotableViewModel: SpotableViewModel, onNavIconClick: () -> Unit) {
     val mContext = LocalContext.current.applicationContext
     TopAppBar(
         title = { Text(text = "GLAPP") },
@@ -224,26 +221,26 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 */
 
 @Composable
-fun SpendableNavigationBotomMenu(contextActivity:SpendableActivity, spendableViewModel:SpendableViewModel,
+fun SpotableNavigationBotomMenu(contextActivity:SpotableActivity, spotableViewModel:SpotableViewModel,
                                   authenticableViewModel: AuthenticableViewModel,
                                   navController: NavHostController) {
 
-    NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
-        composable(BotomNavigationItem.Home.route) {
-            RequirableHeaderAndBodyScreen(contextActivity,spendableViewModel,
+    NavHost(navController, startDestination = SpotableBotomNavigationItem.Home.route) {
+        composable(SpotableBotomNavigationItem.Home.route) {
+            RequirableHeaderAndBodyScreen(contextActivity,spotableViewModel,
                 authenticableViewModel
             )
         }
-        composable(BotomNavigationItem.Music.route) {
+        composable(SpotableBotomNavigationItem.Music.route) {
             MusicScreen()
         }
-        composable(BotomNavigationItem.Movies.route) {
+        composable(SpotableBotomNavigationItem.Movies.route) {
             MoviesScreen()
         }
-        composable(BotomNavigationItem.Books.route) {
+        composable(SpotableBotomNavigationItem.Books.route) {
             BooksScreen()
         }
-        composable(BotomNavigationItem.Profile.route) {
+        composable(SpotableBotomNavigationItem.Profile.route) {
             ProfileScreen()
         }
     }
@@ -275,11 +272,11 @@ fun BottomNavigationBar(navController: NavController) {
     val Purple200 = Color(0xFF7baf4a)
 
     val items = listOf(
-        BotomNavigationItem.Home,
-        BotomNavigationItem.Music,
-        BotomNavigationItem.Movies,
-        BotomNavigationItem.Books,
-        BotomNavigationItem.Profile
+        SpotableBotomNavigationItem.Home,
+        SpotableBotomNavigationItem.Music,
+        SpotableBotomNavigationItem.Movies,
+        SpotableBotomNavigationItem.Books,
+        SpotableBotomNavigationItem.Profile
     )
     BottomNavigation(
         //backgroundColor = Color.Gray,

@@ -79,14 +79,19 @@ class CameraViewModel @Inject constructor(
                 //prefs.setString("photoUrl","defaultValue")
                 //val value = prefs.getString("caller","defaultValue")
                 //Log.e("TG",""+value)
-                if(prefs.getString("caller","ConfirmableActivity")=="ConfirmableActivity"){
+                if(prefs.getString("caller","MainActivity")=="ConfirmableActivity"){
                     mContext.startActivity(Intent(mContext,ConfirmableActivity::class.java))
                     mContext.finish()
                 }
-                if(prefs.getString("caller","ReportableActivity")=="ReportableActivity"){
+                if(prefs.getString("caller","MainActivity")=="SpendableActivity"){
+                    mContext.startActivity(Intent(mContext,ConfirmableActivity::class.java))
+                    mContext.finish()
+                }
+                if(prefs.getString("caller","MainActivity")=="ReportableActivity"){
                     mContext.startActivity(Intent(mContext,ReportableActivity::class.java))
                     mContext.finish()
                 }
+
             }else{
                 Log.e("TAG","file is null")
             }

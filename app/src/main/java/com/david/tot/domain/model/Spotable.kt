@@ -1,10 +1,9 @@
 package com.david.tot.domain.model
 
 import androidx.room.ColumnInfo
-import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-data class Spot (
+data class Spotable (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "localId") val localId: Int = 0,
     @ColumnInfo(name = "id") val id: Int = 0,

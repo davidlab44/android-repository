@@ -95,6 +95,8 @@ dependencies {
     //implementation 'net.alexandroid.utils:shpref:1.7' // Java version
     //implementation 'net.alexandroid.utils:shprefkt:1.8.10' // Kotlin version
     implementation 'com.github.yunusemresorkac:FastPrefs:1.0'
+    //Modal
+    implementation 'io.github.oleksandrbalan:modalsheet:0.4.0'
     def nav_compose = "2.4.0-alpha05"
     implementation "androidx.navigation:navigation-compose:$nav_compose"
     implementation "androidx.compose.material:material:$compose_version"

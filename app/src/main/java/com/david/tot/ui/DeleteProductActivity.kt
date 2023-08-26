@@ -49,6 +49,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 @AndroidEntryPoint
 class DeleteProductActivity : ComponentActivity() {
     private val deleteProductViewModel: DeleteProductViewModel by viewModels()
+    @OptIn(ExperimentalMaterial3Api::class)
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

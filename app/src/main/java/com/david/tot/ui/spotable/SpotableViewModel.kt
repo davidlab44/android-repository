@@ -1,4 +1,4 @@
-package com.david.tot.ui.spendable
+package com.david.tot.ui.spotable
 
 /*
 import android.util.Log
@@ -27,9 +27,6 @@ class ArticleViewModel @Inject constructor(
     ) : ViewModel() {
     */
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -38,7 +35,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SpendableViewModel @Inject constructor(
+class SpotableViewModel @Inject constructor(
     /*
     private val getAllFromApiUseCase: GetAllFromApiUseCase,
     private val getArticleByIdUseCase: GetArticleByIdUseCase,
@@ -56,15 +53,15 @@ class SpendableViewModel @Inject constructor(
 
     //var toastNot by mutableStateOf<Boolean>(false)
 
-    fun createSpendable(descrition:String){
+    fun createSpotable(descrition:String){
         CoroutineScope(Dispatchers.IO).launch {
             /*
-            val spendable = Spendable(generatedId = time, photo= photoUrl,description = "")
-            val spendableToSave = addOneSpendableToLocalDatabaseUseCase.invoke(spendable)
-            val spendableList = getAllSpendablesFromLocalDatabaseUseCase.invoke()
-            Log.e("TG",""+spendableList.size)
-            //val spendableToSave = SpendableSaver().addOneSpendableToLocalDatabase(spendable)
-            val sync = Sync(objectId=Dates().dateAsInt(),dataType="Spendable", createdAt=Dates().geDateAsString())
+            val spotable = Spotable(generatedId = time, photo= photoUrl,description = "")
+            val spotableToSave = addOneSpotableToLocalDatabaseUseCase.invoke(spotable)
+            val spotableList = getAllSpotablesFromLocalDatabaseUseCase.invoke()
+            Log.e("TG",""+spotableList.size)
+            //val spotableToSave = SpotableSaver().addOneSpotableToLocalDatabase(spotable)
+            val sync = Sync(objectId=Dates().dateAsInt(),dataType="Spotable", createdAt=Dates().geDateAsString())
             //val syncToSave = SyncSaver().addOneSyncToLOcalDatabase(sync)
             val syncToSave = addOneSyncFromLocalDatabaseUseCase.invoke(sync)
             val syncList = getAllSyncFromLocalDatabaseUseCase.invoke()
