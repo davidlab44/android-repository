@@ -20,10 +20,20 @@ import androidx.compose.ui.unit.sp
 
 
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Slider
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardType
 
 import androidx.compose.ui.text.toUpperCase
 import com.david.tot.ui.RecipeViewModel
@@ -33,68 +43,218 @@ import eu.wewox.modalsheet.ExperimentalSheetApi
 
 import eu.wewox.modalsheet.ModalSheet
 
-@OptIn(ExperimentalSheetApi::class)
+@OptIn(ExperimentalSheetApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun SimpleModalSheet(recipeViewModel: SpotableViewModel, visible: Boolean, onVisibleChange: (Boolean) -> Unit) {
+fun SimpleModalSheet(spotableViewModel: SpotableViewModel, spendableViewModel: SpendableViewModel, visible: Boolean, onVisibleChange: (Boolean) -> Unit) {
     ModalSheet(visible = visible, onVisibleChange = onVisibleChange) {
-        Column(modifier = Modifier.fillMaxSize().padding(20.dp),
+        Column(modifier = Modifier.height(500.dp) .padding(20.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
             ) {
-            var kilo by remember { mutableStateOf(0f) }
-            var kiloHash by remember {mutableStateOf(0f)}
 
-            Row() {
-                //Text(text="${title.toUpperCase()}",fontSize = 35.sp,fontWeight = FontWeight.ExtraBold)
-            }
-            Row(Modifier.height(100.dp),content={})
-            Row() {
-                Text(text="" + kilo.toInt()+". "+kiloHash.toInt()+" KILOS",fontSize = 25.sp,fontWeight = FontWeight.ExtraBold)
-            }
-            Row(Modifier.height(100.dp),content={})
-            Row() {
-                Slider( //modifier = Modifier.width(width = 400.dp).height(height = 1000.dp).rotate(degrees = -90f),
-                    value = kilo,
-                    steps = 39,
-                    onValueChange = { sliderValue_ -> kilo = sliderValue_ },
-                    onValueChangeFinished = {
-                        // this is called when the user completed selecting the value
-                        // TODO convertir a miligramos y guardar en la base de datos como miligramos para enviar
-                        Log.e("MainActivity", "kilo Value = $kilo")
-                        //saveProductToOrder(recipeViewModel,idProduct,kilo.toInt(),kiloHash.toInt())
-                    },
-                    valueRange = 0f..40f
-                )
-            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             /*
-            Row(Modifier.height(100.dp),content={})
-            Row() {
-                Slider( //modifier = Modifier.width(width = 400.dp).height(height = 1000.dp).rotate(degrees = -90f),
-                    value = kiloHash,
-                    steps = 8,
-                    onValueChange = { sliderValue_ -> kiloHash = sliderValue_ },
-                    onValueChangeFinished = {
-                        // this is called when the user completed selecting the value
-                        Log.d("MainActivity", "kiloHash Value = $kiloHash")
-                        // TODO convertir a miligramos y guardar en la base de datos como miligramos para enviar
-                        // TODO fix error with value 7, when round decimal 6.999... to int
-                        //saveProductToOrder(recipeViewModel,idProduct,kilo.toInt(),kiloHash.toInt())
+
+
+            val mContext = LocalContext.current
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                var text by rememberSaveable { mutableStateOf("") }
+                val pattern = remember { Regex("^\\d+\$") }
+
+
+
+                androidx.compose.material3.OutlinedTextField(
+                    value = text,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        //.background(Color.White)
+                        //.background(Color(0xFF22475b))
+                        .padding(12.dp),
+                    onValueChange = { newText ->
+                        text = newText
                     },
-                    valueRange = 0f..9f
+                    label = { androidx.compose.material3.Text(text = "Buscar") },
+                    placeholder = { androidx.compose.material3.Text(text = "") }
                 )
+
+                consumibleViewModel.updateFilteredArticleList(text)
+                //Text(text="Aqui"+text)
+
+
+                val listModifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White)
+                    .padding(top= 15.dp)
+                    .align(Alignment.CenterHorizontally)
+                LazyColumn(modifier = listModifier) {
+                    val recipeList2 =consumibleViewModel.articleList
+
+                    //LIST
+                    val articleList =consumibleViewModel.articleList
+                    items(articleList) { article ->
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp)
+                                .clickable { },
+                            elevation = 10.dp,
+                            content = {
+                                Column(
+                                    //horizontalAlignment = Alignment.CenterHorizontally,
+                                    modifier = Modifier
+                                        .border(1.dp, Color.Gray, RectangleShape)
+                                        .fillMaxWidth()
+                                        .padding(10.dp)) {
+                                    Row(
+                                        modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+                                    ) {
+
+                                        Box(
+                                        ) {
+                                            androidx.compose.material3.Text(text = "Descripción: "+article.articleDescription)
+                                        }
+                                    }
+
+                                    Row(
+                                    ) {
+                                        var newQuantity by rememberSaveable { mutableStateOf("") }
+                                        androidx.compose.material3.OutlinedTextField(
+                                            value = newQuantity,
+                                            onValueChange = {cant->
+                                                newQuantity=cant
+                                                val cantCasted = cant.filter {it in '0'..'9'}
+                                                article.consumedQuantity=cantCasted.toInt()
+                                            },
+                                            //keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                            keyboardOptions = KeyboardOptions.Default.copy(
+                                                keyboardType = KeyboardType.NumberPassword
+                                            ),
+                                            label = { androidx.compose.material3.Text("Cantidad") },
+                                            modifier = Modifier
+                                                //.padding(start = 16.dp, end = 16.dp, top = 20.dp)
+                                                .width(170.dp)
+                                        )
+
+                                    }
+
+                                    Row(
+                                        modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+                                    ) {
+                                        Box(
+
+                                        ) {
+                                            androidx.compose.material3.Text(text = "Disponible: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
+                                        }
+                                    }
+
+
+                                    Row(
+                                        modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+                                    ) {
+                                        Box(
+
+                                        ) {
+                                            androidx.compose.material3.Text(text = "Reponer: "+article.quantityToStock.toInt().toString(), fontSize = 13.sp)
+                                        }
+                                    }
+
+                                }
+                            }
+                        )
+                    }
+                }
             }
+
+
+
+
+
             */
 
-            //KiloHash()
-            Row(Modifier.height(100.dp),content={})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             Button(onClick = {
-                onVisibleChange(false)
+                spendableViewModel.visibleBoolean=false
+                //onVisibleChange(false)
                 //saveProductToOrder(recipeViewModel,idProduct,kilo.toInt())
             }) {
                 Text(text = "Cerrar")
             }
             BackHandler(enabled = true){
                 //saveProductToOrder(recipeViewModel,idProduct,kilo.toInt())
+                spendableViewModel.visibleBoolean=false
             }
         }
     }

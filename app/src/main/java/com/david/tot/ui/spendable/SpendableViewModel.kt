@@ -27,6 +27,10 @@ class ArticleViewModel @Inject constructor(
     ) : ViewModel() {
     */
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -52,6 +56,7 @@ class SpendableViewModel @Inject constructor(
 ) : ViewModel() {
 
     //var toastNot by mutableStateOf<Boolean>(false)
+    var visibleBoolean by mutableStateOf<Boolean>(false)
 
     fun createSpendable(descrition:String){
         CoroutineScope(Dispatchers.IO).launch {

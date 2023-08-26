@@ -42,6 +42,17 @@ import com.yeslab.fastprefs.FastPrefs
 fun BodySpendableList(contextActivity:SpendableActivity, spendableViewModel: SpendableViewModel,spotableViewModel: SpotableViewModel) {
 
     var username: String by remember { mutableStateOf("") }
+    var visibleInt by rememberSaveable { mutableStateOf(0)}
+
+
+    if(spendableViewModel.visibleBoolean)
+    SimpleModalSheet(
+        spotableViewModel = spotableViewModel,
+        spendableViewModel=spendableViewModel,
+        visible = true,
+        onVisibleChange = { visibleInt = 0 }
+    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -72,24 +83,13 @@ fun BodySpendableList(contextActivity:SpendableActivity, spendableViewModel: Spe
             Modifier.padding(bottom=22.dp)
         ) {
 
-
-
-
             Button(
                 onClick = {
-                    /*
-                    SimpleModalSheet(
-                        recipeViewModel = spotableViewModel,
-                        visible = ,
-                        onVisibleChange =
-                    )
-
-                     */
+                    spendableViewModel.visibleBoolean=true
                 },
                 modifier = Modifier
                     .width(200.dp)
                     .shadow(0.dp),
-
                 shape = RoundedCornerShape(28.dp),
                 contentPadding = PaddingValues(15.dp),
                 colors = ButtonDefaults.buttonColors(Color(0xFFDDDDDD))
@@ -127,11 +127,7 @@ fun BodySpendableList(contextActivity:SpendableActivity, spendableViewModel: Spe
                 }
             }
 
-
-
-
         }
-
 
         //var text by rememberSaveable { mutableStateOf("") }
         Row(
