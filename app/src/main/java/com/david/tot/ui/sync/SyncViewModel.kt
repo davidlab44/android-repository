@@ -23,6 +23,7 @@ import com.david.tot.domain.model.SyncConsumible
 import com.david.tot.domain.model.SyncReloadable
 import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
 import com.david.tot.domain.reloadable.PostManyReloadableUseCase
+import com.david.tot.domain.spotable.GetAllSpotablesFromApiUseCase
 import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.RemoveOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.consumible.RemoveManySyncConsumiblesFromLocalDatabaseUseCase
@@ -56,6 +57,7 @@ class SyncViewModel @Inject constructor(
     private val retrieveAllAuthenticablesFromLocalDbUseCase: RetrieveAllAuthenticablesFromLocalDbUseCase,
     private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
     private val postOneReloadableHeaderUseCase: PostOneReloadableHeaderUseCase,
+    private val getAllSpotablesFromApiUseCase: GetAllSpotablesFromApiUseCase,
 ) : ViewModel() {
 
     var syncList by mutableStateOf<List<Sync>>(emptyList())
@@ -79,6 +81,16 @@ class SyncViewModel @Inject constructor(
             // Este espacio es para la syncronizacion rapida, por ejemplo de consumibles y demas cosas que requieran ser actualizadas rapidamente
             // Buscar un lugar diferente para la syncronizacion de los Sports y demas cosas no importantes
             // Este lugar es para la syncronizacion rapida
+        }
+    }
+
+    fun sync2Spotables(mContext:Context){
+        if(!hasConnection(mContext)){
+            toastNotInternetConnection=true
+            return
+        }
+        CoroutineScope(Dispatchers.IO).launch {
+            getAllSpotablesFromApiUseCase.invoke()
         }
     }
 

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -50,12 +51,13 @@ import androidx.navigation.compose.rememberNavController
 import com.david.tot.ui.DrawerContent
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 import com.david.tot.ui.spotable.SpotableViewModel
+import com.david.tot.ui.sync.SyncViewModel
 //import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SpendableActivity : ComponentActivity() {
-
+    private val syncViewModelHigh: SyncViewModel by viewModels()
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -136,6 +138,15 @@ class SpendableActivity : ComponentActivity() {
         }
     }
     */
+    override fun onStop() {
+        super.onStop()
+        //super.onResume()
+        syncViewModelHigh.sync2Spotables(this)
+        if(syncViewModelHigh.toastNotInternetConnection){
+            Toast.makeText(this,"No hay conexión a internet", Toast.LENGTH_LONG).show()
+            syncViewModelHigh.toastNotInternetConnection=false
+        }
+    }
 }
 
 

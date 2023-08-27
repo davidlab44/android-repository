@@ -31,6 +31,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.david.tot.ui.cameraxtutorial.Main2Activity
 import com.david.tot.ui.spotable.SpotableViewModel
@@ -45,13 +46,18 @@ fun BodySpendableList(contextActivity:SpendableActivity, spendableViewModel: Spe
     var visibleInt by rememberSaveable { mutableStateOf(0)}
 
 
-    if(spendableViewModel.visibleBoolean)
-    SimpleModalSheet(
-        spotableViewModel = spotableViewModel,
-        spendableViewModel=spendableViewModel,
-        visible = true,
-        onVisibleChange = { visibleInt = 0 }
-    )
+    if(spendableViewModel.visibleBoolean){
+        SimpleModalSheet(
+            spotableViewModel = spotableViewModel,
+            spendableViewModel=spendableViewModel,
+            visible = true,
+            onVisibleChange = {
+                visibleInt = 0
+                //TODO review this behaivor, coz this the modal desappear automatically when scroll
+                spendableViewModel.visibleBoolean=false
+            }
+        )
+    }
 
     Column(
         modifier = Modifier
@@ -129,6 +135,38 @@ fun BodySpendableList(contextActivity:SpendableActivity, spendableViewModel: Spe
 
         }
 
+        if(spendableViewModel.visibleSpot){
+            //var text by rememberSaveable { mutableStateOf("") }
+            Row(
+                Modifier.padding(bottom=20.dp)
+            ) {
+                if(spendableViewModel.spotable!=null){
+                    Text(text=""+ spendableViewModel.spotable!!.name, fontWeight = FontWeight.Bold)
+                }
+
+                /*
+                var newQuantity by rememberSaveable { mutableStateOf("") }
+                androidx.compose.material3.OutlinedTextField(
+                    value = newQuantity,
+                    onValueChange = { cant ->
+                        newQuantity = cant
+                        val cantCasted = cant.filter { it in '0'..'9' }
+                        //article.consumedQuantity = cantCasted.toInt()
+                    },
+                    //keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Number
+                    ),
+                    label = { androidx.compose.material3.Text("Valor:") },
+                    modifier = Modifier
+                        //.padding(start = 16.dp, end = 16.dp, top = 20.dp)
+                        .width(200.dp)
+                )
+                */
+            }
+        }
+
+
         //var text by rememberSaveable { mutableStateOf("") }
         Row(
         ) {
@@ -173,14 +211,6 @@ fun BodySpendableList(contextActivity:SpendableActivity, spendableViewModel: Spe
 
 
     }
-
-}
-
-
-
-
-@Composable
-fun GoogleButton() {
 
 }
 

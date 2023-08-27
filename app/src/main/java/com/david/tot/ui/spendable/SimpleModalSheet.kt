@@ -13,29 +13,21 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-
-import android.util.Log
-import android.widget.Toast
+import androidx.compose.foundation.lazy.items
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Slider
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 
-import androidx.compose.ui.text.toUpperCase
 import com.david.tot.ui.RecipeViewModel
 import com.david.tot.ui.spotable.SpotableViewModel
 import eu.wewox.modalsheet.ExperimentalSheetApi
@@ -100,7 +92,7 @@ fun SimpleModalSheet(spotableViewModel: SpotableViewModel, spendableViewModel: S
 
 
 
-            /*
+
 
 
             val mContext = LocalContext.current
@@ -129,9 +121,8 @@ fun SimpleModalSheet(spotableViewModel: SpotableViewModel, spendableViewModel: S
                     placeholder = { androidx.compose.material3.Text(text = "") }
                 )
 
-                consumibleViewModel.updateFilteredArticleList(text)
+                spotableViewModel.retrieveFilteredSpotablesFromLocalDatabase(text)
                 //Text(text="Aqui"+text)
-
 
                 val listModifier = Modifier
                     .fillMaxSize()
@@ -139,16 +130,20 @@ fun SimpleModalSheet(spotableViewModel: SpotableViewModel, spendableViewModel: S
                     .padding(top= 15.dp)
                     .align(Alignment.CenterHorizontally)
                 LazyColumn(modifier = listModifier) {
-                    val recipeList2 =consumibleViewModel.articleList
+                    val recipeList2 =spotableViewModel.spotableList
 
                     //LIST
-                    val articleList =consumibleViewModel.articleList
-                    items(articleList) { article ->
+                    val spotableList =spotableViewModel.spotableList
+                    items(spotableList) { article ->
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(8.dp)
-                                .clickable { },
+                                .clickable {
+                                    spendableViewModel.spotable=article
+                                    spendableViewModel.visibleBoolean=false
+                                    spendableViewModel.visibleSpot=true
+                                },
                             elevation = 10.dp,
                             content = {
                                 Column(
@@ -163,10 +158,19 @@ fun SimpleModalSheet(spotableViewModel: SpotableViewModel, spendableViewModel: S
 
                                         Box(
                                         ) {
-                                            androidx.compose.material3.Text(text = "Descripción: "+article.articleDescription)
+                                            androidx.compose.material3.Text(text = "Nombre: "+article.name)
+                                        }
+                                    }
+                                    Row(
+                                        modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+                                    ) {
+                                        Box(
+                                        ) {
+                                            androidx.compose.material3.Text(text = "Nit: "+article.nit)
                                         }
                                     }
 
+                                    /*
                                     Row(
                                     ) {
                                         var newQuantity by rememberSaveable { mutableStateOf("") }
@@ -209,6 +213,7 @@ fun SimpleModalSheet(spotableViewModel: SpotableViewModel, spendableViewModel: S
                                             androidx.compose.material3.Text(text = "Reponer: "+article.quantityToStock.toInt().toString(), fontSize = 13.sp)
                                         }
                                     }
+                                    */
 
                                 }
                             }
@@ -221,7 +226,7 @@ fun SimpleModalSheet(spotableViewModel: SpotableViewModel, spendableViewModel: S
 
 
 
-            */
+
 
 
 

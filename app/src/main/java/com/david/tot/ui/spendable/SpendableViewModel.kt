@@ -32,6 +32,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.david.tot.domain.model.Spotable
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -57,6 +58,8 @@ class SpendableViewModel @Inject constructor(
 
     //var toastNot by mutableStateOf<Boolean>(false)
     var visibleBoolean by mutableStateOf<Boolean>(false)
+    var visibleSpot by mutableStateOf<Boolean>(false)
+    var spotable by mutableStateOf<Spotable?>(null)
 
     fun createSpendable(descrition:String){
         CoroutineScope(Dispatchers.IO).launch {

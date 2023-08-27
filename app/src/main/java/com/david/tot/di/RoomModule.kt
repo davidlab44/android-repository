@@ -59,5 +59,9 @@ object RoomModule {
     @Singleton
     @Provides
     fun provideSpendableDao(db: RecipeDatabase) = db.getSpendableDao()
+
+    @Singleton
+    @Provides
+    fun provideSpotableDao(db: RecipeDatabase) = db.getSpotableDao()
 }
 
