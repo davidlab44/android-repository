@@ -11,7 +11,8 @@ val SpotableLists: List<Spotable> = listOf(
     Spotable(6,6,"EDS TEXACO MAMONAL","900668471-5"),
     Spotable(7,7,"EDS TEXACO ARANDA","9008236334-7"),
     Spotable(8,8,"EDS PETROMIL TORICES PAPAYAL","9008236883-6"),
-    Spotable(9,9,"RESTAURANTE DONDE SOCORRO","9008464530-4")
+    Spotable(9,9,"CAFETERIA PANDEBONO","9011377915-5"),
+    Spotable(10,9,"RESTAURANTE DONDE SOCORRO","9008464530-4")
    )
 /*
 val CheckList: List<Product> = listOf(

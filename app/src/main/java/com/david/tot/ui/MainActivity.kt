@@ -476,6 +476,7 @@ fun DrawerContent(
             }
         }
 
+        /*
         item {
             Spacer(modifier = Modifier.height(20.dp))
             Row(modifier = Modifier
@@ -531,6 +532,7 @@ fun DrawerContent(
                 )
             }
         }
+        */
 
         item {
             Spacer(modifier = Modifier.height(20.dp))

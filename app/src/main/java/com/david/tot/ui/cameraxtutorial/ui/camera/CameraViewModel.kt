@@ -13,6 +13,7 @@ import com.david.tot.domain.sync.GetAllSyncFromLocalDatabaseUseCase
 import com.david.tot.ui.cameraxtutorial.Main2Activity
 import com.david.tot.ui.confirmable.ConfirmableActivity
 import com.david.tot.ui.reportable.ReportableActivity
+import com.david.tot.ui.spendable.SpendableActivity
 import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -84,7 +85,7 @@ class CameraViewModel @Inject constructor(
                     mContext.finish()
                 }
                 if(prefs.getString("caller","MainActivity")=="SpendableActivity"){
-                    mContext.startActivity(Intent(mContext,ConfirmableActivity::class.java))
+                    mContext.startActivity(Intent(mContext, SpendableActivity::class.java))
                     mContext.finish()
                 }
                 if(prefs.getString("caller","MainActivity")=="ReportableActivity"){

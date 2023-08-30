@@ -210,7 +210,7 @@ fun TopAppBarArticleAcivity(contextActivity:SpendableActivity, spendableViewMode
         actions = {
             IconButton(onClick = {
                 //contextActivity.startActivity(Intent(contextActivity, MainActivity::class.java))
-                Toast.makeText(mContext,"Novedad registrada exitosamente!", Toast.LENGTH_LONG).show()
+                Toast.makeText(mContext,"Gasto registrado exitosamente!", Toast.LENGTH_LONG).show()
                 //Thread.sleep(500)
                 contextActivity.finish()
                 /* doSomething() */

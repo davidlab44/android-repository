@@ -42,10 +42,10 @@ import com.david.tot.util.assetList
 fun BodyList(consumibleViewModel: ConsumibleViewModel, authenticableViewModel: AuthenticableViewModel) {
 
     val mContext = LocalContext.current
-    mContext.startActivity(Intent(mContext, SyncActivity::class.java))
+    //mContext.startActivity(Intent(mContext, SyncActivity::class.java))
 
 
-    /*
+
         //
         //var lista by mutableStateOf<List<Asset>>(emptyList())
         //var lista by mutableStateOf<MutableListList<Asset>>(MutableE)
@@ -151,10 +151,10 @@ fun BodyList(consumibleViewModel: ConsumibleViewModel, authenticableViewModel: A
                 }
             }
         }
-    */
 
 
-/*
+
+    /*
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
 
