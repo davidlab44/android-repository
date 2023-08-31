@@ -44,8 +44,6 @@ fun BodyList(consumibleViewModel: ConsumibleViewModel, authenticableViewModel: A
     val mContext = LocalContext.current
     //mContext.startActivity(Intent(mContext, SyncActivity::class.java))
 
-
-
         //
         //var lista by mutableStateOf<List<Asset>>(emptyList())
         //var lista by mutableStateOf<MutableListList<Asset>>(MutableE)

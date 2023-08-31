@@ -22,6 +22,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 
 import androidx.compose.runtime.*
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.style.TextAlign
 import com.david.tot.util.preList
 
@@ -92,30 +93,11 @@ fun BodyPreList() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        val listModifier = Modifier.fillMaxSize().background(Color.White).padding(10.dp).align(Alignment.CenterHorizontally)
+        val listModifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(10.dp)
+            .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
             //val recipeList2 =recipeViewModel.recipeModel
             //val recipeList =CheckList
@@ -123,29 +105,67 @@ fun BodyPreList() {
             val articleList = preList
             items(articleList) { recipe ->
                 Card(
-                    modifier = Modifier.fillMaxWidth().padding(8.dp).clickable{},
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                        .clickable {},
                     elevation = 10.dp,
                     content = {
                         Column( horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier.border(1.dp, Color.Gray, RectangleShape).fillMaxWidth().padding(20.dp)) {
+                            modifier = Modifier
+                                .border(1.dp, Color.Gray, RectangleShape)
+                                .fillMaxWidth()
+                                .padding(20.dp)) {
                             Row(
-                                modifier = Modifier.padding(all = 12.dp),horizontalArrangement = Arrangement.Center
+                                modifier = Modifier.padding(all = 1.dp),horizontalArrangement = Arrangement.Center
                             ){
                                 Text(
                                     text = recipe.name,
-                                    textAlign = TextAlign.Center, color = Color.Black, fontSize = 24.sp)
+                                    textAlign = TextAlign.Center, color = Color.Black, fontSize = 20.sp)
                                 Box(
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(1.dp),
-                                    contentAlignment = Alignment.CenterEnd
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    // Reemplaza por el ejemplo que deseas ver
+                                }
+                            }
+
+                            Row(
+                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+                            ){
+                                Box(
+                                    modifier = Modifier
+                                        .width(120.dp)
+                                        .padding(1.dp),
+                                    contentAlignment = Alignment.Center
                                 ) {
                                     // Reemplaza por el ejemplo que deseas ver
                                     val checked = remember { mutableStateOf(false) }
                                     Checkbox(
                                         checked = checked.value,
-                                        onCheckedChange = { checked.value = it }
+                                        onCheckedChange = { checked.value = it },
+                                        modifier=Modifier.width(40.dp)
+
                                     )
+                                    Text(text = " \u0020 \u0020 \u0020   \u0020 \u0020 \u0020 \u0020 \u0020     NO")
+                                }
+                                Box(
+                                    modifier = Modifier
+                                        .width(120.dp)
+                                        .padding(1.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    // Reemplaza por el ejemplo que deseas ver
+                                    val checked2 = remember { mutableStateOf(false) }
+                                    Checkbox(
+                                        checked = checked2.value,
+                                        onCheckedChange = { checked2.value = it },
+                                        modifier=Modifier.width(40.dp)
+                                    )
+                                    Text(text = " \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020 \u0020  SI")
+
                                 }
                             }
 
