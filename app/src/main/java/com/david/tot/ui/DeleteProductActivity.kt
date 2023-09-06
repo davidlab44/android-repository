@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.david.tot.ui.theme.TotTheme
-import com.david.tot.util.IMAGE_BASE_URL
+//import com.david.tot.util.IMAGE_BASE_URL
 import dagger.hilt.android.AndroidEntryPoint
 
 import android.graphics.Bitmap
@@ -135,11 +135,14 @@ class DeleteProductActivity : ComponentActivity() {
                             modifier = Modifier.padding(all = 2.dp).height(100.dp),
                             horizontalArrangement = Arrangement.Center
                         ){
+                            /*
                             Image(
                                 painter = rememberImagePainter(IMAGE_BASE_URL+deleteProductViewModel.productImage),
                                 contentDescription = null,
                                 Modifier.height(100.dp)
                             )
+
+                             */
                         }
                         Spacer(modifier = Modifier.height(20.dp))
                         Row(

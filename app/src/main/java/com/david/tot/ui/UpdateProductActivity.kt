@@ -31,13 +31,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.david.tot.ui.theme.TotTheme
-import com.david.tot.util.IMAGE_BASE_URL
+//import com.david.tot.util.IMAGE_BASE_URL
 import dagger.hilt.android.AndroidEntryPoint
-
 import android.graphics.Bitmap
-
 import android.net.Uri
-
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi

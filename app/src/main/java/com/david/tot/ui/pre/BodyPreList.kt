@@ -31,7 +31,6 @@ import com.david.tot.util.preList
 fun BodyPreList() {
     //drugsDeliveryConsumerViewHeaderViewModel.drugsDeliveryConsumerViewHeaderFromApiList
     //val drugsHeader = drugsDeliveryConsumerViewHeaderViewModel.getAnyDrugsDeliveryConsumerViewHeaderFromDatabase()
-
     //preViewModel.getAllFromLocalDatabase()
     //var quantityToRestore by rememberSaveable {mutableStateOf("") }
     val mContext = LocalContext.current
@@ -73,25 +72,10 @@ fun BodyPreList() {
             label = { Text(text = "Buscar") },
             placeholder = { Text(text = "") }
         )
-
-         */
+        */
 
         //preViewModel.updateFilteredArticleList(text)
         //Text(text="Aqui"+text)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         val listModifier = Modifier
             .fillMaxSize()
@@ -149,7 +133,7 @@ fun BodyPreList() {
                                         modifier=Modifier.width(40.dp)
 
                                     )
-                                    Text(text = " \u0020 \u0020 \u0020   \u0020 \u0020 \u0020 \u0020 \u0020     NO")
+                                    Text(text = "  \u0020 \u0020   \u0020 \u0020 \u0020 \u0020 \u0020     NO")
                                 }
                                 Box(
                                     modifier = Modifier
@@ -174,11 +158,6 @@ fun BodyPreList() {
                 )
             }
         }
-
-
-
-
-
 
         /*
         val listModifier = Modifier
@@ -217,12 +196,7 @@ fun BodyPreList() {
                 )
             }
         }
-
         */
-
-
-
-
 
 
     }
