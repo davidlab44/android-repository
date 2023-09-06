@@ -33,7 +33,7 @@ import com.david.tot.domain.authenticable.AddOneAuthenticableToLocalDbUseCase
 import com.david.tot.domain.authenticable.RetrieveAllAuthenticablesFromLocalDbUseCase
 import com.david.tot.domain.consumible.GetAllConsumiblesFromApiUseCase
 import com.david.tot.domain.model.Authenticable
-import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
+//import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -57,7 +57,7 @@ class SettingsViewModel @Inject constructor(
     private val addOneAuthenticableToLocalDbUseCase: AddOneAuthenticableToLocalDbUseCase,
     private val retrieveAllAuthenticablesFromLocalDbUseCase: RetrieveAllAuthenticablesFromLocalDbUseCase,
     private val getAllConsumiblesFromApiUseCase: GetAllConsumiblesFromApiUseCase,
-    private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
+    //private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
 ) : ViewModel() {
 
 

@@ -1,6 +1,7 @@
 package com.david.tot.ui.reloadable
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -32,13 +33,16 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.david.tot.ui.authenticable.AuthenticableViewModel
+import com.david.tot.ui.confirmable.ConfirmableActivity
+import com.david.tot.ui.settings.SettingsActivity
+import com.yeslab.fastprefs.FastPrefs
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: ReloadableViewModel, authenticableViewModel: AuthenticableViewModel) {
 
-    reloadableViewModel.getAllFromLocalDatabase()
+    reloadableViewModel.getAllReloadablesFromApi()
 
     val mContext = LocalContext.current
     if(reloadableViewModel.toastSuccess){
@@ -57,25 +61,9 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
             .fillMaxSize()
             .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        /*
         var text by rememberSaveable { mutableStateOf("") }
         val pattern = remember { Regex("^\\d+\$") }
-
-        /*
-        TextField(
-            value = text,
-            onValueChange = {
-                text = it
-            },
-            label = { Text("Buscar") },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Email Icon"
-                )
-            },
-        )
-        */
-
         OutlinedTextField(
             value = text,
             modifier = Modifier
@@ -90,8 +78,9 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
             placeholder = { Text(text = "") }
         )
 
-        reloadableViewModel.updateFilteredArticleList(text)
+        //reloadableViewModel.updateFilteredArticleList(text)
         //Text(text="Aqui"+text)
+        */
 
 
         val listModifier = Modifier
@@ -123,7 +112,13 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp)
-                        .clickable { },
+                        .clickable {
+
+                            val prefs = FastPrefs(contextActivity)
+                            prefs.setInt("reloadable_selected",article.restockID)
+                            contextActivity.startActivity(Intent(contextActivity, ConfirmableActivity::class.java))
+                            contextActivity.finish()
+                        },
                     elevation = 10.dp,
                     content = {
                         Column(
@@ -150,7 +145,7 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
                                 */
                                 Box(
                                 ) {
-                                    Text(text = "Descripción: "+article.articleDescription)
+                                    Text(text = "Solicitante: "+article.restockerDisplayName)
                                 }
                             }
 
@@ -183,7 +178,7 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
                                 Box(
 
                                 ) {
-                                    Text(text = "Cantidad a Reponer: "+article.quantityToStock.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                                    Text(text = "Fecha de solicitud: "+article.creationDate+" ", fontSize = 13.sp)
                                 }
                             }
                             Row(
@@ -192,7 +187,16 @@ fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: 
                                 Box(
 
                                 ) {
-                                    Text(text = "Disponible: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
+                                    Text(text = "ID solicitud: "+" "+article.creationDate, fontSize = 13.sp)
+                                }
+                            }
+                            Row(
+                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+                            ) {
+                                Box(
+
+                                ) {
+                                    Text(text = "Consecutivo: "+article.consecutive, fontSize = 13.sp)
                                 }
                             }
                         }

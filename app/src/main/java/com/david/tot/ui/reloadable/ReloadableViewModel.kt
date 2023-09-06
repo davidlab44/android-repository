@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.david.tot.domain.model.Reloadable
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncReloadable
+import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
 import com.david.tot.domain.reloadable.RetrieveAllReloadablesFromLocalDatabaseUseCase
 import com.david.tot.domain.reloadable.GetFilteredReloadableListUseCase
 import com.david.tot.domain.reloadable.ReAddAllReloadableToLocalDatabaseUseCase
@@ -27,8 +28,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ReloadableViewModel @Inject constructor(
 
-    //private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
-    private val getFilteredReloadableListUseCase: GetFilteredReloadableListUseCase,
+    private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
+    //private val getFilteredReloadableListUseCase: GetFilteredReloadableListUseCase,
     private val retrieveAllReloadablesFromLocalDatabaseUseCase: RetrieveAllReloadablesFromLocalDatabaseUseCase,
     private val addOneSyncToLocalDatabaseUseCase: AddOneSyncFromLocalDatabaseUseCase,
     private val addManySyncReloadableToLocalDatabaseUseCase: AddManySyncReloadableToLocalDatabaseUseCase,
@@ -66,6 +67,12 @@ class ReloadableViewModel @Inject constructor(
     }
     */
 
+    fun getAllReloadablesFromApi() {
+        Log.e("TAG","TAG")
+        CoroutineScope(Dispatchers.IO).launch {
+            reloadableList=getAllReloadablesFromApiUseCase.invoke("ADMIN",-1,"TO_DELIVER")
+        }
+    }
 
     /*
     fun getAllReloadablesFromApi() {
@@ -92,45 +99,45 @@ class ReloadableViewModel @Inject constructor(
         }
     }
     */
-
-    fun getAllFromLocalDatabase() {
-        Log.e("TAG","TAG")
-        //viewModelScope.launch {
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = retrieveAllReloadablesFromLocalDatabaseUseCase.invoke()
-            if (!result.isNullOrEmpty()) {
-                reloadableList =result
+    /*
+        fun getAllFromLocalDatabase() {
+            Log.e("TAG","TAG")
+            //viewModelScope.launch {
+            CoroutineScope(Dispatchers.IO).launch {
+                val result = retrieveAllReloadablesFromLocalDatabaseUseCase.invoke()
+                if (!result.isNullOrEmpty()) {
+                    reloadableList =result
+                }
             }
         }
-    }
 
-    fun saveReloadableListToSync(){
-        var syncReloadableList = mutableListOf<SyncReloadable>()
-        //TODO take another approach to create this pkey
-        val sdf = SimpleDateFormat("MMdd hh:mm:ss")
-        val currentDate = sdf.format(Date())
-        val date = currentDate.filter {it in '0'..'9'}
-        val objectId = date.toInt()
+        fun saveReloadableListToSync(){
+            var syncReloadableList = mutableListOf<SyncReloadable>()
+            //TODO take another approach to create this pkey
+            val sdf = SimpleDateFormat("MMdd hh:mm:ss")
+            val currentDate = sdf.format(Date())
+            val date = currentDate.filter {it in '0'..'9'}
+            val objectId = date.toInt()
 
-        CoroutineScope(Dispatchers.IO).launch {
-            if (reloadableList.isNotEmpty()) {
-                addOneSyncToLocalDatabaseUseCase.invoke(Sync(objectId=objectId, dataType = "Reloadable",createdAt = "" + Dates().date()))
-                reloadableList.forEach { reloadable ->
-                    syncReloadableList.add(SyncReloadable(objectId=objectId,consumptionId=0,articleCode=reloadable.articleCode,quantity= reloadable.quantityToStock.toInt() ,unitOfMeasure=reloadable.unitOfMeasure,creationDate=""+ Dates().date(),delivered=0))
-                }
-                addManySyncReloadableToLocalDatabaseUseCase.invoke(syncReloadableList)
-                val syncReloadablesCant = retrieveAllSyncReloadablesFromLocalDatabaseUseCase.invoke()
-                if(syncReloadablesCant.size==reloadableList.size){
-                    if(removeAllReloadablesFromLocalDatabaseUseCase.invoke()==reloadableList.size){
-                        toastSuccess=true
+            CoroutineScope(Dispatchers.IO).launch {
+                if (reloadableList.isNotEmpty()) {
+                    addOneSyncToLocalDatabaseUseCase.invoke(Sync(objectId=objectId, dataType = "Reloadable",createdAt = "" + Dates().date()))
+                    reloadableList.forEach { reloadable ->
+                        syncReloadableList.add(SyncReloadable(objectId=objectId,consumptionId=0,articleCode=reloadable.articleCode,quantity= reloadable.quantityToStock.toInt() ,unitOfMeasure=reloadable.unitOfMeasure,creationDate=""+ Dates().date(),delivered=0))
                     }
-                }else{
-                    toastFaliledToSaveInLocalDatabase=true
+                    addManySyncReloadableToLocalDatabaseUseCase.invoke(syncReloadableList)
+                    val syncReloadablesCant = retrieveAllSyncReloadablesFromLocalDatabaseUseCase.invoke()
+                    if(syncReloadablesCant.size==reloadableList.size){
+                        if(removeAllReloadablesFromLocalDatabaseUseCase.invoke()==reloadableList.size){
+                            toastSuccess=true
+                        }
+                    }else{
+                        toastFaliledToSaveInLocalDatabase=true
+                    }
                 }
             }
         }
-    }
-
+    */
     /*
     //NO BORRAR
     //Asi es como estaba funcionando antes que permitia editar la cantidad igual que en los consumibles
@@ -275,6 +282,7 @@ class ReloadableViewModel @Inject constructor(
        }
     */
 
+    /*
     fun updateFilteredArticleList(hash:String){
         CoroutineScope(Dispatchers.IO).launch {
             val result = getFilteredReloadableListUseCase.invoke("%$hash%")
@@ -284,5 +292,7 @@ class ReloadableViewModel @Inject constructor(
         }
     }
     //var productDescription by mutableStateOf<String>("")
+
+     */
 
 }

@@ -9,8 +9,10 @@ import com.david.tot.domain.model.Reloadable
 
 @Dao
 interface ReloadableDao {
+    /*
     @Query("SELECT * FROM ReloadableTable ")
     suspend fun getAll():List<Reloadable>
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(recipes:List<Reloadable>)
@@ -28,6 +30,8 @@ interface ReloadableDao {
     @Query("SELECT * FROM ReloadableTable WHERE articleDescription LIKE :reloadableHash")
     fun getFiltered(reloadableHash: String): List<Reloadable>
 
+
+     */
     /*
     @Query("UPDATE ReloadableTable SET quantityConsumed = :reloadableNewQuantity WHERE localId = :reloadableLocalId")
     suspend fun updateConsumedQuantity(reloadableLocalId:Int, reloadableNewQuantity:Int):Int

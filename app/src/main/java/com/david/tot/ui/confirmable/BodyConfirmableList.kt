@@ -92,7 +92,10 @@ import com.yeslab.fastprefs.FastPrefs
 @Composable
 fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewModel: ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel) {
     val mContext = LocalContext.current
-    confirmableViewModel.getAllConfirmablesFromLocalDatabase(mContext)
+    //confirmableViewModel.getAllConfirmablesFromLocalDatabase(mContext)
+
+
+    confirmableViewModel.getAllReloadablesFromApi(contextActivity)
     var value by remember { mutableStateOf("") }
 
     if(confirmableViewModel.toastSuccess){
@@ -104,10 +107,34 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
 
     if(confirmableViewModel.toastConfirmationSuccess)
         Toast.makeText(mContext,"Confirmación exitosa", Toast.LENGTH_LONG).show()
+    Column(
+        modifier = Modifier
+            .height(200.dp)
+            .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+        ) {
+            Box(
+            ) {
+                Text(text = "Solicitante: "+confirmableViewModel.reloadable.restockerUser,fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold )
+            }
+        }
+        Row(
+            modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+        ) {
+            Box(
+            ) {
+                Text(text = "ID: "+confirmableViewModel.reloadable.restockID,fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold )
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .height(200.dp)
             .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var text by rememberSaveable { mutableStateOf("") }

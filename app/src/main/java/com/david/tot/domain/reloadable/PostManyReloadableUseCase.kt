@@ -5,7 +5,10 @@ import com.google.gson.JsonArray
 import javax.inject.Inject
 
 class PostManyReloadableUseCase @Inject constructor(private val repository: ReloadableRepository) {
+    /*
     suspend operator fun invoke(jsonArray: JsonArray): Int {
         return repository.postMany(jsonArray)
     }
+    
+     */
 }

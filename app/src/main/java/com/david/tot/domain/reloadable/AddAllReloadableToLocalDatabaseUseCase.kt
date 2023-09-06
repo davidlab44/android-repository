@@ -6,6 +6,8 @@ import com.david.tot.domain.model.toDatabase
 import javax.inject.Inject
 
 class AddAllReloadableToLocalDatabaseUseCase @Inject constructor(private val repository: ReloadableRepository) {
+
+    /*
     suspend operator fun invoke(reloadableList:List<Reloadable>):List<Reloadable>{
         return if(reloadableList.isNotEmpty()){
             repository.clearReloadables()
@@ -18,4 +20,5 @@ class AddAllReloadableToLocalDatabaseUseCase @Inject constructor(private val rep
             repository.getAllReloadablesFromDatabase()
         }
     }
+    */
 }

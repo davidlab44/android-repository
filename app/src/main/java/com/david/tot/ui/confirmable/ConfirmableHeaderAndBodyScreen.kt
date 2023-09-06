@@ -26,12 +26,15 @@ fun ConfirmableHeaderAndBodyScreen(contextActivity:ConfirmableActivity, confirma
     ) {
         //var text by rememberSaveable { mutableStateOf("") }
         //var text by rememberSaveable { mutableStateOf("") }
+/*
         Row(
             modifier = Modifier.padding(all = 0.dp).height(140.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
             AuthenticableScreenComponentHeader(authenticableViewModel)
         }
+
+ */
         Row(
             modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center

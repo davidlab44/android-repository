@@ -27,6 +27,7 @@ class ArticleViewModel @Inject constructor(
     ) : ViewModel() {
     */
 
+import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -38,8 +39,11 @@ import com.david.tot.domain.confirmable.PostOneConfirmableUseCase
 import com.david.tot.util.*
 import com.david.tot.domain.model.Confirmable
 import com.david.tot.domain.model.ConfirmableClean
+import com.david.tot.domain.model.Reloadable
 import com.david.tot.domain.model.toApi
+import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
 import com.google.gson.Gson
+import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,13 +53,31 @@ import javax.inject.Inject
 @HiltViewModel
 class ConfirmableViewModel @Inject constructor(
     private val getAllConfirmablesFromLocalDatabaseUseCase: GetAllConfirmablesFromLocalDatabaseUseCase,
-    private val postOneConfirmableUseCase: PostOneConfirmableUseCase
+    private val postOneConfirmableUseCase: PostOneConfirmableUseCase,
+    private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
 ) : ViewModel() {
     var confirmableList by mutableStateOf<List<Confirmable>>(emptyList())
     var toastSuccess by mutableStateOf<Boolean>(false)
     var toastNotInternetConnection by mutableStateOf<Boolean>(false)
     var toastConfirmationSuccess by mutableStateOf<Boolean>(false)
     var confirmable by mutableStateOf<Confirmable?>(null)
+    var reloadableList by mutableStateOf<List<Reloadable>>(emptyList())
+    var reloadable by mutableStateOf<Reloadable>(Reloadable(1,"","","","","","",""))
+
+    fun getAllReloadablesFromApi(contextActivity: Activity) {
+        Log.e("TAG","TAG")
+        CoroutineScope(Dispatchers.IO).launch {
+            val prefs = FastPrefs(contextActivity)
+            val restockId= prefs.getInt("reloadable_selected",0)
+            prefs.remove("reloadable_selected")
+            reloadableList=getAllReloadablesFromApiUseCase.invoke("ADMIN",-1,"TO_DELIVER")
+            reloadableList.forEach {
+                if(it.restockID==restockId)
+                    reloadable=it
+            }
+        }
+    }
+
     fun getAllConfirmablesFromLocalDatabase(context:Context) {
         Log.e("TAG","TAG")
         //viewModelScope.launch {

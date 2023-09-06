@@ -6,18 +6,14 @@ import com.david.tot.domain.model.toDatabase
 import javax.inject.Inject
 
 class GetAllReloadablesFromApiUseCase @Inject constructor(private val repository: ReloadableRepository) {
-    suspend operator fun invoke():List<Reloadable>{
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO
-        //TODO no permitir consultar nada hasta que no se termine de sincronizar!!!!
-        //OJO
-        var recipes = repository.getAllReloadablesFromApi()
+    suspend operator fun invoke(user:String,restockId:Int,status:String):List<Reloadable> {
+        return repository.getAllReloadablesFromApi(user, restockId, status)
+    }
+
+    /*
+    suspend operator fun invoke(user:String,restockId:Int,status:String):List<Reloadable>{
+        var recipes = repository.getAllReloadablesFromApi(user,restockId,status)
         return if(recipes.isNotEmpty()){
-            //TODO check internet connection before to clear database
             repository.clearReloadables()
             repository.addAllReloadablesToLocalDb(recipes.map { it.toDatabase() })
             //recipes
@@ -28,4 +24,5 @@ class GetAllReloadablesFromApiUseCase @Inject constructor(private val repository
             repository.getAllReloadablesFromDatabase()
         }
     }
+    */
 }

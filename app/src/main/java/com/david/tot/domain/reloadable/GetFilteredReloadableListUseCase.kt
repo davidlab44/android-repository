@@ -5,6 +5,7 @@ import com.david.tot.domain.model.Reloadable
 import javax.inject.Inject
 
 class GetFilteredReloadableListUseCase @Inject constructor(private val repository: ReloadableRepository) {
+    /*
     suspend operator fun invoke(hash:String):List<Reloadable>{
         /*
         //var recipes = repository.getAllRecipesFromApi()
@@ -22,4 +23,5 @@ class GetFilteredReloadableListUseCase @Inject constructor(private val repositor
         */
         return repository.getFiltered(hash)
     }
+    */
 }

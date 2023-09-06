@@ -12,10 +12,10 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 class ReloadableService @Inject constructor(private val api: IReloadableApiClient) {
-    suspend fun getReloadables(): List<Reloadable> {
+    suspend fun getReloadables(user:String,restockId:Int,status:String): List<Reloadable> {
         //api.rawJSON()
         return withContext(Dispatchers.IO) {
-            val response = api.getAll()
+            val response = api.getAll(user,restockId,status)
             response.body() ?: emptyList()
         }
     }
@@ -44,6 +44,7 @@ class ReloadableService @Inject constructor(private val api: IReloadableApiClien
         }
     }
 
+    /*
     suspend fun addReloadable(product:Reloadable):Int{
         return withContext(Dispatchers.IO) {
             val respuesta = api.addOne(product)
@@ -65,6 +66,7 @@ class ReloadableService @Inject constructor(private val api: IReloadableApiClien
             respuesta.code()
         }
     }
+
 
     suspend fun updateReloadable(reloadable:Reloadable):Int{
         return withContext(Dispatchers.IO) {
@@ -89,6 +91,8 @@ class ReloadableService @Inject constructor(private val api: IReloadableApiClien
             response.code()
         }
     }
+
+     */
 
 }
 

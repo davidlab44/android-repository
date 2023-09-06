@@ -6,6 +6,7 @@ import com.david.tot.domain.model.toDatabase
 import javax.inject.Inject
 
 class UpdateAllReloadablesInLocalDatabaseUseCase @Inject constructor(private val repository: ReloadableRepository) {
+    /*
     suspend operator fun invoke(articleList:List<Reloadable>):List<Reloadable>{
         
         return if(articleList.isNotEmpty()){
@@ -18,4 +19,6 @@ class UpdateAllReloadablesInLocalDatabaseUseCase @Inject constructor(private val
             repository.getAllReloadablesFromDatabase()
         }
     }
+
+     */
 }

@@ -19,12 +19,14 @@ class ReloadableRepository @Inject constructor(
     private val reloadableDao: ReloadableDao
 ) {
 
-    suspend fun getAllReloadablesFromApi(): List<Reloadable> {
-        val response: List<Reloadable> = api.getReloadables()
+
+    suspend fun getAllReloadablesFromApi(user:String,restockId:Int,status:String): List<Reloadable> {
+        val response: List<Reloadable> = api.getReloadables(user,restockId,status)
         Log.e("tag",""+response)
         return response.map { it.toDomain() }
     }
 
+    /*
     suspend fun addReloadable(reloadable:Reloadable):Int{
         return api.addReloadable(reloadable)
     }
@@ -99,6 +101,8 @@ class ReloadableRepository @Inject constructor(
         return reloadableDao.removeAllReloadablesFromLocalDatabase()
     }
 
+
+     */
     /*
     suspend fun updateConsumedQuantity(idReloadable:Int, reloadableNewQuantity:Int): Int {
         return reloadableDao.updateConsumedQuantity(idReloadable,reloadableNewQuantity)

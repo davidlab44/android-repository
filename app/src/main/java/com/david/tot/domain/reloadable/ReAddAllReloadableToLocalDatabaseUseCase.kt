@@ -6,6 +6,7 @@ import com.david.tot.domain.model.toDatabase
 import javax.inject.Inject
 
 class ReAddAllReloadableToLocalDatabaseUseCase @Inject constructor(private val repository: ReloadableRepository) {
+    /*
     suspend operator fun invoke(consumibleListUpdated:List<Reloadable>):List<Reloadable>{
         var reloadableList = consumibleListUpdated
         repository.clearReloadables()
@@ -16,4 +17,6 @@ class ReAddAllReloadableToLocalDatabaseUseCase @Inject constructor(private val r
         }
         return reloadableList
     }
+
+     */
 }
