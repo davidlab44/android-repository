@@ -224,15 +224,15 @@ fun MainScreenPreview(articleViewModel:ArticleViewModel,drugsDeliveryConsumerVie
 @Composable
 fun ConfirmableNavigationBotomMenu(contextActivity:ConfirmableActivity, confirmableViewModel:ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel, navController: NavHostController) {
 
-    NavHost(navController, startDestination = BotomNavigationItem.Music.route) {
+    NavHost(navController, startDestination = BotomNavigationItem.Home.route) {
         composable(BotomNavigationItem.Home.route) {
-            contextActivity.startActivity(Intent(contextActivity, ReloadableActivity::class.java))
-            //ConfirmableHeaderAndBodyScreen(contextActivity,confirmableViewModel,authenticableViewModel)
+            //contextActivity.startActivity(Intent(contextActivity, ReloadableActivity::class.java))
+            ConfirmableHeaderAndBodyScreen(contextActivity,confirmableViewModel,authenticableViewModel)
+            //MusicScreen()
         }
         composable(BotomNavigationItem.Music.route) {
-            //contextActivity.startActivity(Intent(contextActivity, ConfirmableActivity::class.java))
-            //MusicScreen()
-            ConfirmableHeaderAndBodyScreen(contextActivity,confirmableViewModel,authenticableViewModel)
+            MusicScreen()
+            //ConfirmableHeaderAndBodyScreen(contextActivity,confirmableViewModel,authenticableViewModel)
         }
         composable(BotomNavigationItem.Movies.route) {
             MoviesScreen(contextActivity)

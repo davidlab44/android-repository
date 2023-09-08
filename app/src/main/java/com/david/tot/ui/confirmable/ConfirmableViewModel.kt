@@ -34,13 +34,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.david.tot.domain.confirmable.GetAllConfirmableDetailsFromApiUseCase
 import com.david.tot.domain.confirmable.GetAllConfirmablesFromLocalDatabaseUseCase
 import com.david.tot.domain.confirmable.PostOneConfirmableUseCase
 import com.david.tot.util.*
 import com.david.tot.domain.model.Confirmable
 import com.david.tot.domain.model.ConfirmableClean
+import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.Reloadable
-import com.david.tot.domain.model.toApi
 import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
 import com.google.gson.Gson
 import com.yeslab.fastprefs.FastPrefs
@@ -55,20 +56,23 @@ class ConfirmableViewModel @Inject constructor(
     private val getAllConfirmablesFromLocalDatabaseUseCase: GetAllConfirmablesFromLocalDatabaseUseCase,
     private val postOneConfirmableUseCase: PostOneConfirmableUseCase,
     private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
+    private val getAllConfirmableDetailsFromApiUseCase: GetAllConfirmableDetailsFromApiUseCase,
 ) : ViewModel() {
     var confirmableList by mutableStateOf<List<Confirmable>>(emptyList())
     var toastSuccess by mutableStateOf<Boolean>(false)
+    var restockId by mutableStateOf<Int>(0)
     var toastNotInternetConnection by mutableStateOf<Boolean>(false)
     var toastConfirmationSuccess by mutableStateOf<Boolean>(false)
     var confirmable by mutableStateOf<Confirmable?>(null)
     var reloadableList by mutableStateOf<List<Reloadable>>(emptyList())
+    var consumibleList by mutableStateOf<List<Consumible>>(emptyList())
     var reloadable by mutableStateOf<Reloadable>(Reloadable(1,"","","","","","",""))
 
     fun getAllReloadablesFromApi(contextActivity: Activity) {
         Log.e("TAG","TAG")
         CoroutineScope(Dispatchers.IO).launch {
             val prefs = FastPrefs(contextActivity)
-            val restockId= prefs.getInt("reloadable_selected",0)
+            restockId= prefs.getInt("reloadable_selected",0)
             prefs.remove("reloadable_selected")
             reloadableList=getAllReloadablesFromApiUseCase.invoke("ADMIN",-1,"TO_DELIVER")
             reloadableList.forEach {
@@ -78,6 +82,12 @@ class ConfirmableViewModel @Inject constructor(
         }
     }
 
+
+    fun getReloadableDetailListFromApi(){
+        CoroutineScope(Dispatchers.IO).launch {
+            consumibleList= getAllConfirmableDetailsFromApiUseCase.invoke("ADMIN",10002,"RESTOCK_CONFIRMATION")
+        }
+    }
     fun getAllConfirmablesFromLocalDatabase(context:Context) {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
@@ -107,7 +117,7 @@ class ConfirmableViewModel @Inject constructor(
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
             val confirmableClean = ConfirmableClean(
-                -1,"ADMIN","HFQ753","someUrl","someComment"
+                -1,"ADMIN","HFQ753","someUrl","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse convallis leo sed arcu aliquam, eu consequat ex lobortis. Aliquam erat volutpat. Sed ac odio bibendum, porta metus vitae, pellentesque velit"
             )
             var gson = Gson()
             var confirmableHeaderJsonObject = gson.toJson(confirmableClean)
@@ -118,14 +128,12 @@ class ConfirmableViewModel @Inject constructor(
         }
     }
 
-
     //https://glerp.net.co/wp-content/uploads/2022/06/image-23-devices-GENERALLEDGER.png
 
     /*
     var articleList by mutableStateOf<List<Article>>(emptyList())
     var quantityToRestore by mutableStateOf<String>("")
     var toastSuccess by mutableStateOf<Boolean>(false)
-
 
     //var invepastoList by mutableStateOf<List<Asset>>(emptyList())
 

@@ -72,7 +72,7 @@ fun DisplayLastPhoto(){
         bitmap.value?.let {  btm ->
             Column(
                 //horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(top=24.dp, bottom=20.dp)) {
+                modifier = Modifier.padding(top=4.dp, bottom=0.dp)) {
                 Row(
                     //modifier = Modifier.padding(all = 2.dp),
                     //horizontalArrangement = Arrangement.Center

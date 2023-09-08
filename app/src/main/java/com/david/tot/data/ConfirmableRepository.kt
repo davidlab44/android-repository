@@ -6,6 +6,7 @@ import com.david.tot.data.network.confirmable.ConfirmableService
 import com.david.tot.data.network.consumible.ConsumibleService
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Confirmable
+import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.toDomain
 import com.david.tot.util.IsImageFile
 import com.google.gson.JsonArray
@@ -28,6 +29,11 @@ class ConfirmableRepository @Inject constructor(
 
     suspend fun postOneConfirmable(jsonObject: String):Int{
         return api.postOneConfirmable(jsonObject)
+    }
+
+
+    suspend fun getAllConfirmableDetailsFromApi(user:String,reloadableId:Int,status:String):List<Consumible>{
+        return api.getAllConfirmableDetailsFromApi(user,reloadableId,status)
     }
 
     /*

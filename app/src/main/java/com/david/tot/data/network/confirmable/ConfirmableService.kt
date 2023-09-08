@@ -1,6 +1,8 @@
 package com.david.tot.data.network.confirmable
 
+import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Confirmable
+import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.Reloadable
 import com.google.gson.JsonArray
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +18,14 @@ class ConfirmableService @Inject constructor(private val api: IConfirmableApiCli
         //api.rawJSON()
         return withContext(Dispatchers.IO) {
             val response = api.getAll()
+            response.body() ?: emptyList()
+        }
+    }
+
+    suspend fun getAllConfirmableDetailsFromApi(user:String,reloadableId:Int,status:String): List<Consumible> {
+        //api.rawJSON()
+        return withContext(Dispatchers.IO) {
+            val response = api.getAllConfirmableDetailsFromApi(user,reloadableId,status)
             response.body() ?: emptyList()
         }
     }

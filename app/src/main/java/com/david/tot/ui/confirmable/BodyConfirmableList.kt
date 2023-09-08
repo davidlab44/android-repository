@@ -94,7 +94,6 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
     val mContext = LocalContext.current
     //confirmableViewModel.getAllConfirmablesFromLocalDatabase(mContext)
 
-
     confirmableViewModel.getAllReloadablesFromApi(contextActivity)
     var value by remember { mutableStateOf("") }
 
@@ -107,195 +106,176 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
 
     if(confirmableViewModel.toastConfirmationSuccess)
         Toast.makeText(mContext,"Confirmación exitosa", Toast.LENGTH_LONG).show()
-    Column(
-        modifier = Modifier
-            .height(200.dp)
-            .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Row(
-            modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
-        ) {
-            Box(
-            ) {
-                Text(text = "Solicitante: "+confirmableViewModel.reloadable.restockerUser,fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold )
-            }
-        }
-        Row(
-            modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
-        ) {
-            Box(
-            ) {
-                Text(text = "ID: "+confirmableViewModel.reloadable.restockID,fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold )
-            }
-        }
-    }
 
     Column(
         modifier = Modifier
-            .height(200.dp)
-            .padding(2.dp), horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxHeight()
+            .padding(top = 5.dp,start=40.dp,end=40.dp),
+        //horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var text by rememberSaveable { mutableStateOf("") }
         val pattern = remember { Regex("^\\d+\$") }
+        Row(
+            modifier = Modifier.padding(all = 2.dp),horizontalArrangement = Arrangement.Center
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(text = "Solicitante: "+confirmableViewModel.reloadable.restockerUser,fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold )
+            }
+        }
+        Row(
+            modifier = Modifier.padding(all = 2.dp),horizontalArrangement = Arrangement.Center
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(text = "Consecutivo: "+confirmableViewModel.reloadable.consecutive,fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold )
+            }
+        }
+        Row(
+            modifier = Modifier.padding(all = 2.dp),horizontalArrangement = Arrangement.Center
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(text = "Status: "+confirmableViewModel.reloadable.status,fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold )
+            }
+        }
+        Row(
+            modifier = Modifier.padding(all = 2.dp),horizontalArrangement = Arrangement.Center
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(text = "Vehiculo: "+confirmableViewModel.reloadable.vehicle,fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold)
+            }
+        }
 
+        Row(
+            modifier = Modifier.padding(all = 1.dp),horizontalArrangement = Arrangement.Center
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(text = " ",fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold)
+            }
+        }
+        confirmableViewModel.getReloadableDetailListFromApi()
         val listModifier = Modifier
-            .fillMaxSize()
+            .height(150.dp)
+            .border(1.dp, Color.Gray, RectangleShape)
             .background(Color.White)
-            .padding(top = 15.dp)
+
             .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
-
             //LIST
-            //val confirmableList =confirmableViewModel.confirmableList
-            val confirmableList = ConfirmableList
-            items(confirmableList) { confirmable ->
+            val consumibleList =confirmableViewModel.consumibleList
+            //val consumibleList = ConfirmableList
+            items(consumibleList) { confirmableDetail ->
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(12.dp)
+                        .padding(20.dp)
                         .clickable { },
-                    elevation = 10.dp,
+                    //elevation = 10.dp,
                     content = {
                         Column(
                             //horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier
-                                .border(1.dp, Color.Gray, RectangleShape)
+                                //.border(1.dp, Color.Gray, RectangleShape)
                                 .fillMaxWidth()
-                                .padding(10.dp)) {
+                                .padding(0.dp)) {
                             Row(
-                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
+                                //modifier = Modifier.padding(top = 5.dp),horizontalArrangement = Arrangement.Center
                             ) {
                                 Box(
                                 ) {
-                                    Text(text = "CONFIRMACIÓN DE SOLICITUD: "+confirmable.consecutive,fontSize = 20.sp,
-                                        fontWeight = FontWeight.Bold )
+                                    Text(text = "* "+confirmableDetail.articleCode+" "+confirmableDetail.quantity+" "+confirmableDetail.unitOfMeasure, fontSize = 13.sp)
                                 }
-                            }
-
-                            Row(
-                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
-                            ) {
-                                Box(
-                                ) {
-                                    Text(text = "RestockId: "+confirmable.restockID)
-                                }
-                            }
-
-                            Row(
-                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
-                            ) {
-                                Box(
-                                ) {
-                                    Text(text = "Fecha de creación de la solicitud: "+confirmable.creationDate)
-                                }
-                            }
-
-                            Row(
-                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
-                            ) {
-                                Box(
-                                ) {
-                                    Text(text = "Nombre Solicitante: "+confirmable.restockerDisplayName)
-                                }
-                            }
-
-                            Row(
-                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
-                            ) {
-                                Box(
-                                ) {
-                                    Text(text = "Vehiculo: "+confirmable.vehicle)
-                                }
-                            }
-
-                            Row(
-                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
-                            ) {
-                                Box(
-
-                                ) {
-                                    Text(text = "STATUS: "+confirmable.status, fontSize = 15.sp)
-                                }
-                            }
-
-                            Row(
-                                //modifier = Modifier.padding(all = 0.dp),
-                                horizontalArrangement = Arrangement.Center,
-                                modifier = Modifier.fillMaxSize().padding(top=10.dp),
-                            ) {
-                                Box(
-                                    contentAlignment = Alignment.Center,
-                                    modifier = Modifier.fillMaxSize(),
-                                ) {
-                                    OutlinedTextField(
-                                        value = value,
-                                        onValueChange = {
-                                            value = it
-                                        },
-                                        label = { androidx.compose.material.Text("Comentarios: ") },
-                                        modifier = Modifier
-                                            //.padding(1.dp)
-                                            .height(200.dp).align(Alignment.Center),
-                                        singleLine= false,
-                                        maxLines = 10
-                                    )
-                                }
-                            }
-
-                            Row(
-                                modifier = Modifier
-                                    //.padding(all = 1.dp)
-                                    .height(330.dp).clickable(onClick = {
-                                        val prefs = FastPrefs(contextActivity)
-                                        prefs.setString("caller","ConfirmableActivity")
-                                        contextActivity.startActivity(Intent(contextActivity, Main2Activity::class.java))
-                                    }),
-                                //horizontalArrangement = Arrangement.Center
-                            ){
-                                DisplayLastPhoto()
-                                /*
-                                val bitmap =  remember {mutableStateOf<Bitmap?>(null)}
-                                var imageUri by remember {mutableStateOf<Uri?>(null)}
-                                val context = LocalContext.current
-                                //SHARED PREFERENCES
-                                val prefs = FastPrefs(context)
-                                //TODO todogl cambiar esto por una imagen por defecto
-                                //prefs.setString("Reportable","defaultValue")
-                                val value = prefs.getString("photoUrl","defaultValue")
-                                Log.e("TG","value: "+value)
-                                imageUri= Uri.parse("file://"+value)
-                                imageUri?.let {
-                                    if (Build.VERSION.SDK_INT < 28) {
-                                        bitmap.value = MediaStore.Images
-                                            .Media.getBitmap(context.contentResolver,it)
-                                    } else {
-                                        val source = ImageDecoder
-                                            .createSource(context.contentResolver,it)
-                                        bitmap.value = ImageDecoder.decodeBitmap(source)
-                                    }
-
-                                    bitmap.value?.let {  btm ->
-                                        Column( horizontalAlignment = Alignment.CenterHorizontally,
-                                            modifier = Modifier.padding(2.dp)) {
-                                            Row(
-                                                modifier = Modifier.padding(all = 2.dp),horizontalArrangement = Arrangement.Center
-                                            ) {
-                                                Image(bitmap = btm.asImageBitmap(),
-                                                    contentDescription =null,
-                                                    modifier = Modifier.size(300.dp)
-                                                )
-                                            }
-                                        }
-                                    }
-                                }
-                                */
                             }
                         }
                     }
                 )
             }
+        }
+
+        Row(
+            //modifier = Modifier.padding(all = 0.dp),
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.height(150.dp).padding(top=10.dp),
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                OutlinedTextField(
+                    value = value,
+                    onValueChange = {
+                        value = it
+                    },
+                    label = { androidx.compose.material.Text("Comentarios: ") },
+                    modifier = Modifier
+                        //.padding(1.dp)
+                        .height(150.dp).align(Alignment.Center),
+                    singleLine= false,
+                    maxLines = 10
+                )
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                //.padding(all = 1.dp)
+                .height(430.dp).border(1.dp, Color.Red, RectangleShape).clickable(onClick = {
+                    val prefs = FastPrefs(contextActivity)
+                    prefs.setString("caller","ConfirmableActivity")
+                    contextActivity.startActivity(Intent(contextActivity, Main2Activity::class.java))
+                }),
+            //horizontalArrangement = Arrangement.Center
+        ){
+            DisplayLastPhoto()
+            /*
+            val bitmap =  remember {mutableStateOf<Bitmap?>(null)}
+            var imageUri by remember {mutableStateOf<Uri?>(null)}
+            val context = LocalContext.current
+            //SHARED PREFERENCES
+            val prefs = FastPrefs(context)
+            //TODO todogl cambiar esto por una imagen por defecto
+            //prefs.setString("Reportable","defaultValue")
+            val value = prefs.getString("photoUrl","defaultValue")
+            Log.e("TG","value: "+value)
+            imageUri= Uri.parse("file://"+value)
+            imageUri?.let {
+                if (Build.VERSION.SDK_INT < 28) {
+                    bitmap.value = MediaStore.Images
+                        .Media.getBitmap(context.contentResolver,it)
+                } else {
+                    val source = ImageDecoder
+                        .createSource(context.contentResolver,it)
+                    bitmap.value = ImageDecoder.decodeBitmap(source)
+                }
+
+                bitmap.value?.let {  btm ->
+                    Column( horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.padding(2.dp)) {
+                        Row(
+                            modifier = Modifier.padding(all = 2.dp),horizontalArrangement = Arrangement.Center
+                        ) {
+                            Image(bitmap = btm.asImageBitmap(),
+                                contentDescription =null,
+                                modifier = Modifier.size(300.dp)
+                            )
+                        }
+                    }
+                }
+            }
+            */
         }
     }
 
