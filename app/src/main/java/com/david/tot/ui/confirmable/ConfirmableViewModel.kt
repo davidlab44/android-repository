@@ -1,32 +1,5 @@
 package com.david.tot.ui.confirmable
 
-/*
-import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
-
-import com.david.tot.domain.UpdateProductUseCase
-import com.david.tot.domain.UpdateQuantityUseCase
-import com.david.tot.domain.article.GetArticleByIdUseCase
-import com.david.tot.domain.article.GetArticleListUseCase
-import com.david.tot.domain.model.Article
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import javax.inject.Inject
-
-@HiltViewModel
-class ArticleViewModel @Inject constructor(
-    private val getArticleListUseCase: GetArticleListUseCase,
-    private val updateProductUseCase: UpdateProductUseCase,
-    private val updateQuantityUseCase: UpdateQuantityUseCase,
-    private val getArticleByIdUseCase: GetArticleByIdUseCase,
-    ) : ViewModel() {
-    */
-
 import android.app.Activity
 import android.content.Context
 import android.util.Log
@@ -82,12 +55,12 @@ class ConfirmableViewModel @Inject constructor(
         }
     }
 
-
     fun getReloadableDetailListFromApi(){
         CoroutineScope(Dispatchers.IO).launch {
             consumibleList= getAllConfirmableDetailsFromApiUseCase.invoke("ADMIN",10002,"RESTOCK_CONFIRMATION")
         }
     }
+
     fun getAllConfirmablesFromLocalDatabase(context:Context) {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
@@ -150,7 +123,6 @@ class ConfirmableViewModel @Inject constructor(
     }
      */
 
-
     fun getAllConsumiblesFromApi() {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
@@ -163,7 +135,6 @@ class ConfirmableViewModel @Inject constructor(
             }
         }
     }
-
 
     fun getAllRestocksFromApi() {
         Log.e("TAG","TAG")
