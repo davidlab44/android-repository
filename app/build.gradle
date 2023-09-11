@@ -76,6 +76,7 @@ dependencies {
     implementation "androidx.camera:camera-extensions:$camerax_version"
 
     //// ACCOMPANIST ////
+    //cual es el valor de acompanish version variable aqui no esta definido!
     implementation "com.google.accompanist:accompanist-permissions:$accompanist_version"
 
     /*
@@ -148,6 +149,11 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
     testImplementation "org.mockito:mockito-core:2.23.0"
+
+    //Cognito
+    implementation 'com.amazonaws:aws-android-sdk-core:2.16.6'
+    implementation 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.16.6'
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.16.6'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.72"

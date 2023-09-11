@@ -16,10 +16,12 @@ import com.google.accompanist.permissions.rememberPermissionState
 //import de.yanneckreiss.cameraxtutorial.ui.camera.CameraScreen
 //import de.yanneckreiss.cameraxtutorial.ui.no_permission.NoPermissionScreen
 
+@RequiresApi(Build.VERSION_CODES.R)
 @Composable
 fun MainScreen(mContext: Main2Activity) {
 
     val cameraPermissionState: PermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
+    //val cameraPermissionState: PermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
 
     MainContent(
         mContext=mContext,

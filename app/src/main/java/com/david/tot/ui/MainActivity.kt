@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -34,6 +35,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.amazonaws.auth.CognitoCachingCredentialsProvider
+import com.amazonaws.regions.Regions
+import com.amazonaws.services.s3.AmazonS3Client
+import com.amazonaws.services.s3.model.CannedAccessControlList
+import com.amazonaws.services.s3.model.PutObjectRequest
 import com.david.tot.R
 import com.david.tot.ui.theme.TotTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +54,11 @@ import com.david.tot.ui.settings.SettingsActivity
 import com.david.tot.ui.spendable.SpendableActivity
 import com.david.tot.ui.sync.SyncActivity
 import com.david.tot.ui.sync.SyncViewModel
+import com.david.tot.util.Dates
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import java.io.File
 
 
 @AndroidEntryPoint
@@ -65,6 +76,7 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //requestPermissions()
         setContent {
             TotTheme(darkTheme = false) {
                 androidx.compose.material.Surface(
@@ -303,7 +315,10 @@ fun DrawerContent(
                     ),
                     text = AnnotatedString("Inicio") ,
                     onClick = {
-                        context.startActivity(Intent(context,MainActivity::class.java))
+                        runBlocking {
+                            subir(context)
+                        }
+                        //context.startActivity(Intent(context,MainActivity::class.java))
                     }
                 )
             }
@@ -597,5 +612,45 @@ fun DrawerContent(
             }
         }
         */
+    }
+}
+
+
+fun subir(mContext: Context){
+    CoroutineScope(Dispatchers.IO).launch {
+        //val file = File("/storage/self/primary/Download/APP_1694121670333.png")
+
+        // Initialize Cognito Identity Provider and S3 clients
+        val credentialsProvider = CognitoCachingCredentialsProvider(
+            mContext,
+            "us-east-1:c432f057-8e05-435e-a7fb-308c70fe1cb5",
+            Regions.US_EAST_1
+        )
+
+        val s3Client = AmazonS3Client(credentialsProvider)
+
+        // Specify the S3 bucket name and object key (file name)
+        //val bucketName = "your_bucket_name"
+        val bucketName = "gl-human-resources/drugDelivery"
+
+        //val objectKey = "your_desired_object_key" // e.g., "uploads/image.jpg"
+
+        val objectKey = "APP_"+ Dates().imageIdentifier() +".jpg"
+        //val objectKey = "exampleimage.jpg" // e.g., "uploads/image.jpg"
+
+        // Create a file object from the selected image
+        //val selectedImageUri: Uri = ... // Get the URI of the selected image
+
+        //val file = File("/storage/self/primary/Download/APP_1694121670333.png")
+        //Log.e("TAGCC",""+cc)
+        val file = File(mContext.getFilesDir().getPath()+"/exampleimage.jpg")
+
+        // Upload the file to S3
+        val putObjectRequest = PutObjectRequest(bucketName, objectKey, file).withCannedAcl(
+            CannedAccessControlList.PublicRead)
+        s3Client.putObject(putObjectRequest)
+
+        Log.e("TAGCC",""+putObjectRequest)
+        Log.e("TAGCC",""+putObjectRequest.toString())
     }
 }

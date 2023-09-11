@@ -40,4 +40,8 @@ class Dates {
         //val dateAsInt = currentDate.filter {it in '0'..'9'}
         //return Date().toString()
     }
+
+    fun imageIdentifier():Long{
+        return System.currentTimeMillis()
+    }
 }
