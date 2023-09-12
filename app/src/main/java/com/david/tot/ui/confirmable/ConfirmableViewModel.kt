@@ -37,7 +37,7 @@ class ConfirmableViewModel @Inject constructor(
     var toastNotInternetConnection by mutableStateOf<Boolean>(false)
     var toastConfirmationSuccess by mutableStateOf<Boolean>(false)
     var comments by mutableStateOf<String>("")
-    var confirmable by mutableStateOf<Confirmable?>(null)
+    //var confirmable by mutableStateOf<Confirmable?>(null)
     var reloadableList by mutableStateOf<List<Reloadable>>(emptyList())
     var consumibleList by mutableStateOf<List<Consumible>>(emptyList())
     var reloadable by mutableStateOf<Reloadable>(Reloadable(1,"","","","","","",""))
@@ -58,7 +58,7 @@ class ConfirmableViewModel @Inject constructor(
 
     fun getReloadableDetailListFromApi(){
         CoroutineScope(Dispatchers.IO).launch {
-            consumibleList= getAllConfirmableDetailsFromApiUseCase.invoke("ADMIN",10002,"RESTOCK_CONFIRMATION")
+            consumibleList= getAllConfirmableDetailsFromApiUseCase.invoke("ADMIN",reloadable.restockID,"RESTOCK_CONFIRMATION")
         }
     }
 
@@ -87,9 +87,14 @@ class ConfirmableViewModel @Inject constructor(
             toastNotInternetConnection
             return
         }
+        /*
         if(confirmable==null){
             return
         }
+
+         */
+        //TODO validar que el archivo exista antes de intentar algo con el
+        //o trycatcharlo
         val prefs = FastPrefs(mContext)
         val photoName = prefs.getString("photoName","defaultName") ?: return
         //viewModelScope.launch {

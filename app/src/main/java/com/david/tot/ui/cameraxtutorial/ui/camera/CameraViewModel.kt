@@ -14,6 +14,7 @@ import com.david.tot.ui.cameraxtutorial.Main2Activity
 import com.david.tot.ui.confirmable.ConfirmableActivity
 import com.david.tot.ui.reportable.ReportableActivity
 import com.david.tot.ui.spendable.SpendableActivity
+import com.david.tot.util.Dates
 import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -74,7 +75,7 @@ class CameraViewModel @Inject constructor() : ViewModel() {
                 //SHARED PREFERENCES
                 val prefs = FastPrefs(mContext)
                 prefs.setString("photoUrl",photoUrl)
-                prefs.setString("photoName",photoUrl)
+                prefs.setString("photoName","APP_"+Dates().imageIdentifier()+".jpg")
                 //prefs.setString("photoUrl","defaultValue")
                 //val value = prefs.getString("caller","defaultValue")
                 //Log.e("TG",""+value)

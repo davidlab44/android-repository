@@ -219,7 +219,7 @@ fun TopAppBarSyncAcivity(syncViewModel: SyncViewModel, onNavIconClick: () -> Uni
             }else{
                 IconButton(onClick = { /* doSomething() */
                     runBlocking {
-                        syncViewModel.sync(mContext)
+                        //syncViewModel.sync(mContext)
                     }
                 }) {
                     Icon(

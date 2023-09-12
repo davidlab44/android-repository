@@ -202,7 +202,7 @@ fun TopAppBarArticleAcivity(nContext:ConfirmableActivity, confirmableViewModel: 
         actions = {
             IconButton(onClick = {
                 runBlocking {
-                    subir(nContext)
+                    //subir(nContext)
                 }
                 confirmableViewModel.postOneConfirmable(mContext)
                 /* doSomething() */

@@ -17,7 +17,7 @@ interface IConfirmableApiClient {
     @GET("api/Glapp_SP_DrugsDeliveryRestocksArticlesResult")
     suspend fun getAllConfirmableDetailsFromApi(@Query("P_User") P_User:String,@Query("P_RestockID") P_RestockID:Int,@Query("P_View") P_View:String): Response<List<Consumible>>
 
-    @GET("api/Glapp_SP_DrugsDeliveryRestocksArticlesResult")
+    @POST("api/Glapp_SP_DrugsDeliveryConfirmationResult")
     suspend fun postOneConfirmable(@Query("P_RestockID") P_RestockID:Int,@Query("P_User") P_User:String,@Query("P_Vehicle") P_Vehicle:String,@Query("P_DeliveryConfirmationImageUrl") P_DeliveryConfirmationImageUrl:String,@Query("P_DeliveryConfirmationComments") P_DeliveryConfirmationComments:String): Response<List<Confirmable>>
 
     @POST("products")

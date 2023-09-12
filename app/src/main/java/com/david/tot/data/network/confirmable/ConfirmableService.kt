@@ -62,9 +62,7 @@ class ConfirmableService @Inject constructor(private val api: IConfirmableApiCli
             respuesta.code()
         }
     }
-
-     */
-
+    */
 
     suspend fun postManyConfirmables(jsonArray: JsonArray):Int{
         return withContext(Dispatchers.IO) {

@@ -232,7 +232,9 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
         Row(
             modifier = Modifier
                 //.padding(all = 1.dp)
-                .height(430.dp).border(1.dp, Color.Red, RectangleShape).clickable(onClick = {
+                .height(430.dp)
+                //.border(1.dp, Color.Red, RectangleShape)
+                .clickable(onClick = {
                     val prefs = FastPrefs(contextActivity)
                     prefs.setString("caller","ConfirmableActivity")
                     contextActivity.startActivity(Intent(contextActivity, Main2Activity::class.java))

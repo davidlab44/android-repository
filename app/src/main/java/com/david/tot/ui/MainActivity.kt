@@ -55,6 +55,7 @@ import com.david.tot.ui.spendable.SpendableActivity
 import com.david.tot.ui.sync.SyncActivity
 import com.david.tot.ui.sync.SyncViewModel
 import com.david.tot.util.Dates
+import com.yeslab.fastprefs.FastPrefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -378,6 +379,7 @@ fun DrawerContent(
             }
         }
 
+        /*
         item {
             Spacer(modifier = Modifier.height(20.dp))
             Row(modifier = Modifier
@@ -488,7 +490,7 @@ fun DrawerContent(
                 )
             }
         }
-
+        */
 
         item {
             Spacer(modifier = Modifier.height(20.dp))
@@ -632,8 +634,11 @@ fun subir(mContext: Context){
         val bucketName = "gl-human-resources/drugDelivery"
 
         //val objectKey = "your_desired_object_key" // e.g., "uploads/image.jpg"
-
-        val objectKey = "APP_"+ Dates().imageIdentifier() +".jpg"
+        val prefs = FastPrefs(mContext)
+        val objectKey = prefs.getString("photoName","photoNameDefault")
+        //prefs.remove("photoName")
+        //val objectKey = "APP_"+ Dates().imageIdentifier() +".jpg"
+        // val objectKey = "APP_"+ Dates().imageIdentifier() +".jpg"
         //val objectKey = "exampleimage.jpg" // e.g., "uploads/image.jpg"
 
         // Create a file object from the selected image
