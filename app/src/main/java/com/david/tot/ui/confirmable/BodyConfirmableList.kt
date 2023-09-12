@@ -121,7 +121,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
             Box(
                 contentAlignment = Alignment.Center,
             ) {
-                Text(text = "Solicitanteyy: "+confirmableViewModel.reloadable.restockerUser,fontSize = 16.sp,
+                Text(text = "Solicitante: "+confirmableViewModel.reloadable.restockerUser,fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold )
             }
         }
@@ -131,20 +131,22 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
             Box(
                 contentAlignment = Alignment.Center,
             ) {
-                Text(text = "Consecutivo: "+confirmableViewModel.reloadable.consecutive,fontSize = 16.sp,
+                Text(text = "Salida No.: "+confirmableViewModel.reloadable.consecutive,fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold )
             }
         }
+
         Row(
             modifier = Modifier.padding(all = 2.dp),horizontalArrangement = Arrangement.Center
         ) {
             Box(
                 contentAlignment = Alignment.Center,
             ) {
-                Text(text = "Status: "+confirmableViewModel.reloadable.status,fontSize = 16.sp,
+                Text(text = "Fecha Salida: "+confirmableViewModel.reloadable.creationDate,fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold )
             }
         }
+
         Row(
             modifier = Modifier.padding(all = 2.dp),horizontalArrangement = Arrangement.Center
         ) {
