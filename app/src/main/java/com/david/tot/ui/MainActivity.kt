@@ -315,10 +315,8 @@ fun DrawerContent(
                     ),
                     text = AnnotatedString("Inicio") ,
                     onClick = {
-                        runBlocking {
-                            subir(context)
-                        }
-                        //context.startActivity(Intent(context,MainActivity::class.java))
+
+                        context.startActivity(Intent(context,MainActivity::class.java))
                     }
                 )
             }

@@ -36,6 +36,7 @@ class ConfirmableViewModel @Inject constructor(
     var restockId by mutableStateOf<Int>(0)
     var toastNotInternetConnection by mutableStateOf<Boolean>(false)
     var toastConfirmationSuccess by mutableStateOf<Boolean>(false)
+    var comments by mutableStateOf<String>("")
     var confirmable by mutableStateOf<Confirmable?>(null)
     var reloadableList by mutableStateOf<List<Reloadable>>(emptyList())
     var consumibleList by mutableStateOf<List<Consumible>>(emptyList())
@@ -61,6 +62,7 @@ class ConfirmableViewModel @Inject constructor(
         }
     }
 
+    /*
     fun getAllConfirmablesFromLocalDatabase(context:Context) {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
@@ -78,6 +80,7 @@ class ConfirmableViewModel @Inject constructor(
             }
         }
     }
+    */
 
     fun postOneConfirmable(mContext:Context) {
         if(!hasConnection(mContext)){
@@ -87,14 +90,14 @@ class ConfirmableViewModel @Inject constructor(
         if(confirmable==null){
             return
         }
+        val prefs = FastPrefs(mContext)
+        val photoName = prefs.getString("photoName","defaultName") ?: return
         //viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).launch {
-            val confirmableClean = ConfirmableClean(
-                -1,"ADMIN","HFQ753","someUrl","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse convallis leo sed arcu aliquam, eu consequat ex lobortis. Aliquam erat volutpat. Sed ac odio bibendum, porta metus vitae, pellentesque velit"
-            )
-            var gson = Gson()
-            var confirmableHeaderJsonObject = gson.toJson(confirmableClean)
-            val responseCode = postOneConfirmableUseCase.invoke(confirmableHeaderJsonObject)
+            val confirmableClean = ConfirmableClean(-1,"ADMIN","HFQ753",photoName,comments)
+            //var gson = Gson()
+            //var confirmableHeaderJsonObject = gson.toJson(confirmableClean)
+            val responseCode = postOneConfirmableUseCase.invoke(confirmableClean)
             if(responseCode in 200..300){
                 toastConfirmationSuccess
             }

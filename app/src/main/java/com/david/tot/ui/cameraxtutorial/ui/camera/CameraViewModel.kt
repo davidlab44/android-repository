@@ -74,6 +74,7 @@ class CameraViewModel @Inject constructor() : ViewModel() {
                 //SHARED PREFERENCES
                 val prefs = FastPrefs(mContext)
                 prefs.setString("photoUrl",photoUrl)
+                prefs.setString("photoName",photoUrl)
                 //prefs.setString("photoUrl","defaultValue")
                 //val value = prefs.getString("caller","defaultValue")
                 //Log.e("TG",""+value)

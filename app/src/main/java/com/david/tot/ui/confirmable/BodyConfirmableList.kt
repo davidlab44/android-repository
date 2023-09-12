@@ -121,7 +121,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
             Box(
                 contentAlignment = Alignment.Center,
             ) {
-                Text(text = "Solicitante: "+confirmableViewModel.reloadable.restockerUser,fontSize = 16.sp,
+                Text(text = "Solicitanteyy: "+confirmableViewModel.reloadable.restockerUser,fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold )
             }
         }
@@ -169,9 +169,8 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
         confirmableViewModel.getReloadableDetailListFromApi()
         val listModifier = Modifier
             .height(150.dp)
-            .border(1.dp, Color.Gray, RectangleShape)
+            //.border(1.dp, Color.Gray, RectangleShape)
             .background(Color.White)
-
             .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
             //LIST
@@ -181,7 +180,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(20.dp)
+                        .padding(bottom=20.dp)
                         .clickable { },
                     //elevation = 10.dp,
                     content = {
@@ -196,7 +195,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                             ) {
                                 Box(
                                 ) {
-                                    Text(text = "* "+confirmableDetail.articleCode+" "+confirmableDetail.quantity+" "+confirmableDetail.unitOfMeasure, fontSize = 13.sp)
+                                    Text(text = ""+confirmableDetail.articleCode+" "+confirmableDetail.quantity+" "+confirmableDetail.unitOfMeasure, fontSize = 13.sp)
                                 }
                             }
                         }
@@ -218,6 +217,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                     value = value,
                     onValueChange = {
                         value = it
+                        confirmableViewModel.comments=it.toString()
                     },
                     label = { androidx.compose.material.Text("Comentarios: ") },
                     modifier = Modifier

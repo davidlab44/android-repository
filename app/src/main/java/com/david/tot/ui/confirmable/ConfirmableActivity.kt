@@ -53,8 +53,10 @@ import androidx.navigation.compose.rememberNavController
 import com.david.tot.ui.DrawerContent
 import com.david.tot.ui.authenticable.AuthenticableViewModel
 import com.david.tot.ui.reloadable.ReloadableActivity
+import com.david.tot.ui.subir
 //import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class ConfirmableActivity : ComponentActivity() {
@@ -199,6 +201,9 @@ fun TopAppBarArticleAcivity(nContext:ConfirmableActivity, confirmableViewModel: 
         },
         actions = {
             IconButton(onClick = {
+                runBlocking {
+                    subir(nContext)
+                }
                 confirmableViewModel.postOneConfirmable(mContext)
                 /* doSomething() */
                 Log.e("TAG","TAGTAG")

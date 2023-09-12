@@ -6,6 +6,7 @@ import com.david.tot.data.network.confirmable.ConfirmableService
 import com.david.tot.data.network.consumible.ConsumibleService
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Confirmable
+import com.david.tot.domain.model.ConfirmableClean
 import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.toDomain
 import com.david.tot.util.IsImageFile
@@ -27,8 +28,8 @@ class ConfirmableRepository @Inject constructor(
         return response.map { it.toDomain() }
     }
 
-    suspend fun postOneConfirmable(jsonObject: String):Int{
-        return api.postOneConfirmable(jsonObject)
+    suspend fun postOneConfirmable(confirmableClean: ConfirmableClean):Int{
+        return api.postOneConfirmable(confirmableClean)
     }
 
 

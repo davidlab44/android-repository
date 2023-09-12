@@ -2,6 +2,7 @@ package com.david.tot.data.network.confirmable
 
 import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.Confirmable
+import com.david.tot.domain.model.ConfirmableClean
 import com.david.tot.domain.model.Consumible
 import com.david.tot.domain.model.Reloadable
 import com.google.gson.JsonArray
@@ -30,6 +31,14 @@ class ConfirmableService @Inject constructor(private val api: IConfirmableApiCli
         }
     }
 
+    suspend fun postOneConfirmable(confirmableClean: ConfirmableClean):Int{
+        return withContext(Dispatchers.IO) {
+            val respuesta = api.postOneConfirmable(confirmableClean.P_RestockID,confirmableClean.P_User,confirmableClean.P_Vehicle,confirmableClean.p_DeliveryConfirmationImageUrl,confirmableClean.P_DeliveryConfirmationComments)
+            respuesta.code()
+        }
+    }
+
+    /*
     suspend fun postOneConfirmable(jsonObject: String):Int{
         return withContext(Dispatchers.IO) {
             val mediaType = "application/json".toMediaType()
@@ -53,6 +62,8 @@ class ConfirmableService @Inject constructor(private val api: IConfirmableApiCli
             respuesta.code()
         }
     }
+
+     */
 
 
     suspend fun postManyConfirmables(jsonArray: JsonArray):Int{
