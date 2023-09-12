@@ -27,12 +27,7 @@ import java.io.FileOutputStream
 import javax.inject.Inject
 
 @HiltViewModel
-class CameraViewModel @Inject constructor(
-    private val addOneSyncFromLocalDatabaseUseCase: AddOneSyncFromLocalDatabaseUseCase,
-    private val addOneReportableToLocalDatabaseUseCase: AddOneReportableToLocalDatabaseUseCase,
-    private val getAllReportablesFromLocalDatabaseUseCase: GetAllReportablesFromLocalDatabaseUseCase,
-    private val getAllSyncFromLocalDatabaseUseCase: GetAllSyncFromLocalDatabaseUseCase
-) : ViewModel() {
+class CameraViewModel @Inject constructor() : ViewModel() {
 
     private val _state = MutableStateFlow(CameraState())
     lateinit var mContext:Main2Activity
@@ -67,13 +62,15 @@ class CameraViewModel @Inject constructor(
     fun updateProductImage(bitmap: Bitmap){
         CoroutineScope(Dispatchers.IO).launch {
             val time = System.currentTimeMillis()
-            val fileNameToSave = "APP_"+time+".png"
-            val file = bitmapToFile(bitmap,fileNameToSave)
+            //val fileNameToSave = "APP_"+time+".png"
+            //val file = bitmapToFile(bitmap,fileNameToSave)
+            val file = bitmapToFile(bitmap,"exampleimage.png")
             Log.e("TAGFILE",""+file)
             if (file != null) {
                 Log.e("TAG","file is not null")
                 //save reportable-photo into db
-                val photoUrl = "/storage/self/primary/Download" + File.separator + fileNameToSave
+                //val photoUrl = "/storage/self/primary/Download" + File.separator + fileNameToSave
+                val photoUrl = mContext.getFilesDir().getPath() + File.separator + "exampleimage.png"
                 //SHARED PREFERENCES
                 val prefs = FastPrefs(mContext)
                 prefs.setString("photoUrl",photoUrl)
@@ -104,7 +101,9 @@ class CameraViewModel @Inject constructor(
         var file: File? = null
         var bitmapdata = byteArrayOf(0x2E, 0x38)
         return try {
-            file = File("/storage/self/primary/Download" + File.separator + fileNameToSave)
+
+            file = File(mContext.getFilesDir().getPath() + File.separator + "exampleimage.png")
+            //file = File("/storage/self/primary/Download" + File.separator + fileNameToSave)
             file.createNewFile()
             val bos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos)

@@ -643,7 +643,7 @@ fun subir(mContext: Context){
 
         //val file = File("/storage/self/primary/Download/APP_1694121670333.png")
         //Log.e("TAGCC",""+cc)
-        val file = File(mContext.getFilesDir().getPath()+"/exampleimage.jpg")
+        val file = File(mContext.getFilesDir().getPath()+"/exampleimage.png")
 
         // Upload the file to S3
         val putObjectRequest = PutObjectRequest(bucketName, objectKey, file).withCannedAcl(
