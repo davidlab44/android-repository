@@ -7,7 +7,7 @@ import com.david.tot.R
 sealed class BotomNavigationItem(var route: String, var icon: Int, var title: String) {
     object Home : BotomNavigationItem("home", R.drawable.home_repair_service_fill1_wght400_grad0_opsz24, "")
     object Music : BotomNavigationItem("music", R.drawable.check_box_fill1_wght400_grad0_opsz24, "")
-    object Movies : BotomNavigationItem("movies", R.drawable.photo_camera_fill1_wght400_grad0_opsz24, "")
+    object Movies : BotomNavigationItem("movies", R.drawable.local_shipping_fill1_wght400_grad0_opsz24, "")
     object Books : BotomNavigationItem("books", R.drawable.ic_book, "")
     //object Profile : BotomNavigationItem("profile", R.drawable.ic_profile, "")
 }

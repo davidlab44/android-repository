@@ -20,13 +20,15 @@ import com.yeslab.fastprefs.FastPrefs
 @Composable
 fun ConfirmableHeaderAndBodyScreen(contextActivity:ConfirmableActivity, confirmableViewModel: ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel) {
     //authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
+    BodyConfirmableList(contextActivity,confirmableViewModel,authenticableViewModel)
+/*
     Column(
         modifier = Modifier.fillMaxSize().padding(10.dp),
         //horizontalAlignment = Alignment.CenterHorizontally
     ) {
         //var text by rememberSaveable { mutableStateOf("") }
         //var text by rememberSaveable { mutableStateOf("") }
-/*
+
         Row(
             modifier = Modifier.padding(all = 0.dp).height(140.dp),
             //horizontalArrangement = Arrangement.Center
@@ -34,14 +36,14 @@ fun ConfirmableHeaderAndBodyScreen(contextActivity:ConfirmableActivity, confirma
             AuthenticableScreenComponentHeader(authenticableViewModel)
         }
 
- */
+
         Row(
-            modifier = Modifier.padding(all = 2.dp),
+            //modifier = Modifier.padding(all = 2.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
-            BodyConfirmableList(contextActivity,confirmableViewModel,authenticableViewModel)
         }
     }
+    */
 }
 
 /*

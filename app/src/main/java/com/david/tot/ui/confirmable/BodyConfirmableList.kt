@@ -92,6 +92,7 @@ import com.yeslab.fastprefs.FastPrefs
 @Composable
 fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewModel: ConfirmableViewModel, authenticableViewModel: AuthenticableViewModel) {
     val mContext = LocalContext.current
+
     //confirmableViewModel.getAllConfirmablesFromLocalDatabase(mContext)
 
     confirmableViewModel.getAllReloadablesFromApi(contextActivity)
@@ -110,18 +111,26 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
     Column(
         modifier = Modifier
             .fillMaxHeight()
-            .padding(top = 5.dp,start=40.dp,end=40.dp),
+            .fillMaxWidth()
+            .padding(top = 20.dp,start=20.dp,end=20.dp),
         //horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var text by rememberSaveable { mutableStateOf("") }
         val pattern = remember { Regex("^\\d+\$") }
         Row(
-            modifier = Modifier.padding(all = 2.dp),horizontalArrangement = Arrangement.Center
+            //modifier = Modifier.padding(all = 0.dp),
+            //horizontalArrangement = Arrangement.Center
         ) {
             Box(
-                contentAlignment = Alignment.Center,
+                //contentAlignment = Alignment.Center,
             ) {
-                Text(text = "Solicitante: "+confirmableViewModel.reloadable.restockerUser,fontSize = 16.sp,
+                Text(text = "Consecutivo: "+confirmableViewModel.reloadable.consecutive,fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold )
+            }
+            Box(
+                //contentAlignment = Alignment.CenterEnd,
+            ) {
+                Text(text = "Status: "+confirmableViewModel.reloadable.status,fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold )
             }
         }
@@ -131,18 +140,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
             Box(
                 contentAlignment = Alignment.Center,
             ) {
-                Text(text = "Salida No.: "+confirmableViewModel.reloadable.consecutive,fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold )
-            }
-        }
-
-        Row(
-            modifier = Modifier.padding(all = 2.dp),horizontalArrangement = Arrangement.Center
-        ) {
-            Box(
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(text = "Fecha Salida: "+confirmableViewModel.reloadable.creationDate,fontSize = 16.sp,
+                Text(text = "Solicitante.: "+confirmableViewModel.reloadable.restockerDisplayName,fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold )
             }
         }
@@ -154,7 +152,13 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                 contentAlignment = Alignment.Center,
             ) {
                 Text(text = "Vehiculo: "+confirmableViewModel.reloadable.vehicle,fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold)
+                    fontWeight = FontWeight.SemiBold )
+            }
+            Box(
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(text = "Confirmación: "+confirmableViewModel.reloadable.creationDate,fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold )
             }
         }
 
@@ -170,7 +174,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
         }
         confirmableViewModel.getReloadableDetailListFromApi()
         val listModifier = Modifier
-            .height(150.dp)
+            .height(230.dp)
             //.border(1.dp, Color.Gray, RectangleShape)
             .background(Color.White)
             .align(Alignment.CenterHorizontally)
@@ -197,7 +201,15 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                             ) {
                                 Box(
                                 ) {
+                                    Text(text = ""+confirmableDetail.articleCode, fontSize = 13.sp)
+                                }
+                                Box(
+                                ) {
                                     Text(text = ""+confirmableDetail.articleCode+" "+confirmableDetail.quantity+" "+confirmableDetail.unitOfMeasure, fontSize = 13.sp)
+                                }
+                                Box(
+                                ) {
+                                    Text(text = " "+confirmableDetail.quantity+" "+confirmableDetail.unitOfMeasure, fontSize = 13.sp)
                                 }
                             }
                         }
@@ -209,7 +221,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
         Row(
             //modifier = Modifier.padding(all = 0.dp),
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.height(150.dp).padding(top=10.dp),
+            modifier = Modifier.height(100.dp).padding(top=10.dp),
         ) {
             Box(
                 contentAlignment = Alignment.Center,
@@ -224,7 +236,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                     label = { androidx.compose.material.Text("Comentarios: ") },
                     modifier = Modifier
                         //.padding(1.dp)
-                        .height(150.dp).align(Alignment.Center),
+                        .height(100.dp).align(Alignment.Center),
                     singleLine= false,
                     maxLines = 10
                 )
