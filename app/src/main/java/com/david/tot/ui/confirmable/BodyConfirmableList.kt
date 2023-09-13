@@ -84,6 +84,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.text.style.TextAlign
 import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.david.tot.domain.model.Confirmable
+import com.david.tot.domain.model.Consumible
 import com.david.tot.util.ConfirmableList
 import com.david.tot.util.Dates
 import com.david.tot.util.DisplayLastPhoto
@@ -172,7 +173,36 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                     fontWeight = FontWeight.SemiBold)
             }
         }
+
         confirmableViewModel.getReloadableDetailListFromApi()
+        //TableScreen(confirmableViewModel.consumibleList)
+
+        val column1Weight = .3f // 30%
+        val column2Weight = .5f // 50%
+        val column3Weight = .2f // 20%
+        LazyColumn(Modifier.height(230.dp).padding(16.dp)) {
+            item {
+                Row(Modifier.background(Color.Gray)) {
+                    TableCell(text = "Código", weight = column1Weight)
+                    TableCell(text = "Nombre", weight = column2Weight)
+                    TableCell(text = "Cantidad", weight = column3Weight)
+                }
+            }
+            val consumibleList =confirmableViewModel.consumibleList
+            items(consumibleList) {
+                //val (id, text) = it
+                Row(Modifier.fillMaxWidth()) {
+                    TableCell(text =  it.articleCode, weight = column1Weight)
+                    TableCell(text = it.articleCode, weight = column2Weight)
+                    TableCell(text = ""+it.quantity+" "+it.unitOfMeasure, weight = column3Weight)
+                }
+            }
+        }
+
+
+
+        /*
+
         val listModifier = Modifier
             .height(230.dp)
             //.border(1.dp, Color.Gray, RectangleShape)
@@ -217,6 +247,7 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
                 )
             }
         }
+        */
 
         Row(
             //modifier = Modifier.padding(all = 0.dp),
@@ -295,4 +326,56 @@ fun BodyConfirmableList(contextActivity:ConfirmableActivity, confirmableViewMode
         }
     }
 
+}
+
+
+
+@Composable
+fun RowScope.TableCell(text: String,weight: Float) {
+    var name =""
+    if(text.length>10){
+        name = text.substring(0, 10)
+    }else{
+        name= text
+    }
+    Text(text = name,Modifier.border(1.dp, Color.Black).weight(weight).padding(8.dp), fontSize = 10.sp)
+}
+
+@Composable
+fun TableScreen(consumibleList:List<Consumible>) {
+    // Just a fake data... a Pair of Int and String
+    val tableData = (1..100).mapIndexed { index, item ->
+        index to "Item $index"
+    }
+    // Each cell of a column must have the same weight.
+    val column1Weight = .3f // 30%
+    val column2Weight = .7f // 70%
+    // The LazyColumn will be our table. Notice the use of the weights below
+    LazyColumn(Modifier.fillMaxSize().padding(16.dp)) {
+        // Here is the header
+        item {
+            Row(Modifier.background(Color.Gray)) {
+                TableCell(text = "Column 1", weight = column1Weight)
+                TableCell(text = "Column 2", weight = column2Weight)
+            }
+        }
+        items(consumibleList) {
+            val (id, text) = it
+            Row(Modifier.fillMaxWidth()) {
+                //TableCell(text = id.toString(), weight = column1Weight)
+                TableCell(text = it.articleCode, weight = column2Weight)
+            }
+        }
+        /*
+        // Here are all the lines of your table.
+        items(tableData) {
+            val (id, text) = it
+            Row(Modifier.fillMaxWidth()) {
+                TableCell(text = id.toString(), weight = column1Weight)
+                TableCell(text = text, weight = column2Weight)
+            }
+        }
+
+         */
+    }
 }

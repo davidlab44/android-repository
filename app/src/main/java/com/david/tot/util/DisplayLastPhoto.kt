@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,9 +54,10 @@ fun DisplayLastPhoto(){
                 //horizontalArrangement = Arrangement.Center
             ) {
                 Image(
-                    painter = painterResource(R.drawable.photo_camera_fill1_wght400_grad0_opsz24_grey),
+                    painter = painterResource(R.drawable.photo_camera_fill1_wght700_grad_25_opsz48),
                     contentDescription =null,
                     //modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.height(36.dp)
                 )
             }
             Row(
