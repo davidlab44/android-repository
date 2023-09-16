@@ -42,7 +42,7 @@ import com.yeslab.fastprefs.FastPrefs
 @Composable
 fun BodyReloadableList(contextActivity:ReloadableActivity, reloadableViewModel: ReloadableViewModel, authenticableViewModel: AuthenticableViewModel) {
 
-    reloadableViewModel.getAllReloadablesFromApi()
+    reloadableViewModel.getAllReloadablesFromApi(contextActivity)
 
     val mContext = LocalContext.current
     if(reloadableViewModel.toastSuccess){

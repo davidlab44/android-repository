@@ -1,5 +1,6 @@
 package com.david.tot.ui.reloadable
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,6 +17,7 @@ import com.david.tot.domain.reloadable.RemoveAllReloadablesFromLocalDatabaseUseC
 import com.david.tot.domain.sync.AddOneSyncFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.reloadable.AddManySyncReloadableToLocalDatabaseUseCase
 import com.david.tot.domain.sync.reloadable.RetrieveAllSyncReloadablesFromLocalDatabaseUseCase
+import com.david.tot.ui.authenticable.fetchUser
 import com.david.tot.util.Dates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -52,7 +54,12 @@ class ReloadableViewModel @Inject constructor(
     var toastSuccess by mutableStateOf<Boolean>(false)
     var toastFaliledToSaveInLocalDatabase by mutableStateOf<Boolean>(false)
 
-    //var invepastoList by mutableStateOf<List<Asset>>(emptyList())
+    fun getAllReloadablesFromApi(mContext: Context) {
+        CoroutineScope(Dispatchers.IO).launch {
+            reloadableList=getAllReloadablesFromApiUseCase.invoke(fetchUser(mContext),-1,"TO_DELIVER")
+        }
+    }
+
 
     /*
     fun actualizarLista(hash:String) {
@@ -67,12 +74,6 @@ class ReloadableViewModel @Inject constructor(
     }
     */
 
-    fun getAllReloadablesFromApi() {
-        Log.e("TAG","TAG")
-        CoroutineScope(Dispatchers.IO).launch {
-            reloadableList=getAllReloadablesFromApiUseCase.invoke("ADMIN",-1,"TO_DELIVER")
-        }
-    }
 
     /*
     fun getAllReloadablesFromApi() {
@@ -201,11 +202,11 @@ class ReloadableViewModel @Inject constructor(
             }
         }
     }
-*/
+    */
 
 
 
-    /*
+     /*
 
 
      /*
@@ -263,8 +264,7 @@ class ReloadableViewModel @Inject constructor(
                return 2
            }
        }
-
-        */
+       */
 
        fun updateConsumedQuantity(idArticle:Int, consumibleNewQuantity:Int){
            CoroutineScope(Dispatchers.IO).launch {

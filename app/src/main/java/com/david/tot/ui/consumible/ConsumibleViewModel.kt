@@ -113,8 +113,7 @@ class ConsumibleViewModel @Inject constructor(
             }
         }
     }
-
-     */
+    */
 
     fun getAllConsumiblesFromLocalDatabase() {
         Log.e("TAG","TAG")
@@ -126,7 +125,6 @@ class ConsumibleViewModel @Inject constructor(
             }
         }
     }
-
 
     fun saveArticleListToSync(){
         var consumibleList = mutableListOf<SyncConsumible>()
@@ -142,7 +140,7 @@ class ConsumibleViewModel @Inject constructor(
                 if ((article.quantityAvailable - article.consumedQuantity) > 0) {
                     //if (quantityAvailable > 0) {
                     //article.quantityAvailable = quantityAvailable.toDouble()
-                    consumibleList.add(SyncConsumible(objectId=objectId,consumptionId=0,articleCode=article.articleCode,quantity=article.consumedQuantity,unitOfMeasure=article.unitOfMeasure,creationDate=""+ Dates().date(),delivered=0))
+                    consumibleList.add(SyncConsumible(objectId=objectId,consumptionId=0,articleCode=article.articleCode,quantity=article.consumedQuantity,unitOfMeasure=article.unitOfMeasure,notes=article.notes,creationDate=""+ Dates().date(),delivered=0))
                     //}
                 }else{
                     toastNotEnoughtConsumibles=true

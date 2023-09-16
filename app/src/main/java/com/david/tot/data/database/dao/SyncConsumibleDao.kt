@@ -30,7 +30,8 @@ interface SyncConsumibleDao {
             "SyncConsumibleTable.quantity AS quantity," +
             "SyncConsumibleTable.unitOfMeasure AS unitOfMeasure," +
             "SyncConsumibleTable.creationDate AS creationDate," +
-            "SyncConsumibleTable.delivered AS delivered " +
+            "SyncConsumibleTable.delivered AS delivered, " +
+            "SyncConsumibleTable.notes AS notes " +
             "FROM SyncTable " +
             "INNER JOIN SyncConsumibleTable " +
             "WHERE SyncConsumibleTable.objectId=SyncTable.objectId AND SyncTable.dataType=:syncType")

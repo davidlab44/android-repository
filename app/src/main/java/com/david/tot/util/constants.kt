@@ -20,3 +20,5 @@ const val BASE_URL = "http://186.31.83.10:49287"
 //const val IMAGE_BASE_URL = "http://$IP_ADDRESS"
 
 //http://192.168.1.93:8000/api/FileManager
+
+const val COLUMN_50_PERCENT = .5f // 30%

@@ -18,7 +18,8 @@ data class SyncConsumible (
     @ColumnInfo(name = "quantity") val quantity: Int=0,
     @ColumnInfo(name = "unitOfMeasure") val unitOfMeasure: String="",
     @ColumnInfo(name = "creationDate") val creationDate: String=""+Dates().date(),
-    @ColumnInfo(name = "delivered") val delivered: Int=0
+    @ColumnInfo(name = "delivered") val delivered: Int=0,
+    @ColumnInfo(name = "notes") val notes: String?=""
 )
-fun SyncConsumible.toDomain() = SyncConsumible(localId,objectId,consumptionDetailId,consumptionId,articleCode,quantity,unitOfMeasure,creationDate,delivered)
-fun SyncConsumible.toDatabase() = SyncConsumible(localId=localId,objectId=objectId,consumptionDetailId=consumptionDetailId,consumptionId=consumptionId,articleCode=articleCode,quantity=quantity,unitOfMeasure=unitOfMeasure,creationDate=creationDate,delivered=delivered)
+fun SyncConsumible.toDomain() = SyncConsumible(localId,objectId,consumptionDetailId,consumptionId,articleCode,quantity,unitOfMeasure,creationDate,delivered,notes)
+fun SyncConsumible.toDatabase() = SyncConsumible(localId=localId,objectId=objectId,consumptionDetailId=consumptionDetailId,consumptionId=consumptionId,articleCode=articleCode,quantity=quantity,unitOfMeasure=unitOfMeasure,creationDate=creationDate,delivered=delivered,notes=notes)

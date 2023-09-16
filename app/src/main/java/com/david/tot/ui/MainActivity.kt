@@ -71,19 +71,14 @@ class MainActivity : ComponentActivity() {
     //OJO
     //desde que empiezas a trabajar offline no te trae nueva informacion hasta que no sincronize toda la cola
 
-    //
-
-
-
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //requestPermissions()
         //llamar a login activity
-        //loguearse harcoded
-        //setear las preferencias aqui
+        //tipo de dato AUTHENTICABLE = HEADER lo que viene en el header, no tiene nada que ver con el usuario logeado
         val prefs = FastPrefs(this)
         prefs.setString("user","admin")
+        prefs.setString("userDisplay","Administrador")
         prefs.setString("password","Med1co2011")
         setContent {
             TotTheme(darkTheme = false) {

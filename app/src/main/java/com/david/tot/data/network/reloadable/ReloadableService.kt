@@ -20,6 +20,7 @@ class ReloadableService @Inject constructor(private val api: IReloadableApiClien
         }
     }
 
+    /*
     suspend fun postManyReloadables(jsonArray: JsonArray):Int{
         return withContext(Dispatchers.IO) {
             val mediaType = "application/json".toMediaType()
@@ -43,6 +44,7 @@ class ReloadableService @Inject constructor(private val api: IReloadableApiClien
             respuesta.code()
         }
     }
+    */
 
     /*
     suspend fun addReloadable(product:Reloadable):Int{

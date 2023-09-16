@@ -93,7 +93,7 @@ fun BodyArticleList(contextActivity:ArticleActivity, consumibleViewModel: Consum
         val listModifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(top= 15.dp)
+            .padding(top = 15.dp)
             .align(Alignment.CenterHorizontally)
         LazyColumn(modifier = listModifier) {
             val recipeList2 =consumibleViewModel.articleList
@@ -131,69 +131,92 @@ fun BodyArticleList(contextActivity:ArticleActivity, consumibleViewModel: Consum
                             Row(
                                 modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
                             ) {
-                                /*
-                                Box(
-                                    modifier = Modifier.fillMaxWidth().padding(1.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        text = recipe.articleDescription,
-                                        textAlign = TextAlign.Center,
-                                        color = Color.Black,
-                                        fontSize = 18.sp
-                                    )
-                                }
-                                */
                                 Box(
                                 ) {
-                                    Text(text = "Descripción: "+article.articleDescription)
+                                    Text(text = ""+article.articleDescription)
                                 }
-                            }
-
-                            Row(
-                            ) {
-                                var newQuantity by rememberSaveable { mutableStateOf("") }
-                                OutlinedTextField(
-                                    value = newQuantity,
-                                    onValueChange = {cant->
-                                        newQuantity=cant
-                                        val cantCasted = cant.filter {it in '0'..'9'}
-                                        article.consumedQuantity=cantCasted.toInt()
-                                    },
-                                    //keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                                    keyboardOptions = KeyboardOptions.Default.copy(
-                                        keyboardType = KeyboardType.NumberPassword
-                                    ),
-                                    label = { androidx.compose.material3.Text("Cantidad") },
-                                    modifier = Modifier
-                                        //.padding(start = 16.dp, end = 16.dp, top = 20.dp)
-                                        .width(170.dp)
-                                )
-
                             }
 
                             Row(
                                 modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
                             ) {
-                                Box(
+                                Column(modifier=Modifier.weight(.5f)/*.border(1.dp, Color.Gray, RectangleShape)*/) {
+                                    Row(
+                                        modifier = Modifier.padding(all = 0.dp),
+                                        horizontalArrangement = Arrangement.Center
+                                    ) {
+                                        Box() {
+                                            var newQuantity by rememberSaveable { mutableStateOf("") }
+                                            OutlinedTextField(
+                                                value = newQuantity,
+                                                onValueChange = { cant ->
+                                                    newQuantity = cant
+                                                    val cantCasted = cant.filter { it in '0'..'9' }
+                                                    article.consumedQuantity = cantCasted.toInt()
+                                                },
+                                                //keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                                keyboardOptions = KeyboardOptions.Default.copy(
+                                                    keyboardType = KeyboardType.NumberPassword
+                                                ),
+                                                label = { androidx.compose.material3.Text("Cantidad") },
+                                                modifier = Modifier
+                                                    //.padding(start = 16.dp, end = 16.dp, top = 20.dp)
+                                                    .width(150.dp)
+                                            )
+                                        }
+                                    }
+                                    Row(
+                                        modifier = Modifier.padding(all = 5.dp),
+                                        horizontalArrangement = Arrangement.Center
+                                    ) {
+                                        Box(
 
-                                ) {
-                                    Text(text = "Disponible: "+article.quantityAvailable.toInt().toString()+" "+article.unitOfMeasure.toLowerCase(), fontSize = 13.sp)
+                                        ) {
+                                            Text(
+                                                text = "Disponible: " + article.quantityAvailable.toInt()
+                                                    .toString() + " " + article.unitOfMeasure.toLowerCase(),
+                                                fontSize = 13.sp
+                                            )
+                                        }
+                                    }
+                                    Row(
+                                        modifier = Modifier.padding(all = 5.dp),
+                                        horizontalArrangement = Arrangement.Center
+                                    ) {
+                                        Box(
+
+                                        ) {
+                                            Text(
+                                                text = "Reponer: " + article.quantityToStock.toInt()
+                                                    .toString(), fontSize = 13.sp
+                                            )
+                                        }
+                                    }
+                                }
+
+                                Column(modifier=Modifier.weight(.5f).height(130.dp)/*.border(1.dp, Color.Gray, RectangleShape)*/) {
+                                    var newNote by rememberSaveable { mutableStateOf("") }
+                                    if(article.isControlled) {
+                                        OutlinedTextField(
+                                            value = newNote,
+                                            onValueChange = { note ->
+                                                if(note.length>200){
+                                                    newNote = note.substring(0, 200)
+                                                }else{
+                                                    newNote= note
+                                                }
+                                                article.notes = newNote.trim()
+                                            },
+                                            label = { androidx.compose.material3.Text("Nota") },
+                                            modifier = Modifier
+                                                //.padding(start = 16.dp, end = 16.dp, top = 20.dp)
+                                                .fillMaxSize(),
+                                            singleLine= false,
+                                            maxLines = 8
+                                        )
+                                    }
                                 }
                             }
-
-
-                            Row(
-                                modifier = Modifier.padding(all = 5.dp),horizontalArrangement = Arrangement.Center
-                            ) {
-                                Box(
-
-                                ) {
-                                    Text(text = "Reponer: "+article.quantityToStock.toInt().toString(), fontSize = 13.sp)
-                                }
-                            }
-
-
                         }
                     }
                 )
