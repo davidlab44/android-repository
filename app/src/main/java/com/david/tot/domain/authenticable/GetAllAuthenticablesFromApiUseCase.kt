@@ -8,8 +8,8 @@ import javax.inject.Inject
 class GetAllAuthenticablesFromApiUseCase @Inject constructor(private val repository: AuthenticableRepository) {
 
     // delete all DrugsDeliveryConsumerViewHeader from database and insert the new ones
-    suspend operator fun invoke():List<Authenticable>{
-        var recipes = repository.getAllAuthenticablesFromApi()
+    suspend operator fun invoke(user:String):Authenticable{
+        var recipes = repository.getAllAuthenticablesFromApi(user)
         return if(recipes.isNotEmpty()){
             //TODO check internet connection before to clear database
             repository.clearAllAuthenticablesFromLocalDb()
@@ -17,9 +17,9 @@ class GetAllAuthenticablesFromApiUseCase @Inject constructor(private val reposit
             //recipes
             //recipes = repository.getAllRecipesFromApi()
             recipes = repository.getAllDrugsDeliveryConsumerViewHeaderFromDatabase()
-            recipes
+            recipes[0]
         }else{
-            repository.getAllDrugsDeliveryConsumerViewHeaderFromDatabase()
+            repository.getAllDrugsDeliveryConsumerViewHeaderFromDatabase()[0]
         }
     }
 }

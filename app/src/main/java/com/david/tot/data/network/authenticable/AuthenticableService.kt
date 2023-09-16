@@ -13,10 +13,10 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 class AuthenticableService @Inject constructor(private val api: IAuthenticableApiClient) {
-    suspend fun getAllAuthenticableFromApi(): List<Authenticable> {
+    suspend fun getAllAuthenticableFromApi(user:String): List<Authenticable> {
         //api.rawJSON()
         return withContext(Dispatchers.IO) {
-            val response = api.getAllVehicles()
+            val response = api.getAllVehicles(user)
             response.body() ?: emptyList()
         }
     }
@@ -36,8 +36,6 @@ class AuthenticableService @Inject constructor(private val api: IAuthenticableAp
             consumptionId
         }
     }
-
-
 
     suspend fun postOne(jsonObject: String):Int{
         return withContext(Dispatchers.IO) {

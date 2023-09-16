@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.david.tot.domain.authenticable.AddOneAuthenticableToLocalDbUseCase
+import com.david.tot.domain.authenticable.GetAllAuthenticablesFromApiUseCase
 import com.david.tot.domain.consumible.PostManyArticleUseCase
 import com.david.tot.domain.authenticable.GetAnyAuthenticableUseCase
 import com.david.tot.domain.authenticable.PostOneAuthenticableUseCase
@@ -59,6 +60,7 @@ class SyncViewModel @Inject constructor(
     private val getAllReloadablesFromApiUseCase: GetAllReloadablesFromApiUseCase,
     private val postOneReloadableHeaderUseCase: PostOneReloadableHeaderUseCase,
     private val getAllSpotablesFromApiUseCase: GetAllSpotablesFromApiUseCase,
+    private val getAllAuthenticablesFromApiUseCase: GetAllAuthenticablesFromApiUseCase,
 ) : ViewModel() {
 
     var syncList by mutableStateOf<List<Sync>>(emptyList())
@@ -76,7 +78,7 @@ class SyncViewModel @Inject constructor(
             return
         }
         CoroutineScope(Dispatchers.IO).launch {
-            addOneHardcodedAuthenticableToLocalDb()
+            addOneHardcodedAuthenticableToLocalDb(mContext)
             postManyConsumibleToApi(mContext)
             //postAllPendingReloadablesToApi()
             // Este espacio es para la syncronizacion rapida, por ejemplo de consumibles y demas cosas que requieran ser actualizadas rapidamente
@@ -102,6 +104,7 @@ class SyncViewModel @Inject constructor(
         }
     }
 
+    //Ojo ya no es necesario enviar el header ya que este se crea en el SP, solo se envia el json array con los detalles
     suspend fun postManyConsumibleToApi(mContext: Context) {
         if(!hasConnection(mContext)){
             toastNotInternetConnection
@@ -206,9 +209,11 @@ class SyncViewModel @Inject constructor(
     }
     */
 
-    fun addOneHardcodedAuthenticableToLocalDb(){
+    fun addOneHardcodedAuthenticableToLocalDb(mContext: Context){
         CoroutineScope(Dispatchers.IO).launch {
-            addOneAuthenticableToLocalDbUseCase.invoke(Authenticable(0,"CARLOS ORTEGA","1041545874","B","01/01/1900","HFQ753","","31/12/2018","","31/12/2018"))
+            val autenticable = getAllAuthenticablesFromApiUseCase.invoke(fetchUser(mContext))
+            //addOneAuthenticableToLocalDbUseCase.invoke(Authenticable(0,"CARLOS ORTEGA","1041545874","B","01/01/1900","HFQ753","","31/12/2018","","31/12/2018"))
+            addOneAuthenticableToLocalDbUseCase.invoke(autenticable)
             val authenticableList = retrieveAllAuthenticablesFromLocalDbUseCase.invoke()
             Log.e("TH",""+authenticableList)
         }

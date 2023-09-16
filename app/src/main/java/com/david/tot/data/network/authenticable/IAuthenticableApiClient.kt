@@ -11,7 +11,8 @@ import retrofit2.http.*
 interface IAuthenticableApiClient {
     
     @GET("api/APP_SP_DrugsDeliveryConsumerViewHeaderResult")
-    suspend fun getAllVehicles(): Response<List<Authenticable>>
+    suspend fun getAllVehicles(@Query("P_ConsumerUser") P_ConsumerUser:String): Response<List<Authenticable>>
+
 
     /*
     @POST("example/api/order")
@@ -23,7 +24,7 @@ interface IAuthenticableApiClient {
     suspend fun sendJson(@Body jsonArray: RequestBody): Response<ResponseBody>
 
     @POST("api/GLAPP_SP_USR_OBTENERResult")
-    suspend fun login(@Query("P_USUARIO") P_USUARIO:String,@Query("P_CLAVE ") P_CLAVE :String): Response<ResponseBody>
+    suspend fun login(@Query("P_USUARIO") P_USUARIO:String,@Query("P_CLAVE") P_CLAVE :String): Response<ResponseBody>
 
 
     @POST("api/GlappDrugsDeliveryRestocks")

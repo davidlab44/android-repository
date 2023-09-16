@@ -25,9 +25,9 @@ fun AuthenticableScreenComponentHeader(authenticableViewModel: AuthenticableView
             //horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Usuario: " + drugsDeliveryConsumerViewHeader.consumer,
+                text = "" + drugsDeliveryConsumerViewHeader.consumer,
                 color = Color.Black,
-                fontSize = 20.sp
+                fontSize = 18.sp
             )
         }
         Row(
@@ -39,7 +39,7 @@ fun AuthenticableScreenComponentHeader(authenticableViewModel: AuthenticableView
                         +" /Cat: "+authenticableViewModel.authenticable.licenseCategory
                         +" /Vence: "+authenticableViewModel.authenticable.licenseExpiration,
                 color = Color.Black,
-                fontSize = 12.sp
+                fontSize = 13.sp
             )
         }
         Row(
@@ -48,7 +48,7 @@ fun AuthenticableScreenComponentHeader(authenticableViewModel: AuthenticableView
             Text(
                 text = "VEHICULO: "+authenticableViewModel.authenticable.vehicle,
                 color = Color.Black,
-                fontSize = 20.sp
+                fontSize = 16.sp
             )
         }
         Row(
@@ -58,7 +58,7 @@ fun AuthenticableScreenComponentHeader(authenticableViewModel: AuthenticableView
                 text = " SOAT: "+authenticableViewModel.authenticable.soat
                         +" Vence: "+authenticableViewModel.authenticable.soatExpiration,
                 color = Color.Black,
-                fontSize = 12.sp
+                fontSize = 13.sp
             )
         }
         Row(
@@ -68,7 +68,7 @@ fun AuthenticableScreenComponentHeader(authenticableViewModel: AuthenticableView
                 text = " CRTM: "+authenticableViewModel.authenticable.crtm
                         +" Vence: "+authenticableViewModel.authenticable.crtmExpiration,
                 color = Color.Black,
-                fontSize = 12.sp
+                fontSize = 13.sp
             )
         }
     }

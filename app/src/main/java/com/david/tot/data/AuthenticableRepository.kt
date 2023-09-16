@@ -11,8 +11,8 @@ class AuthenticableRepository @Inject constructor(
     private val authenticableDao: AuthenticableDao
 ) {
 
-    suspend fun getAllAuthenticablesFromApi(): List<Authenticable> {
-        val response: List<Authenticable> = api.getAllAuthenticableFromApi()
+    suspend fun getAllAuthenticablesFromApi(user:String): List<Authenticable> {
+        val response: List<Authenticable> = api.getAllAuthenticableFromApi(user)
         return response.map { it.toDomain() }
     }
 
