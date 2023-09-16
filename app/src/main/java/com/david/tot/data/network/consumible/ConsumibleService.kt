@@ -11,11 +11,10 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 class ConsumibleService @Inject constructor(private val api: IConsumibleApiClient) {
-    suspend fun getRecipes(): List<Article> {
+    suspend fun getRecipes(user:String): List<Article> {
         //api.rawJSON()
         return withContext(Dispatchers.IO) {
-
-            val response = api.getAll("admin")
+            val response = api.getAll(user)
             response.body() ?: emptyList()
         }
     }

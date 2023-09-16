@@ -5,6 +5,7 @@ import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.toDatabase
 import javax.inject.Inject
 
+/*
 class GetFromApiUseCase @Inject constructor(private val repository: ConsumibleRepository) {
     suspend operator fun invoke(st: kotlin.String):List<Article>{
         var recipes = repository.getAllConsumiblesFromApi()
@@ -21,3 +22,4 @@ class GetFromApiUseCase @Inject constructor(private val repository: ConsumibleRe
         }
     }
 }
+*/

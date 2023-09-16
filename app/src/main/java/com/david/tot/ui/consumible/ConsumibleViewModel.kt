@@ -87,6 +87,7 @@ class ConsumibleViewModel @Inject constructor(
     }
     */
 
+    /*
     fun getAllConsumiblesFromApi() {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
@@ -99,7 +100,9 @@ class ConsumibleViewModel @Inject constructor(
             }
         }
     }
+*/
 
+    /*
     fun getAllRestocksFromApi() {
         Log.e("TAG","TAG")
         //viewModelScope.launch {
@@ -110,6 +113,8 @@ class ConsumibleViewModel @Inject constructor(
             }
         }
     }
+
+     */
 
     fun getAllConsumiblesFromLocalDatabase() {
         Log.e("TAG","TAG")

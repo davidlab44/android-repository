@@ -30,6 +30,7 @@ import com.david.tot.domain.sync.consumible.RemoveManySyncConsumiblesFromLocalDa
 import com.david.tot.domain.sync.consumible.GetAllSyncConsumibleFromLocalDatabaseUseCase
 import com.david.tot.domain.sync.reloadable.GetAllSyncReloadablesByDatatypeFromLocaDatabaseUseCase
 import com.david.tot.domain.sync.reloadable.RemoveManySyncReloadablesByObjectIdFromLocalDatabaseUseCase
+import com.david.tot.ui.authenticable.fetchUser
 import com.david.tot.util.Dates
 import com.david.tot.util.hasConnection
 import com.google.gson.Gson
@@ -142,7 +143,7 @@ class SyncViewModel @Inject constructor(
                     }
                 }
             }else{
-                getAllConsumiblesFromApiUseCase.invoke()
+                getAllConsumiblesFromApiUseCase.invoke(fetchUser(mContext))
                 Log.e("TAG","Sync de Consumibles  finalizada")
                 isSyncing=false
                 toastConsumiblesSynced=true

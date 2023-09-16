@@ -6,8 +6,8 @@ import com.david.tot.domain.model.toDatabase
 import javax.inject.Inject
 
 class GetAllConsumiblesFromApiUseCase @Inject constructor(private val repository: ConsumibleRepository) {
-    suspend operator fun invoke():List<Article>{
-        var consumibleList = repository.getAllConsumiblesFromApi()
+    suspend operator fun invoke(user:String):List<Article>{
+        var consumibleList = repository.getAllConsumiblesFromApi(user)
         return if(consumibleList.isNotEmpty()){
             repository.clearRecipes()
             repository.insertRecipes(consumibleList.map { it.toDatabase() })

@@ -79,6 +79,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //requestPermissions()
+        //llamar a login activity
+        //loguearse harcoded
+        //setear las preferencias aqui
+        val prefs = FastPrefs(this)
+        prefs.setString("user","defaultUser")
+        prefs.setString("password","defaultPassword")
         setContent {
             TotTheme(darkTheme = false) {
                 androidx.compose.material.Surface(

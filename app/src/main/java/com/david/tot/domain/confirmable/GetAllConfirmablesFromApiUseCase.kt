@@ -5,6 +5,7 @@ import com.david.tot.domain.model.Article
 import com.david.tot.domain.model.toDatabase
 import javax.inject.Inject
 
+/*
 class GetAllConfirmablesFromApiUseCase @Inject constructor(private val repository: ConsumibleRepository) {
     suspend operator fun invoke():List<Article>{
         var consumibleList = repository.getAllConsumiblesFromApi()
@@ -18,3 +19,4 @@ class GetAllConfirmablesFromApiUseCase @Inject constructor(private val repositor
         }
     }
 }
+*/
