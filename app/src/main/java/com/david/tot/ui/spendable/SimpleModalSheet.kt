@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 
-import com.david.tot.ui.RecipeViewModel
+//import com.david.tot.ui.RecipeViewModel
 import com.david.tot.ui.spotable.SpotableViewModel
 import eu.wewox.modalsheet.ExperimentalSheetApi
 
@@ -265,7 +265,3 @@ fun SimpleModalSheet(spotableViewModel: SpotableViewModel, spendableViewModel: S
     }
 }
 
-fun saveProductToOrder(recipeViewModel:RecipeViewModel,idProduct:Int,requested_amount:Int){
-    //val requested_amount:Int = (kilo*1000)+(kiloHash*100)
-    //recipeViewModel.saveProductToOrder(idProduct,requested_amount,"")
-}

@@ -83,8 +83,8 @@ class MainActivity : ComponentActivity() {
         //loguearse harcoded
         //setear las preferencias aqui
         val prefs = FastPrefs(this)
-        prefs.setString("user","defaultUser")
-        prefs.setString("password","defaultPassword")
+        prefs.setString("user","admin")
+        prefs.setString("password","Med1co2011")
         setContent {
             TotTheme(darkTheme = false) {
                 androidx.compose.material.Surface(
