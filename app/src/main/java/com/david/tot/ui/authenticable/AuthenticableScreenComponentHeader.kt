@@ -24,8 +24,14 @@ fun AuthenticableScreenComponentHeader(authenticableViewModel: AuthenticableView
             modifier = Modifier.padding(all = 1.dp),
             //horizontalArrangement = Arrangement.Center
         ) {
+            var consumerName=""
+            if(drugsDeliveryConsumerViewHeader.consumer.length>30){
+                consumerName = drugsDeliveryConsumerViewHeader.consumer.substring(0, 30)
+            }else{
+                consumerName= drugsDeliveryConsumerViewHeader.consumer
+            }
             Text(
-                text = "" + drugsDeliveryConsumerViewHeader.consumer,
+                text = "" + consumerName,
                 color = Color.Black,
                 fontSize = 18.sp
             )
