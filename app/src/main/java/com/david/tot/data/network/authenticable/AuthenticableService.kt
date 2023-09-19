@@ -4,6 +4,7 @@ package com.david.tot.data.network.authenticable
 import android.util.Log
 import com.david.tot.domain.model.ConsumibleHeader
 import com.david.tot.domain.model.Authenticable
+import com.david.tot.domain.model.Loggable
 import com.david.tot.domain.model.ReloadableHeader
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -21,21 +22,44 @@ class AuthenticableService @Inject constructor(private val api: IAuthenticableAp
         }
     }
 
-    suspend fun login(user:String,password:String):Int{
+
+    suspend fun login(user:String,password:String): Loggable {
+        //api.rawJSON()
         return withContext(Dispatchers.IO) {
-            val respuesta = api.login(user,password)
+            try {
+                val response = api.login(user,password)
+                response.body()?.get(0)!!
+                //?: emptyList()
+            }catch (e: Throwable){
+                Loggable("0","0","0",0)
+            }
+
+        }
+    }
+
+    /*
+    suspend fun login(user:String,password:String):List<Authenticable>{
+        return withContext(Dispatchers.IO) {
+            val response = api.login(user,password)
+            response.body() ?: emptyList()
+            /*
             val respuestaBody =respuesta.body().toString()
             Log.e("TAG1",""+respuestaBody)
             val respuestaStringed = respuesta.body()!!.string()
             var gson = Gson()
-            val consumibleHeader:ConsumibleHeader = gson.fromJson(respuestaStringed, ConsumibleHeader::class.java)
-            Log.e("TAG4","consumibleHeader: "+consumibleHeader)
-            val consumptionId = consumibleHeader.consumptionId
+            val rs = respuestaStringed[0]
+            val loggeable :Loggable = gson.fromJson(rs, Loggable::class.java)
+            Log.e("TAG4","consumibleHeader: "+loggeable)
+            val consumptionId = loggeable.usuario
             Log.e("TAG3",""+consumptionId)
             val respuestaBody2 = respuesta.message()
-            consumptionId
+            loggeable.usuario.length
+
+             */
         }
     }
+    */
+
 
     suspend fun postOne(jsonObject: String):Int{
         return withContext(Dispatchers.IO) {

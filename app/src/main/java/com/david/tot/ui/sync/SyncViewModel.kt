@@ -14,14 +14,9 @@ import com.david.tot.domain.authenticable.PostOneAuthenticableUseCase
 import com.david.tot.domain.authenticable.PostOneReloadableHeaderUseCase
 import com.david.tot.domain.authenticable.RetrieveAllAuthenticablesFromLocalDbUseCase
 import com.david.tot.domain.consumible.GetAllConsumiblesFromApiUseCase
-import com.david.tot.domain.model.Authenticable
 import com.david.tot.domain.model.Consumible
-import com.david.tot.domain.model.ConsumibleHeader
-import com.david.tot.domain.model.ReloadableClean
-import com.david.tot.domain.model.ReloadableHeader
 import com.david.tot.domain.model.Sync
 import com.david.tot.domain.model.SyncConsumible
-import com.david.tot.domain.model.SyncReloadable
 import com.david.tot.domain.reloadable.GetAllReloadablesFromApiUseCase
 import com.david.tot.domain.reloadable.PostManyReloadableUseCase
 import com.david.tot.domain.spotable.GetAllSpotablesFromApiUseCase
@@ -78,7 +73,7 @@ class SyncViewModel @Inject constructor(
             return
         }
         CoroutineScope(Dispatchers.IO).launch {
-            addOneHardcodedAuthenticableToLocalDb(mContext)
+            //addOneAuthenticableToLocalDb(mContext)
             postManyConsumibleToApi(mContext)
             //postAllPendingReloadablesToApi()
             // Este espacio es para la syncronizacion rapida, por ejemplo de consumibles y demas cosas que requieran ser actualizadas rapidamente
@@ -209,15 +204,7 @@ class SyncViewModel @Inject constructor(
     }
     */
 
-    fun addOneHardcodedAuthenticableToLocalDb(mContext: Context){
-        CoroutineScope(Dispatchers.IO).launch {
-            val autenticable = getAllAuthenticablesFromApiUseCase.invoke(fetchUser(mContext))
-            //addOneAuthenticableToLocalDbUseCase.invoke(Authenticable(0,"CARLOS ORTEGA","1041545874","B","01/01/1900","HFQ753","","31/12/2018","","31/12/2018"))
-            addOneAuthenticableToLocalDbUseCase.invoke(autenticable)
-            val authenticableList = retrieveAllAuthenticablesFromLocalDbUseCase.invoke()
-            Log.e("TH",""+authenticableList)
-        }
-    }
+
 
     /*
     fun getAllAppDataFromApi(){

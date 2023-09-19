@@ -18,7 +18,7 @@ import com.yeslab.fastprefs.FastPrefs
 fun AuthenticableHeaderAndBodyScreen(contextActivity:AuthenticableActivity, authenticableViewModel: AuthenticableViewModel) {
     //authenticableViewModel.getAlldrugsDeliveryConsumerViewHeader()
     //BodyAuthenticableList(contextActivity,authenticableViewModel)
-    LoginScreen(authenticableViewModel)
+    LoginScreen(contextActivity,authenticableViewModel)
 /*
     Column(
         modifier = Modifier.fillMaxSize().padding(10.dp),

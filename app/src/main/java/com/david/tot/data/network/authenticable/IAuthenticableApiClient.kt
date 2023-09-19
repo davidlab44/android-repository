@@ -1,6 +1,7 @@
 package com.david.tot.data.network.authenticable
 
 import com.david.tot.domain.model.Authenticable
+import com.david.tot.domain.model.Loggable
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -24,7 +25,8 @@ interface IAuthenticableApiClient {
     suspend fun sendJson(@Body jsonArray: RequestBody): Response<ResponseBody>
 
     @POST("api/GLAPP_SP_USR_OBTENERResult")
-    suspend fun login(@Query("P_USUARIO") P_USUARIO:String,@Query("P_CLAVE") P_CLAVE :String): Response<ResponseBody>
+    suspend fun login(@Query("P_USUARIO") P_USUARIO:String,@Query("P_CLAVE") P_CLAVE :String): Response<List<Loggable>>
+            //Response<ResponseBody>
 
 
     @POST("api/GlappDrugsDeliveryRestocks")

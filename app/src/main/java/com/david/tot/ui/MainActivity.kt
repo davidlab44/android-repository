@@ -76,10 +76,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         //llamar a login activity
         //tipo de dato AUTHENTICABLE = HEADER lo que viene en el header, no tiene nada que ver con el usuario logeado
-        val prefs = FastPrefs(this)
-        prefs.setString("user","admin")
-        prefs.setString("userDisplay","Administrador")
-        prefs.setString("password","Med1co2011")
+        //TODO importat check if user is logged in
         setContent {
             TotTheme(darkTheme = false) {
                 androidx.compose.material.Surface(

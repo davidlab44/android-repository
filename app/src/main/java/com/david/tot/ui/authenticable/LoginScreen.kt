@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -40,9 +41,13 @@ import com.david.tot.R
 
 @Composable
 fun LoginScreen(
+    contextActivity:AuthenticableActivity,
     authenticableViewModel:AuthenticableViewModel,
     modifier: Modifier = Modifier
 ) {
+
+    //val mContext=LocalContext.current.applicationContext
+
     LazyColumn(
         modifier
             .fillMaxWidth(),
@@ -123,8 +128,8 @@ fun LoginScreen(
                 */
 
                 // The text will remain intact when there is configuration changes
-                var email by rememberSaveable { mutableStateOf("") }
-                var password by rememberSaveable { mutableStateOf("") }
+                var email by rememberSaveable { mutableStateOf("Admin") }
+                var password by rememberSaveable { mutableStateOf("Med1co2011") }
 
                 // value of isEmailValid true or false
                 //val emailIsValid = email.isEmailValid()
@@ -163,6 +168,7 @@ fun LoginScreen(
                         value = email,
                         onValueChange = { typedEmail ->
                             email = typedEmail
+                            authenticableViewModel.user= typedEmail.trim()
                         },
                         modifier = modifier
                             .fillMaxWidth()
@@ -202,6 +208,8 @@ fun LoginScreen(
                         value = password,
                         onValueChange = { typedPassword ->
                             password = typedPassword
+                            authenticableViewModel.password= typedPassword.trim()
+
                         },
                         modifier = modifier
                             .fillMaxWidth(),
@@ -253,7 +261,8 @@ fun LoginScreen(
                     //Login Button
                     Button(
                         onClick = {
-                            authenticableViewModel.login("ADMIN","Med1co2011")
+                            authenticableViewModel.login("Admin","Med1co2011", contextActivity)
+                            //authenticableViewModel.login(authenticableViewModel.user,authenticableViewModel.password)
                         },
                         modifier
                             .fillMaxWidth()

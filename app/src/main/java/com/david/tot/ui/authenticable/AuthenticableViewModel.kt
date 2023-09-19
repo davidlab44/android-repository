@@ -27,6 +27,9 @@ class ArticleViewModel @Inject constructor(
     ) : ViewModel() {
     */
 
+import android.content.Context
+import android.content.Intent
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -38,6 +41,8 @@ import com.david.tot.domain.authenticable.LoginUseCase
 import com.david.tot.domain.authenticable.PostOneAuthenticableUseCase
 import com.david.tot.domain.authenticable.RetrieveAllAuthenticablesFromLocalDbUseCase
 import com.david.tot.domain.model.Authenticable
+import com.david.tot.ui.MainActivity
+import com.yeslab.fastprefs.FastPrefs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -55,7 +60,7 @@ class AuthenticableViewModel @Inject constructor(
 ) : ViewModel() {
 
     var authenticableList by mutableStateOf<List<Authenticable>>(emptyList())
-    var email by mutableStateOf<String>("")
+    var user by mutableStateOf<String>("")
     var password by mutableStateOf<String>("")
     var quantityToRestore by mutableStateOf<String>("")
     var inventoryOutputResponseCode by mutableStateOf<Int>(0)
@@ -74,15 +79,32 @@ class AuthenticableViewModel @Inject constructor(
         }
     }
 
-
-
-    fun login(user:String,password:String){
+    fun login(user:String,password:String,mContext: AuthenticableActivity){
         CoroutineScope(Dispatchers.IO).launch {
-            loginUseCase.invoke(user,password)
-
+            val loggable = loginUseCase.invoke(user,password)
+            if(loggable.usuario.length>1){
+                val prefs = FastPrefs(mContext)
+                prefs.setString("user",loggable.usuario)
+                prefs.setString("userDisplay",loggable.nombre)
+                addOneAuthenticableToLocalDb(mContext)
+            }
         }
     }
 
+
+    fun addOneAuthenticableToLocalDb(mContext: AuthenticableActivity){
+        CoroutineScope(Dispatchers.IO).launch {
+            val autenticable = getAllAuthenticablesFromApiUseCase.invoke(fetchUser(mContext))
+            //addOneAuthenticableToLocalDbUseCase.invoke(Authenticable(0,"CARLOS ORTEGA","1041545874","B","01/01/1900","HFQ753","","31/12/2018","","31/12/2018"))
+            addOneAuthenticableToLocalDbUseCase.invoke(autenticable)
+            val authenticableList = retrieveAllAuthenticablesFromLocalDbUseCase.invoke()
+            if(authenticableList.size>0){
+                mContext.startActivity(Intent(mContext,MainActivity::class.java))
+                mContext.finish()
+            }
+            Log.e("TH",""+authenticableList)
+        }
+    }
 
     /*
     fun saveInventoryOutputInremoteServer(inventoryOutput: JsonObject){

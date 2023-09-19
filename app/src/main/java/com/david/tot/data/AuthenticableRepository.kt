@@ -3,6 +3,7 @@ package com.david.tot.data
 import com.david.tot.data.database.dao.AuthenticableDao
 import com.david.tot.data.network.authenticable.AuthenticableService
 import com.david.tot.domain.model.Authenticable
+import com.david.tot.domain.model.Loggable
 import com.david.tot.domain.model.toDomain
 import javax.inject.Inject
 
@@ -30,7 +31,7 @@ class AuthenticableRepository @Inject constructor(
         return api.postOne(jsonObject)
     }
 
-    suspend fun login(user:String,password:String):Int{
+    suspend fun login(user:String,password:String):Loggable{
         return api.login(user,password)
     }
 
