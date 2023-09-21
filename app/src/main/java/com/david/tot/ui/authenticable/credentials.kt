@@ -18,3 +18,12 @@ fun fetchUser(mContext: Context):String {
     else
         return ""
 }
+
+
+fun isLogged(mContext: Context):Boolean {
+    val prefs = FastPrefs(mContext)
+    val user = prefs.getString("user","defaultUser")
+    if(user!=null && !user.equals("defaultUser") && !user.equals("0") )
+        return true
+    return false
+}

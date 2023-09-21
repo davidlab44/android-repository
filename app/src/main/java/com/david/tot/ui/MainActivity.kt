@@ -49,6 +49,7 @@ import kotlinx.coroutines.launch
 import com.david.tot.ui.consumible.*
 import com.david.tot.ui.cameraxtutorial.Main2Activity
 import com.david.tot.ui.authenticable.AuthenticableViewModel
+import com.david.tot.ui.authenticable.isLogged
 import com.david.tot.ui.pre.PreActivity
 import com.david.tot.ui.reloadable.ReloadableActivity
 import com.david.tot.ui.settings.SettingsActivity
@@ -77,6 +78,9 @@ class MainActivity : ComponentActivity() {
         //llamar a login activity
         //tipo de dato AUTHENTICABLE = HEADER lo que viene en el header, no tiene nada que ver con el usuario logeado
         //TODO importat check if user is logged in
+        if(!isLogged(this)){
+            startActivity(Intent(this@MainActivity,AuthenticableActivity::class.java))
+        }
         setContent {
             TotTheme(darkTheme = false) {
                 androidx.compose.material.Surface(

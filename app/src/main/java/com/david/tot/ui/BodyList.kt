@@ -31,9 +31,12 @@ import androidx.compose.ui.text.style.TextAlign
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
+import com.david.tot.ui.authenticable.AuthenticableActivity
 
 import com.david.tot.ui.consumible.ConsumibleViewModel
 import com.david.tot.ui.authenticable.AuthenticableViewModel
+import com.david.tot.ui.consumible.ArticleActivity
 import com.david.tot.ui.sync.SyncActivity
 import com.david.tot.util.assetList
 
@@ -42,114 +45,113 @@ import com.david.tot.util.assetList
 fun BodyList(consumibleViewModel: ConsumibleViewModel, authenticableViewModel: AuthenticableViewModel) {
 
     val mContext = LocalContext.current
-    //mContext.startActivity(Intent(mContext, SyncActivity::class.java))
+    mContext.startActivity(Intent(mContext, ArticleActivity::class.java))
 
-        //
-        //var lista by mutableStateOf<List<Asset>>(emptyList())
-        //var lista by mutableStateOf<MutableListList<Asset>>(MutableE)
-        //var lista by mutableStateOf<List<Asset>>(emptyList())
+    /*
+    //var lista by mutableStateOf<List<Asset>>(emptyList())
+    //var lista by mutableStateOf<MutableListList<Asset>>(MutableE)
+    //var lista by mutableStateOf<List<Asset>>(emptyList())
 
-        Column(
-            modifier = Modifier.fillMaxSize().padding(16.dp),
-            //horizontalAlignment = Alignment.CenterHorizontally
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp),
+        //horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        //var text by rememberSaveable { mutableStateOf("") }
+        Row(
+            modifier = Modifier.padding(all = 0.dp).height(80.dp),horizontalArrangement = Arrangement.Center
+            //horizontalArrangement = Arrangement.Center
         ) {
-            //var text by rememberSaveable { mutableStateOf("") }
-            Row(
-                modifier = Modifier.padding(all = 0.dp).height(80.dp),horizontalArrangement = Arrangement.Center
-                //horizontalArrangement = Arrangement.Center
-            ) {
-                //ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
-                Box(){
+            //ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
+            Box(){
+                Card(
+                    modifier = Modifier.fillMaxWidth().padding(0.dp).clickable{},
+                    elevation = 10.dp,
+                    content = {
+                        Column( horizontalAlignment = Alignment.Start,
+                            modifier = Modifier.border(0.dp, Color.Gray, RectangleShape).fillMaxWidth().padding(5.dp)) {
+                            Row(
+                                modifier = Modifier.padding(all = 12.dp),horizontalArrangement = Arrangement.Center
+                            ){
+                                androidx.compose.material3.Text(
+                                    text = "LISTADO DE ACTIVOS FIJOS",
+                                    textAlign = TextAlign.Center,
+                                    color = Color.Black, fontSize = 15.sp,
+                                )
+                            }
+                        }
+                    }
+                )
+            }
+
+        }
+
+        Row(
+            modifier = Modifier.padding(all = 0.dp).height(75.dp),horizontalArrangement = Arrangement.Center
+            //horizontalArrangement = Arrangement.Center
+        ) {
+            //ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
+            var text by rememberSaveable { mutableStateOf("") }
+            TextField(
+                value = text,
+                onValueChange = {
+                    text = it
+                    //articleViewModel.actualizarLista(it)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    //.background(Color.White)
+                    //.background(Color(0xFF22475b))
+                    .padding(12.dp),
+                label = { Text("Buscar") },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Email Icon"
+                    )
+                },
+            )
+
+        }
+
+        Row(
+            modifier = Modifier.padding(all = 2.dp),
+            //horizontalArrangement = Arrangement.Center
+        ) {
+            //BodyPreList(preViewModel,drugsDeliveryConsumerViewHeaderViewModel)
+            val listModifier = Modifier.fillMaxSize().background(Color.White).padding(10.dp)
+            LazyColumn(modifier = listModifier) {
+                //val recipeList2 =recipeViewModel.recipeModel
+                //val recipeList =CheckList
+                val articleList = assetList
+                items(articleList) { recipe ->
                     Card(
-                        modifier = Modifier.fillMaxWidth().padding(0.dp).clickable{},
+                        modifier = Modifier.fillMaxWidth().padding(8.dp).clickable{},
                         elevation = 10.dp,
                         content = {
                             Column( horizontalAlignment = Alignment.Start,
-                                modifier = Modifier.border(0.dp, Color.Gray, RectangleShape).fillMaxWidth().padding(5.dp)) {
+                                modifier = Modifier.border(1.dp, Color.Gray, RectangleShape).fillMaxWidth().padding(20.dp)) {
                                 Row(
-                                    modifier = Modifier.padding(all = 12.dp),horizontalArrangement = Arrangement.Center
+                                    modifier = Modifier.padding(all = 6.dp),horizontalArrangement = Arrangement.Center
                                 ){
-                                    androidx.compose.material3.Text(
-                                        text = "LISTADO DE ACTIVOS FIJOS",
-                                        textAlign = TextAlign.Center,
-                                        color = Color.Black, fontSize = 15.sp,
-                                    )
+                                    Text(
+                                        text = recipe.name,
+                                        textAlign = TextAlign.Start, color = Color.Black, fontSize = 15.sp)
+                                }
+                                Row(
+                                    modifier = Modifier.padding(all = 6.dp),horizontalArrangement = Arrangement.Center
+                                ){
+                                    Text(
+                                        text = "PLACA: "+recipe.placa,
+                                        textAlign = TextAlign.Start, color = Color.Black, fontSize = 14.sp)
                                 }
                             }
                         }
                     )
                 }
-
-            }
-
-            Row(
-                modifier = Modifier.padding(all = 0.dp).height(75.dp),horizontalArrangement = Arrangement.Center
-                //horizontalArrangement = Arrangement.Center
-            ) {
-                //ScreenComponentHeader(drugsDeliveryConsumerViewHeaderViewModel)
-                var text by rememberSaveable { mutableStateOf("") }
-                TextField(
-                    value = text,
-                    onValueChange = {
-                        text = it
-                        //articleViewModel.actualizarLista(it)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        //.background(Color.White)
-                        //.background(Color(0xFF22475b))
-                        .padding(12.dp),
-                    label = { Text("Buscar") },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Email Icon"
-                        )
-                    },
-                )
-
-            }
-
-            Row(
-                modifier = Modifier.padding(all = 2.dp),
-                //horizontalArrangement = Arrangement.Center
-            ) {
-                //BodyPreList(preViewModel,drugsDeliveryConsumerViewHeaderViewModel)
-                val listModifier = Modifier.fillMaxSize().background(Color.White).padding(10.dp)
-                LazyColumn(modifier = listModifier) {
-                    //val recipeList2 =recipeViewModel.recipeModel
-                    //val recipeList =CheckList
-                    val articleList = assetList
-                    items(articleList) { recipe ->
-                        Card(
-                            modifier = Modifier.fillMaxWidth().padding(8.dp).clickable{},
-                            elevation = 10.dp,
-                            content = {
-                                Column( horizontalAlignment = Alignment.Start,
-                                    modifier = Modifier.border(1.dp, Color.Gray, RectangleShape).fillMaxWidth().padding(20.dp)) {
-                                    Row(
-                                        modifier = Modifier.padding(all = 6.dp),horizontalArrangement = Arrangement.Center
-                                    ){
-                                        Text(
-                                            text = recipe.name,
-                                            textAlign = TextAlign.Start, color = Color.Black, fontSize = 15.sp)
-                                    }
-                                    Row(
-                                        modifier = Modifier.padding(all = 6.dp),horizontalArrangement = Arrangement.Center
-                                    ){
-                                        Text(
-                                            text = "PLACA: "+recipe.placa,
-                                            textAlign = TextAlign.Start, color = Color.Black, fontSize = 14.sp)
-                                    }
-
-                                }
-                            }
-                        )
-                    }
-                }
             }
         }
-
+    }
+    */
 
 
     /*
